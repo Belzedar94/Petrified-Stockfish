@@ -5,6 +5,7 @@
 #include "nnue/network.h"
 #include "nnue/nnue_accumulator.h"
 #include "nnue/legacy_sha256.h"
+#include "ucioption.h"
 #include <cstdlib>
 #include <iostream>
 #include <random>
@@ -14,6 +15,13 @@ static void require(bool ok, const char* what) {
     if (!ok) { std::cerr << what << '\n'; std::exit(1); }
 }
 int main(int argc, char** argv) {
+    Option variant("petrified var petrified", "petrified", nullptr);
+    variant = std::string("petrified");
+    require(variant == "petrified", "combo default must also be an allowed value");
+    variant = std::string("chess");
+    require(variant == "petrified", "combo must reject unsupported variants");
+    variant = std::string("var");
+    require(variant == "petrified", "combo must reject the UCI separator");
     Attacks::init(); Position::init();
     require(Eval::NNUE::sha256({'a','b','c'})=="ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", "SHA-256 known vector");
     auto network=std::make_unique<Eval::NNUE::Network>();

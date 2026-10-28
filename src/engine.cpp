@@ -110,7 +110,7 @@ Engine::Engine(std::optional<std::filesystem::path> path) :
 
     options.add("nodestime", Option(0, 0, 10000));
 
-    options.add("UCI_Variant", Option("petrified", "petrified", nullptr));
+    options.add("UCI_Variant", Option("petrified var petrified", "petrified", nullptr));
     options.add("UCI_Chess960", Option(false));
 
     options.add("UCI_LimitStrength", Option(false));

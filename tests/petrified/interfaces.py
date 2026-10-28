@@ -13,6 +13,9 @@ def search(p, command):
 
 def uci_checks(command,net):
     with Uci(command,network=net,timeout=60) as p:
+        p.send('uci')
+        options=p.until(lambda s:s=='uciok')
+        assert 'option name UCI_Variant type combo default petrified var petrified' in options,options
         p.position(CASES[0])
         legal=p.perft()[0]
         p.send('setoption name MultiPV value 3')
