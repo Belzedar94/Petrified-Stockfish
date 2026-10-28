@@ -18,101 +18,50 @@
 
 #ifndef NETWORK_H_INCLUDED
 #define NETWORK_H_INCLUDED
-
+#include <array>
+#include <filesystem>
 #include <functional>
-#include <iostream>
-#include <memory>
 #include <optional>
 #include <string>
 #include <string_view>
-#include <filesystem>
-
 #include "../types.h"
-#include "../misc.h"
-#include "nnue_architecture.h"
-#include "nnue_feature_transformer.h"
 #include "nnue_misc.h"
-
-namespace Stockfish {
-class Position;
-}
-
+#include "points_adapter.h"
+namespace Stockfish { class Position; }
 namespace Stockfish::Eval::NNUE {
-
 class AccumulatorStack;
 struct AccumulatorCaches;
-
-// The network must be a trivial type, i.e. the memory must be in-line.
-// This is required to allow sharing the network via shared memory, as
-// there is no way to run destructors.
 class Network {
-   public:
-    Network() = default;
-
-    Network(const Network& other) = default;
-    Network(Network&& other)      = default;
-
-    Network& operator=(const Network& other) = default;
-    Network& operator=(Network&& other)      = default;
-
-    void load(const std::filesystem::path& rootDirectory,
-              std::filesystem::path        evalfilePath,
-              EvalFile&                    evalFile);
-    bool save(const EvalFile& evalFile, const std::optional<std::filesystem::path>& filename) const;
-
-    usize get_content_hash() const;
-
-    Value evaluate(const Position&    pos,
-                   AccumulatorStack&  accumulatorStack,
-                   AccumulatorCaches& cache) const;
-
-
-    void verify(const std::function<void(std::string_view)>& f,
-                const EvalFile&                              evalFile,
-                std::filesystem::path                        evalfilePath) const;
-
-    NnueEvalTrace trace_evaluate(const Position&    pos,
-                                 AccumulatorStack&  accumulatorStack,
-                                 AccumulatorCaches& cache) const;
-
-    void load_external(const std::filesystem::path&, const std::filesystem::path&, EvalFile&);
-    void load_internal(EvalFile&);
-
-   private:
-    void initialize();
-
-    bool                       save(std::ostream&, const std::string&) const;
-    std::optional<std::string> load(std::istream&);
-
-    bool read_header(std::istream&, u32*, std::string*) const;
-    bool write_header(std::ostream&, u32, const std::string&) const;
-
-    bool read_parameters(std::istream&, std::string&);
-    bool write_parameters(std::ostream&, const std::string&) const;
-
-    // Input feature converter
-    FeatureTransformer featureTransformer;
-
-    // Evaluation function
-    NetworkArchitecture network[LayerStacks];
-
+public:
+    void load(const std::filesystem::path&, std::filesystem::path, EvalFile&);
+    bool save(const EvalFile&, const std::optional<std::filesystem::path>&) const;
+    usize get_content_hash() const { return initialized ? usize(contentHash) : 0; }
+    Value points_adjustment(const Position& pos, Value boardValue) const { return adapter.evaluate(pos,boardValue); }
+    bool has_points_adapter() const { return adapter.active; }
+    Value evaluate(const Position&, AccumulatorStack&, AccumulatorCaches&) const;
+    Value evaluate_reference(const Position&, bool adjusted = true) const;
+    void verify(const std::function<void(std::string_view)>&, const EvalFile&, std::filesystem::path) const;
+private:
+    struct Head {
+        i32 bias1[16]; i8 weight1[16][1024];
+        i32 bias2[32]; i8 weight2[32][32]; // 16 inputs padded to 32 on disk
+        i32 bias3; i8 weight3[32];
+    };
+    alignas(64) i16 biases[512];
+    alignas(64) i16 weights[49152][512];
+    alignas(64) i32 psqtWeights[49152][8];
+    Head heads[8];
     bool initialized = false;
-
-    // Hash value of evaluation function structure
-    static constexpr u32 hash =
-      FeatureTransformer::get_hash_value() ^ NetworkArchitecture::get_hash_value();
-
-    friend struct AccumulatorCaches;
+    PointsAdapter adapter;
+    std::array<char,65> networkSha{};
+    u64 contentHash=0;
+    bool read_file(const std::filesystem::path&, EvalFile&);
+    void update(const Position&, Color, AccumulatorCaches&, bool reference = false) const;
+    Value forward(const Position&, const AccumulatorCaches&, bool adjusted, bool scalar = false) const;
 };
-
-
-}  // namespace Stockfish::Eval::NNUE
-
-template<>
-struct std::hash<Stockfish::Eval::NNUE::Network> {
-    Stockfish::usize operator()(const Stockfish::Eval::NNUE::Network& network) const noexcept {
-        return network.get_content_hash();
-    }
+int legacy_material(const Position&, Color);
+}
+template<> struct std::hash<Stockfish::Eval::NNUE::Network> {
+    Stockfish::usize operator()(const Stockfish::Eval::NNUE::Network& n) const noexcept { return n.get_content_hash(); }
 };
-
 #endif
