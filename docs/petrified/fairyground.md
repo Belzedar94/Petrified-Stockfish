@@ -14,6 +14,9 @@ y análisis, con `Threads=1`, `Hash=128`, `Ponder=false` y la red run4test conge
 - El perfil actual se usa para **análisis**. El marcador resaltado junto a cada
   jugador sigue las jugadas y la navegación; el panel muestra el resultado por
   puntos y separa el bonus final. Dar mate no implica ganar la partida.
+- El análisis muestra `#N` cuando encuentra un mate que gana por puntos.
+  Con 19 puntos de desventaja el mate gana, con 20 empata y con 21 pierde;
+  estos dos últimos casos no se anuncian como un mate ganador.
 - Para posiciones propias, usa **Setup**, pega el FEN de seis campos (muros `*`)
   y las jugadas UCI opcionales. Introduce los puntos de cada jugador **al inicio
   de ese FEN**, antes de cualquier bonus final, y pulsa **Aplicar marcador** y
@@ -51,8 +54,8 @@ está en `.local/fairyground`; pesos y ejecutables no se publican en el parche.
 
 ```powershell
 # Con el entorno Emscripten activado:
-python scripts/build_wasm.py --target cjs --out build/wasm-points
-.\scripts\setup_fairyground.ps1 -Engine .\src\petrified-points-rules-r1-bmi2.exe `
+python scripts/build_wasm.py --target cjs --out build/wasm-points-mate-r2
+.\scripts\setup_fairyground.ps1 -Engine .\src\petrified-points-mate-r2-bmi2.exe `
   -Network '..\..\..\Match script\petrified_run4test_e19_l085.nnue'
 .\scripts\start_fairyground.ps1 -OpenBrowser
 ```
@@ -63,7 +66,7 @@ conserva las modificaciones de un checkout incompatible y escribe
 `-InstallDependencies` vuelve a instalar exactamente el lockfile.
 `-BoardDirectory` permite seleccionar otro directorio CJS compilado. El motor
 y el Board deben incluir la misma corrección de reglas; la instalación actual
-usa `build/wasm-adapter-v1-r1/cjs` y conserva run4test como evaluación.
+usa `build/wasm-points-mate-r2/cjs` y conserva run4test como evaluación.
 
 El parche y el perfil están en `integrations/fairyground/`. Usan el backend
 nativo de Fairyground: la representación del tablero sigue usando ffish-es6,

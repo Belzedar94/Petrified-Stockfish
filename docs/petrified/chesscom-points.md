@@ -56,8 +56,14 @@ from the remaining pieces. Legacy FEN rejects a points suffix.
 Scores, mode and promotion/capture state survive make/unmake, FEN copies and
 thread setup. Keys and correction histories distinguish score states. Exact
 terminal results and optional resignation outcomes are searched before pruning.
-Points endings use decisive non-mate scores; a losing mate is never presented
-as a winning `score mate`. Null-move pruning is disabled in points mode.
+A checkmate won by the mating player uses mate scores with distance, so UCI
+reports `score mate N` and Fairyground can display `#N`. If the mating player
+trailed by 19 points before the final bonus, mate wins; a 20-point deficit
+draws; a 21-point deficit loses. Tied or losing mates, claims and other points
+endings retain non-mate scores. Only a drawing/winning resignation is a search
+action: a losing resignation must not mask an unavoidable winning mate with a
+non-mate loss. Settlement of an actual resignation is unchanged. Null-move
+pruning is disabled in points mode.
 
 - UCI: `points` returns `info string points {JSON}` with `rules`, `earned`,
   `final`, `result`, `termination`, `canClaimWin`, and `resignResult`.
@@ -101,8 +107,13 @@ alone qualifies a network. T8 remains manually paused; no remote workloads.
 
 ## Local verification
 
-`tests/petrified/points.py` checks the real game, independent fixtures/walks,
-score FEN rejection, threefold, mate losses/ties, native protocol and claims.
+`tests/petrified/points.py` checks both owner-supplied games, independent
+fixtures/walks, score FEN rejection, threefold, native protocol and claims.
+The second game reaches `22.Qh7#` and a 40-4 win, with all 43 plies checked
+against the pinned Chess.com client. Regression tests cover deficits 19/20/21
+for both colors, repeated searches across score states, terminal roots, mate
+in two, TT re-rooting, `go mate`, and two threads. The original 25-24 losing
+mate remains a non-mate points result. C++ tests also cover distant search plies.
 `tests/petrified/state.cpp` checks 9,338 states and their reversals, including
 points modes; local real-net scalar/incremental/SIMD evaluations agree exactly.
 Board CJS/ESM and complete Node UCI WASM are checked separately. The local panel

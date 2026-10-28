@@ -50,6 +50,7 @@ Outcome  outcome(const Position& pos, bool claimDraw = false, int repetitionPly 
 bool     has_insufficient_material(Color color, const Position& pos);
 Bitboard checked_squares(const Position& pos);
 Outcome settle_points(const Position& pos, Termination reason, Color actor, int ply = 0);
+// Search claim value; -VALUE_INFINITE when resigning would lose or is inapplicable.
 Value resignation_value(const Position& pos, int ply = 0);
 bool insufficient_material(const Position& pos);
 std::string points_status(const Position& pos);

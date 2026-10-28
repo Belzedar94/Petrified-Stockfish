@@ -6,6 +6,7 @@ from pathlib import Path
 import tempfile
 from protocol import Uci
 from differential import CASES
+from points import winning_mate_protocol
 
 def search(p, command):
     p.send(command)
@@ -39,6 +40,7 @@ def uci_checks(command,net):
             assert best=='(none)',lines
         p.position(CASES[3]); p.send('eval')
         evaluation=[s for s in p.ready() if s.startswith('Legacy ')]
+        winning_mate_protocol(p)
     with tempfile.TemporaryDirectory(prefix='petrified-invalid-') as directory:
         bad=Path(directory)/'wrong.nnue'; bad.write_bytes(b'wrong-network')
         for path in (bad,Path(directory)/'absent.nnue'):
@@ -97,5 +99,6 @@ if __name__=='__main__':
         assert native==wasm,(native,wasm)
     report={'passed':True,'uci':True,'xboard':True,'node_wasm':bool(args.node_wrapper),
             'checks':['MultiPV','real NNUE','Threads 1/2','stop','ponderhit','terminal roots',
+                      'winning mate distances/TT','points deficits 19/20/21, both colors','losing mate 25-24',
                       'invalid/missing NNUE','rules without NNUE','CECP edit/walls/fractional clocks/analysis']}
     args.report.write_text(json.dumps(report,indent=2)+'\n'); print(json.dumps(report))

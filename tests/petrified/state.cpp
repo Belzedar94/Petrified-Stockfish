@@ -6,6 +6,8 @@
 #include "nnue/nnue_accumulator.h"
 #include "nnue/legacy_sha256.h"
 #include "ucioption.h"
+#include "api/petrified_outcome.h"
+#include "score.h"
 #include <cstdlib>
 #include <iostream>
 #include <random>
@@ -23,6 +25,34 @@ int main(int argc, char** argv) {
     variant = std::string("var");
     require(variant == "petrified", "combo must reject the UCI separator");
     Attacks::init(); Position::init();
+    for (bool whiteMates : {true, false}) {
+        const std::string board = whiteMates
+          ? "*4r2/2p1qpkQ/2*2*P1/1p2p3/1P2P1*1/8/2P5/1N2K1NR b K - 4 22"
+          : "r3kb1r/3*4/4**2/6p1/p3*3/P5PP/1P*4K/2R1*1q1 w kq - 2 36";
+        for (int deficit : {19,20,21}) {
+            Position pos; StateInfo state;
+            const auto scores = whiteMates ? "0," + std::to_string(deficit)
+                                          : std::to_string(deficit) + ",0";
+            require(!pos.set(board+" points="+scores,false,&state),"mate boundary FEN");
+            require(MoveList<ALL>(pos).size()==0 && pos.checkers(),"boundary position is mate");
+            for (int ply : {0,1,5,MAX_PLY-1}) {
+                const auto end=Petrified::outcome(pos,true,ply);
+                const Value expected=deficit==19 ? mated_in(ply)
+                                    : deficit==20 ? VALUE_DRAW : VALUE_TB-ply;
+                require(end.termination==Petrified::Termination::Checkmate,"mate reason");
+                require(end.value==expected,"mate score must follow final points");
+                require(pos.no_moves_value(ply)==expected,"terminal score paths agree");
+                require(Score(expected,pos).is<Score::Mate>()==(deficit==19),"only winning mates use UCI mate scores");
+            }
+        }
+    }
+    for (int lead : {0,20,21}) {
+        Position pos; StateInfo state;
+        require(!pos.set("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 points="
+                         +std::to_string(lead)+",0",false,&state),"claim FEN");
+        require(Petrified::resignation_value(pos)==(lead==0 ? -VALUE_INFINITE
+                  : lead==20 ? VALUE_DRAW : VALUE_TB),"only non-losing resignations are search claims");
+    }
     require(Eval::NNUE::sha256({'a','b','c'})=="ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", "SHA-256 known vector");
     auto network=std::make_unique<Eval::NNUE::Network>();
     Eval::NNUE::EvalFile file;

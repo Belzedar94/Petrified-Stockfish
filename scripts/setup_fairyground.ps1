@@ -9,14 +9,14 @@ $projectRoot = Split-Path -Parent $PSScriptRoot
 $guiRoot = Join-Path $projectRoot '.local/fairyground'
 $integrationRoot = Join-Path $projectRoot 'integrations/fairyground'
 $revision = '5f7392c3416b3949a3352d729f4e32368f03bade'
-if (!$Engine) { $Engine = Join-Path $projectRoot 'src/petrified-points-rules-r1-bmi2.exe' }
+if (!$Engine) { $Engine = Join-Path $projectRoot 'src/petrified-points-mate-r2-bmi2.exe' }
 if (!$Network) { $Network = Join-Path $projectRoot '../../../Match script/petrified_run4test_e19_l085.nnue' }
 $Engine = (Resolve-Path -LiteralPath $Engine).Path
 $Network = (Resolve-Path -LiteralPath $Network).Path
-if (!$BoardDirectory) { $BoardDirectory = Join-Path $projectRoot 'build/wasm-points/cjs' }
+if (!$BoardDirectory) { $BoardDirectory = Join-Path $projectRoot 'build/wasm-points-mate-r2/cjs' }
 $pointsBoard = (Resolve-Path -LiteralPath $BoardDirectory).Path
 if (!(Test-Path -LiteralPath (Join-Path $pointsBoard 'ffish.wasm'))) {
-    throw 'Build the points Board WASM first: python scripts/build_wasm.py --target cjs --out build/wasm-points'
+    throw 'Build the points Board WASM first: python scripts/build_wasm.py --target cjs --out build/wasm-points-mate-r2'
 }
 if ((Get-FileHash -LiteralPath $Network -Algorithm SHA256).Hash.ToLowerInvariant() -ne '345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933') {
     throw 'This Fairyground profile requires the frozen run4test network.'

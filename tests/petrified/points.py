@@ -15,6 +15,52 @@ sys.path.insert(0, str(HERE))
 from protocol import Uci
 
 
+def winning_mate_protocol(uci):
+    """Winning mates retain distance through search/TT; other endings stay points scores."""
+    fixture = json.loads((HERE/'fixtures/chesscom-winning-mate.json').read_text())
+    uci.send('setoption name UCI_Variant value petrifiedpoints')
+    uci.send('setoption name Threads value 1')
+    uci.ready()
+
+    def search(position, command, score, best):
+        uci.send(position)
+        uci.send(command)
+        lines = uci.until(lambda s: s.startswith('bestmove '))
+        infos = [s for s in lines if s.startswith('info depth ') and ' score ' in s]
+        assert infos and ' score '+score+' ' in infos[-1]+' ', (score, lines)
+        assert lines[-1].split()[1] == best, lines
+        if not score.startswith('mate '):
+            assert not any('score mate ' in s for s in lines), lines
+
+    cases = [(fixture['fen'], fixture['move'], 'mate 1', 'mate 0')]
+    for deficit in (19,20,21):
+        expected = 'mate 1' if deficit == 19 else 'cp 0' if deficit == 20 else 'cp -19999'
+        terminal = 'mate 0' if deficit == 19 else 'cp 0' if deficit == 20 else 'cp 20000'
+        cases.append((fixture['fen'].replace('points=20,4', f'points=0,{deficit}'),
+                      fixture['move'], expected, terminal))
+        cases.append((fixture['black_before'].replace('points=25,4', f'points={deficit+4},4'),
+                      fixture['black_move'], expected, terminal))
+    # Do not clear TT between score states or repeats: their keys must differ.
+    for fen, move, expected, terminal in cases:
+        for _ in range(2):
+            search('position fen '+fen, 'go depth 3 searchmoves '+move, expected, move)
+        search('position fen '+fen+' moves '+move, 'go depth 1', terminal, '0000')
+
+    history = fixture['moves']
+    search('position startpos moves '+' '.join(history[:40]),
+           'go depth 5 searchmoves '+history[40], 'mate 2', history[40])
+    # Re-root at a position already visited at a different ply in the TT.
+    uci.send('position startpos moves '+' '.join(history[:41]))
+    uci.send('go depth 4')
+    lines = uci.until(lambda s: s.startswith('bestmove '))
+    assert any('score mate -1 ' in s for s in lines), lines
+    search('position startpos moves '+' '.join(history), 'go mate 1', 'mate 1', fixture['move'])
+    uci.send('setoption name Threads value 2'); uci.ready()
+    search('position startpos moves '+' '.join(history), 'go depth 4', 'mate 1', fixture['move'])
+    uci.send('setoption name Threads value 1'); uci.ready()
+    return len(cases)
+
+
 def run(module, engine=None, network=None):
     variant = 'petrifiedpoints'
     start = module.start_fen(variant)
@@ -39,6 +85,18 @@ def run(module, engine=None, network=None):
     for score, result in [('24,4', '1/2-1/2'), ('23,4', '0-1')]:
         fen = final.replace('points=25,4', 'points='+score)
         assert json.loads(module.points_status(variant, fen, []))['result'] == result
+    winning = json.loads((HERE/'fixtures/chesscom-winning-mate.json').read_text())
+    for ply, expected in enumerate(winning['points_after_each_ply'], 1):
+        actual = json.loads(module.points_status(variant, start, winning['moves'][:ply]))
+        assert actual['final'] == expected and actual['result'] == '*', (ply, actual)
+    assert module.get_fen(variant, start, winning['moves']) == winning['fen']
+    assert module.get_san(variant, winning['fen'], winning['move']) == winning['san']
+    won = json.loads(module.points_status(variant, start, winning['moves']+[winning['move']]))
+    assert won['final'] == winning['final'] and won['result'] == '1-0'
+    for case in winning['thresholds']:
+        fen = winning['fen'].replace('points=20,4', 'points='+','.join(map(str,case['earned'])))
+        actual = json.loads(module.points_status(variant, fen, [winning['move']]))
+        assert actual['final'] == case['final'] and actual['result'] == case['result'], (case, actual)
     cases = json.loads((HERE/'fixtures/chesscom-points-cases.json').read_text())['cases']
     for case in cases:
         action = case['action']
@@ -98,7 +156,10 @@ def run(module, engine=None, network=None):
                 uci.send('go depth 2')
                 lines = uci.until(lambda s: s.startswith('bestmove '))
                 assert 'info string points action claim-win' in lines and lines[-1] == 'bestmove 0000', lines
-    return {'game_plies': len(moves), 'reference_cases': len(cases), 'pin_regressions': len(pins['cases']), 'oracle_walk_plies': sum(len(w['moves']) for w in walks['walks']), 'result': 'PASS', 'final_points': [25,24]}
+                assert not any('score mate ' in s for s in lines), lines
+                winning_mate_protocol(uci)
+    return {'game_plies': len(moves), 'winning_mate_game_plies': len(winning['moves'])+1,
+            'reference_cases': len(cases), 'pin_regressions': len(pins['cases']), 'oracle_walk_plies': sum(len(w['moves']) for w in walks['walks']), 'result': 'PASS', 'final_points': [25,24]}
 
 
 if __name__ == '__main__':

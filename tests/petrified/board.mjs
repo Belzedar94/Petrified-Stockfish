@@ -52,6 +52,25 @@ for (const mode of ['cjs','esm']) {
   assert.equal(points.fen(),api.startingFen('petrifiedpoints'));
   assert.equal(points.endResult('resign',true),'0-1');
   points.delete();
+  const winning=JSON.parse(readFileSync(new URL('./fixtures/chesscom-winning-mate.json', import.meta.url),'utf8'));
+  const mating=new api.Board('petrifiedpoints');
+  try {
+    for (const [ply,move] of winning.moves.entries()) {
+      assert.ok(mating.push(move));
+      assert.deepEqual(JSON.parse(mating.pointsStatus()).final,winning.points_after_each_ply[ply]);
+    }
+    assert.equal(mating.fen(),winning.fen);
+    assert.equal(mating.sanMove(winning.move),winning.san);
+    assert.ok(mating.push(winning.move));
+    assert.equal(mating.result(),'1-0');
+    assert.deepEqual(JSON.parse(mating.pointsStatus()).final,[40,4]);
+    for (const testcase of winning.thresholds) {
+      mating.setFen(winning.fen.replace('points=20,4','points='+testcase.earned.join(',')));
+      assert.ok(mating.push(winning.move));
+      assert.equal(mating.result(),testcase.result);
+      assert.deepEqual(JSON.parse(mating.pointsStatus()).final,testcase.final);
+    }
+  } finally { mating.delete(); }
   const pins=JSON.parse(readFileSync(new URL('./fixtures/chesscom-pins.json', import.meta.url),'utf8'));
   for (const fixture of pins.cases) {
     const pinned=new api.Board('petrifiedpoints',fixture.fen);

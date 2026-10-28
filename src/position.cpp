@@ -31,6 +31,7 @@
 #include <string_view>
 #include <utility>
 
+#include "api/petrified_outcome.h"
 #include "bitboard.h"
 #include "history.h"
 #include "misc.h"
@@ -696,9 +697,9 @@ bool Position::reported_check() const {
 
 Value Position::no_moves_value(int ply) const {
     if (game_of_points())
-        return checkers() ? points_value(sideToMove == BLACK ? 20 : 0,
-                                        sideToMove == WHITE ? 20 : 0, ply)
-                          : points_value(10, 10, ply);
+        return Petrified::settle_points(*this, checkers() ? Petrified::Termination::Checkmate
+                                                        : Petrified::Termination::Stalemate,
+                                       sideToMove, ply).value;
     return reported_check() ? mated_in(ply) : VALUE_DRAW;
 }
 
@@ -710,7 +711,7 @@ int Position::capture_points(PieceType pt) {
 Value Position::points_value(int whiteBonus, int blackBonus, int ply) const {
     int difference = points(WHITE) + whiteBonus - points(BLACK) - blackBonus;
     if (sideToMove == BLACK) difference = -difference;
-    // Decisive points results are not mate scores; the mated side can win.
+    // Generic points outcomes; settle_points separately recognizes winning mates.
     return difference > 0 ? VALUE_TB - ply : difference < 0 ? -VALUE_TB + ply : VALUE_DRAW;
 }
 

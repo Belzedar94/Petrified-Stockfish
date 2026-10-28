@@ -56,13 +56,19 @@ Outcome settle_points(const Position& pos, Termination reason, Color actor, int 
     if (result.points[WHITE] != result.points[BLACK])
         result.winner = result.points[WHITE] > result.points[BLACK] ? WHITE : BLACK;
     result.value = pos.points_value(bonus[WHITE], bonus[BLACK], ply);
+    // Reserve mate scores for a checkmate that actually wins on points.
+    // A tied mate, or one won by the mated player, keeps its points result.
+    if (reason == Termination::Checkmate && result.winner == ~actor)
+        result.value = *result.winner == pos.side_to_move() ? mate_in(ply) : mated_in(ply);
     return result;
 }
 
 Value resignation_value(const Position& pos, int ply) {
-    return pos.game_of_points()
-           ? settle_points(pos, Termination::Resignation, pos.side_to_move(), ply).value
-           : -VALUE_INFINITE;
+    if (!pos.game_of_points()) return -VALUE_INFINITE;
+    const Value value = settle_points(pos, Termination::Resignation, pos.side_to_move(), ply).value;
+    // Only a winning/drawing claim is a useful search action. A losing
+    // resignation must not bound away an unavoidable mate with a non-mate loss.
+    return value >= VALUE_DRAW ? value : -VALUE_INFINITE;
 }
 
 Outcome outcome(const Position& pos, bool claimDraw, int repetitionPly) {
