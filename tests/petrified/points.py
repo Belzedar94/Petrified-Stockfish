@@ -27,6 +27,9 @@ def run(module, engine=None, network=None):
         assert (status['result'] != '*') == row['terminal']
     assert status['earned'] == [25, 4] and status['final'] == [25, 24]
     assert status['result'] == '1-0' and status['termination'] == 'checkmate'
+    pins=json.loads((HERE/'fixtures/chesscom-pins.json').read_text())
+    for case in pins['cases']:
+        assert sorted(module.legal_moves(variant,case['fen'],[]))==case['legal'],case
     final = module.get_fen(variant, start, moves)
     before = module.get_fen(variant, start, moves[:-1])
     assert module.game_result(variant, start, moves) > 0  # White is mated and wins.

@@ -37,6 +37,10 @@ insufficient-material ending is deferred while the side to move can capture.
 Lateral pawn moves do not reset the fifty-move counter. Repetition includes
 scores and occurs on the third actual occurrence. Promotions are QRBN; a
 promoted queen is worth 9 in this profile. Adjacent kings do not attack.
+Chess.com also forbids lateral moves by a slider-pinned pawn, even if the pawn
+would stay on the pin line. Walls permits that case. An independently refereed
+NNUE pilot exposed it; five exact legal-move fixtures now cover it, including
+both colors, a wall breaking the pin and a permitted forward pawn move.
 
 ## State and interfaces
 

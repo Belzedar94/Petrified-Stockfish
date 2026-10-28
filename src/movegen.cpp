@@ -47,8 +47,13 @@ Move* generate(const Position& pos, Move* out) {
             const Square two = one + pawn_push(us);
             if (relative_rank(us, from) == RANK_2 && pos.empty(two)) emit(Move(from, two));
         }
-        if (file_of(from) != FILE_A && pos.empty(from + WEST)) emit(Move(from, from + WEST));
-        if (file_of(from) != FILE_H && pos.empty(from + EAST)) emit(Move(from, from + EAST));
+        // Chess.com's Sideways modifier disallows every lateral move by a
+        // slider-pinned pawn, even a move that stays on the pin ray. Legacy
+        // Walls permits such a move when the resulting king remains safe.
+        if (!pos.game_of_points() || !(pos.blockers_for_king(us) & from)) {
+            if (file_of(from) != FILE_A && pos.empty(from + WEST)) emit(Move(from, from + WEST));
+            if (file_of(from) != FILE_H && pos.empty(from + EAST)) emit(Move(from, from + EAST));
+        }
         for (Bitboard targets = attacks_bb(PAWN, from, us) & enemies; targets;)
             pawn(from, pop_lsb(targets));
         for (Bitboard ep = attacks_bb(PAWN, from, us) & pos.ep_squares() & empty; ep;) {

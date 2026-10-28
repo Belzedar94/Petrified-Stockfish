@@ -57,7 +57,26 @@ function status(engine) {
     reason: engine.termination(), side: engine.turn() === 0 ? 'w' : 'b',
     canClaimWin: !terminal && !!engine.canClaim(), fen4:engine.fen()};
 }
-module.exports = {load, play, status, HASH};
+// Small fixture converter. Full match histories always start from 2PC.
+function setFen(engine, fen) {
+  const [board,side,rights,ep,half,,scores]=fen.split(' ');
+  if(ep!=='-') throw Error('Fixture converter does not support en passant');
+  const rows=Array.from({length:14},()=>Array(14).fill('x'));
+  board.split('/').forEach((rank,r)=>{let file=3;for(const piece of rank){
+    if(/[1-8]/.test(piece)) for(let i=0;i<Number(piece);i++) rows[3+r][file++]='';
+    else rows[3+r][file++]=piece==='*'?'4X':(piece===piece.toUpperCase()?'0':'2')+piece.toUpperCase();
+  }});
+  const placement=rows.map(row=>{const out=[];let empty=0;for(const pc of row){
+    if(!pc)empty++;else{if(empty)out.push(empty);empty=0;out.push(pc);}
+  }if(empty)out.push(empty);return out.join(',');}).join('/');
+  const [w,b]=scores.slice(7).split(',').map(Number);
+  const fen4=[placement,side==='w'?0:2,'[false,true,false,true]',
+    JSON.stringify([rights.includes('K'),false,rights.includes('k'),false]),
+    JSON.stringify([rights.includes('Q'),false,rights.includes('q'),false]),
+    JSON.stringify([w,0,b,0]),half,JSON.stringify({pawnBaseRank:5,wb:true,dim:'8x8'})].join('-');
+  engine.position(fen4);
+}
+module.exports = {load, play, status, setFen, HASH};
 
 if (require.main === module) {
   const create = load(process.argv[2], process.argv[3]);
