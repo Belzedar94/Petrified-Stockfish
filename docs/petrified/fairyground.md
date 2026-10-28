@@ -14,7 +14,7 @@ y análisis, con `Threads=1`, `Hash=128`, `Ponder=false` y la red run4test conge
 - El perfil actual se usa para **análisis**. El marcador resaltado junto a cada
   jugador sigue las jugadas y la navegación; el panel muestra el resultado por
   puntos y separa el bonus final. Dar mate no implica ganar la partida.
-- El análisis muestra `#N` cuando encuentra un mate que gana por puntos.
+- El análisis muestra **Mate in N** y `#N` cuando encuentra un mate que gana por puntos.
   Con 19 puntos de desventaja el mate gana, con 20 empata y con 21 pierde;
   estos dos últimos casos no se anuncian como un mate ganador.
 - Para posiciones propias, usa **Setup**, pega el FEN de seis campos (muros `*`)
@@ -103,3 +103,10 @@ Se comprobó de nuevo la partida completa y la navegación 25–4 / 25–24, inc
 el resultado `1-0` en la lista. El panel del resultado ocupa su fila bajo el
 tablero y no se superpone al marcador. Captura actual:
 `build/screenshots/fairyground-points-rules-r1.jpg`.
+
+La revisión r2 muestra **Mate in 1** y `Qh7` en la partida del propietario,
+con marcador previo 20–4. Jugar `22.Qh7#` produce 40–4 y `1-0`; retroceder
+restaura 20–4 y permite volver a analizar. El motor es
+`src/petrified-points-mate-r2-bmi2.exe`; los ejecutables anteriores se conservan.
+Capturas: `build/screenshots/fairyground-winning-mate-r2.png` y
+`build/screenshots/fairyground-winning-mate-result-r2.png`.

@@ -74,6 +74,21 @@ not playing-strength or equal-work speed comparisons.
 
 ## Implemented and checked on Windows
 
+Winning points checkmates now retain mate distance in search and UCI. The
+owner's second game is a mate in one with `22.Qh7#`, ending 40-4; Fairyground
+visibly reports **Mate in 1**, and navigation restores the prior 20-4 score.
+Regression cases cover deficits 19/20/21 for both colors, the original 25-24
+losing mate, mate in two, TT re-rooting, repeated score states, `go mate`, and
+two threads. Losing resignations no longer act as artificial non-mate lower
+bounds on forced mates; actual resignation settlement is unchanged.
+Windows Debug/Python/native BMI2+LTO, CJS/ESM Board and complete Node UCI WASM
+checks pass with real run4test. Linux/Windows Debug/Release and ASan/UBSan passed
+for implementation commit `f44f9370` (Actions run 40778393918).
+The dedicated points bench repeats **173124** at T1/Hash16/depth10. This is a
+correctness fix, not a strength result; no new panel or network promotion was
+performed. Frozen r1 campaign binaries and the T8 pause remain intact.
+See [validation and artifact hashes](validation/2026-10-28-winning-mate.json).
+
 - Dedicated rules/state, wall occupancy and hashing, reversible lateral pawns,
   promotion/EP/castling and the pinned pseudo-royal/SAN/terminal contract.
 - Legacy Walls loader with full SHA-256 validation, scalar reference, incremental
