@@ -44,6 +44,22 @@ enum Stages : i8 {
 
 namespace {
 
+// Ordering only: augment MVV with earned points and the immediate board change.
+// Pawns survive FatalCapture, including capturing promotions; other capturers
+// petrify. The 100-unit point scale is the unchanged baseline evaluation scale.
+int points_capture_adjustment(const Position& pos, Move move) {
+    if (!pos.game_of_points() || !pos.capture(move)) return 0;
+    const PieceType victim = move.type_of() == EN_PASSANT ? PAWN
+                                                        : type_of(pos.piece_on(move.to_sq()));
+    const PieceType attacker = type_of(pos.moved_piece(move));
+    int adjustment = 100 * Position::capture_points(victim);
+    if (move.type_of() == EN_PASSANT) adjustment += PawnValue;
+    if (attacker != PAWN) adjustment -= PieceValue[attacker];
+    if (move.type_of() == PROMOTION)
+        adjustment += PieceValue[move.promotion_type()] - PawnValue;
+    return adjustment;
+}
+
 #ifdef USE_AVX512
 // Load the Move, and the ExtMove value, into all lanes of 512-bit registers
 static void splat_extmove(const ExtMove& m, __m512i& move, __m512i& value) {
@@ -217,7 +233,7 @@ ExtMove* MovePicker::generate_and_score() {
 
         if constexpr (Type == CAPTURES)
             m.value = (*captureHistory)[pc][to][type_of(capturedPiece)]
-                    + 7 * int(PieceValue[capturedPiece]);
+                    + 7 * (int(PieceValue[capturedPiece]) + points_capture_adjustment(pos, m));
 
         else if constexpr (Type == QUIETS)
         {
@@ -250,7 +266,7 @@ ExtMove* MovePicker::generate_and_score() {
         else  // Type == EVASIONS
         {
             if (pos.capture_stage(m))
-                m.value = PieceValue[capturedPiece] + (1 << 28);
+                m.value = PieceValue[capturedPiece] + points_capture_adjustment(pos, m) + (1 << 28);
             else
                 m.value = (*mainHistory)[us][m.raw()] + (*continuationHistory[0])[pc][to];
         }
@@ -299,7 +315,10 @@ dispatch:
 
     case GOOD_CAPTURE :
         if (select([&]() {
-                if (pos.see_ge(*cur, -cur->value / 18))
+                // Keep the baseline good/bad SEE boundary; this experiment
+                // changes ordering within stages, not pruning or SEE policy.
+                const int stageValue = cur->value - 7 * points_capture_adjustment(pos, *cur);
+                if (pos.see_ge(*cur, -stageValue / 18))
                     return true;
                 *endBadMoves++ = *cur;
                 return false;

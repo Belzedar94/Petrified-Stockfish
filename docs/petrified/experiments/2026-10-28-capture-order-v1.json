@@ -1,0 +1,49 @@
+{
+  "schema": "petrified-strength-experiment-v1",
+  "id": "2026-10-28-capture-order-v1",
+  "branch": "exp/points-capture-order-v1",
+  "hypothesis": "Order points captures by victim board value plus earned points minus the petrifying capturer; retain surviving pawn and capture-promotion value. Better first moves may improve pruning and depth without changing the baseline good/bad SEE boundary.",
+  "implementation": "src/movepick.cpp only: CAPTURES and capture EVASIONS; inverse adjustment retains the existing GOOD_CAPTURE SEE boundary. No changes to evaluation, SEE, pruning or quiet promotion ordering.",
+  "validation": "Debug capture-order regression passed for both colors, en passant, promotions, evasions, TT priority, exact stage coverage and legacy MVV. Remaining validation precedes campaign launch.",
+  "baseline": {
+    "schema": "petrified-points-champion-v1",
+    "rules": "chesscom-points-v1",
+    "name": "run4test + winning-mate-r2",
+    "source_commit": "f44f93700bbb3eca6813eee4728a675ea08447d9",
+    "baseline_branch": "fix/winning-points-mate",
+    "baseline_ref": "7dd7c827b41e9460184730227fed4222929dbbaf",
+    "binary": "src/petrified-points-mate-r2-bmi2.exe",
+    "binary_sha256": "2401d95d3481349ae5bc61cbd1ea3e444337611b2a3d60c6ba8bb3492bb5fe49",
+    "network": "petrified_run4test_e19_l085.nnue",
+    "network_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+    "compiler": "GCC 16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false,
+    "points_bench": 173124,
+    "selection": "Existing demonstrated run4test champion with the mandatory winning-mate correctness fix; no strength gain claimed for that fix. Rejected adapter-v1 is not used."
+  },
+  "candidate": {
+    "binary": "src/petrified-capture-order-v1-bmi2.exe",
+    "source_commit": null,
+    "sha256": null
+  },
+  "campaign": ".local/points-capture-order-panel-001",
+  "controls": {
+    "VSTC": "2+0.02",
+    "STC": "10+0.1",
+    "LTC": "30+0.3"
+  },
+  "threads": 1,
+  "hash_mb": 512,
+  "concurrency": null,
+  "minimum_games": 40,
+  "maximum_games": 400,
+  "stopping": "Displayed LOS 100.0% or 0.0%, minimum 40, drain complete color-reversed pairs and recheck; resume inside cap if boundary is lost. Run every TC. No boundary at cap => NEUTRAL_SCREEN for selection, not equivalence.",
+  "promotion": "All three valid controls WIN; otherwise reject and preserve.",
+  "status": "VALIDATING",
+  "decision": "PENDING",
+  "next_step": "After closing all controls, run a separate points-aware capture-futility experiment on the resulting champion. Do not test another candidate concurrently.",
+  "worker": "T8 manually paused, no restart",
+  "coordination": "Owner paused Misere; no cross-chat messages."
+}
