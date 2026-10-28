@@ -42,6 +42,7 @@
 #include "nnue/network.h"
 #include "nnue/nnue_accumulator.h"
 #include "position.h"
+#include "api/petrified_outcome.h"
 #include "syzygy/tbprobe.h"
 #include "thread.h"
 #include "timeman.h"
@@ -145,7 +146,7 @@ void update_correction_history(const Position& pos,
 // Add a small random component to draw evaluations to avoid 3-fold blindness
 Value value_draw(usize nodes) { return VALUE_DRAW - 1 + Value(nodes & 0x2); }
 Value value_to_tt(Value v, int ply);
-Value value_from_tt(Value v, int ply, int r50c);
+Value value_from_tt(Value v, int ply, int r50c, bool points = false);
 void  update_continuation_histories(Stack* ss, Piece pc, Square to, int bonus);
 void  update_quiet_histories(
    const Position& pos, Stack* ss, Search::Worker& workerThread, Move move, int bonus);
@@ -216,6 +217,19 @@ void Search::Worker::start_searching() {
     tt.new_search();
     main_manager()->updates.onStart();
 
+    if (rootPos.game_of_points())
+    {
+        const auto end = Petrified::outcome(rootPos, true);
+        const Value claim = Petrified::resignation_value(rootPos);
+        if (end.terminal() || claim > 0)
+        {
+            sync_cout << "info string points " << Petrified::points_status(rootPos) << sync_endl;
+            if (!end.terminal()) sync_cout << "info string points action claim-win" << sync_endl;
+            main_manager()->updates.onUpdateNoMoves({0, {end.terminal() ? end.value : claim, rootPos}});
+            main_manager()->updates.onBestmove("0000", "");
+            return;
+        }
+    }
     if (rootMoves.empty())
     {
         main_manager()->updates.onUpdateNoMoves(
@@ -272,6 +286,13 @@ void Search::Worker::start_searching() {
     if (bestThread->rootMoves[0].pv.size() > 1)
         ponder = UCIEngine::move(bestThread->rootMoves[0].pv[1], rootPos.is_chess960());
 
+    if (rootPos.game_of_points() && Petrified::resignation_value(rootPos) == VALUE_DRAW
+        && bestThread->rootMoves[0].score < VALUE_DRAW)
+    {
+        sync_cout << "info string points action claim-draw" << sync_endl;
+        main_manager()->updates.onBestmove("0000", "");
+        return;
+    }
     auto bestmove = UCIEngine::move(bestThread->rootMoves[0].pv[0], rootPos.is_chess960());
     main_manager()->updates.onBestmove(bestmove, ponder);
 }
@@ -752,6 +773,16 @@ Value Search::Worker::search(
     if (depth <= 0)
         return qsearch<PvNode ? PV : NonPV>(pos, ss, alpha, beta);
 
+    const Value pointsClaim = Petrified::resignation_value(pos, ss->ply);
+    if (!rootNode && pos.game_of_points())
+    {
+        if (PvNode && ss->pv) ss->pv->clear();
+        const auto end = Petrified::outcome(pos, true, ss->ply);
+        if (end.terminal()) return end.value;
+        if (pointsClaim >= beta || is_win(pointsClaim)) return pointsClaim;
+        alpha = std::max(alpha, pointsClaim);
+    }
+
     // Limit the depth if extensions made it too large
     depth = std::min(depth, MAX_PLY - 1);
 
@@ -788,7 +819,7 @@ Value Search::Worker::search(
     priorCapture  = pos.captured_piece();
     Color us      = pos.side_to_move();
     ss->moveCount = 0;
-    bestValue     = -VALUE_INFINITE;
+    bestValue     = rootNode ? -VALUE_INFINITE : pointsClaim;
     maxValue      = VALUE_INFINITE;
 
     ss->followPV = rootNode
@@ -807,7 +838,7 @@ Value Search::Worker::search(
     if (!rootNode)
     {
         // Step 2. Check for aborted search or immediate draw
-        if (threads.stop.load(std::memory_order_relaxed) || pos.is_draw(ss->ply)
+        if (threads.stop.load(std::memory_order_relaxed) || (!pos.game_of_points() && pos.is_draw(ss->ply))
             || ss->ply >= MAX_PLY)
             return (ss->ply >= MAX_PLY && !ss->inCheck) ? evaluate(pos) : value_draw(nodes);
 
@@ -841,7 +872,7 @@ Value Search::Worker::search(
 
     ss->ttHit    = ttHit;
     ttData.move  = rootNode ? rootMoves[pvIdx].pv[0] : ttHit ? ttData.move : Move::none();
-    ttData.value = ttHit ? value_from_tt(ttData.value, ss->ply, pos.rule50_count()) : VALUE_NONE;
+    ttData.value = ttHit ? value_from_tt(ttData.value, ss->ply, pos.rule50_count(), pos.game_of_points()) : VALUE_NONE;
     ss->ttPv     = excludedMove ? ss->ttPv : PvNode || (ttHit && ttData.is_pv);
     ttCapture    = ttData.move && pos.capture_stage(ttData.move);
 
@@ -1037,7 +1068,7 @@ Value Search::Worker::search(
     }
 
     // Step 10. Null move search with verification search
-    if (cutNode
+    if (!pos.game_of_points() && cutNode
         && ss->staticEval + 50 * ss->priorNMPFailHigh >= beta - 13 * depth - 47 * improving + 365
         && !excludedMove && pos.non_pawn_material(us) && ss->ply >= nmpMinPly && beta >= -2000)
     {
@@ -1730,7 +1761,15 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         selDepth = ss->ply + 1;
 
     // Step 2. Check for an immediate draw or maximum ply reached
-    if (pos.is_draw(ss->ply) || ss->ply >= MAX_PLY)
+    const Value pointsClaim = Petrified::resignation_value(pos, ss->ply);
+    if (pos.game_of_points())
+    {
+        const auto end = Petrified::outcome(pos, true, ss->ply);
+        if (end.terminal()) return end.value;
+        if (pointsClaim >= beta || is_win(pointsClaim)) return pointsClaim;
+        alpha = std::max(alpha, pointsClaim);
+    }
+    if ((!pos.game_of_points() && pos.is_draw(ss->ply)) || ss->ply >= MAX_PLY)
         return (ss->ply >= MAX_PLY && !ss->inCheck) ? evaluate(pos) : VALUE_DRAW;
 
     assert(0 <= ss->ply && ss->ply < MAX_PLY);
@@ -1746,7 +1785,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
 
     ss->ttHit    = ttHit;
     ttData.move  = ttHit ? ttData.move : Move::none();
-    ttData.value = ttHit ? value_from_tt(ttData.value, ss->ply, pos.rule50_count()) : VALUE_NONE;
+    ttData.value = ttHit ? value_from_tt(ttData.value, ss->ply, pos.rule50_count(), pos.game_of_points()) : VALUE_NONE;
     pvHit        = ttHit && ttData.is_pv;
 
     // At non-PV nodes we check for an early TT cutoff
@@ -1803,6 +1842,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         futilityBase = ss->staticEval + 306;
     }
 
+    bestValue = std::max(bestValue, pointsClaim);
     const PieceToHistory* contHist[] = {(ss - 1)->continuationHistory};
 
     Square prevSq = ((ss - 1)->currentMove).is_ok() ? ((ss - 1)->currentMove).to_sq() : SQ_NONE;
@@ -1825,7 +1865,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         moveCount++;
 
         // Step 6. Pruning
-        if (!is_loss(bestValue))
+        if (!pos.game_of_points() && !is_loss(bestValue))
         {
             // Futility pruning and moveCount pruning
             if (!givesCheck && move.to_sq() != prevSq && !is_loss(futilityBase)
@@ -1957,7 +1997,7 @@ Value value_to_tt(Value v, int ply) { return is_win(v) ? v + ply : is_loss(v) ? 
 // "plies to mate/be mated (TB win/loss) from the root". However, to avoid
 // potentially false mate or TB scores related to the 50 moves rule and the
 // graph history interaction, we return the highest non-TB score instead.
-Value value_from_tt(Value v, int ply, int r50c) {
+Value value_from_tt(Value v, int ply, int r50c, bool points) {
 
     if (!is_valid(v))
         return VALUE_NONE;
@@ -1966,11 +2006,11 @@ Value value_from_tt(Value v, int ply, int r50c) {
     if (is_win(v))
     {
         // Downgrade a potentially false mate score
-        if (is_mate(v) && VALUE_MATE - v > 100 - r50c)
+        if (!points && is_mate(v) && VALUE_MATE - v > 100 - r50c)
             return VALUE_TB_WIN_IN_MAX_PLY - 1;
 
         // Downgrade a potentially false TB score
-        if (VALUE_TB - v > 100 - r50c)
+        if (!points && VALUE_TB - v > 100 - r50c)
             return VALUE_TB_WIN_IN_MAX_PLY - 1;
 
         return v - ply;
@@ -1980,11 +2020,11 @@ Value value_from_tt(Value v, int ply, int r50c) {
     if (is_loss(v))
     {
         // Downgrade a potentially false mate score
-        if (is_mated(v) && VALUE_MATE + v > 100 - r50c)
+        if (!points && is_mated(v) && VALUE_MATE + v > 100 - r50c)
             return VALUE_TB_LOSS_IN_MAX_PLY + 1;
 
         // Downgrade a potentially false TB score
-        if (VALUE_TB + v > 100 - r50c)
+        if (!points && VALUE_TB + v > 100 - r50c)
             return VALUE_TB_LOSS_IN_MAX_PLY + 1;
 
         return v + ply;

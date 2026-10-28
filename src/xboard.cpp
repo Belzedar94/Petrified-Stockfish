@@ -23,6 +23,7 @@
 #include "misc.h"
 #include "movegen.h"
 #include "position.h"
+#include "api/petrified_outcome.h"
 #include "score.h"
 #include "uci_move.h"
 #include "ucioption.h"
@@ -240,7 +241,7 @@ void XBoardProtocol::loop() {
 void XBoardProtocol::send_features() const {
     sync_cout << "feature setboard=1 usermove=1 time=1 memory=1 smp=1 colors=0 draw=0 "
                  "analyze=1 sigint=0 ping=1 reuse=1 san=0 name=0 myname=\""
-              << engine_version_info() << "\" variants=\"petrified\"" << sync_endl;
+              << engine_version_info() << "\" variants=\"petrified,petrifiedpoints\"" << sync_endl;
 
     sync_cout << "feature option=\"EvalFile -file " << std::string(engine.get_options()["EvalFile"])
               << "\"" << sync_endl;
@@ -532,6 +533,16 @@ Color XBoardProtocol::side_to_move() const {
 
 std::optional<std::string> XBoardProtocol::terminal_result() const {
     const Position& position = engine.position();
+    if (position.game_of_points()) {
+        const auto end = Petrified::outcome(position, true);
+        if (end.terminal()) return end.result() + " {" + end.reason() + ": "
+            + std::to_string(end.points[WHITE]) + "-" + std::to_string(end.points[BLACK]) + "}";
+        const auto resign = Petrified::settle_points(position, Petrified::Termination::Resignation, position.side_to_move());
+        if (resign.value >= VALUE_DRAW)
+            return resign.result() + " {Points claim: " + std::to_string(resign.points[WHITE])
+                + "-" + std::to_string(resign.points[BLACK]) + "}";
+        return std::nullopt;
+    }
     if (!MoveList<ALL>(position).size()) {
         if (!position.reported_check()) return "1/2-1/2 {Stalemate}";
         return position.side_to_move() == WHITE ? "0-1 {Black mates}" : "1-0 {White mates}";
@@ -605,10 +616,14 @@ void XBoardProtocol::process_command(const std::string& token, std::istringstrea
     {
         std::string variant;
         is >> variant;
-        if (UCI::to_lower(variant) != "petrified")
+        variant = UCI::to_lower(variant);
+        if (variant != "petrified" && variant != "petrifiedpoints")
             sync_cout << "Error (unsupported variant): " << variant << sync_endl;
-        else
+        else {
+            stop_search(true);
+            set_option("UCI_Variant", variant);
             reset_game();
+        }
     }
     else if (token == "force" || token == "result")
     {

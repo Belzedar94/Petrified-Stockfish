@@ -74,8 +74,8 @@ std::string lower_trim(std::string value) {
 }
 
 void require_petrified_variant(std::string_view variant) {
-    if (lower_trim(std::string(variant)) != "petrified")
-        throw std::invalid_argument("Petrified-Stockfish supports only the 'petrified' variant");
+    if (!Board::supports_variant(variant) || variant.empty())
+        throw std::invalid_argument("Expected petrified or petrifiedpoints");
 }
 
 std::string utf8(PyObject* object) {
@@ -225,7 +225,7 @@ void set_binding_option(std::string name, std::string value) {
     if (name == "uci_variant")
     {
         require_petrified_variant(value);
-        value = "petrified";
+        value = Board::normalize_variant(value);
     }
     else if (name == "uci_chess960" || name == "ponder" || name == "syzygy50moverule")
         value = parse_boolean(std::move(value), name.c_str());
@@ -262,7 +262,7 @@ PyObject* py_info(PyObject*, PyObject*) {
 }
 
 PyObject* py_variants(PyObject*, PyObject*) {
-    return translated([] { return python_strings({"petrified"}); });
+    return translated([] { return python_strings({"petrified", "petrifiedpoints"}); });
 }
 
 PyObject* py_set_option(PyObject*, PyObject* args) {
@@ -286,7 +286,7 @@ PyObject* py_start_fen(PyObject*, PyObject* args) {
         return nullptr;
     return translated([&] {
         require_petrified_variant(variant);
-        return python_string(Stockfish::Petrified::StartFEN);
+        return python_string(Board::prepare_fen(variant, "startpos"));
     });
 }
 
@@ -447,7 +447,7 @@ PyObject* py_is_immediate_game_end(PyObject*, PyObject* args) {
         auto                             board  = board_after(variant, fen, moves, chess960 != 0);
         const Stockfish::Petrified::Outcome result = Stockfish::Petrified::outcome(board->position());
         const bool                       immediate =
-          false;
+          board->position().game_of_points() && result.terminal();
         return Py_BuildValue("(Ni)", PyBool_FromLong(immediate), immediate ? int(result.value) : 0);
     });
 }
@@ -465,6 +465,10 @@ PyObject* py_is_optional_game_end(PyObject*, PyObject* args) {
     return translated([&] {
         (void) countStarted;
         auto                             board = board_after(variant, fen, moves, chess960 != 0);
+        if (board->position().game_of_points()) {
+            const auto result = Stockfish::Petrified::outcome(board->position(), true);
+            return Py_BuildValue("(Ni)", PyBool_FromLong(result.terminal()), int(result.value));
+        }
         return Py_BuildValue("(Ni)", PyBool_FromLong(board->position().is_draw(0)), 0);
     });
 }
@@ -521,7 +525,23 @@ PyObject* py_perft(PyObject*, PyObject* args) {
     });
 }
 
+PyObject* py_points_status(PyObject*, PyObject* args) {
+    const char *variant, *fen;
+    PyObject* moves;
+    if (!PyArg_ParseTuple(args, "ssO:points_status", &variant, &fen, &moves)) return nullptr;
+    return translated([&] { return python_string(board_after(variant, fen, moves, false)->points_status()); });
+}
+PyObject* py_end_result(PyObject*, PyObject* args) {
+    const char *variant, *fen, *reason;
+    PyObject* moves;
+    int white;
+    if (!PyArg_ParseTuple(args, "ssOsp:end_result", &variant, &fen, &moves, &reason, &white)) return nullptr;
+    return translated([&] { return python_string(board_after(variant, fen, moves, false)->end_result(reason, white != 0)); });
+}
+
 PyMethodDef Methods[] = {
+  {"points_status", py_points_status, METH_VARARGS, "Return versioned points status as JSON."},
+  {"end_result", py_end_result, METH_VARARGS, "Settle resignation, timeout or agreement without mutating the board."},
   {"version", py_version, METH_NOARGS, "Return the pyffish semantic version tuple."},
   {"info", py_info, METH_NOARGS, "Return Petrified-Stockfish build information."},
   {"variants", py_variants, METH_NOARGS, "Return the singleton Petrified variant list."},

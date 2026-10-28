@@ -397,7 +397,8 @@ Position::set(const string& fenStr, bool isChess960, StateInfo* si) {
     st->epSquare = st->epSquares ? lsb(st->epSquares) : SQ_NONE;
 
     // 5-6. Halfmove clock and fullmove number
-    ss >> std::skipws >> st->rule50 >> gamePly;
+    if (!(ss >> std::skipws >> st->rule50 >> gamePly))
+        return PositionSetError("Invalid FEN. Expected halfmove and fullmove counters.");
 
     // Normally values larger than 99 would be pointless but we do support ignoring 50 move rule for TB purposes.
     // Limit at 2**15 as it's used multiplicatively with position evaluation during search.
@@ -406,6 +407,20 @@ Position::set(const string& fenStr, bool isChess960, StateInfo* si) {
 
     if (gamePly < 0 || gamePly > 100000)
         return PositionSetError("Unsupported position. Game ply out of range.");
+
+    std::string extra;
+    if (ss >> extra)
+    {
+        if (extra.substr(0, 7) != "points=")
+            return PositionSetError("Invalid FEN. Expected points=white,black.");
+        std::istringstream scores(extra.substr(7));
+        char comma, trailing;
+        if (!(scores >> st->points[WHITE] >> comma >> st->points[BLACK]) || comma != ','
+            || (scores >> trailing) || st->points[WHITE] < 0 || st->points[BLACK] < 0
+            || st->points[WHITE] > 1000000 || st->points[BLACK] > 1000000 || (ss >> extra))
+            return PositionSetError("Invalid FEN. Invalid points field.");
+        st->pointsMode = true;
+    }
 
     // Convert from fullmove starting from 1 to gamePly starting from 0,
     // handle also common incorrect FEN with fullmove = 0.
@@ -529,6 +544,17 @@ void Position::set_state() const {
         st->key ^= Zobrist::side;
 
     st->key ^= Zobrist::castling[st->castlingRights];
+    if (game_of_points())
+    {
+        const Key scoreKey = make_key(0x504f494e5453ULL)
+                             ^ make_key(0x100000000ULL + st->points[WHITE])
+                             ^ make_key(0x200000000ULL + st->points[BLACK]);
+        st->key ^= scoreKey;
+        st->pawnKey ^= scoreKey;
+        st->minorPieceKey ^= scoreKey;
+        st->nonPawnKey[WHITE] ^= scoreKey;
+        st->nonPawnKey[BLACK] ^= scoreKey;
+    }
     st->materialKey = compute_material_key();
 }
 
@@ -609,6 +635,7 @@ string Position::fen() const {
     if (!st->epSquares) ss << '-';
     for (Bitboard b = st->epSquares; b;) ss << UCI::square(pop_lsb(b));
     ss << ' ' << st->rule50 << " " << 1 + (gamePly - (sideToMove == BLACK)) / 2;
+    if (game_of_points()) ss << " points=" << points(WHITE) << ',' << points(BLACK);
 
     return ss.str();
 }
@@ -668,7 +695,23 @@ bool Position::reported_check() const {
 }
 
 Value Position::no_moves_value(int ply) const {
+    if (game_of_points())
+        return checkers() ? points_value(sideToMove == BLACK ? 20 : 0,
+                                        sideToMove == WHITE ? 20 : 0, ply)
+                          : points_value(10, 10, ply);
     return reported_check() ? mated_in(ply) : VALUE_DRAW;
+}
+
+int Position::capture_points(PieceType pt) {
+    constexpr int values[PIECE_TYPE_NB] = {0, 1, 3, 5, 5, 9, 20, 0};
+    return values[pt];
+}
+
+Value Position::points_value(int whiteBonus, int blackBonus, int ply) const {
+    int difference = points(WHITE) + whiteBonus - points(BLACK) - blackBonus;
+    if (sideToMove == BLACK) difference = -difference;
+    // Decisive points results are not mate scores; the mated side can win.
+    return difference > 0 ? VALUE_TB - ply : difference < 0 ? -VALUE_TB + ply : VALUE_DRAW;
 }
 
 // Test attacks on the resulting board, including a neutral wall left by a capture.
@@ -783,6 +826,7 @@ void Position::do_move(Move m, StateInfo& newSt, bool, Dirties& dirties,
     {
         if (st->capturedPiece)
         {
+            if (game_of_points()) st->points[us] += capture_points(type_of(st->capturedPiece));
             const Square cs = m.type_of() == EN_PASSANT ? to - pawn_push(us) : to;
             dp.remove_pc = st->capturedPiece;
             dp.remove_sq = cs;
@@ -1114,6 +1158,8 @@ bool Position::see_ge(Move m, int threshold) const {
     if (m.type_of() == CASTLING) return threshold <= 0;
     const Piece pc = moved_piece(m);
     int gain = m.type_of() == EN_PASSANT ? PieceValue[PAWN] : PieceValue[piece_on(m.to_sq())];
+    if (game_of_points() && capture(m))
+        gain += 100 * capture_points(m.type_of() == EN_PASSANT ? PAWN : type_of(piece_on(m.to_sq())));
     if (capture(m) && type_of(pc) != PAWN)
         return gain - PieceValue[pc] >= threshold;
     if (m.type_of() == PROMOTION)
@@ -1132,7 +1178,7 @@ bool Position::is_draw(int ply) const {
     if (st->rule50 > 99)
         return true;
 
-    return is_repetition(ply);
+    return is_repetition(game_of_points() ? 0 : ply);
 }
 
 // Return a draw score if a position repeats once earlier but strictly
@@ -1159,6 +1205,8 @@ bool Position::has_repeated() const {
 // Tests if the position has a move which draws by repetition.
 // This function accurately matches the outcome of is_draw() over all legal moves.
 bool Position::upcoming_repetition(int ply) const {
+
+    if (game_of_points()) return false; // Repetition settles points; it need not draw.
 
     int end = std::min(st->rule50, st->pliesFromNull);
 
@@ -1233,8 +1281,11 @@ std::optional<PositionSetError> Position::flip() {
             token[i] = char('1' + ('8' - token[i]));
     f += token;
 
-    std::getline(ss, token);  // Half and full moves
-    f += token;
+    int halfmove, fullmove;
+    ss >> halfmove >> fullmove;
+    f += " " + std::to_string(halfmove) + " " + std::to_string(fullmove);
+    if (game_of_points())
+        f += " points=" + std::to_string(points(BLACK)) + "," + std::to_string(points(WHITE));
 
     return set(f, is_chess960(), st);
 }

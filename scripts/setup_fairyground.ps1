@@ -8,10 +8,14 @@ $projectRoot = Split-Path -Parent $PSScriptRoot
 $guiRoot = Join-Path $projectRoot '.local/fairyground'
 $integrationRoot = Join-Path $projectRoot 'integrations/fairyground'
 $revision = '5f7392c3416b3949a3352d729f4e32368f03bade'
-if (!$Engine) { $Engine = Join-Path $projectRoot 'src/petrified-bmi2-gui.exe' }
+if (!$Engine) { $Engine = Join-Path $projectRoot 'src/petrified-points-bmi2.exe' }
 if (!$Network) { $Network = Join-Path $projectRoot '../../../Match script/petrified_run4test_e19_l085.nnue' }
 $Engine = (Resolve-Path -LiteralPath $Engine).Path
 $Network = (Resolve-Path -LiteralPath $Network).Path
+$pointsBoard = Join-Path $projectRoot 'build/wasm-points/cjs'
+if (!(Test-Path -LiteralPath (Join-Path $pointsBoard 'ffish.wasm'))) {
+    throw 'Build the points Board WASM first: python scripts/build_wasm.py --target cjs --out build/wasm-points'
+}
 if ((Get-FileHash -LiteralPath $Network -Algorithm SHA256).Hash.ToLowerInvariant() -ne '345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933') {
     throw 'This Fairyground profile requires the frozen run4test network.'
 }
@@ -53,18 +57,23 @@ try {
     if ($LASTEXITCODE) { throw 'Fairyground editor bundle failed.' }
     Copy-Item -LiteralPath 'node_modules/mithril/mithril.min.js' -Destination 'public/lib/mithril.min.js'
     Copy-Item -Path 'src/js/*Feature.js' -Destination 'public/lib'
+    New-Item -ItemType Directory -Path 'public/lib/petrified-points' -Force | Out-Null
+    Copy-Item -LiteralPath (Join-Path $pointsBoard 'ffish.js') -Destination 'public/lib/petrified-points/ffish.js'
+    Copy-Item -LiteralPath (Join-Path $pointsBoard 'ffish.wasm') -Destination 'public/lib/petrified-points/ffish.wasm'
     Copy-Item -Path 'src/js/*.canvas.worker.js' -Destination 'public/lib/canvas'
     Copy-Item -LiteralPath 'src/js/sw.js' -Destination 'public/sw.js'
     Copy-Item -LiteralPath 'src/js/server.js' -Destination 'server.js'
     Copy-Item -Path 'src/html/*' -Destination 'public'
     $engineCwd = Split-Path -Parent $Engine
-    $profile = "Petrified-Stockfish + run4test;$Engine;$engineCwd;UCI;UCI_Variant=petrified,EvalFile=$Network,Threads=1,Hash=128,Ponder=false`n"
+    $profile = "Petrified-Stockfish + run4test;$Engine;$engineCwd;UCI;UCI_Variant=petrifiedpoints,EvalFile=$Network,Threads=1,Hash=128,Ponder=false`n"
     [IO.File]::WriteAllText((Join-Path $guiRoot 'EngineList.txt'), $profile, [Text.UTF8Encoding]::new($false))
     $manifest = [ordered]@{
-        schema = 'petrified-fairyground-v1'; fairyground_commit = $revision
+        schema = 'petrified-fairyground-v2'; rules = 'chesscom-points-v1'; fairyground_commit = $revision
         engine = $Engine; engine_sha256 = (Get-FileHash -LiteralPath $Engine -Algorithm SHA256).Hash.ToLowerInvariant()
         network = $Network; network_sha256 = (Get-FileHash -LiteralPath $Network -Algorithm SHA256).Hash.ToLowerInvariant()
         patch_sha256 = (Get-FileHash -LiteralPath $patch -Algorithm SHA256).Hash.ToLowerInvariant()
+        local_feature_sha256 = (Get-FileHash -LiteralPath (Join-Path $integrationRoot 'PetrifiedLocalFeature.js') -Algorithm SHA256).Hash.ToLowerInvariant()
+        points_board_sha256 = (Get-FileHash -LiteralPath (Join-Path $pointsBoard 'ffish.wasm') -Algorithm SHA256).Hash.ToLowerInvariant()
         threads = 1; hash_mb = 128; url = 'http://127.0.0.1:5185/public/index.html?variant=petrified'
     }
     $manifest | ConvertTo-Json | Set-Content -LiteralPath 'petrified-profile.json' -Encoding UTF8

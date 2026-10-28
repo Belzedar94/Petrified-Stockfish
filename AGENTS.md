@@ -6,10 +6,13 @@ dedicated to Petrified and starts from official SF's pinned SFNNv19 commit.
 Use branches and pull requests against main. Preserve upstream history and GPL
 attributions. Do not modify sibling repositories, shared runners or trainers.
 
-Rules are the pinned Walls rules, including its pseudo-royal reporting and SAN
-quirks. The unmodified Walls binary is the opponent; a separately built diagnostic
-binary is the referee. Never use this engine or its Python binding as its own
-independent referee. run4test must pass its full hash before evaluation/search.
+Legacy `petrified` preserves the pinned Walls rules and reporting quirks.
+The owner's current target is `petrifiedpoints`, Chess.com FFA / 2PC with
+Deadwall EnPassant FatalCapture Sideways, including Game of Points. See
+`docs/petrified/chesscom-points.md`. The independent points referee is the
+hash-pinned public Chess.com client, accessed through our audit adapter; do not
+commit that external bundle. Never use this engine or its binding as its own
+independent match referee. run4test must pass its full hash before search.
 
 Strength experiments remain local until the approved three-control gate and
 initial interfaces pass. Use `scripts/local_campaign.py`, with all inputs frozen,
@@ -27,11 +30,17 @@ including all pending pairs; see docs/petrified/experiments/2026-10-28-fsf-dev.j
 The wrapper preserves variantfishtest's reported-time clock accounting and logs
 real elapsed time separately. A smoke run is never a strength-gate result.
 
-The user authorized temporarily draining the single existing local OpenBench T8
-worker for these campaigns, then restoring the same instance via its launcher.
-Use the bounded worker lease. Do not start another instance or touch remote
-workers. Never print worker command lines or secrets. No Petrified OpenBench
-registration, test or datagen workload before the local transition gate.
+The owner subsequently requested a manual T8 pause to use the engine locally.
+That pause remains in force: DO NOT restart T8 on campaign exit. Preserve
+`.local/worker-manual-pause.json`, do not start another worker or touch remote
+workers, and never print worker command lines or secrets. No Petrified OpenBench
+registration, test or datagen workload has been authorized by a points panel.
+
+After the points panel and Fairyground are complete, use the available local
+GPU for the smallest promising NNUE adaptation to points. Freeze the best
+demonstrated points engine as champion. Each candidate must complete VSTC/STC/LTC
+against that champion before promotion or trying the next version. Preserve
+rejected candidates and results; lower training loss is not a strength result.
 
 Use ignored `.local/` for external inputs, isolated Python environments, reference
 checkouts, logs and campaigns; use ignored `build/` for generated distributions.
@@ -43,8 +52,8 @@ table with one row per TC: games, W/L/D, Elo with its 95% interval, LOS, time
 losses for candidate/opponent, and status. Include pending controls explicitly.
 This is the owner's requested reporting format, including during a running test.
 
-The dedicated engine must advertise its single variant using the full UCI combo
-syntax: default petrified var petrified. Combo parsing must tolerate the repeated
-default. Fairyground needs that list to select the native engine. The local GUI
+The engine advertises both rulesets in its UCI combo: default petrified var
+petrified var petrifiedpoints. Fairyground maps its Petrified board to the points
+engine and requires explicit scores for custom FENs. The local GUI
 profile and lifecycle are documented in docs/petrified/fairyground.md; keep it
 loopback-only and never replace the frozen campaign executable while testing.

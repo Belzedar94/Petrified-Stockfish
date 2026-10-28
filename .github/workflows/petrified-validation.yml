@@ -36,6 +36,13 @@ jobs:
       - name: Build isolated Python wheel
         if: matrix.config == 'Release'
         run: python -m pip wheel . --no-deps --wheel-dir build/wheels
+      - name: Chess.com scoring fixtures through isolated Python and UCI
+        if: matrix.config == 'Release'
+        shell: bash
+        run: |
+          python -m pip install --no-deps --target build/points-module build/wheels/*.whl
+          if [ "$RUNNER_OS" = Windows ]; then ENGINE=build/native/Release/petrified-stockfish.exe; else ENGINE=build/native/petrified-stockfish; fi
+          python tests/petrified/points.py --module-dir build/points-module --engine "$ENGINE"
       - uses: actions/upload-artifact@v4
         if: matrix.config == 'Release'
         with:

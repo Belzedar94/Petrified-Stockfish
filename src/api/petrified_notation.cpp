@@ -93,6 +93,12 @@ std::string format(Position& pos, Move move, Notation notation) {
         }
     }
 
+    if (pos.game_of_points()) {
+        StateInfo state;
+        pos.do_move(move, state);
+        if (pos.checkers()) result += MoveList<ALL>(pos).size() ? "+" : "#";
+        pos.undo_move(move);
+    }
     // Walls' SAN uses gives_check(), which is always false for this variant's
     // COMMONER royals. Preserve its notation contract (no + or # suffix).
     return result;

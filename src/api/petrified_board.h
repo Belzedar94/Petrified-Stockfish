@@ -48,6 +48,7 @@ class Board final {
 
     static bool        supports_variant(std::string_view variant);
     static std::string normalize_variant(std::string_view variant);
+    static std::string prepare_fen(std::string_view variant, const std::string& fen);
     static int         validate_fen(std::string_view fen, bool chess960 = false);
 
     const Position& position() const;
@@ -87,6 +88,8 @@ class Board final {
     bool        is_insufficient_material() const;
     bool        is_game_over(bool claimDraw = false) const;
     std::string result(bool claimDraw = false) const;
+    std::string points_status() const;
+    std::string end_result(const std::string& reason, bool white) const;
 
     std::uint64_t perft(int depth) const;
     std::string   to_string() const;

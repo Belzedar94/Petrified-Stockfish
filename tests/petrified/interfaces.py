@@ -15,7 +15,7 @@ def uci_checks(command,net):
     with Uci(command,network=net,timeout=60) as p:
         p.send('uci')
         options=p.until(lambda s:s=='uciok')
-        assert 'option name UCI_Variant type combo default petrified var petrified' in options,options
+        assert 'option name UCI_Variant type combo default petrified var petrified var petrifiedpoints' in options,options
         p.position(CASES[0])
         legal=p.perft()[0]
         p.send('setoption name MultiPV value 3')
@@ -52,7 +52,7 @@ def xboard_checks(executable,net):
     with Uci(executable,initialize=False,timeout=60) as p:
         p.send('xboard'); p.send('protover 2')
         features=p.until(lambda s:'done=1' in s)
-        assert any('variants="petrified"' in s for s in features),features
+        assert any('variants="petrified,petrifiedpoints"' in s for s in features),features
         def barrier():
             p.send('ping 987'); return p.until(lambda s:s=='pong 987')
         def fen():
@@ -75,6 +75,10 @@ def xboard_checks(executable,net):
         assert p.until(lambda s:s.startswith('0-1 '))[-1]=='0-1 {Black mates}'
         p.send('force'); p.send('setboard '+CASES[2]); p.send('go')
         assert p.until(lambda s:s.startswith('1/2-1/2 '))[-1]=='1/2-1/2 {Stalemate}'
+        p.send('variant petrifiedpoints'); p.send('force')
+        p.send('setboard r3kb1r/3*4/4**2/6p1/p3*3/P5PP/1P*4K/2R1*1q1 w kq - 2 36 points=25,4')
+        p.send('go')
+        assert p.until(lambda s:s.startswith('1-0 '))[-1].startswith('1-0 ')
 
 if __name__=='__main__':
     ap=argparse.ArgumentParser()

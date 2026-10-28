@@ -10,7 +10,7 @@ for (const mode of ['cjs','esm']) {
   const filename = path.resolve(root,mode,mode==='cjs'?'ffish.js':'ffish.mjs');
   const factory = mode==='cjs'?require(filename):(await import(pathToFileURL(filename))).default;
   const api = await factory();
-  assert.equal(api.variants(),'petrified');
+  assert.equal(api.variants(),'petrified petrifiedpoints');
   for (const f of fixtures) {
     const b = new api.Board('petrified',f.fen);
     try {
@@ -39,6 +39,19 @@ for (const mode of ['cjs','esm']) {
   const g=api.readGamePGN('[Variant "petrified"]\n\n1. Pe4 Pe5 2. Nf3 Nc6 *');
   assert.equal(g.mainlineMoves(),'e2e4 e7e5 g1f3 b8c6');
   g.delete(); b.delete();
+  assert.equal(api.debugLiveBoards(),0);
+  const game=JSON.parse(readFileSync(new URL('./fixtures/chesscom-111037628.json', import.meta.url),'utf8'));
+  const points=new api.Board('petrifiedpoints');
+  for (const row of game.records) {
+    assert.ok(points.push(row.uci));
+    assert.deepEqual(JSON.parse(points.pointsStatus()).final,row.points);
+  }
+  assert.equal(points.result(),'1-0');
+  assert.equal(points.isGameOver(),true);
+  for (const row of game.records) points.pop();
+  assert.equal(points.fen(),api.startingFen('petrifiedpoints'));
+  assert.equal(points.endResult('resign',true),'0-1');
+  points.delete();
   assert.equal(api.debugLiveBoards(),0);
   console.log(`${mode}: ${fixtures.length} positions, SAN/push/pop/results/errors/PGN/lifecycle passed`);
 }

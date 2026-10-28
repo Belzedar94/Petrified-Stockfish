@@ -102,7 +102,7 @@ std::string format_variation(const Board& source,
                              const std::string& uciMoves,
                              Notation           notation,
                              bool               moveNumbers) {
-    Board       board("petrified", source.fen(), source.is_chess960());
+    Board       board(source.variant(), source.fen(), source.is_chess960());
     std::string result;
     bool        first = true;
 
@@ -194,6 +194,8 @@ class JsBoard final {
     bool is_game_over(bool claimDraw) const { return board.is_game_over(claimDraw); }
     std::string result() const { return board.result(); }
     std::string result(bool claimDraw) const { return board.result(claimDraw); }
+    std::string points_status() const { return board.points_status(); }
+    std::string end_result(const std::string& reason, bool white) const { return board.end_result(reason, white); }
     std::string checked_pieces() const { return board.checked_pieces(); }
     bool        is_check() const { return board.is_check(); }
     bool        is_capture(const std::string& move) const { return board.is_capture(move); }
@@ -204,7 +206,7 @@ class JsBoard final {
     // therefore petrified from the caller's perspective and never leaves a
     // partially modified JS Board.
     void push_moves(const std::string& moves) {
-        Board candidate("petrified", board.fen(), board.is_chess960());
+        Board candidate(board.variant(), board.fen(), board.is_chess960());
         candidate.push_moves(moves);
         board.push_moves(moves);
     }
@@ -212,7 +214,7 @@ class JsBoard final {
         push_san_moves(moves, Notation::San);
     }
     void push_san_moves(const std::string& moves, Notation notation) {
-        Board candidate("petrified", board.fen(), board.is_chess960());
+        Board candidate(board.variant(), board.fen(), board.is_chess960());
         for (const std::string& move : split_words(moves))
             if (!push_with_notation(candidate, move, notation))
                 throw std::invalid_argument("invalid Petrified notation in bulk move list: " + move);
@@ -231,7 +233,7 @@ class JsBoard final {
 };
 
 std::string info() { return Stockfish::engine_version_info() + " JS/WASM"; }
-std::string variants() { return "petrified"; }
+std::string variants() { return "petrified petrifiedpoints"; }
 int         debug_live_boards() { return LiveBoards; }
 double      wasm_heap_bytes() { return static_cast<double>(emscripten_get_heap_size()); }
 bool        two_boards(const std::string& variant) {
@@ -244,7 +246,7 @@ bool captures_to_hand(const std::string& variant) {
 }
 std::string starting_fen(const std::string& variant) {
     require_variant(variant);
-    return std::string(StartFEN);
+    return Board::prepare_fen(variant, "startpos");
 }
 
 int validate_fen(const std::string& fen) { return Board::validate_fen(fen); }
@@ -521,6 +523,8 @@ EMSCRIPTEN_BINDINGS(petrified_stockfish_js) {
       .function("isGameOver", select_overload<bool(bool) const>(&JsBoard::is_game_over))
       .function("result", select_overload<std::string() const>(&JsBoard::result))
       .function("result", select_overload<std::string(bool) const>(&JsBoard::result))
+      .function("pointsStatus", &JsBoard::points_status)
+      .function("endResult", &JsBoard::end_result)
       .function("checkedPieces", &JsBoard::checked_pieces)
       .function("isCheck", &JsBoard::is_check)
       .function("isCapture", &JsBoard::is_capture)

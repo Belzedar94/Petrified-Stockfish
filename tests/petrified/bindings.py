@@ -20,7 +20,7 @@ if args.dll_dir: dll=os.add_dll_directory(str(args.dll_dir))
 sys.path.insert(0,str(args.module_dir.resolve()))
 import pyffish
 assert Path(pyffish.__file__).parent==args.module_dir.resolve(),pyffish.__file__
-assert pyffish.variants()==['petrified']
+assert pyffish.variants()==['petrified','petrifiedpoints']
 lines=args.book.read_text().splitlines()
 random.Random(20261028).shuffle(lines)
 count=0

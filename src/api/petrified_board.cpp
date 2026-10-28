@@ -83,13 +83,30 @@ Board::~Board() = default;
 
 bool Board::supports_variant(std::string_view variant) {
     const std::string normalized = trim_and_lower(variant);
-    return normalized.empty() || normalized == "petrified";
+    return normalized.empty() || normalized == "petrified" || normalized == "petrifiedpoints";
 }
 
 std::string Board::normalize_variant(std::string_view variant) {
     if (!supports_variant(variant))
-        throw std::invalid_argument("Petrified-Stockfish supports only the 'petrified' variant");
-    return "petrified";
+        throw std::invalid_argument("Expected petrified or petrifiedpoints");
+    return trim_and_lower(variant) == "petrifiedpoints" ? "petrifiedpoints" : "petrified";
+}
+
+std::string Board::prepare_fen(std::string_view variant, const std::string& fen) {
+    std::string value = fen.empty() || fen == "startpos" ? std::string(StartFEN) : fen;
+    const auto first = value.find_first_not_of(" \t\r\n");
+    const auto last = value.find_last_not_of(" \t\r\n");
+    value = first == std::string::npos ? std::string(StartFEN) : value.substr(first, last - first + 1);
+    const bool points = normalize_variant(variant) == "petrifiedpoints";
+    const bool supplied = value.find(" points=") != std::string::npos;
+    if (points && !supplied) {
+        if (value != StartFEN)
+            throw PositionSetError("petrifiedpoints requires points=white,black for a custom FEN");
+        value += " points=0,0";
+    }
+    if (!points && supplied)
+        throw PositionSetError("points FEN requires the petrifiedpoints variant");
+    return value;
 }
 
 int Board::validate_fen(std::string_view fenValue, bool isChess960) {
@@ -105,7 +122,8 @@ bool        Board::is_chess960() const { return chess960; }
 std::string Board::fen() const { return pos->fen(); }
 
 void Board::set_position_transactional(const std::string& fenValue) {
-    const int validation = Board::validate_fen(fenValue, chess960);
+    const std::string prepared = prepare_fen(variantName, fenValue);
+    const int validation = Board::validate_fen(prepared, chess960);
     if (validation != FEN_OK)
         throw PositionSetError("Petrified FEN validation failed with code "
                                + std::to_string(validation));
@@ -113,7 +131,7 @@ void Board::set_position_transactional(const std::string& fenValue) {
     auto nextStates = std::make_unique<std::deque<StateInfo>>(1);
     auto nextPos    = std::make_unique<Position>();
 
-    if (const auto error = nextPos->set(fenValue, chess960, &nextStates->back()))
+    if (const auto error = nextPos->set(prepared, chess960, &nextStates->back()))
         throw PositionSetError(error->what());
 
     states = std::move(nextStates);
@@ -155,6 +173,7 @@ void Board::do_move(Move move) {
 }
 
 bool Board::push(const std::string& uciMove) {
+    if (pos->game_of_points() && outcome(*pos).terminal()) return false;
     const Move move = UCI::to_move(*pos, uciMove);
     if (move == Move::none())
         return false;
@@ -163,6 +182,7 @@ bool Board::push(const std::string& uciMove) {
 }
 
 bool Board::push_san(const std::string& sanMove) {
+    if (pos->game_of_points() && outcome(*pos).terminal()) return false;
     const Move move = parse_san(*pos, sanMove);
     if (move == Move::none())
         return false;
@@ -200,7 +220,7 @@ std::string Board::san_move(const std::string& uciMove) {
 }
 
 std::string Board::variation_san(const std::string& uciMoves, bool moveNumbers) const {
-    Board       board("petrified", fen(), chess960);
+    Board       board(variantName, fen(), chess960);
     std::string result;
     bool        first = true;
 
@@ -265,7 +285,7 @@ bool Board::is_capture(const std::string& uciMove) const {
 }
 
 bool Board::gives_check(const std::string& uciMove) const {
-    Board      copy("petrified", fen(), chess960);
+    Board      copy(variantName, fen(), chess960);
     const Move move = UCI::to_move(copy.position(), uciMove);
     if (move == Move::none())
         return false;
@@ -278,17 +298,28 @@ bool Board::has_insufficient_material(bool white) const {
 }
 
 bool Board::is_insufficient_material() const {
-    return Petrified::has_insufficient_material(WHITE, *pos)
-        && Petrified::has_insufficient_material(BLACK, *pos);
+    return Petrified::insufficient_material(*pos);
 }
 
 bool Board::is_game_over(bool claimDraw) const { return outcome(*pos, claimDraw).terminal(); }
 std::string Board::result(bool claimDraw) const { return outcome(*pos, claimDraw).result(); }
+std::string Board::points_status() const { return Petrified::points_status(*pos); }
+std::string Board::end_result(const std::string& reason, bool white) const {
+    if (!pos->game_of_points()) throw std::invalid_argument("end_result requires petrifiedpoints");
+    const auto ended = outcome(*pos);
+    if (ended.terminal()) return ended.result();
+    Termination type;
+    if (reason == "resign") type = Termination::Resignation;
+    else if (reason == "timeout") type = Termination::Timeout;
+    else if (reason == "agreement") type = Termination::Agreement;
+    else throw std::invalid_argument("Expected resign, timeout or agreement");
+    return settle_points(*pos, type, white ? WHITE : BLACK).result();
+}
 
 std::uint64_t Board::perft(int depth) const {
     if (depth < 0)
         throw std::invalid_argument("perft depth must be non-negative");
-    Board copy("petrified", fen(), chess960);
+    Board copy(variantName, fen(), chess960);
     return perft_impl(copy.position(), depth);
 }
 

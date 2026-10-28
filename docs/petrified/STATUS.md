@@ -7,13 +7,30 @@ Acceptance order: reproducible baseline; rules/state differential tests; exact
 Legacy Walls evaluation; native and packaged interfaces; the three local strength
 controls; only then OpenBench registration and specialization/modern NNUE work.
 
-The reference rules are Fairy-Stockfish Walls, without Chess.com scoring. The
+The original reference rules are Fairy-Stockfish Walls, without Chess.com scoring. The
 mandatory opponent is Walls plus run4test. The owner accepted the BMI2+LTO
 comparison as a win on 2026-10-28 after VSTC/STC passed and an early LTC result.
 This is recorded as a manual acceptance, not an automatic three-control pass.
 The secondary panel against FSF dev plus its official NNUE passed all three
-controls with completed pending pairs. The existing worker was restored to T8.
+controls with completed pending pairs. The existing worker was restored then,
+but the owner subsequently paused T8 manually; it remains stopped.
 No Petrified OpenBench workload has been created.
+
+The owner subsequently requested Chess.com Game of Points and a local NNUE pilot.
+`petrifiedpoints` implements that contract separately from the frozen legacy
+mode. See [rules, source evidence and NNUE plan](chesscom-points.md). Native,
+Python, CJS/ESM Board, Node engine and CECP checks pass locally with run4test;
+the new branch's Linux/MSVC CI is still pending. Fairyground now uses points
+analysis and shows the earned score plus final bonus next to the board.
+
+The first points panel completed 40 games per control against the frozen legacy
+binary: VSTC 39/0/1, STC 40/0/0, LTC 40/0/0 (W/L/D), no time losses. Every game
+was independently arbitrated by the pinned Chess.com client. At these boundary
+scores the shared runner's confidence interval/LOS routine is undefined; this
+is recorded honestly, not converted into a fabricated LOS gate. Both binaries
+use GCC 16.1, BMI2, LTO, no PGO, run4test, T1 and Hash512. See the
+[frozen experiment](experiments/2026-10-28-points-vs-legacy.json). This points
+baseline is the next NNUE pilot's opponent; it is not a world-leadership claim.
 
 ## Implemented and checked on Windows
 

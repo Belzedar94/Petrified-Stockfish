@@ -54,6 +54,9 @@ struct StateInfo {
     int    pliesFromNull;
     Square epSquare;
     Bitboard epSquares;
+    // Chess.com scoring is history-dependent, even with identical live pieces.
+    bool pointsMode;
+    int  points[COLOR_NB];
 
     // Not copied when making a move (will be recomputed anyhow)
     Key        key;
@@ -133,6 +136,10 @@ class Position {
     // commoners cannot capture and adjacency does not make a move illegal.
     bool reported_check() const;
     Value no_moves_value(int ply = 0) const;
+    bool game_of_points() const { return st->pointsMode; }
+    int points(Color c) const { return st->points[c]; }
+    static int capture_points(PieceType pt);
+    Value points_value(int whiteBonus, int blackBonus, int ply = 0) const;
     Bitboard blockers_for_king(Color c) const;
     Bitboard check_squares(PieceType pt) const;
     Bitboard pinners(Color c) const;

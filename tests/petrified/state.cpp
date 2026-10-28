@@ -34,9 +34,10 @@ int main(int argc, char** argv) {
     auto stack=std::make_unique<Eval::NNUE::AccumulatorStack>();
     std::mt19937 rng(20261028);
     std::size_t checked=0;
-    for(int game=0;game<30;++game) {
+    for(int game=0;game<60;++game) {
         Position pos; std::deque<StateInfo> states(1);
-        require(!pos.set("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",false,&states.back()),"initial FEN");
+        require(!pos.set(std::string("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+                        + (game >= 30 ? " points=7,4" : ""),false,&states.back()),"initial FEN");
         std::vector<Move> played;
         std::vector<std::string> fens;
         std::vector<Key> keys;

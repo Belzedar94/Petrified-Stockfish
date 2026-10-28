@@ -43,6 +43,7 @@
 #include "types.h"
 #include "uci.h"
 #include "ucioption.h"
+#include "api/petrified_board.h"
 
 namespace Stockfish {
 
@@ -110,7 +111,7 @@ Engine::Engine(std::optional<std::filesystem::path> path) :
 
     options.add("nodestime", Option(0, 0, 10000));
 
-    options.add("UCI_Variant", Option("petrified var petrified", "petrified", nullptr));
+    options.add("UCI_Variant", Option("petrified var petrified var petrifiedpoints", "petrified", nullptr));
     options.add("UCI_Chess960", Option(false));
 
     options.add("UCI_LimitStrength", Option(false));
@@ -193,9 +194,18 @@ void Engine::wait_for_search_finished() { threads.main_thread()->wait_for_search
 
 std::optional<PositionSetError> Engine::set_position(const std::string&              fen,
                                                      const std::vector<std::string>& moves) {
-    // Drop the old state and create a new one
-    states   = StateListPtr(new std::deque<StateInfo>(1));
-    auto err = pos.set(fen, options["UCI_Chess960"], &states->back());
+    std::string prepared;
+    const std::string variant = options["UCI_Variant"] == "petrifiedpoints" ? "petrifiedpoints" : "petrified";
+    try {
+        prepared = Petrified::Board::prepare_fen(variant, fen);
+        Petrified::Board validated{variant, prepared, bool(options["UCI_Chess960"])};
+        for (const auto& move : moves)
+            if (!validated.push(move)) return PositionSetError("Illegal move: " + move);
+    }
+    catch (const std::exception& error) { return PositionSetError(error.what()); }
+    // Commit only after validating the complete state, including the points.
+    states = StateListPtr(new std::deque<StateInfo>(1));
+    auto err = pos.set(prepared, options["UCI_Chess960"], &states->back());
     if (err.has_value())
         return err;
 

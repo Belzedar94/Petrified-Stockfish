@@ -41,7 +41,14 @@ static Value scale_evaluation(Value nnue, int, const Position& pos) {
     const int material=Eval::NNUE::legacy_material(pos,WHITE)+Eval::NNUE::legacy_material(pos,BLACK);
     const int scale=903+32*material/1024;
     Value v=nnue*scale/1024;
-    v=v*(100-pos.rule50_count())/100;
+    v=v*(100-std::min(pos.rule50_count(),100))/100;
+    if (pos.game_of_points())
+    {
+        // run4test has no points inputs. This provisional correction values
+        // earned points without changing the frozen NNUE backend/scale.
+        const Color us = pos.side_to_move();
+        v += 100 * std::clamp(pos.points(us) - pos.points(~us), -200, 200);
+    }
     return std::clamp(v,VALUE_TB_LOSS_IN_MAX_PLY+1,VALUE_TB_WIN_IN_MAX_PLY-1);
 }
 Value Eval::evaluate(const NNUE::Network& network, const Position& pos,

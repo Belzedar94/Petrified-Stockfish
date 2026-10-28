@@ -32,6 +32,7 @@
 #include <filesystem>
 #include <utility>
 #include <variant>
+#include "api/petrified_outcome.h"
 #include <vector>
 
 #include "benchmark.h"
@@ -166,6 +167,8 @@ void UCIEngine::loop() {
             benchmark(is);
         else if (token == "d")
             sync_cout << engine.visualize() << sync_endl;
+        else if (token == "points")
+            sync_cout << "info string points " << Petrified::points_status(engine.position()) << sync_endl;
         else if (token == "eval")
             engine.trace_eval();
         else if (token == "compiler")
