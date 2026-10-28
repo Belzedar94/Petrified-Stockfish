@@ -43,7 +43,7 @@
   "stopping": "Displayed LOS 100.0% or 0.0%, minimum 40, drain complete color-reversed pairs and recheck; resume inside cap if boundary is lost. Run every TC. No boundary at cap => NEUTRAL_SCREEN for selection, not equivalence.",
   "promotion": "All three valid controls WIN; otherwise reject and preserve.",
   "status": "RUNNING",
-  "decision": "PENDING",
+  "decision": "REJECTED_FOR_PROMOTION_VSTC_NEUTRAL_PENDING_STC_LTC",
   "next_step": "After closing all controls, run a separate points-aware capture-futility experiment on the resulting champion. Do not test another candidate concurrently.",
   "worker": "T8 manually paused, no restart",
   "coordination": "Owner paused Misere; no cross-chat messages.",
@@ -92,5 +92,42 @@
     "run": 40780405480,
     "status": "PASS",
     "jobs": "Windows/Linux Debug/Release, Linux ASan/UBSan"
-  }
+  },
+  "results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        202,
+        179,
+        19
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        28,
+        13,
+        110,
+        6,
+        43
+      ],
+      "statistics": "Total: 400 W: 202 L: 179 D: 19 ELO: 20.00 +-33.3 (95%) LOS: 88.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 902.375,
+      "selection_status": "NEUTRAL_SCREEN",
+      "audit": {
+        "completed_pairs": 200,
+        "games": 400,
+        "color_reversal_verified": true,
+        "independent_referee_terminal_records_verified": 400,
+        "hashes_verified": true,
+        "audited_utc": "2026-10-28T22:49:48.237037+00:00"
+      }
+    }
+  },
+  "promotion_eligible": false
 }

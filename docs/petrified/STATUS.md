@@ -75,6 +75,11 @@ for selection, without claiming equivalence. The champion is tracked separately
 in [points-champion.json](points-champion.json); no experimental code or network
 has yet been promoted. Misere is paused by the owner and needs no coordination.
 T8 remains paused and no distributed workload is authorized by this experiment.
+Capture-order VSTC closed at its 400-game cap: 202/179/19, +20.00 +/-33.3 Elo,
+LOS 88.1%, no time losses. All 200 pairs and 400 independent referee terminal
+records were audited, with frozen hashes unchanged. This is NEUTRAL_SCREEN
+for selection, not equivalence; the candidate cannot be promoted. STC and LTC
+still run under the declared all-controls policy before the next experiment.
 
 The final points-profile bench uses `tests/petrified/bench-points.epd` with
 explicit synthetic scores (16 positions). Commands: select
