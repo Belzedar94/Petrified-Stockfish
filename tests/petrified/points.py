@@ -27,6 +27,9 @@ def run(module, engine=None, network=None):
         assert (status['result'] != '*') == row['terminal']
     assert status['earned'] == [25, 4] and status['final'] == [25, 24]
     assert status['result'] == '1-0' and status['termination'] == 'checkmate'
+    # Regression from adapter panel 001: f7e7 keeps blocking Qc7--Kh7,
+    # but Chess.com forbids every sideways move of this pinned pawn.
+    # Also cover the color mirror, a wall breaking the pin and a forward move.
     pins=json.loads((HERE/'fixtures/chesscom-pins.json').read_text())
     for case in pins['cases']:
         assert sorted(module.legal_moves(variant,case['fen'],[]))==case['legal'],case
@@ -69,6 +72,11 @@ def run(module, engine=None, network=None):
     if engine:
         with Uci(engine, network=network) as uci:
             uci.send('setoption name UCI_Variant value petrifiedpoints')
+            for case in pins['cases']:
+                uci.position(case['fen'])
+                legal, count = uci.perft(1)
+                assert sorted(legal) == case['legal'], (case, legal)
+                assert count == len(case['legal']), (case, count)
             for fen, history in [(start, moves), (before, []), (cycle_fen, cycle*2)]:
                 uci.position(fen, history)
                 uci.send('points')
@@ -90,7 +98,7 @@ def run(module, engine=None, network=None):
                 uci.send('go depth 2')
                 lines = uci.until(lambda s: s.startswith('bestmove '))
                 assert 'info string points action claim-win' in lines and lines[-1] == 'bestmove 0000', lines
-    return {'game_plies': len(moves), 'reference_cases': len(cases), 'oracle_walk_plies': sum(len(w['moves']) for w in walks['walks']), 'result': 'PASS', 'final_points': [25,24]}
+    return {'game_plies': len(moves), 'reference_cases': len(cases), 'pin_regressions': len(pins['cases']), 'oracle_walk_plies': sum(len(w['moves']) for w in walks['walks']), 'result': 'PASS', 'final_points': [25,24]}
 
 
 if __name__ == '__main__':

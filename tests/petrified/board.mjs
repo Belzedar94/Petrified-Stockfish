@@ -52,6 +52,18 @@ for (const mode of ['cjs','esm']) {
   assert.equal(points.fen(),api.startingFen('petrifiedpoints'));
   assert.equal(points.endResult('resign',true),'0-1');
   points.delete();
+  const pins=JSON.parse(readFileSync(new URL('./fixtures/chesscom-pins.json', import.meta.url),'utf8'));
+  for (const fixture of pins.cases) {
+    const pinned=new api.Board('petrifiedpoints',fixture.fen);
+    try {
+      assert.deepEqual(pinned.legalMoves().trim().split(/\s+/).filter(Boolean).sort(),fixture.legal);
+      if (fixture === pins.cases[0]) {
+        assert.equal(pinned.push('f7e7'),false);
+        assert.equal(pinned.push('f7g7'),false);
+        assert.equal(pinned.fen(),fixture.fen);
+      }
+    } finally { pinned.delete(); }
+  }
   assert.equal(api.debugLiveBoards(),0);
   console.log(`${mode}: ${fixtures.length} positions, SAN/push/pop/results/errors/PGN/lifecycle passed`);
 }
