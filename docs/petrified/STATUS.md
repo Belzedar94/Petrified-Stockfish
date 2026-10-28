@@ -11,7 +11,8 @@ The reference rules are Fairy-Stockfish Walls, without Chess.com scoring. The
 mandatory opponent is Walls plus run4test. The owner accepted the BMI2+LTO
 comparison as a win on 2026-10-28 after VSTC/STC passed and an early LTC result.
 This is recorded as a manual acceptance, not an automatic three-control pass.
-The requested secondary panel against FSF dev plus its official NNUE is running.
+The secondary panel against FSF dev plus its official NNUE passed all three
+controls with completed pending pairs. The existing worker was restored to T8.
 No Petrified OpenBench workload has been created.
 
 ## Implemented and checked on Windows
@@ -33,8 +34,11 @@ No Petrified OpenBench workload has been created.
   independent Walls referee. This smoke result is not a strength measurement.
 
 These are targeted development checks, not the complete release acceptance.
-Linux release/debug/sanitizers, full distribution/reproducibility checks and
-OpenBench integration remain outstanding. Modern NNUE/training specialization
+Windows/MSVC and Linux release/debug CI, isolated wheels, and Linux ASan/UBSan
+passed on `f2437e1660e658c72085c2f7f4d59ba11a089255` (Actions run 40700379298).
+CI state tests do not include the external real network; those checks have run
+locally on Windows. Full distribution/reproducibility checks, Linux validation
+with run4test and OpenBench integration remain outstanding. Modern NNUE/training specialization
 has not started; it is gated behind the initial benchmark.
 
 ## First local campaign (cancelled; LTO mismatch)
@@ -47,7 +51,7 @@ Independent diagnostic referee:
 `8a5b7157a6332d4e5e5d57003714a8e08c5f75c408e6ac04054ee1fc146d8a27`.
 Both engines were built with GCC 16.1.0 for x86-64 BMI2 and use the frozen run4test.
 The candidate used LTO; the original Walls MinGW build did not. This was disclosed
-and is being corrected in a fresh campaign with the same candidate binary.
+and was corrected in the subsequent campaign with the same candidate binary.
 The four-game concurrency preflight failed with 5.73 GiB free against a 6.58 GiB
 requirement, and T8 was restored. The next campaign fixed concurrency at three;
 its preflight passed. Threads=1 and Hash=512 are unchanged for both players.
@@ -90,6 +94,27 @@ the candidate still uses run4test. FSF dev passed 8,952 FEN/perft comparisons,
 including all 7,939 openings, against the pinned Walls referee. Both players
 positively identified their respective NNUE before the match.
 Records: `.local/campaign-004-fsf-dev/`.
+
+| Control | Games | W/L/D | Elo ± 95% interval | LOS | Time losses | Status |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 46 | 42/0/4 | +536.97 ± 302.2 | 100.0% | 0/0 | Passed, pending pairs completed |
+| STC 10+0.1 | 44 | 33/0/11 | +338.04 ± 110.7 | 100.0% | 0/0 | Passed, pending pairs completed |
+| LTC 30+0.3 | 44 | 31/1/12 | +289.24 ± 105.4 | 100.0% | 0/0 | Passed, pending pairs completed |
+
+All controls used Threads=1, Hash=512 and concurrency three; no clock losses or
+measured wall-clock overruns occurred. Public results and hashes are in
+`experiments/2026-10-28-fsf-dev.json`. These small samples have wide Elo intervals;
+the rounded LOS criterion does not establish absolute certainty or world leadership.
+
+## Local GUI and protocol correction
+
+[Fairyground instructions](fairyground.md) cover the pinned local installation,
+automatic run4test profile, analysis, playing and bounded start/stop lifecycle.
+The native binary advertises its only UCI variant with `var petrified`; the combo
+parser accepts the repeated default. This resolves Fairyground's compatibility
+failure. Native UCI/CECP and complete Node WASM lifecycle checks pass with the
+real network after the correction. The frozen campaign binary is preserved and
+the GUI build has the same deterministic default bench: **179335**.
 
 ## Frozen inputs
 
