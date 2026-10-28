@@ -1,16 +1,18 @@
 # Petrified-Stockfish implementation status
 
 This branch starts at official Stockfish `ff7cee4244ec96ea488c402669e3674c0574dce6`.
-It is an implementation in progress, **not a strength-qualified release**.
+It is an implementation in progress, **not a version 1.0 release**.
 
 Acceptance order: reproducible baseline; rules/state differential tests; exact
 Legacy Walls evaluation; native and packaged interfaces; the three local strength
 controls; only then OpenBench registration and specialization/modern NNUE work.
 
 The reference rules are Fairy-Stockfish Walls, without Chess.com scoring. The
-mandatory opponent is Walls plus run4test. The first local campaign is running;
-VSTC has passed, while STC/LTC remain pending completion. No OpenBench workload
-is authorized before the entire local gate and initial interface validation pass.
+mandatory opponent is Walls plus run4test. The owner accepted the BMI2+LTO
+comparison as a win on 2026-10-28 after VSTC/STC passed and an early LTC result.
+This is recorded as a manual acceptance, not an automatic three-control pass.
+The requested secondary panel against FSF dev plus its official NNUE is running.
+No Petrified OpenBench workload has been created.
 
 ## Implemented and checked on Windows
 
@@ -35,7 +37,7 @@ Linux release/debug/sanitizers, full distribution/reproducibility checks and
 OpenBench integration remain outstanding. Modern NNUE/training specialization
 has not started; it is gated behind the initial benchmark.
 
-## First local campaign (in progress)
+## First local campaign (cancelled; LTO mismatch)
 
 Candidate binary SHA-256:
 `4664ec97c4b7a6f8ac5c05df2111668906812eb41c900466c28b138afdb47b7c`.
@@ -44,6 +46,8 @@ Unmodified Walls binary:
 Independent diagnostic referee:
 `8a5b7157a6332d4e5e5d57003714a8e08c5f75c408e6ac04054ee1fc146d8a27`.
 Both engines were built with GCC 16.1.0 for x86-64 BMI2 and use the frozen run4test.
+The candidate used LTO; the original Walls MinGW build did not. This was disclosed
+and is being corrected in a fresh campaign with the same candidate binary.
 The four-game concurrency preflight failed with 5.73 GiB free against a 6.58 GiB
 requirement, and T8 was restored. The next campaign fixed concurrency at three;
 its preflight passed. Threads=1 and Hash=512 are unchanged for both players.
@@ -51,12 +55,41 @@ its preflight passed. Threads=1 and Hash=512 are unchanged for both players.
 | Control | Games | W/L/D | Elo ± 95% interval | LOS | Time losses (candidate/Walls) | Status |
 |---|---:|---|---|---|---|---|
 | VSTC 2+0.02 | 106 | 85/2/19 | +365.89 ± 81.9 | 100.0% | 0/0 | Passed after pending pairs |
-| STC 10+0.1 | — | — | — | — | — | Running |
-| LTC 30+0.3 | — | — | — | — | — | Pending |
+| STC 10+0.1 | 106 | 70/2/34 | +264.31 ± 59.3 | 100.0% | 0/0 | Passed after pending pairs |
+| LTC 30+0.3 | 16 | 9/0/7 | +221.14 ± 135.8 | 100.0% | 0/0 | Cancelled by owner |
 
 Local raw records are under `.local/campaign-002/` with separate engine streams,
 every move and clock, referee results, full pairs, manifests and the worker lease.
 This is not yet a complete three-control pass or a claim of world leadership.
+The cancellation cleanup restored the existing local worker at T8 successfully.
+
+## Matched BMI2/LTO campaign (accepted by owner)
+
+Same candidate `4664ec97...`; clean Walls source `5b13915f...`, compiled with
+GCC 16.1.0, `-O3 -flto -flto-partition=one`, BMI2/AVX2, no PGO. The Walls binary
+SHA-256 is `757fe43a33624648f22fe99fc55976192fe86140080e333de27e422e51672da7`.
+Both players used run4test, Threads=1, Hash=512 and concurrency three.
+
+| Control | Games | W/L/D | Elo ± 95% interval | LOS | Time losses | Status |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 44 | 30/2/12 | +261.29 ± 104.4 | 100.0% | 0/0 | Passed, pending pairs completed |
+| STC 10+0.1 | 44 | 23/0/21 | +201.54 ± 72.3 | 100.0% | 0/0 | Passed, pending pairs completed |
+| LTC 30+0.3 | 16 | 8/0/8 | +190.85 ± 121.5 | 100.0% | 0/0 | Owner accepted; stopped early |
+
+The exact owner instruction was: "Puedes adjudicarlo como win. Empieza el panel
+vs fsf dev". LTC did not reach 40 games. Its original result remains INTERRUPTED;
+the acceptance is a separate decision record. No unfinished games are counted.
+The worker was restored at T8, then leased again for the new panel.
+Records: `.local/campaign-003-walls-lto/`, including `manual-decision.json`.
+
+The secondary opponent is clean FSF dev `9f778da667f6e07dae1e85d3e2ea204fc6dee94d`,
+built with the same BMI2/LTO compiler settings, binary SHA-256
+`84ad55602f1cffebdbfc707118a6d18437ac8fe63b95dd0c924a5199a84adf4f`.
+Its official NNUE from the supplied Drive file is frozen in `baseline.json`;
+the candidate still uses run4test. FSF dev passed 8,952 FEN/perft comparisons,
+including all 7,939 openings, against the pinned Walls referee. Both players
+positively identified their respective NNUE before the match.
+Records: `.local/campaign-004-fsf-dev/`.
 
 ## Frozen inputs
 
@@ -68,7 +101,7 @@ Preserve sibling projects and their local modifications.
 
 Sequential VSTC 2+0.02, STC 10+0.1, LTC 30+0.3, each with Threads=1,
 Hash=512 and the same run4test. Start with four concurrent games only after a
-memory check. Each control must finish with Total > 100 and displayed LOS 100.0%,
+memory check. Each control must finish with Total >= 40 and displayed LOS 100.0%,
 including pending pairs, with a maximum of 64,000 games per control. Independent
 Walls adjudication must validate moves and results. The rounded LOS is an
 operational criterion, not certainty.

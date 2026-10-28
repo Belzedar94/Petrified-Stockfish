@@ -57,14 +57,25 @@ def status(ref,fen,moves):
     if optional=='1': return legal,0,'draw-claim'
     return legal,None,None
 
+def verify_loaded_network(engine,network):
+    engine.position('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
+    engine.send('go depth 1')
+    lines=engine.until(lambda s:s.startswith('bestmove '))
+    legacy='NNUE Legacy Walls run4test loaded; SHA256='+BASELINE['network']['sha256']
+    fsf='NNUE evaluation using '+str(network)+' enabled'
+    if not any(fsf in line or (legacy in line and sha(network)==BASELINE['network']['sha256']) for line in lines):
+        raise RuntimeError('Engine did not positively identify the requested NNUE')
+
 def play_pair(index,fen,args,directory,stop):
     pairdir=directory/f'pair-{index:05d}'; pairdir.mkdir()
     with ExitStack() as stack:
-        engines=[stack.enter_context(Uci(exe,network=args.network,timeout=90,
+        networks=(args.network,args.opponent_network)
+        engines=[stack.enter_context(Uci(exe,network=networks[i],timeout=90,
                    log_prefix=pairdir/f'engine-{i}')) for i,exe in enumerate((args.candidate,args.opponent))]
         ref=stack.enter_context(Uci(args.referee,log_prefix=pairdir/'referee'))
-        for engine in engines:
+        for engine,network in zip(engines,networks):
             engine.send(f'setoption name Hash value {32 if args.smoke else 512}'); engine.ready()
+            verify_loaded_network(engine,network)
         write_json(pairdir/'processes.json',{'owner':os.getpid(),'engines':[e.proc.pid for e in engines],
                                            'referee':ref.proc.pid})
         results=[]
@@ -122,7 +133,7 @@ def run_control(name,args,runner,book,root):
     result={'control':name,'base_ms':args.base,'increment_ms':args.inc,'hash_mb':32 if args.smoke else 512,
             'threads':1,'concurrency':args.concurrency,'status':'RUNNING','clock_basis':'engine-reported-ms',
             'adjudication':'Walls terminal before optional draw claim; no evaluation adjudication',
-            'seed':args.seed,'maximum_games':limit}
+            'seed':args.seed,'minimum_games':args.min_games,'maximum_games':limit}
     write_json(directory/'result.json',result)
     started=time.monotonic()
     with ThreadPoolExecutor(max_workers=args.concurrency) as pool:
@@ -153,7 +164,7 @@ def run_control(name,args,runner,book,root):
                     write_json(directory/'result.json',result)
                     # Predeclared historical stopping rule. Drain already assigned
                     # pairs and assess the final result; never discard a late pair.
-                    if sum(scores)>100 and ('LOS: 100.0%' in statistics or 'LOS: 0.0%' in statistics): drain=True
+                    if sum(scores)>=args.min_games and ('LOS: 100.0%' in statistics or 'LOS: 0.0%' in statistics): drain=True
                 if submitted*2>=limit: drain=True
         except BaseException as error:
             stop.set()
@@ -161,7 +172,7 @@ def run_control(name,args,runner,book,root):
             write_json(directory/'result.json',result)
             raise
     statistics=runner.print_scores(scores)+' '+runner.elo_stats(scores).strip()
-    passed=sum(scores)>100 and 'LOS: 100.0%' in statistics
+    passed=sum(scores)>=args.min_games and 'LOS: 100.0%' in statistics
     result.update(status='SMOKE' if args.smoke else 'PASS' if passed else 'FAIL_OR_INCONCLUSIVE',
                   statistics=statistics,completed_pairs=sum(pentanomial),passed=passed and not args.smoke)
     write_json(directory/'result.json',result)
@@ -171,8 +182,10 @@ def main():
     ap=argparse.ArgumentParser()
     for name in ('candidate','opponent','referee','network','book','runner','out'):
         ap.add_argument('--'+name,type=Path,required=True)
+    ap.add_argument('--opponent-network',type=Path)
     ap.add_argument('--controls',nargs='+',choices=list(TCS),default=list(TCS))
     ap.add_argument('--concurrency','-T',type=int,default=4)
+    ap.add_argument('--min-games',type=int,default=40)
     ap.add_argument('--max-games',type=int,default=64000)
     ap.add_argument('--max-hours',type=float,default=48)
     ap.add_argument('--seed',type=int,default=20261028)
@@ -180,24 +193,31 @@ def main():
     ap.add_argument('--manage-local-worker',action='store_true')
     args=ap.parse_args()
     if not 1<=args.concurrency<=4: ap.error('Concurrency must be 1..4')
-    if args.max_games%2 or not 102<=args.max_games<=64000: ap.error('max-games must be even and between 102 and 64000')
+    if args.min_games%2 or not 40<=args.min_games<=64000: ap.error('min-games must be even and between 40 and 64000')
+    if args.max_games%2 or not args.min_games<=args.max_games<=64000: ap.error('max-games must be even and between min-games and 64000')
     if not args.smoke and not args.manage_local_worker: ap.error('Local campaigns require the T8 pause/restore lease')
     for name in ('candidate','opponent','referee','network','book','runner','out'): setattr(args,name,getattr(args,name).resolve())
+    args.opponent_network=(args.opponent_network or args.network).resolve()
     for name in ('network','book'):
         if sha(getattr(args,name))!=BASELINE[name]['sha256']: raise ValueError(name+' hash changed')
+    if sha(args.opponent_network) not in (BASELINE['network']['sha256'],BASELINE['secondary_reference']['network']['sha256']):
+        raise ValueError('Opponent network is not a frozen reference')
     args.out.mkdir(parents=True,exist_ok=False)
     # Exclusive directory and lease file prevent duplicate campaign processes.
     write_json(args.out/'owner.json',{'pid':os.getpid(),'started_utc':time.time()})
     runner=frozen_runner(args.runner,args.out/'dependencies')
     book=args.book.read_text().splitlines()
     if len(book)!=7939: raise ValueError('Book position count changed')
-    manifest={'schema':'petrified-local-campaign-v1','baseline':BASELINE,
+    manifest={'schema':'petrified-local-campaign-v2','baseline':BASELINE,
               'files':{name:{'path':str(getattr(args,name)),'sha256':sha(getattr(args,name))}
-                       for name in ('candidate','opponent','referee','network','book','runner')},
+                       for name in ('candidate','opponent','referee','network','opponent_network','book','runner')},
               'dependencies':{str(p.relative_to(args.out)):sha(p) for p in (args.out/'dependencies').rglob('*.py')},
               'wrapper_sha256':sha(Path(__file__)),'transport_sha256':sha(ROOT/'tests/petrified/protocol.py'),
               'python':sys.version,'arguments':{k:str(v) if isinstance(v,Path) else v for k,v in vars(args).items()}}
     write_json(args.out/'manifest.json',manifest)
+    source_snapshot=args.out/'source-snapshot'; source_snapshot.mkdir()
+    for source in (Path(__file__),ROOT/'scripts/worker_lease.py',ROOT/'tests/petrified/protocol.py'):
+        shutil.copy2(source,source_snapshot/source.name)
     results=[]
     lease=WorkerLease(args.out/'worker-lease.json') if args.manage_local_worker else nullcontext()
     try:

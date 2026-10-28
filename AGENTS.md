@@ -15,6 +15,13 @@ Strength experiments remain local until the approved three-control gate and
 initial interfaces pass. Use `scripts/local_campaign.py`, with all inputs frozen,
 complete color-reversed pairs, no score-based adjudication, and `-T 4` after the
 memory check. Do not extend a finished run because the result is disappointing.
+The owner revised the minimum on 2026-10-28: at least 40 games per control,
+with displayed LOS 100.0%, then finish pending pairs and check the final result.
+Use BMI2 and LTO for both opponents, with the same compiler and no PGO.
+On 2026-10-28 the owner accepted campaign-003-walls-lto as a win and stopped
+LTC at 16 games. Preserve this as a manual acceptance, never as 40+ games or
+an automatic three-control pass. The next requested panel is FSF dev with the
+official fa7e5810f172 NNUE versus this engine with run4test.
 The wrapper preserves variantfishtest's reported-time clock accounting and logs
 real elapsed time separately. A smoke run is never a strength-gate result.
 

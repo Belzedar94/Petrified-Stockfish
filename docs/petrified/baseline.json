@@ -6,5 +6,15 @@
   "network": {"file": "petrified_run4test_e19_l085.nnue", "bytes": 52046752, "sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933", "format": "legacy-walls-49152-512x2-16-32-1-8"},
   "book": {"file": "petrified.epd", "positions": 7939, "sha256": "77e89925714f75fc03dcfd443803855eab99706e34da7a3cd2a9090a46bf376b"},
   "runner": {"file": "variantfishtest_new1.py", "sha256": "37d1790096520d9f3a1003746cdfbed59d2cc125a9b3d3192ff3399295ec9d70"},
-  "modern_trainer": {"repository": "official-stockfish/nnue-pytorch", "commit": "b26145006e54e6461cb4b51944ab05cc4850c580"}
+  "modern_trainer": {"repository": "official-stockfish/nnue-pytorch", "commit": "b26145006e54e6461cb4b51944ab05cc4850c580"},
+  "secondary_reference": {
+    "repository": "fairy-stockfish/Fairy-Stockfish",
+    "commit": "9f778da667f6e07dae1e85d3e2ea204fc6dee94d",
+    "network": {
+      "file": "petrified-fa7e5810f172.nnue",
+      "drive_file_id": "1AQvihbxa30tQmUxX_0DDWci7AzoAyeja",
+      "bytes": 47721376,
+      "sha256": "fa7e5810f172b260931bea23eb90543bb3b2ccc0a24a0923368ec9e8d540a681"
+    }
+  }
 }

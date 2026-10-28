@@ -20,20 +20,34 @@ evaluation on deterministic random walks. Use a debug build for its assertions.
 Run in the project's isolated Python environment. All paths are explicit; an
 existing output directory is rejected.
 
+For the secondary FSF dev comparison, keep the candidate's `--network` set to
+run4test and add `--opponent-network <petrified-fa7e5810f172.nnue>`. Both files
+are checked against their frozen full SHA-256 values. Each player must positively
+identify its loaded NNUE in an untimed depth-one preflight before the pair starts.
+`ucinewgame` clears the search state before each scored game.
+
 ```text
 python scripts/local_campaign.py --candidate <candidate.exe> --opponent <walls.exe>
   --referee <walls-referee.exe> --network <run4test.nnue> --book <petrified.epd>
   --runner <variantfishtest_new1.py> --out <new-campaign-directory>
-  --controls VSTC STC LTC -T 4 --manage-local-worker
+  --controls VSTC STC LTC --min-games 40 -T 4 --manage-local-worker
 ```
 
 The actual shell command must be a single line, or use the shell's continuation
 syntax. VSTC is 2+0.02, STC 10+0.1, LTC 30+0.3; Threads=1 and Hash=512. A control
-must finish with more than 100 games and variantfishtest's displayed LOS 100.0%.
+must finish with at least 40 games and variantfishtest's displayed LOS 100.0%.
+The owner explicitly replaced the original >100 minimum on 2026-10-28.
 The maximum is 64,000 games per control, with no incomplete pairs discarded.
 Already assigned pairs finish when a stopping threshold is reached. The final
 result is checked again; a rounded 100% is an operational rule, not certainty.
 A failed control stops the campaign before the longer controls.
+
+Match compiler, ISA and LTO settings. The historical Walls MinGW Makefile disables
+LTO on Windows by default; explicitly add `-flto -flto-partition=one` to both
+`EXTRACXXFLAGS` and `EXTRALDFLAGS`. The candidate and Walls use GCC 16.1.0,
+BMI2/AVX2, optimization `-O3`, LTO and no PGO. Record the full build commands and
+logs, plus source and binary hashes. Concurrency can be reduced before freezing
+a campaign if the memory preflight fails; it stays fixed throughout that campaign.
 
 The shared runner and statistics source are hash-checked and copied with their
 Python dependencies. Its result codes, Elo/LOS computation and display are used
