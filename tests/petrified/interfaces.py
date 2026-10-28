@@ -1,5 +1,6 @@
 """Bounded black-box UCI and CECP lifecycle checks using the real Legacy net."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -22,7 +23,8 @@ def uci_checks(command,net):
         best,lines=search(p,'go depth 4')
         assert best in legal
         assert any('multipv 3 ' in s for s in lines),lines[-12:]
-        assert any('NNUE Legacy Walls run4test loaded' in s for s in lines)
+        digest=hashlib.sha256(net.read_bytes()).hexdigest()
+        assert any('NNUE ' in s and 'loaded; SHA256='+digest in s for s in lines)
         p.send('setoption name Threads value 2'); p.ready()
         p.send('go infinite'); p.ready(); p.send('stop')
         assert p.until(lambda s:s.startswith('bestmove '))[-1].split()[1] in legal

@@ -26,6 +26,7 @@
 #include <string_view>
 #include "../types.h"
 #include "nnue_misc.h"
+#include "points_adapter.h"
 namespace Stockfish { class Position; }
 namespace Stockfish::Eval::NNUE {
 class AccumulatorStack;
@@ -34,7 +35,9 @@ class Network {
 public:
     void load(const std::filesystem::path&, std::filesystem::path, EvalFile&);
     bool save(const EvalFile&, const std::optional<std::filesystem::path>&) const;
-    usize get_content_hash() const { return initialized ? usize(0x345d67b733991ae5ULL) : 0; }
+    usize get_content_hash() const { return initialized ? usize(contentHash) : 0; }
+    Value points_adjustment(const Position& pos, Value boardValue) const { return adapter.evaluate(pos,boardValue); }
+    bool has_points_adapter() const { return adapter.active; }
     Value evaluate(const Position&, AccumulatorStack&, AccumulatorCaches&) const;
     Value evaluate_reference(const Position&, bool adjusted = true) const;
     void verify(const std::function<void(std::string_view)>&, const EvalFile&, std::filesystem::path) const;
@@ -49,6 +52,9 @@ private:
     alignas(64) i32 psqtWeights[49152][8];
     Head heads[8];
     bool initialized = false;
+    PointsAdapter adapter;
+    std::array<char,65> networkSha{};
+    u64 contentHash=0;
     bool read_file(const std::filesystem::path&, EvalFile&);
     void update(const Position&, Color, AccumulatorCaches&, bool reference = false) const;
     Value forward(const Position&, const AccumulatorCaches&, bool adjusted, bool scalar = false) const;

@@ -37,7 +37,7 @@
 
 namespace Stockfish {
 
-static Value scale_evaluation(Value nnue, int, const Position& pos) {
+static Value scale_evaluation(Value nnue, int, const Position& pos, const Eval::NNUE::Network& network) {
     const int material=Eval::NNUE::legacy_material(pos,WHITE)+Eval::NNUE::legacy_material(pos,BLACK);
     const int scale=903+32*material/1024;
     Value v=nnue*scale/1024;
@@ -47,14 +47,15 @@ static Value scale_evaluation(Value nnue, int, const Position& pos) {
         // run4test has no points inputs. This provisional correction values
         // earned points without changing the frozen NNUE backend/scale.
         const Color us = pos.side_to_move();
-        v += 100 * std::clamp(pos.points(us) - pos.points(~us), -200, 200);
+        const Value adjustment=network.points_adjustment(pos,v);
+        v += 100 * std::clamp(pos.points(us) - pos.points(~us), -200, 200) + adjustment;
     }
     return std::clamp(v,VALUE_TB_LOSS_IN_MAX_PLY+1,VALUE_TB_WIN_IN_MAX_PLY-1);
 }
 Value Eval::evaluate(const NNUE::Network& network, const Position& pos,
                      NNUE::AccumulatorStack& stack, NNUE::AccumulatorCaches& cache, int optimism) {
     assert(!pos.checkers());
-    return scale_evaluation(network.evaluate(pos,stack,cache),optimism,pos);
+    return scale_evaluation(network.evaluate(pos,stack,cache),optimism,pos,network);
 }
 std::string Eval::trace(Position& pos, const NNUE::Network& network) {
     auto cache=std::make_unique<NNUE::AccumulatorCaches>(network);
@@ -63,7 +64,14 @@ std::string Eval::trace(Position& pos, const NNUE::Network& network) {
     std::ostringstream out;
     out<<"Legacy raw adjusted: "<<raw<<"\nLegacy reference: "<<network.evaluate_reference(pos)
        <<"\nLegacy raw unadjusted: "<<network.evaluate_reference(pos,false)
-       <<"\nLegacy final: "<<scale_evaluation(raw,0,pos)<<"\n";
+       <<"\nLegacy final: "<<scale_evaluation(raw,0,pos,network)<<"\n";
+    if (network.has_points_adapter()) {
+        const int material=Eval::NNUE::legacy_material(pos,WHITE)+Eval::NNUE::legacy_material(pos,BLACK);
+        const Value boardValue=(raw*(903+32*material/1024)/1024)*(100-std::min(pos.rule50_count(),100))/100;
+        out<<"Points adapter: "<<network.points_adjustment(pos,boardValue)<<"\nPoints features:";
+        for (auto x:Eval::NNUE::points_features(pos,boardValue)) out<<' '<<x;
+        out<<'\n';
+    }
     return out.str();
 }
 } // namespace Stockfish

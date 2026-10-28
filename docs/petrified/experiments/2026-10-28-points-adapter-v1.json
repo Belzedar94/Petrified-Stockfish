@@ -1,0 +1,118 @@
+{
+  "schema": "petrified-points-adapter-experiment-v1",
+  "status": "RUNNING_VSTC",
+  "promoted": false,
+  "rules_commit": "5d383db9c98c8602689a4a1d3ee9769e0496321d",
+  "hypothesis": "A small score-conditioned residual learns interactions between board evaluation, earned points and ending conditions while run4test stays frozen.",
+  "data": {
+    "requested": 512,
+    "accepted": 507,
+    "rejected": [
+      {
+        "game": 47,
+        "error": "Chess.com rejected move d7e7"
+      },
+      {
+        "game": 267,
+        "error": "Chess.com rejected move d3c3"
+      },
+      {
+        "game": 339,
+        "error": "Chess.com rejected move e7d7"
+      },
+      {
+        "game": 50,
+        "error": "Chess.com rejected move f3e3"
+      },
+      {
+        "game": 161,
+        "error": "Chess.com rejected move e7d7"
+      }
+    ],
+    "audited_plies": 71728,
+    "rows": [
+      22732,
+      3675,
+      3951
+    ]
+  },
+  "training": {
+    "device": "NVIDIA GeForce RTX 3080",
+    "torch": "2.7.1+cu118",
+    "seconds": 1.86,
+    "validation_baseline": 0.4045548141002655,
+    "validation_candidate": 0.38736262917518616,
+    "test_baseline": 0.4998236894607544,
+    "test_candidate": 0.507615864276886
+  },
+  "correctness": {
+    "integer_positions": 256,
+    "full_legal_set_positions": 523,
+    "new_pin_fixtures": 5,
+    "native_and_node_interfaces": "PASS"
+  },
+  "invalid_attempt": {
+    "path": ".local/points-adapter-panel-001",
+    "VSTC": {
+      "games": 6,
+      "wins": 4,
+      "losses": 2,
+      "draws": 0,
+      "time_losses": [
+        0,
+        0
+      ],
+      "status": "INVALID",
+      "reason": "Chess.com rejected f7e7, a sideways move by a slider-pinned pawn"
+    },
+    "STC": "NOT_RUN",
+    "LTC": "NOT_RUN",
+    "strength_evidence": false
+  },
+  "next_panel": {
+    "path": ".local/points-adapter-panel-003",
+    "candidate": "same corrected executable, audited adapter",
+    "opponent": "same corrected executable, frozen run4test",
+    "controls": [
+      "2+0.02",
+      "10+0.1",
+      "30+0.3"
+    ],
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 3,
+    "stopping": "At least 40 games per control; displayed LOS 100.0% or 0.0%; finish pending pairs and recheck, resume if boundary lost; 64000 cap; all three controls run regardless of direction",
+    "worker": "T8 remains manually paused",
+    "resource_constraint": "Misere M000 stopped at explicit owner instruction; resume only after Petrified releases its current three-control panel",
+    "minimum_games": 40,
+    "maximum_games": 64000
+  },
+  "files": {
+    "src/petrified-adapter-v1-rules-r1-bmi2.exe": "2c0e5a40d7c9f4d8116b8e5c5bd10a56103dfaeaaa4a3c4fd9ce952f8c226a36",
+    ".local/points-training-v1/trained-audited/candidate.pnnue": "7305715df26097f6026080db81264816b2c8741a9b6256180f5a593f9f85c148",
+    ".local/points-training-v1/full-audit/report.json": "5b3b572eae108b04914ba86aab26e0f63a304ea1bb36929572c7d4703ad41357",
+    ".local/points-training-v1/candidate-r1-validation.json": "68ae4c3ff2f05ce96c0d3f32b01b42af83e83bd04e23b54277a02db4ff4de510",
+    ".local/points-training-v1/interfaces-r1.json": "f813fc0daa71ac6fce757a89de382b0810a1c9a0ef48160f30f2cec98913ea03",
+    ".local/points-training-v1/oracle-legal-check.json": "7443fd7164bafea09e8f7e13488367548beaa327e1e2c5b159655107548a2983"
+  },
+  "superseded_attempt": {
+    "path": ".local/points-adapter-panel-002",
+    "VSTC": {
+      "games": 40,
+      "wins": 20,
+      "losses": 20,
+      "draws": 0,
+      "elo": 0,
+      "ci95": 111.2,
+      "los_percent": 50.0,
+      "time_losses": [
+        0,
+        0
+      ]
+    },
+    "STC": "INTERRUPTED",
+    "LTC": "NOT_RUN",
+    "reason": "Owner clarified that 40 is a minimum and every control requires LOS 100.0% or 0.0%",
+    "gate_passed": false
+  }
+}

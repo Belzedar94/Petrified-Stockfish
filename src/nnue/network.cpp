@@ -34,6 +34,8 @@
 namespace Stockfish::Eval::NNUE {
 namespace {
 constexpr char Run4Sha[] = "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933";
+constexpr usize LegacyBytes=52046752;
+constexpr usize AdapterBytes=8+3*4+16*4+16*16*2+16*2+4+64;
 template<typename T> void read_le(std::istream& in, T* out, usize count) {
     for (usize i=0;i<count;++i) {
         u64 v=0;
@@ -63,11 +65,34 @@ int legacy_material(const Position& pos, Color c) {
 }
 bool Network::read_file(const std::filesystem::path& path, EvalFile& file) {
     std::ifstream input(path,std::ios::binary|std::ios::ate);
-    if (!input || input.tellg()!=52046752) return false;
+    if (!input || (input.tellg()!=LegacyBytes && input.tellg()!=LegacyBytes+AdapterBytes)) return false;
+    const usize fileBytes=usize(input.tellg());
     input.seekg(0);
-    std::vector<unsigned char> bytes(52046752);
+    std::vector<unsigned char> bytes(fileBytes);
     input.read(reinterpret_cast<char*>(bytes.data()),bytes.size());
-    if (!input || sha256(bytes)!=Run4Sha) return false;
+    if (!input) return false;
+    const std::string digest=sha256(bytes);
+    std::copy(digest.begin(),digest.end(),networkSha.begin());
+    adapter=PointsAdapter{};
+    if (fileBytes!=LegacyBytes) {
+        const std::string payloadDigest(bytes.end()-64,bytes.end());
+        if (sha256(std::vector<unsigned char>(bytes.begin(),bytes.end()-64))!=payloadDigest) return false;
+        std::string extension(bytes.begin()+LegacyBytes,bytes.end()-64);
+        std::istringstream extra(extension,std::ios::binary);
+        char magic[8]; extra.read(magic,8);
+        if (std::string(magic,8)!="PTADPT01" || read_u32(extra)!=1 || read_u32(extra)!=16 || read_u32(extra)!=16) return false;
+        read_le(extra,adapter.biases.data(),16);
+        for (auto& row:adapter.weights) read_le(extra,row.data(),16);
+        read_le(extra,adapter.output.data(),16); read_le(extra,&adapter.outputBias,1);
+        if (!extra || extra.peek()!=std::char_traits<char>::eof()) return false;
+        for (auto b:adapter.biases) if (b < -(1<<25) || b > (1<<25)) return false;
+        for (auto& row:adapter.weights) for (auto w:row) if (std::abs(int(w))>4096) return false;
+        for (auto w:adapter.output) if (std::abs(int(w))>8192) return false;
+        if (adapter.outputBias < -8192 || adapter.outputBias > 8192) return false;
+        adapter.active=true;
+        bytes.resize(LegacyBytes);
+    }
+    if (sha256(bytes)!=Run4Sha) return false;
     std::string storage(reinterpret_cast<const char*>(bytes.data()),bytes.size());
     std::istringstream in(storage,std::ios::binary);
     if(read_u32(in)!=0x7af32f20 || read_u32(in)!=0xfd695ed9) return false;
@@ -86,6 +111,7 @@ bool Network::read_file(const std::filesystem::path& path, EvalFile& file) {
     }
     if (!in || in.peek()!=std::char_traits<char>::eof()) return false;
     file.netDescription=description;
+    contentHash=std::stoull(digest.substr(0,16),nullptr,16);
     initialized=true;
     return true;
 }
@@ -104,11 +130,12 @@ bool Network::save(const EvalFile& file, const std::optional<std::filesystem::pa
     // Only export the verified source bytes. Never silently export a different format.
     std::ifstream in(file.source,std::ios::binary|std::ios::ate);
     if(!in) return false;
-    if(in.tellg()!=52046752) return false;
+    const auto size=in.tellg();
+    if(size!=LegacyBytes && size!=LegacyBytes+AdapterBytes) return false;
     in.seekg(0);
-    std::vector<unsigned char> bytes(52046752);
+    auto bytes=std::vector<unsigned char>(usize(size));
     in.read(reinterpret_cast<char*>(bytes.data()),bytes.size());
-    if(!in || sha256(bytes)!=Run4Sha) return false;
+    if(!in || sha256(bytes)!=networkSha.data()) return false;
     in.close();
     std::error_code ec;
     if(std::filesystem::equivalent(file.source,*path,ec) && !ec) return true;
@@ -123,7 +150,10 @@ void Network::verify(const std::function<void(std::string_view)>& f, const EvalF
         if(f) f("ERROR: valid Legacy Walls run4test is required; search aborted. EvalFile="+path.string());
         std::exit(EXIT_FAILURE);
     }
-    if(f) f("NNUE Legacy Walls run4test loaded; SHA256="+std::string(Run4Sha)+"; 49152/512x2/16/32/1, 8 buckets");
+    if(f) {
+        if (adapter.active) f("NNUE PointsAdapter v1 loaded; SHA256="+std::string(networkSha.data())+"; base="+Run4Sha+"; 16/16/1");
+        else f("NNUE Legacy Walls run4test loaded; SHA256="+std::string(Run4Sha)+"; 49152/512x2/16/32/1, 8 buckets");
+    }
 }
 void Network::update(const Position& pos, Color side, AccumulatorCaches& cache, bool reference) const {
     const Square king=pos.square<KING>(side);
