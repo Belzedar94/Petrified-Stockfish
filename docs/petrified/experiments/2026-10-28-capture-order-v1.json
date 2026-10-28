@@ -86,5 +86,11 @@
     "free_gib_before_launch": 9.18,
     "minimum_gib_for_concurrency4": 7.0625,
     "passed": true
+  },
+  "ci": {
+    "source_commit": "df8f734952976fe592872770deda0a07a69a4577",
+    "run": 40780405480,
+    "status": "PASS",
+    "jobs": "Windows/Linux Debug/Release, Linux ASan/UBSan"
   }
 }

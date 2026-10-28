@@ -63,6 +63,19 @@ promotion; run4test remains champion. All current panel processes exited and
 the machine was released to Misere. The heartbeat was deleted; T8 stays paused.
 See [the pilot record](experiments/2026-10-28-points-adapter-v1.json).
 
+The owner authorized two sequential local search experiments: points-aware
+capture ordering, then points-aware capture futility on the resulting champion.
+The [capture-order experiment](experiments/2026-10-28-capture-order-v1.json) is
+running against run4test with the mandatory winning-mate-r2 fix. Both frozen
+binaries use GCC 16.1, BMI2/LTO without PGO; T1/Hash512, four concurrent pairs.
+Every TC has minimum 40 and maximum 400 games with displayed LOS 100.0%/0.0%,
+pending-pair completion and recheck. All three run even if one loses; promotion
+requires three valid wins. An undecided cap rejects the candidate as neutral
+for selection, without claiming equivalence. The champion is tracked separately
+in [points-champion.json](points-champion.json); no experimental code or network
+has yet been promoted. Misere is paused by the owner and needs no coordination.
+T8 remains paused and no distributed workload is authorized by this experiment.
+
 The final points-profile bench uses `tests/petrified/bench-points.epd` with
 explicit synthetic scores (16 positions). Commands: select
 `UCI_Variant=petrifiedpoints`, set `EvalFile` to the frozen candidate or run4test,
