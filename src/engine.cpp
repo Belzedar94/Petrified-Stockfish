@@ -61,7 +61,7 @@ Engine::Engine(std::optional<std::filesystem::path> path) :
     numaContext(NumaConfig::from_system(DefaultNumaPolicy)),
     states(new std::deque<StateInfo>(1)),
     threads(),
-    networkFile{std::nullopt, ""},
+    networkFile{},
     network(numaContext, get_default_network()) {
 
     pos.set(StartFEN, false, &states->back());
@@ -110,6 +110,7 @@ Engine::Engine(std::optional<std::filesystem::path> path) :
 
     options.add("nodestime", Option(0, 0, 10000));
 
+    options.add("UCI_Variant", Option("petrified", "petrified", nullptr));
     options.add("UCI_Chess960", Option(false));
 
     options.add("UCI_LimitStrength", Option(false));
@@ -118,11 +119,11 @@ Engine::Engine(std::optional<std::filesystem::path> path) :
                 Option(Stockfish::Search::Skill::LowestElo, Stockfish::Search::Skill::LowestElo,
                        Stockfish::Search::Skill::HighestElo));
 
-    options.add("UCI_ShowWDL", Option(false));
+    // No calibrated Petrified WDL model is available.
 
     options.add(  //
-      "SyzygyPath", Option("", [](const Option& o) {
-          Tablebases::init(o);
+      "SyzygyPath", Option("", [](const Option&) {
+          Tablebases::init("");
           return std::nullopt;
       }));
 
@@ -130,7 +131,7 @@ Engine::Engine(std::optional<std::filesystem::path> path) :
 
     options.add("Syzygy50MoveRule", Option(true));
 
-    options.add("SyzygyProbeLimit", Option(7, 0, 7));
+    options.add("SyzygyProbeLimit", Option(0, 0, 0));
 
     options.add(  //
       "EvalFile", Option(EvalFileDefaultName, [this](const Option& o) {
@@ -145,8 +146,6 @@ Engine::Engine(std::optional<std::filesystem::path> path) :
 
 std::variant<u64, PositionSetError>
 Engine::perft(const std::string& fen, Depth depth, bool isChess960) {
-    verify_network();
-
     return Benchmark::perft(fen, depth, isChess960);
 }
 
@@ -165,7 +164,7 @@ void Engine::search_clear() {
     threads.clear();
 
     // TODO: does not work with multiple instances
-    Tablebases::init(options["SyzygyPath"]);  // Free mapped files
+    Tablebases::init("");  // Free mapped files
 }
 
 void Engine::set_on_update_no_moves(std::function<void(const Engine::InfoShort&)>&& f) {

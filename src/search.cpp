@@ -103,9 +103,9 @@ int correction_value(const Worker& w, const Position& pos, const Stack* const ss
     const int   cntcv =
       m.is_ok()
           ? 7885
-              * ((*(ss - 2)->continuationCorrectionHistory)[pos.piece_on(m.to_sq())][m.to_sq()]
-                 + (*(ss - 4)->continuationCorrectionHistory)[pos.piece_on(m.to_sq())][m.to_sq()])
-            + 6307 * (*(ss - 6)->continuationCorrectionHistory)[pos.piece_on(m.to_sq())][m.to_sq()]
+              * ((*(ss - 2)->continuationCorrectionHistory)[(ss - 1)->movedPiece][m.to_sq()]
+                 + (*(ss - 4)->continuationCorrectionHistory)[(ss - 1)->movedPiece][m.to_sq()])
+            + 6307 * (*(ss - 6)->continuationCorrectionHistory)[(ss - 1)->movedPiece][m.to_sq()]
           : 80695;
 
     return 13806 * pcv + 9512 * micv + 11615 * (wnpcv + bnpcv) + cntcv;
@@ -135,7 +135,7 @@ void update_correction_history(const Position& pos,
     if (m.is_ok())
     {
         const Square to = m.to_sq();
-        const Piece  pc = pos.piece_on(to);
+        const Piece  pc = (ss - 1)->movedPiece;
         (*(ss - 2)->continuationCorrectionHistory)[pc][to] << bonus * 130 / 128;
         (*(ss - 4)->continuationCorrectionHistory)[pc][to] << bonus * 70 / 128;
         (*(ss - 6)->continuationCorrectionHistory)[pc][to] << bonus * 35 / 128;
@@ -219,7 +219,7 @@ void Search::Worker::start_searching() {
     if (rootMoves.empty())
     {
         main_manager()->updates.onUpdateNoMoves(
-          {0, {rootPos.checkers() ? -VALUE_MATE : VALUE_DRAW, rootPos}});
+          {0, {rootPos.no_moves_value(), rootPos}});
         main_manager()->updates.onBestmove(UCIEngine::move(Move::none()), "");
         return;
     }
@@ -688,6 +688,7 @@ void Search::Worker::do_move(Position&    pos,
     {
         auto& dirtyPiece = dirties.dirtyPiece;
         ss->currentMove  = move;
+        ss->movedPiece = dirtyPiece.pc;
         ss->continuationHistory =
           &continuationHistory[ss->inCheck][capture][dirtyPiece.pc][move.to_sq()];
         ss->continuationCorrectionHistory =
@@ -698,6 +699,7 @@ void Search::Worker::do_move(Position&    pos,
 void Search::Worker::do_null_move(Position& pos, StateInfo& st, Stack* const ss) {
     pos.do_null_move(st);
     ss->currentMove                   = Move::null();
+    ss->movedPiece = NO_PIECE;
     ss->continuationHistory           = &continuationHistory[0][0][NO_PIECE][0];
     ss->continuationCorrectionHistory = &continuationCorrectionHistory[NO_PIECE][0];
 }
@@ -908,7 +910,7 @@ Value Search::Worker::search(
 
                 // Extra penalty for early quiet moves of the previous ply
                 if (prevSq != SQ_NONE && (ss - 1)->moveCount < 5 && !priorCapture)
-                    update_continuation_histories(ss - 1, pos.piece_on(prevSq), prevSq, -2210);
+                    update_continuation_histories(ss - 1, (ss - 1)->movedPiece, prevSq, -2210);
             }
 
             // Partial workaround for the graph history interaction problem.
@@ -1007,9 +1009,9 @@ Value Search::Worker::search(
     {
         int evalDiff = std::clamp(-int((ss - 1)->staticEval + ss->staticEval), -189, 194) + 60;
         mainHistory[~us][((ss - 1)->currentMove).raw()] << evalDiff * 11;
-        if (!ttHit && type_of(pos.piece_on(prevSq)) != PAWN
+        if (!ttHit && type_of((ss - 1)->movedPiece) != PAWN
             && ((ss - 1)->currentMove).type_of() != PROMOTION)
-            sharedHistory.pawn_entry(pos)[pos.piece_on(prevSq)][prevSq] << evalDiff * 13;
+            sharedHistory.pawn_entry(pos)[(ss - 1)->movedPiece][prevSq] << evalDiff * 13;
     }
 
 
@@ -1598,7 +1600,7 @@ moves_loop:  // When in check, search starts here
     // must be a mate or a stalemate (just a fail low score if we are in a
     // singular extension search).
     if (!moveCount)
-        bestValue = excludedMove ? alpha : ss->inCheck ? mated_in(ss->ply) : VALUE_DRAW;
+        bestValue = excludedMove ? alpha : pos.no_moves_value(ss->ply);
 
     // If there is a move that produces search value greater than alpha,
     // we update the stats of searched moves.
@@ -1626,13 +1628,13 @@ moves_loop:  // When in check, search starts here
         // multipliers larger than 900
         const int scaledBonus = std::min(150 * depth - 85, 1337) * bonusScale;
 
-        update_continuation_histories(ss - 1, pos.piece_on(prevSq), prevSq,
+        update_continuation_histories(ss - 1, (ss - 1)->movedPiece, prevSq,
                                       scaledBonus * 263 / 16384);
 
         mainHistory[~us][((ss - 1)->currentMove).raw()] << scaledBonus * 215 / 32768;
 
-        if (type_of(pos.piece_on(prevSq)) != PAWN && ((ss - 1)->currentMove).type_of() != PROMOTION)
-            sharedHistory.pawn_entry(pos)[pos.piece_on(prevSq)][prevSq] << scaledBonus * 324 / 8192;
+        if (type_of((ss - 1)->movedPiece) != PAWN && ((ss - 1)->currentMove).type_of() != PROMOTION)
+            sharedHistory.pawn_entry(pos)[(ss - 1)->movedPiece][prevSq] << scaledBonus * 324 / 8192;
     }
 
     // Bonus for prior capture countermove that caused the fail low
@@ -1642,7 +1644,7 @@ moves_loop:  // When in check, search starts here
 
         Piece capturedPiece = pos.captured_piece();
         assert(capturedPiece != NO_PIECE);
-        captureHistory[pos.piece_on(prevSq)][prevSq][type_of(capturedPiece)] << 892;
+        captureHistory[(ss - 1)->movedPiece][prevSq][type_of(capturedPiece)] << 892;
     }
 
     if (PvNode)
@@ -1734,6 +1736,11 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
     assert(0 <= ss->ply && ss->ply < MAX_PLY);
 
     // Step 3. Transposition table lookup
+    // Quiet walls can leave no legal moves without a capture or a conventional
+    // check. Stand-pat must not turn such a terminal into an NNUE estimate.
+    if (!MoveList<ALL>(pos).size())
+        return pos.no_moves_value(ss->ply);
+
     posKey                         = pos.key();
     auto [ttHit, ttData, ttWriter] = tt.probe(posKey);
 
@@ -2034,7 +2041,7 @@ void update_all_stats(const Position& pos,
     // Extra penalty for a quiet early move that was not a TT move in
     // previous ply when it gets refuted.
     if (prevSq != SQ_NONE && ((ss - 1)->moveCount == 1 + (ss - 1)->ttHit) && !pos.captured_piece())
-        update_continuation_histories(ss - 1, pos.piece_on(prevSq), prevSq, -malus * 713 / 1024);
+        update_continuation_histories(ss - 1, (ss - 1)->movedPiece, prevSq, -malus * 713 / 1024);
 
     // Decrease stats for all non-best capture moves
     for (Move move : capturesSearched)
@@ -2345,7 +2352,7 @@ void SearchManager::output_pv(Search::Worker&           worker,
         if (!pv.empty())
             pv.pop_back();
 
-        auto wdl = worker.options["UCI_ShowWDL"] ? UCIEngine::wdl(v, pos) : "";
+        const std::string wdl;
 
         // Scores cannot be both exact and inexact
         assert(!(rootMoves[i].inexactLower && rootMoves[i].inexactUpper));

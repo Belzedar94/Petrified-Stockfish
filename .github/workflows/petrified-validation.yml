@@ -1,0 +1,35 @@
+name: Petrified validation
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  rules:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Configure debug rules and engine
+        run: cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug -DPETRIFIED_PYTHON=ON
+      - name: Build
+        run: cmake --build build/debug --config Debug -j2
+      - name: State invariants without external weights
+        run: ctest --test-dir build/debug -C Debug --output-on-failure
+      - name: Build isolated Python wheel
+        run: python -m pip wheel . --no-deps --wheel-dir build/wheels
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-${{ matrix.os }}
+          path: build/wheels/*
+  sanitizers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cmake -S . -B build/asan -DCMAKE_BUILD_TYPE=Debug -DPETRIFIED_SANITIZERS=ON
+      - run: cmake --build build/asan -j2
+      - run: ctest --test-dir build/asan --output-on-failure

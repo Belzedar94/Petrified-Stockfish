@@ -17,358 +17,185 @@
 */
 
 #include "network.h"
-
+#include "nnue_accumulator.h"
+#include "legacy_sha256.h"
+#include "../position.h"
+#include "../misc.h"
 #include <algorithm>
 #include <cstdlib>
+#include <cstring>
 #include <fstream>
-#include <iostream>
-#include <optional>
-#include <type_traits>
+#include <sstream>
 #include <vector>
-#include <filesystem>
-
-#define INCBIN_SILENCE_BITCODE_WARNING
-#include "../incbin/incbin.h"
-
-#include "../evaluate.h"
-#include "../misc.h"
-#include "../position.h"
-#include "../types.h"
-#include "nnue_architecture.h"
-#include "nnue_common.h"
-#include "nnue_misc.h"
-#include "nnz_helper.h"
-
-// Macro to embed the default efficiently updatable neural network (NNUE) file
-// data in the engine binary (using incbin.h, by Dale Weiler).
-// This macro invocation will declare the following three variables
-//     const unsigned char        gEmbeddedNNUEData[];  // a pointer to the embedded data
-//     const unsigned char *const gEmbeddedNNUEEnd;     // a marker to the end
-//     const unsigned int         gEmbeddedNNUESize;    // the size of the embedded file
-// Note that this does not work in Microsoft Visual Studio.
-#if !defined(UNIVERSAL_BINARY) && !defined(_MSC_VER) && !defined(NNUE_EMBEDDING_OFF)
-INCBIN(EmbeddedNNUE, EvalFileDefaultName);
-#elif defined(UNIVERSAL_BINARY_MACOS_X86_SLICE)
-// Determined at runtime, see universal/nnue_embed.cpp
-extern const unsigned char* const gEmbeddedNNUEData;
-extern const unsigned int         gEmbeddedNNUESize;
-#elif defined(UNIVERSAL_BINARY)
-extern const unsigned char gEmbeddedNNUEData[];
-extern const unsigned int  gEmbeddedNNUESize;
-#else
-const unsigned char gEmbeddedNNUEData[1] = {0x0};
-const unsigned int  gEmbeddedNNUESize    = 1;
+#if defined(USE_AVX2)
+#include <immintrin.h>
 #endif
-
 
 namespace Stockfish::Eval::NNUE {
-
-namespace fs = std::filesystem;
-
-namespace Detail {
-
-// Read evaluation function parameters
-template<typename T>
-bool read_parameters(std::istream& stream, T& reference) {
-
-    u32 header;
-    header = read_little_endian<u32>(stream);
-    if (!stream || header != T::get_hash_value())
-        return false;
-    return reference.read_parameters(stream);
+namespace {
+constexpr char Run4Sha[] = "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933";
+template<typename T> void read_le(std::istream& in, T* out, usize count) {
+    for (usize i=0;i<count;++i) {
+        u64 v=0;
+        for(usize b=0;b<sizeof(T);++b) v |= u64(static_cast<u8>(in.get())) << (8*b);
+        out[i] = static_cast<T>(v);
+    }
 }
-
-// Write evaluation function parameters
-template<typename T>
-bool write_parameters(std::ostream& stream, const T& reference) {
-
-    write_little_endian<u32>(stream, T::get_hash_value());
-    return reference.write_parameters(stream);
+u32 read_u32(std::istream& in) { u32 v; read_le(in,&v,1); return v; }
+int feature(Color perspective, Square king, Square sq, Piece pc) {
+    const int flip = perspective == BLACK ? 56 : 0;
+    int plane = 11;
+    if (pc) {
+        const int order[] = {0,4,0,1,2,3,5};
+        plane = type_of(pc) == KING ? 10 : 2*order[type_of(pc)] + (color_of(pc)!=perspective);
+    }
+    return (int(king)^flip)*768 + plane*64 + (int(sq)^flip);
 }
-
-}  // namespace Detail
-
-void Network::load(const fs::path& rootDirectory, fs::path evalfilePath, EvalFile& evalFile) {
-#if defined(DEFAULT_NNUE_DIRECTORY)
-    std::vector<fs::path> dirs = {fs::path{}, rootDirectory,
-                                  fs::path(stringify(DEFAULT_NNUE_DIRECTORY))};
-#else
-    std::vector<fs::path> dirs = {fs::path{}, rootDirectory};
+}
+int legacy_material(const Position& pos, Color c) {
+    // Preserve the pinned Walls evaluator, including its custom-piece material
+    // asymmetry: PSQT::init computes the white custom pawn value (214) but leaves
+    // the black PieceValue entry zero. Commoners contribute 700. Trainer PSQT
+    // initialization values (pawn=250) are not these runtime scaling values.
+    return (c == WHITE ? 214 : 0)*pos.count<PAWN>(c)+781*pos.count<KNIGHT>(c)
+           +825*pos.count<BISHOP>(c)+1276*pos.count<ROOK>(c)+2538*pos.count<QUEEN>(c)
+           +700*pos.count<KING>(c);
+}
+bool Network::read_file(const std::filesystem::path& path, EvalFile& file) {
+    std::ifstream input(path,std::ios::binary|std::ios::ate);
+    if (!input || input.tellg()!=52046752) return false;
+    input.seekg(0);
+    std::vector<unsigned char> bytes(52046752);
+    input.read(reinterpret_cast<char*>(bytes.data()),bytes.size());
+    if (!input || sha256(bytes)!=Run4Sha) return false;
+    std::string storage(reinterpret_cast<const char*>(bytes.data()),bytes.size());
+    std::istringstream in(storage,std::ios::binary);
+    if(read_u32(in)!=0x7af32f20 || read_u32(in)!=0xfd695ed9) return false;
+    const u32 len=read_u32(in);
+    if(len>4096) return false;
+    std::string description(len,'\0'); in.read(description.data(),len);
+    if(read_u32(in)!=0x9e5a2813) return false;
+    read_le(in,biases,512);
+    read_le(in,&weights[0][0],49152*512);
+    read_le(in,&psqtWeights[0][0],49152*8);
+    for(auto& head:heads) {
+        if(read_u32(in)!=1664317130) return false;
+        read_le(in,head.bias1,16); read_le(in,&head.weight1[0][0],16*1024);
+        read_le(in,head.bias2,32); read_le(in,&head.weight2[0][0],32*32);
+        read_le(in,&head.bias3,1); read_le(in,head.weight3,32);
+    }
+    if (!in || in.peek()!=std::char_traits<char>::eof()) return false;
+    file.netDescription=description;
+    initialized=true;
+    return true;
+}
+void Network::load(const std::filesystem::path& root, std::filesystem::path path, EvalFile& file) {
+    if(path.empty()) path=EvalFile::defaultName;
+    initialized=false; file.current.reset(); file.source.clear(); file.netDescription.clear();
+    for(const auto& dir : {std::filesystem::path{}, root})
+        if(read_file(dir/path,file)) {
+            // Keep the successfully opened path. NODERAWFS can open native
+            // Windows paths which libc++'s POSIX absolute() cannot normalize.
+            file.current=path; file.source=dir/path; return;
+        }
+}
+bool Network::save(const EvalFile& file, const std::optional<std::filesystem::path>& path) const {
+    if(!initialized || !file.current || !path) return false;
+    // Only export the verified source bytes. Never silently export a different format.
+    std::ifstream in(file.source,std::ios::binary|std::ios::ate);
+    if(!in) return false;
+    if(in.tellg()!=52046752) return false;
+    in.seekg(0);
+    std::vector<unsigned char> bytes(52046752);
+    in.read(reinterpret_cast<char*>(bytes.data()),bytes.size());
+    if(!in || sha256(bytes)!=Run4Sha) return false;
+    in.close();
+    std::error_code ec;
+    if(std::filesystem::equivalent(file.source,*path,ec) && !ec) return true;
+    std::ofstream out(*path,std::ios::binary);
+    out.write(reinterpret_cast<const char*>(bytes.data()),bytes.size());
+    return bool(out);
+}
+void Network::verify(const std::function<void(std::string_view)>& f, const EvalFile& file,
+                     std::filesystem::path path) const {
+    if(path.empty()) path=EvalFile::defaultName;
+    if(!initialized || file.current!=path) {
+        if(f) f("ERROR: valid Legacy Walls run4test is required; search aborted. EvalFile="+path.string());
+        std::exit(EXIT_FAILURE);
+    }
+    if(f) f("NNUE Legacy Walls run4test loaded; SHA256="+std::string(Run4Sha)+"; 49152/512x2/16/32/1, 8 buckets");
+}
+void Network::update(const Position& pos, Color side, AccumulatorCaches& cache, bool reference) const {
+    const Square king=pos.square<KING>(side);
+    auto& e=cache.entries[side][king];
+    if(reference || !e.valid) {
+        std::copy(std::begin(biases),std::end(biases),e.sums.begin());
+        e.psqt.fill(0); e.board.fill(NO_PIECE); e.walls=0; e.valid=true;
+    }
+    auto add=[&](Square s,Piece pc,int sign) {
+        const int idx=feature(side,king,s,pc);
+#if defined(USE_AVX2)
+        if (!reference) {
+            for(int j=0;j<512;j+=16) {
+                auto old=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(&e.sums[j]));
+                auto w=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(&weights[idx][j]));
+                _mm256_storeu_si256(reinterpret_cast<__m256i*>(&e.sums[j]),sign>0?_mm256_add_epi16(old,w):_mm256_sub_epi16(old,w));
+            }
+        } else
 #endif
-
-    if (evalfilePath.empty())
-        evalfilePath = evalFile.defaultName;
-
-    if (evalFile.current != evalfilePath && evalfilePath == evalFile.defaultName)
-        load_internal(evalFile);
-
-    for (const auto& directory : dirs)
-    {
-        if (evalFile.current != evalfilePath)
-            load_external(directory, evalfilePath, evalFile);
-    }
-}
-
-bool Network::save(const EvalFile& evalFile, const std::optional<fs::path>& filename) const {
-    if (!evalFile.current.has_value())
-    {
-        sync_cout << "Failed to export a net. No network file is currently loaded. "
-                     "Please load a network file first."
-                  << sync_endl;
-        return false;
-    }
-
-    if (!filename.has_value() && evalFile.current != evalFile.defaultName)
-    {
-        sync_cout << "Failed to export a net. A non-embedded net can only be "
-                     "saved if the filename is specified"
-                  << sync_endl;
-        return false;
-    }
-
-    fs::path      actualFilename = filename.value_or(evalFile.defaultName);
-    std::ofstream stream(actualFilename, std::ios_base::binary);
-
-    bool saved = save(stream, evalFile.netDescription);
-
-    sync_cout << (saved ? "Network saved successfully to " + actualFilename.string()
-                        : "Failed to export a net")
-              << sync_endl;
-
-    return saved;
-}
-
-Value Network::evaluate(const Position&    pos,
-                        AccumulatorStack&  accumulatorStack,
-                        AccumulatorCaches& cache) const {
-
-    constexpr u64 alignment = CacheLineSize;
-
-    alignas(alignment) TransformedFeatureType transformedFeatures[FeatureTransformer::BufferSize];
-
-    ASSERT_ALIGNED(transformedFeatures, alignment);
-
-    NNZInfo<L1> nnzInfo;
-
-    const int   pcBucket    = (pos.count<ALL_PIECES>() - 1) / 4;
-    const Color stm         = pos.side_to_move();
-    const int   queenBucket = (pos.pieces(stm, QUEEN) ? 2 : 0) | (pos.pieces(~stm, QUEEN) ? 1 : 0);
-    const int   bucket      = pcBucket * 4 + queenBucket;
-
-    featureTransformer.transform(pos, accumulatorStack, cache, transformedFeatures, nnzInfo);
-    const auto positional = network[bucket].propagate(transformedFeatures, nnzInfo);
-    return static_cast<Value>(positional / OutputScale);
-}
-
-
-void Network::verify(const std::function<void(std::string_view)>& f,
-                     const EvalFile&                              evalFile,
-                     fs::path                                     evalfilePath) const {
-    if (evalfilePath.empty())
-        evalfilePath = evalFile.defaultName;
-
-    if (evalFile.current != evalfilePath)
-    {
-        if (f)
-        {
-            std::string msg1 =
-              "Network evaluation parameters compatible with the engine must be available.";
-            std::string msg2 =
-              "The network file " + evalfilePath.string() + " was not loaded successfully.";
-            std::string msg3 = "The UCI option EvalFile might need to specify the full path, "
-                               "including the directory name, to the network file.";
-            std::string msg4 = "The default net can be downloaded from: "
-                               "https://tests.stockfishchess.org/api/nn/"
-                             + std::string(evalFile.defaultName);
-            std::string msg5 = "The engine will be terminated now.";
-
-            std::string msg = "ERROR: " + msg1 + '\n' + "ERROR: " + msg2 + '\n' + "ERROR: " + msg3
-                            + '\n' + "ERROR: " + msg4 + '\n' + "ERROR: " + msg5 + '\n';
-
-            f(msg);
-        }
-
-        exit(EXIT_FAILURE);
-    }
-
-    if (f)
-    {
-        usize size = sizeof(featureTransformer) + sizeof(NetworkArchitecture) * LayerStacks;
-        f("NNUE evaluation using " + evalfilePath.string() + " ("
-          + std::to_string(size / (1024 * 1024)) + "MiB, ("
-          + std::to_string(featureTransformer.InputDimensions) + ", "
-          + std::to_string(network[0].TransformedFeatureDimensions) + ", "
-          + std::to_string(network[0].FC_0_OUTPUTS) + ", " + std::to_string(network[0].FC_1_OUTPUTS)
-          + ", 1))");
-    }
-}
-
-
-NnueEvalTrace Network::trace_evaluate(const Position&    pos,
-                                      AccumulatorStack&  accumulatorStack,
-                                      AccumulatorCaches& cache) const {
-
-    constexpr u64 alignment = CacheLineSize;
-
-    alignas(alignment) TransformedFeatureType transformedFeatures[FeatureTransformer::BufferSize];
-
-    ASSERT_ALIGNED(transformedFeatures, alignment);
-
-    const int   pcBucket    = (pos.count<ALL_PIECES>() - 1) / 4;
-    const Color stm         = pos.side_to_move();
-    const int   queenBucket = (pos.pieces(stm, QUEEN) ? 2 : 0) | (pos.pieces(~stm, QUEEN) ? 1 : 0);
-    const int   bucket      = pcBucket * 4 + queenBucket;
-
-    NnueEvalTrace t{};
-    t.correctBucket = bucket;
-
-    NNZInfo<L1> nnzInfo;
-    featureTransformer.transform(pos, accumulatorStack, cache, transformedFeatures, nnzInfo);
-
-    for (IndexType b = 0; b < LayerStacks; ++b)
-    {
-        const auto positional = network[b].propagate(transformedFeatures, nnzInfo);
-        t.positional[b]       = static_cast<Value>(positional / OutputScale);
-    }
-
-    return t;
-}
-
-
-void Network::load_external(const fs::path& dir, const fs::path& evalfilePath, EvalFile& evalFile) {
-    std::ifstream stream(dir / evalfilePath, std::ios::binary);
-    auto          description = load(stream);
-
-    if (description.has_value())
-    {
-        evalFile.current        = evalfilePath;
-        evalFile.netDescription = description.value();
-    }
-}
-
-
-void Network::load_internal(EvalFile& evalFile) {
-    // C++ way to prepare a buffer for a memory stream
-    class MemoryBuffer: public std::basic_streambuf<char> {
-       public:
-        MemoryBuffer(char* p, usize n) {
-            setg(p, p, p + n);
-            setp(p, p + n);
-        }
+        for(int j=0;j<512;++j) e.sums[j]=i16(e.sums[j]+sign*weights[idx][j]);
+        for(int j=0;j<8;++j) e.psqt[j]+=sign*psqtWeights[idx][j];
     };
-
-#ifdef UNIVERSAL_BINARY_MACOS_X86_SLICE
-    if (gEmbeddedNNUEData == nullptr)  // failed embedded load
-        return;
+    for(Square s=SQ_A1;s<=SQ_H8;++s) {
+        const Piece now=pos.piece_on(s), old=e.board[s];
+        if(now!=old) { if(old) add(s,old,-1); if(now) add(s,now,1); e.board[s]=now; }
+    }
+    for(Bitboard b=e.walls^pos.walls();b;) {
+        Square s=pop_lsb(b); add(s,NO_PIECE,(pos.walls()&s)?1:-1);
+    }
+    e.walls=pos.walls();
+}
+Value Network::forward(const Position& pos, const AccumulatorCaches& cache, bool adjusted, [[maybe_unused]] bool scalar) const {
+    const Color us=pos.side_to_move();
+    const auto& a=cache.entries[us][pos.square<KING>(us)];
+    const auto& b=cache.entries[~us][pos.square<KING>(~us)];
+    const int bucket=std::min((pos.count<ALL_PIECES>()-1)/4,7);
+    const auto& head=heads[bucket];
+    u8 input[1024], hidden1[32]={},hidden2[32];
+    for(int j=0;j<512;++j) { input[j]=std::clamp<int>(a.sums[j],0,127); input[j+512]=std::clamp<int>(b.sums[j],0,127); }
+    for(int i=0;i<16;++i) {
+        i32 sum=head.bias1[i];
+#if defined(USE_AVX2)
+        if(!scalar) {
+            auto total=_mm256_setzero_si256();
+            for(int j=0;j<1024;j+=32) {
+                auto x=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(&input[j]));
+                auto w=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(&head.weight1[i][j]));
+                total=_mm256_add_epi32(total,_mm256_madd_epi16(_mm256_maddubs_epi16(x,w),_mm256_set1_epi16(1)));
+            }
+            i32 lanes[8]; _mm256_storeu_si256(reinterpret_cast<__m256i*>(lanes),total);
+            for(int j=0;j<8;++j) sum+=lanes[j];
+        } else
 #endif
-
-    MemoryBuffer buffer(const_cast<char*>(reinterpret_cast<const char*>(gEmbeddedNNUEData)),
-                        usize(gEmbeddedNNUESize));
-
-    std::istream stream(&buffer);
-    auto         description = load(stream);
-
-    if (description.has_value())
-    {
-        evalFile.current        = evalFile.defaultName;
-        evalFile.netDescription = description.value();
+        for(int j=0;j<1024;++j) sum+=input[j]*head.weight1[i][j];
+        hidden1[i]=std::clamp(sum>>6,0,127);
     }
-}
-
-
-void Network::initialize() { initialized = true; }
-
-
-bool Network::save(std::ostream& stream, const std::string& netDescription) const {
-    return write_parameters(stream, netDescription);
-}
-
-
-std::optional<std::string> Network::load(std::istream& stream) {
-    initialize();
-    std::string description;
-
-    return read_parameters(stream, description) ? std::make_optional(description) : std::nullopt;
-}
-
-
-usize Network::get_content_hash() const {
-    if (!initialized)
-        return 0;
-
-    usize h = 0;
-    hash_combine(h, featureTransformer);
-    for (auto&& layerstack : network)
-        hash_combine(h, layerstack);
-    return h;
-}
-
-// Read network header
-bool Network::read_header(std::istream& stream, u32* hashValue, std::string* desc) const {
-    u32 version, size;
-
-    version    = read_little_endian<u32>(stream);
-    *hashValue = read_little_endian<u32>(stream);
-    size       = read_little_endian<u32>(stream);
-    if (!stream || version != Version)
-        return false;
-
-    constexpr u32 Chunk = 4096;
-    char          buf[Chunk];
-
-    desc->clear();
-    for (u32 remaining = size; remaining > 0;)
-    {
-        const u32 want = std::min(remaining, Chunk);
-        stream.read(buf, want);
-        const u32 got = u32(stream.gcount());
-        desc->append(buf, got);
-        if (got != want)
-            return false;
-        remaining -= want;
+    for(int i=0;i<32;++i) {
+        i32 sum=head.bias2[i]; for(int j=0;j<16;++j) sum+=hidden1[j]*head.weight2[i][j];
+        hidden2[i]=std::clamp(sum>>6,0,127);
     }
-    return !stream.fail();
+    i32 output=head.bias3; for(int j=0;j<32;++j) output+=hidden2[j]*head.weight3[j];
+    const int psqt=(a.psqt[bucket]-b.psqt[bucket])/2;
+    const int entertainment=adjusted && std::abs(legacy_material(pos,WHITE)-legacy_material(pos,BLACK))<=44 ? 7 : 0;
+    return ((128-entertainment)*psqt+(128+entertainment)*output)/128/16;
 }
-
-
-// Write network header
-bool Network::write_header(std::ostream& stream, u32 hashValue, const std::string& desc) const {
-    write_little_endian<u32>(stream, Version);
-    write_little_endian<u32>(stream, hashValue);
-    write_little_endian<u32>(stream, u32(desc.size()));
-    stream.write(&desc[0], desc.size());
-    return !stream.fail();
+Value Network::evaluate(const Position& pos, AccumulatorStack&, AccumulatorCaches& cache) const {
+    update(pos,WHITE,cache); update(pos,BLACK,cache);
+    return forward(pos,cache,true);
 }
-
-
-bool Network::read_parameters(std::istream& stream, std::string& netDescription) {
-    u32 hashValue;
-    if (!read_header(stream, &hashValue, &netDescription))
-        return false;
-    if (hashValue != Network::hash)
-        return false;
-    if (!Detail::read_parameters(stream, featureTransformer))
-        return false;
-    for (usize i = 0; i < LayerStacks; ++i)
-    {
-        if (!Detail::read_parameters(stream, network[i]))
-            return false;
-    }
-    return stream && stream.peek() == std::ios::traits_type::eof();
+Value Network::evaluate_reference(const Position& pos, bool adjusted) const {
+    auto cache=std::make_unique<AccumulatorCaches>(*this);
+    update(pos,WHITE,*cache,true); update(pos,BLACK,*cache,true);
+    return forward(pos,*cache,adjusted,true);
 }
-
-
-bool Network::write_parameters(std::ostream& stream, const std::string& netDescription) const {
-    if (!write_header(stream, Network::hash, netDescription))
-        return false;
-    if (!Detail::write_parameters(stream, featureTransformer))
-        return false;
-    for (usize i = 0; i < LayerStacks; ++i)
-    {
-        if (!Detail::write_parameters(stream, network[i]))
-            return false;
-    }
-    return bool(stream);
-}
-
-}  // namespace Stockfish::Eval::NNUE
+} // namespace Stockfish::Eval::NNUE

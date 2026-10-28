@@ -140,7 +140,7 @@ class Logger {
 //      Stockfish version
 std::string engine_version_info() {
     std::stringstream ss;
-    ss << "Stockfish " << version << std::setfill('0');
+    ss << "Petrified-Stockfish " << version << std::setfill('0');
 
     if constexpr (version == "dev")
     {
@@ -164,7 +164,9 @@ std::string engine_version_info() {
 
         ss << "-";
 
-#ifdef GIT_SHA
+#ifdef GIT_SHA_FULL
+        ss << GIT_SHA_FULL;
+#elif defined(GIT_SHA)
         ss << stringify(GIT_SHA);
 #else
         ss << "nogit";
