@@ -25,6 +25,15 @@ Every TC continues to displayed LOS 100.0% or 0.0%, at most 64,000 games.
 Drain pending pairs and recheck; if the boundary is lost, continue within that
 same declared limit. Run all three TCs even if an earlier one loses. Promotion
 requires all three to win; a limit without a boundary is inconclusive.
+The owner then prioritized large Elo gains and asked to treat prolonged,
+undecided comparisons as neutral. The adapter-v1 VSTC was closed manually
+after 2,302 games as NEUTRAL_MANUAL, superseding an earlier manual loss request;
+its measured LOS remains 11.6%, never 0.0%. STC/LTC continue with the same
+frozen opponents. The provisional screening cap is 400 games per TC, minimum
+40, retaining the LOS boundaries and pending-pair checks. At the cap without
+a boundary, classify it as neutral for candidate selection, not statistical
+equivalence. No promotion follows a neutral control. See the experiment record
+for the current cap and any later owner clarification.
 Use BMI2 and LTO for both opponents, with the same compiler and no PGO.
 On 2026-10-28 the owner accepted campaign-003-walls-lto as a win and stopped
 LTC at 16 games. Preserve this as a manual acceptance, never as 40+ games or

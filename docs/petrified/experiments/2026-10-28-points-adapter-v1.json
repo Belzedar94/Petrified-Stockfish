@@ -1,6 +1,6 @@
 {
   "schema": "petrified-points-adapter-experiment-v1",
-  "status": "RUNNING_VSTC",
+  "status": "CONTINUING_STC_LTC",
   "promoted": false,
   "rules_commit": "5d383db9c98c8602689a4a1d3ee9769e0496321d",
   "hypothesis": "A small score-conditioned residual learns interactions between board evaluation, earned points and ending conditions while run4test stays frozen.",
@@ -114,5 +114,76 @@
     "LTC": "NOT_RUN",
     "reason": "Owner clarified that 40 is a minimum and every control requires LOS 100.0% or 0.0%",
     "gate_passed": false
+  },
+  "vstc_manual_closure": {
+    "path": ".local/points-adapter-panel-003",
+    "decision": "NEUTRAL_MANUAL",
+    "owner_instruction": "Las mejoras tendrian que ser muy infladas de elo, si toma tanto en llegar a un resultado consideralo como neutro",
+    "supersedes": "Earlier manual loss instruction",
+    "automatic_los_boundary": false,
+    "result": {
+      "schema": "petrified-manual-control-closure-v1",
+      "decision": "NEUTRAL_MANUAL",
+      "raw_status": "INTERRUPTED",
+      "scores": [
+        1111,
+        1168,
+        23
+      ],
+      "statistics": "Total: 2302 W: 1111 L: 1168 D: 23 ELO: -8.60 +-14.1 (95%) LOS: 11.6%",
+      "time_losses": [
+        0,
+        1
+      ],
+      "completed_pairs": 1151,
+      "incomplete_pairs_excluded": [
+        {
+          "pair": "pair-1151",
+          "finished_games": []
+        },
+        {
+          "pair": "pair-1152",
+          "finished_games": []
+        },
+        {
+          "pair": "pair-1153",
+          "finished_games": []
+        }
+      ],
+      "raw_result_sha256": "840eaa7ab4c280ba6c65ac424444fe591f5b93cf8337153d219f84a56a6d5e4b",
+      "automatic_los_boundary": false,
+      "promoted": false
+    }
+  },
+  "screening_policy": {
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "maximum_origin": "Provisional assistant-selected practical limit after owner requested large-Elo screening; optional clarification pending",
+    "decisive_los": [
+      "100.0%",
+      "0.0%"
+    ],
+    "pending_pairs": "Finish all pending pairs before final classification; resume if boundary lost within cap",
+    "at_limit_without_boundary": "NEUTRAL_SCREEN: no large improvement demonstrated within the screening budget; not proof of equivalence",
+    "promotion": "All three controls must win; current candidate cannot be promoted after manual neutral VSTC",
+    "controls_remaining": [
+      "STC",
+      "LTC"
+    ]
+  },
+  "continuation": {
+    "path": ".local/points-adapter-panel-004",
+    "controls": [
+      "STC",
+      "LTC"
+    ],
+    "same_frozen_inputs_as": ".local/points-adapter-panel-003",
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 3,
+    "stopping": "Displayed LOS 100.0% or 0.0% after minimum 40, or fixed 400-game screening cap; complete pending pairs",
+    "worker": "T8 remains manually paused"
   }
 }

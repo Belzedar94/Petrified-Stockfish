@@ -45,6 +45,19 @@ All pending pairs count; a lost boundary after draining resumes the same test.
 All three controls run even after a losing result. Synthetic scheduler tests
 cover this contract; they are not strength measurements.
 
+The owner later prioritized large Elo gains and requested that prolonged,
+undecided comparisons count as neutral. Adapter-v1 VSTC was closed manually
+after 2,302 games (1,111/1,168/23), Elo -8.60 +/-14.1 at 95%, LOS 11.6%,
+time losses 0/1. This supersedes the preceding manual loss request; it is not
+an automatic LOS rejection or proof of equivalence. Three interrupted pairs
+contained no completed games and are excluded, with their logs preserved.
+STC/LTC continue under `.local/points-adapter-panel-004` with identical frozen
+engines, networks, referee and openings. A provisional 400-game cap per TC
+implements the owner's quick screening objective, keeping minimum 40 and
+the existing LOS/pending-pair conditions. An undecided result at that cap is
+neutral for selection. The candidate is not promoted; T8 remains paused.
+See [the pilot record](experiments/2026-10-28-points-adapter-v1.json).
+
 ## Implemented and checked on Windows
 
 - Dedicated rules/state, wall occupancy and hashing, reversible lateral pawns,
