@@ -51,12 +51,26 @@ after 2,302 games (1,111/1,168/23), Elo -8.60 +/-14.1 at 95%, LOS 11.6%,
 time losses 0/1. This supersedes the preceding manual loss request; it is not
 an automatic LOS rejection or proof of equivalence. Three interrupted pairs
 contained no completed games and are excluded, with their logs preserved.
-STC/LTC continue under `.local/points-adapter-panel-004` with identical frozen
-engines, networks, referee and openings. A provisional 400-game cap per TC
-implements the owner's quick screening objective, keeping minimum 40 and
-the existing LOS/pending-pair conditions. An undecided result at that cap is
-neutral for selection. The candidate is not promoted; T8 remains paused.
+STC continued under `.local/points-adapter-panel-004` with identical frozen
+engines, networks, referee and openings. The owner confirmed a 400-game cap
+per TC, minimum 40 and the existing LOS/pending-pair conditions, then explicitly
+adjudicated the entire experiment as neutral. STC stopped at 74 games
+(38/36/0), Elo +9.39 +/-80.5 at 95%, LOS 59.2%, time losses 0/0. LTC did not
+run. Three unfinished STC pairs, including one completed but unpaired game,
+are preserved and excluded. These are manual decisions, not automatic LOS
+results or proof of statistical equivalence. The candidate is rejected for
+promotion; run4test remains champion. All current panel processes exited and
+the machine was released to Misere. The heartbeat was deleted; T8 stays paused.
 See [the pilot record](experiments/2026-10-28-points-adapter-v1.json).
+
+The final points-profile bench uses `tests/petrified/bench-points.epd` with
+explicit synthetic scores (16 positions). Commands: select
+`UCI_Variant=petrifiedpoints`, set `EvalFile` to the frozen candidate or run4test,
+then run `bench 16 1 10 tests/petrified/bench-points.epd depth`.
+Two independent processes per network positively verified its hash and repeated
+the same node total: **316920** for adapter-v1, **172090** for run4test, using
+the same frozen BMI2/LTO executable. These are reproducibility signatures,
+not playing-strength or equal-work speed comparisons.
 
 ## Implemented and checked on Windows
 

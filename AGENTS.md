@@ -28,12 +28,21 @@ requires all three to win; a limit without a boundary is inconclusive.
 The owner then prioritized large Elo gains and asked to treat prolonged,
 undecided comparisons as neutral. The adapter-v1 VSTC was closed manually
 after 2,302 games as NEUTRAL_MANUAL, superseding an earlier manual loss request;
-its measured LOS remains 11.6%, never 0.0%. STC/LTC continue with the same
-frozen opponents. The provisional screening cap is 400 games per TC, minimum
+its measured LOS remains 11.6%, never 0.0%. The owner explicitly confirmed
+the screening cap of 400 games per TC, minimum
 40, retaining the LOS boundaries and pending-pair checks. At the cap without
 a boundary, classify it as neutral for candidate selection, not statistical
 equivalence. No promotion follows a neutral control. See the experiment record
 for the current cap and any later owner clarification.
+The owner then adjudicated the entire adapter-v1 experiment as neutral and
+closed it: VSTC 2,302 games, STC 74 games (38/36/0, +9.39 +/-80.5 Elo,
+LOS 59.2%), LTC not run. This is an explicit exception to finishing all three
+controls, not an automatic gate result. Preserve interrupted raw records and
+exclude unfinished pairs. The candidate is rejected for promotion; run4test
+remains champion. All panel processes exited, the machine lease is released,
+and Misere was explicitly notified to resume. No new local load may take
+Misere's priority. The owner also allows reviewing 40-50 games per TC for
+large gains; this alone does not establish a new automatic stopping rule.
 Use BMI2 and LTO for both opponents, with the same compiler and no PGO.
 On 2026-10-28 the owner accepted campaign-003-walls-lto as a win and stopped
 LTC at 16 games. Preserve this as a manual acceptance, never as 40+ games or
