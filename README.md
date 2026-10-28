@@ -1,161 +1,101 @@
-<div align="center">
+# Petrified-Stockfish
 
-  [![Stockfish][stockfish128-logo]][website-link]
+A dedicated Petrified engine derived from official Stockfish at
+`ff7cee4244ec96ea488c402669e3674c0574dce6` (SFNNv19 infrastructure).
+Legacy rules follow Fairy-Stockfish Walls `5b13915ff334edb8568d76630268bdfd3f639784`.
+`petrifiedpoints` adds Chess.com Game of Points, including mates that lose by
+score; see the [points contract](docs/petrified/chesscom-points.md).
+The initial evaluator is the exact Legacy Walls run4test network.
 
-  <h3>Stockfish</h3>
+**Development preview. Strength qualification and release acceptance are pending.**
+This is not a claim of superiority or a version 1.0 release. See
+[implementation status](docs/petrified/STATUS.md),
+[rule/evaluation contract](docs/petrified/rules.md), and
+[local testing](docs/petrified/local-testing.md).
 
-  A free and strong UCI chess engine.
-  <br>
-  <strong>[Explore Stockfish docs »][wiki-link]</strong>
-  <br>
-  <br>
-  [Report bug][issue-link]
-  ·
-  [Open a discussion][discussions-link]
-  ·
-  [Discord][discord-link]
-  ·
-  [Blog][website-blog-link]
+## Native engine
 
-  [![Build][build-badge]][build-link]
-  [![License][license-badge]][license-link]
-  <br>
-  [![Release][release-badge]][release-link]
-  [![Commits][commits-badge]][commits-link]
-  <br>
-  [![Website][website-badge]][website-link]
-  [![Fishtest][fishtest-badge]][fishtest-link]
-  [![Discord][discord-badge]][discord-link]
+GCC/Clang and CMake 3.20+:
 
-</div>
-
-## Overview
-
-[Stockfish][website-link] is a **free and strong UCI chess engine** derived from
-Glaurung 2.1 that analyzes chess positions and computes the optimal moves.
-
-Stockfish **does not include a graphical user interface** (GUI) that is required
-to display a chessboard and to make it easy to input moves. These GUIs are
-developed independently from Stockfish and are available online. **Read the
-documentation for your GUI** of choice for information about how to use
-Stockfish with it.
-
-See also the Stockfish [documentation][wiki-usage-link] for further usage help.
-
-## Files
-
-This distribution of Stockfish consists of the following files:
-
-  * [README.md][readme-link], the file you are currently reading.
-
-  * [Copying.txt][license-link], a text file containing the GNU General Public
-    License version 3.
-
-  * [AUTHORS][authors-link], a text file with the list of authors for the project.
-
-  * [src][src-link], a subdirectory containing the full source code, including a
-    Makefile that can be used to compile Stockfish on Unix-like systems.
-
-  * a file with the .nnue extension, storing the neural network for the NNUE
-    evaluation. Binary distributions will have this file embedded.
-
-## Contributing
-
-__See [Contributing Guide](CONTRIBUTING.md).__
-
-### Donating hardware
-
-Improving Stockfish requires a massive amount of testing. You can donate your
-hardware resources by installing the [Fishtest Worker][worker-link] and viewing
-the current tests on [Fishtest][fishtest-link].
-
-### Improving the code
-
-In the [chessprogramming wiki][programming-link], many techniques used in
-Stockfish are explained with a lot of background information.
-The [section on Stockfish][programmingsf-link] describes many features
-and techniques used by Stockfish. However, it is generic rather than
-focused on Stockfish's precise implementation.
-
-The engine testing is done on [Fishtest][fishtest-link].
-If you want to help improve Stockfish, please read this [guideline][guideline-link]
-first, where the basics of Stockfish development are explained.
-
-Discussions about Stockfish take place these days mainly in the Stockfish
-[Discord server][discord-link]. This is also the best place to ask questions
-about the codebase and how to improve it.
-
-## Compiling Stockfish
-
-Stockfish has support for 32 or 64-bit CPUs, certain hardware instructions,
-big-endian machines such as Power PC, and other platforms.
-
-On Unix-like systems, it should be easy to compile Stockfish directly from the
-source code with the included Makefile in the folder `src`. In general, it is
-recommended to run `make help` to see a list of make targets with corresponding
-descriptions. An example suitable for most Intel and AMD chips:
-
-```
-cd src
-make -j profile-build
+```sh
+cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release
+cmake --build build/release -j2
 ```
 
-Detailed compilation instructions for all platforms can be found in our
-[documentation][wiki-compile-link]. Our wiki also has information about
-the [UCI commands][wiki-uci-link] supported by Stockfish.
+For Windows MinGW BMI2, from `src` in the MSYS2 toolchain environment:
 
-## Terms of use
+```sh
+make -j2 build ARCH=x86-64-bmi2 COMP=mingw EXE=petrified-stockfish.exe
+```
 
-Stockfish is free and distributed under the
-[**GNU General Public License version 3**][license-link] (GPL v3). Essentially,
-this means you are free to do almost exactly what you want with the program,
-including distributing it among your friends, making it available for download
-from your website, selling it (either by itself or as part of some bigger
-software package), or using it as the starting point for a software project of
-your own.
+UCI and XBoard/CECP share the same rules and search. UCI advertises
+`petrified` and `petrifiedpoints`. Walls are `*` in FEN. No orthodox Syzygy or orthodox
+insufficient-material adjudication is used. Searching requires the external file
+`petrified_run4test_e19_l085.nnue`, SHA-256
+`345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933`.
 
-The only real limitation is that whenever you distribute Stockfish in some way,
-you MUST always include the license and the full source code (or a pointer to
-where the source code can be found) to generate the exact binary you are
-distributing. If you make any changes to the source code, these changes must
-also be made available under GPL v3.
+```text
+uci
+setoption name EvalFile value /path/to/petrified_run4test_e19_l085.nnue
+setoption name UCI_Variant value petrifiedpoints
+isready
+position startpos
+go depth 10
+```
 
-## Acknowledgements
+A missing or invalid net prevents search and a valid bench. Rules/perft work
+without a net. `bench` uses a frozen Petrified corpus at depth 10, one thread,
+Hash=16. Make supports `EXE`, `EVALFILE` and `GIT_SHA_FULL`; a profiling build must
+log successful network verification. Network weights are not included here.
 
-Stockfish uses neural networks trained on [data provided by the Leela Chess Zero
-project][lc0-data-link], which is made available under the [Open Database License][odbl-link] (ODbL).
+## Python
 
+Use an isolated environment because the module name intentionally matches
+`pyffish`; do not replace another project's installation.
 
-[authors-link]:       https://github.com/official-stockfish/Stockfish/blob/master/AUTHORS
-[build-link]:         https://github.com/official-stockfish/Stockfish/actions/workflows/stockfish.yml
-[commits-link]:       https://github.com/official-stockfish/Stockfish/commits/master
-[discord-link]:       https://discord.gg/GWDRS3kU6R
-[issue-link]:         https://github.com/official-stockfish/Stockfish/issues/new?assignees=&labels=&template=BUG-REPORT.yml
-[discussions-link]:   https://github.com/official-stockfish/Stockfish/discussions/new
-[fishtest-link]:      https://tests.stockfishchess.org/tests
-[guideline-link]:     https://github.com/official-stockfish/fishtest/wiki/Creating-my-first-test
-[license-link]:       https://github.com/official-stockfish/Stockfish/blob/master/Copying.txt
-[programming-link]:   https://www.chessprogramming.org/Main_Page
-[programmingsf-link]: https://www.chessprogramming.org/Stockfish
-[readme-link]:        https://github.com/official-stockfish/Stockfish/blob/master/README.md
-[release-link]:       https://github.com/official-stockfish/Stockfish/releases/latest
-[src-link]:           https://github.com/official-stockfish/Stockfish/tree/master/src
-[stockfish128-logo]:  https://stockfishchess.org/images/logo/icon_128x128.png
-[uci-link]:           https://backscattering.de/chess/uci/
-[website-link]:       https://stockfishchess.org
-[website-blog-link]:  https://stockfishchess.org/blog/
-[wiki-link]:          https://github.com/official-stockfish/Stockfish/wiki
-[wiki-compile-link]:  https://github.com/official-stockfish/Stockfish/wiki/Compiling-from-source
-[wiki-uci-link]:      https://github.com/official-stockfish/Stockfish/wiki/UCI-&-Commands
-[wiki-usage-link]:    https://github.com/official-stockfish/Stockfish/wiki/Download-and-usage
-[worker-link]:        https://github.com/official-stockfish/fishtest/wiki/Running-the-worker
-[lc0-data-link]:      https://storage.lczero.org/files/training_data
-[odbl-link]:          https://opendatacommons.org/licenses/odbl/odbl-10.txt
+```sh
+python -m venv .venv
+# Activate .venv with the command for your shell, then:
+python -m pip install .
+python -c "import pyffish; print(pyffish.legal_moves('petrified', pyffish.start_fen('petrified'), []))"
+```
 
-[build-badge]:        https://img.shields.io/github/actions/workflow/status/official-stockfish/Stockfish/stockfish.yml?branch=master&style=for-the-badge&label=stockfish&logo=github
-[commits-badge]:      https://img.shields.io/github/commits-since/official-stockfish/Stockfish/latest?style=for-the-badge
-[discord-badge]:      https://img.shields.io/discord/435943710472011776?style=for-the-badge&label=discord&logo=Discord
-[fishtest-badge]:     https://img.shields.io/website?style=for-the-badge&down_color=red&down_message=Offline&label=Fishtest&up_color=success&up_message=Online&url=https%3A%2F%2Ftests.stockfishchess.org%2Ftests%2Ffinished
-[license-badge]:      https://img.shields.io/github/license/official-stockfish/Stockfish?style=for-the-badge&label=license&color=success
-[release-badge]:      https://img.shields.io/github/v/release/official-stockfish/Stockfish?style=for-the-badge&label=official%20release
-[website-badge]:      https://img.shields.io/website?style=for-the-badge&down_color=red&down_message=Offline&label=website&up_color=success&up_message=Online&url=https%3A%2F%2Fstockfishchess.org
+The distribution is `petrified-pyffish`; the stable-ABI extension exposes the
+relevant rule, FEN, SAN, outcome and move-list functions. It uses the engine's
+C++ rules. See `pyffish.pyi`. The Python binding does not include search/weights.
+
+## JavaScript and WebAssembly
+
+Activate an Emscripten environment and run:
+
+```sh
+python scripts/build_wasm.py
+node build/wasm/engine/petrified-stockfish-nnue-node.mjs
+```
+
+The build produces Board/PGN modules in `build/wasm/cjs` and `build/wasm/esm`, plus
+the complete UCI/NNUE engine in `build/wasm/engine`. Use the Node wrapper as the
+engine entrypoint; it handles asynchronous search/stdin lifecycle. Supply the
+external net through UCI. Browser search is outside this initial release's scope.
+The lightweight Board modules can be used independently of search and NNUE.
+
+```js
+const createPetrifiedStockfish = require('./build/wasm/cjs/ffish.js');
+createPetrifiedStockfish().then(api => {
+  const board = new api.Board('petrified');
+  console.log(board.legalMoves());
+  board.delete();
+});
+```
+
+Build manifests record source, compiler and artifact hashes. The original
+orthodox GitHub workflows are preserved under `.github/upstream-workflows` and
+are inactive. The Petrified validation workflow is manual while the project is
+in its local qualification stage.
+
+## License and references
+
+GPLv3 or later; see [Copying.txt](Copying.txt), [AUTHORS](AUTHORS), and
+[source attribution](docs/petrified/attribution.md). Original Stockfish history
+is preserved. Frozen inputs and the modern trainer reference are recorded in
+[baseline.json](docs/petrified/baseline.json).

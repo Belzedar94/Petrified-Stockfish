@@ -37,85 +37,33 @@
 
 namespace Stockfish {
 
-static int simple_eval(const Position& pos) {
-    const Color c = pos.side_to_move();
-    return PawnValue * (pos.count<PAWN>(c) - pos.count<PAWN>(~c)) + pos.non_pawn_material(c)
-         - pos.non_pawn_material(~c);
+static Value scale_evaluation(Value nnue, int, const Position& pos) {
+    const int material=Eval::NNUE::legacy_material(pos,WHITE)+Eval::NNUE::legacy_material(pos,BLACK);
+    const int scale=903+32*material/1024;
+    Value v=nnue*scale/1024;
+    v=v*(100-std::min(pos.rule50_count(),100))/100;
+    if (pos.game_of_points())
+    {
+        // run4test has no points inputs. This provisional correction values
+        // earned points without changing the frozen NNUE backend/scale.
+        const Color us = pos.side_to_move();
+        v += 100 * std::clamp(pos.points(us) - pos.points(~us), -200, 200);
+    }
+    return std::clamp(v,VALUE_TB_LOSS_IN_MAX_PLY+1,VALUE_TB_WIN_IN_MAX_PLY-1);
 }
-
-Value scale_evaluation(Value nnue, int optimism, const Position& pos);
-
-Value Eval::evaluate(const Eval::NNUE::Network&     network,
-                     const Position&                pos,
-                     Eval::NNUE::AccumulatorStack&  accumulators,
-                     Eval::NNUE::AccumulatorCaches& caches,
-                     int                            optimism) {
-
+Value Eval::evaluate(const NNUE::Network& network, const Position& pos,
+                     NNUE::AccumulatorStack& stack, NNUE::AccumulatorCaches& cache, int optimism) {
     assert(!pos.checkers());
-    Value nnue = network.evaluate(pos, accumulators, caches);
-    return scale_evaluation(nnue, optimism, pos);
+    return scale_evaluation(network.evaluate(pos,stack,cache),optimism,pos);
 }
-
-// Applies search-dependent scaling (optimism and rule50) to the raw NNUE eval
-Value scale_evaluation(Value nnue, int optimism, const Position& pos) {
-    Value se = simple_eval(pos);
-
-    // Normalize the raw evaluations to [-1024, 1024] to measure their correlation.
-    int se_norm   = (se * 1024) / (std::abs(se) + 1024);
-    int nnue_norm = (nnue * 1024) / (std::abs(nnue) + 1024);
-    // When NNUE and material agree (positive correlation), the position is straightforward;
-    // otherwise (negative correlation) it involves complex compensation. In a representative
-    // sample, correl averages -1 or so, i.e. it is well-centered in [-2048, 2048].
-    int correl = (se_norm * nnue_norm) / 512;
-
-    // When winning, we boost easy positions, and vice versa
-    int v = nnue + (nnue + optimism) * correl / 65536;
-
-    // Scale the combined evaluation by total material
-    int material = 521 * pos.count<PAWN>() + pos.non_pawn_material();
-    v += i64(material) * v / 90649;
-
-    // Damp down the evaluation linearly when shuffling
-    v -= v * pos.rule50_count() / 189;
-
-    // Guarantee that the evaluation does not hit the tablebase range
-    v = std::clamp(v, VALUE_TB_LOSS_IN_MAX_PLY + 1, VALUE_TB_WIN_IN_MAX_PLY - 1);
-
-    return v;
+std::string Eval::trace(Position& pos, const NNUE::Network& network) {
+    auto cache=std::make_unique<NNUE::AccumulatorCaches>(network);
+    auto stack=std::make_unique<NNUE::AccumulatorStack>();
+    const Value raw=network.evaluate(pos,*stack,*cache);
+    std::ostringstream out;
+    out<<"Legacy raw adjusted: "<<raw<<"\nLegacy reference: "<<network.evaluate_reference(pos)
+       <<"\nLegacy raw unadjusted: "<<network.evaluate_reference(pos,false)
+       <<"\nLegacy final: "<<scale_evaluation(raw,0,pos)<<"\n";
+    return out.str();
 }
-
-// Like evaluate(), but instead of returning a value, it returns
-// a string (suitable for outputting to stdout) that contains the detailed
-// descriptions and values of each evaluation term. Useful for debugging.
-// Trace scores are from white's point of view
-std::string Eval::trace(Position& pos, const Eval::NNUE::Network& network) {
-
-    if (pos.checkers())
-        return "Final evaluation: none (in check)";
-
-    auto accumulators = std::make_unique<Eval::NNUE::AccumulatorStack>();
-    auto caches       = std::make_unique<Eval::NNUE::AccumulatorCaches>(network);
-
-    std::stringstream ss;
-    ss << std::showpoint << std::noshowpos << std::fixed << std::setprecision(2);
-    ss << '\n' << NNUE::trace(pos, network, *caches) << '\n';
-
-    ss << std::showpoint << std::showpos << std::fixed << std::setprecision(2) << std::setw(15);
-
-    Value nnue = network.evaluate(pos, *accumulators, *caches);
-    Value s_v  = scale_evaluation(nnue, VALUE_ZERO, pos);  // requires stm perspective
-
-    ss << "NNUE evaluation          " << nnue << " (side to move, internal units)\n";
-
-    nnue = pos.side_to_move() == WHITE ? nnue : -nnue;
-    s_v  = pos.side_to_move() == WHITE ? s_v : -s_v;
-
-    ss << "NNUE evaluation        " << 0.01 * UCIEngine::to_cp(nnue, pos) << " (white side)\n";
-    ss << "Final evaluation      ";
-    ss << 0.01 * UCIEngine::to_cp(s_v, pos) << " (white side)";
-    ss << " [with scaled NNUE, ...]\n";
-
-    return ss.str();
-}
-
-}  // namespace Stockfish
+} // namespace Stockfish
