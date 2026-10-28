@@ -52,7 +52,7 @@ está en `.local/fairyground`; pesos y ejecutables no se publican en el parche.
 ```powershell
 # Con el entorno Emscripten activado:
 python scripts/build_wasm.py --target cjs --out build/wasm-points
-.\scripts\setup_fairyground.ps1 -Engine .\src\petrified-points-bmi2.exe `
+.\scripts\setup_fairyground.ps1 -Engine .\src\petrified-points-rules-r1-bmi2.exe `
   -Network '..\..\..\Match script\petrified_run4test_e19_l085.nnue'
 .\scripts\start_fairyground.ps1 -OpenBrowser
 ```
@@ -61,13 +61,19 @@ El instalador fija la revisión y el lockfile, verifica el hash de la red,
 conserva las modificaciones de un checkout incompatible y escribe
 `.local/fairyground/petrified-profile.json` con hashes de los componentes.
 `-InstallDependencies` vuelve a instalar exactamente el lockfile.
+`-BoardDirectory` permite seleccionar otro directorio CJS compilado. El motor
+y el Board deben incluir la misma corrección de reglas; la instalación actual
+usa `build/wasm-adapter-v1-r1/cjs` y conserva run4test como evaluación.
 
 El parche y el perfil están en `integrations/fairyground/`. Usan el backend
 nativo de Fairyground: la representación del tablero sigue usando ffish-es6,
-su resultado se consulta al módulo Board de Petrified-Stockfish, y la búsqueda
+sus jugadas legales y su resultado se consultan al módulo Board de Petrified-Stockfish, y la búsqueda
 usa el motor nativo para Windows. Los puntos del marcador llegan de la misma
 implementación C++. El árbitro independiente de las campañas de puntos sigue
 siendo el cliente público de Chess.com, no este módulo Board.
+Los historiales pegados se validan antes de enviarlos al motor. Un peón clavado
+no puede moverse lateralmente, aunque continúe tapando la línea hacia su rey;
+este caso tiene regresiones Python, UCI y CJS/ESM.
 
 ## Validación y aprendizaje
 
@@ -86,3 +92,11 @@ La actualización de puntos se comprobó con la partida real 111037628: antes de
 último movimiento, 25–4; después de `f1g1`, 25–24 y victoria de blancas. Retroceder
 y avanzar restaura ambos marcadores, y el análisis nativo arranca y se detiene
 con los puntos del FEN. Captura local: `build/screenshots/fairyground-points.jpg`.
+
+La revisión de reglas r1 rechazó el historial ilegal `f7e7` sin abrir un aviso
+modal ni enviarlo al motor. El historial visible usa la API común de reglas
+cuando el visor PGN experimental pierde su contenedor al alternar Setup/Moves.
+Se comprobó de nuevo la partida completa y la navegación 25–4 / 25–24, incluido
+el resultado `1-0` en la lista. El panel del resultado ocupa su fila bajo el
+tablero y no se superpone al marcador. Captura actual:
+`build/screenshots/fairyground-points-rules-r1.jpg`.

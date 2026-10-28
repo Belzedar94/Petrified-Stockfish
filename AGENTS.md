@@ -20,6 +20,11 @@ complete color-reversed pairs, no score-based adjudication, and `-T 4` after the
 memory check. Do not extend a finished run because the result is disappointing.
 The owner revised the minimum on 2026-10-28: at least 40 games per control,
 with displayed LOS 100.0%, then finish pending pairs and check the final result.
+The owner clarified for NNUE panels: 40 is a minimum, never a fixed quota.
+Every TC continues to displayed LOS 100.0% or 0.0%, at most 64,000 games.
+Drain pending pairs and recheck; if the boundary is lost, continue within that
+same declared limit. Run all three TCs even if an earlier one loses. Promotion
+requires all three to win; a limit without a boundary is inconclusive.
 Use BMI2 and LTO for both opponents, with the same compiler and no PGO.
 On 2026-10-28 the owner accepted campaign-003-walls-lto as a win and stopped
 LTC at 16 games. Preserve this as a manual acceptance, never as 40+ games or

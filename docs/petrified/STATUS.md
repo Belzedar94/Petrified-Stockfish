@@ -20,7 +20,8 @@ The owner subsequently requested Chess.com Game of Points and a local NNUE pilot
 `petrifiedpoints` implements that contract separately from the frozen legacy
 mode. See [rules, source evidence and NNUE plan](chesscom-points.md). Native,
 Python, CJS/ESM Board, Node engine and CECP checks pass locally with run4test;
-the new branch's Linux/MSVC CI is still pending. Fairyground now uses points
+Linux/MSVC Debug/Release and Linux sanitizers passed on `cd63a09b`
+(Actions run 40733012514). Fairyground now uses points
 analysis and shows the earned score plus final bonus next to the board.
 
 The first points panel completed 40 games per control against the frozen legacy
@@ -31,6 +32,18 @@ is recorded honestly, not converted into a fabricated LOS gate. Both binaries
 use GCC 16.1, BMI2, LTO, no PGO, run4test, T1 and Hash512. See the
 [frozen experiment](experiments/2026-10-28-points-vs-legacy.json). This points
 baseline is the next NNUE pilot's opponent; it is not a world-leadership claim.
+
+A later independently refereed NNUE pilot exposed a Chess.com rule difference:
+a slider-pinned pawn may not move sideways, even along its pin ray. This is now
+fixed in points mode, with five oracle fixtures including the exact `f7e7`
+failure. Full legal sets also match the public client on 523 sampled positions.
+Future A/B panels apply this mandatory correction to both opponents. The first
+pilot's interrupted six-game result is invalid, not strength evidence.
+The owner clarified the next panel's stopping rule: 40 games is the minimum,
+then each TC continues to displayed LOS 100.0% or 0.0%, with a 64,000-game cap.
+All pending pairs count; a lost boundary after draining resumes the same test.
+All three controls run even after a losing result. Synthetic scheduler tests
+cover this contract; they are not strength measurements.
 
 ## Implemented and checked on Windows
 

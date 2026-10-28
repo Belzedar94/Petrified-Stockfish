@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", () => {
     #boardcol .playerbar { min-height:52px; gap:12px; }
     .petrified-points-badge small { font:600 12px system-ui; opacity:.85; }
     .petrified-points-badge[data-lead="true"] { background:#416521; border-color:#a6d66f; color:#fff; }
-    #petrified-points-result { margin:8px 0 12px; padding:11px 14px; border-left:4px solid #91bd59;
+    #petrified-points-result { grid-area:notes; margin:8px 0 12px; padding:11px 14px; border-left:4px solid #91bd59;
       background:#24321e; border-radius:5px; color:#e6efd9; font:14px/1.45 system-ui; }
     #petrified-points-result strong { display:block; font-size:16px; }
     #petrified-points-result[data-pending="true"] { border-color:#d7ad58; background:#3b301c; color:#ffe5b3; }
@@ -71,6 +71,17 @@ window.addEventListener("DOMContentLoaded", () => {
   }
   new MutationObserver(renderPoints).observe(document.getElementById("boardcol"), {childList:true, subtree:true});
   renderPoints();
+  // Setup/Moves navigation can remount Mithril's PGN host. Ask the notation
+  // renderer to populate the new node instead of retaining a detached host.
+  let historyHost = null;
+  new MutationObserver(() => {
+    const host = document.getElementById("label-pgn");
+    if (host && host !== historyHost) {
+      historyHost = host;
+      document.getElementById("sannotation")?.dispatchEvent(new Event("change"));
+    }
+    renderHistory();
+  }).observe(document.body, {childList:true, subtree:true});
   const scores = document.createElement("fieldset");
   scores.id = "petrified-points-controls";
   scores.style.cssText = "margin:10px 0;padding:8px;border:1px solid #777";
@@ -81,17 +92,56 @@ window.addEventListener("DOMContentLoaded", () => {
     '<div id="petrified-points-score">Las capturas de la lista de jugadas se suman automáticamente. En una posición final introduce los puntos anteriores al bonus de finalización.</div>';
   document.getElementById("input").appendChild(scores);
   let confirmedFen = "", confirmedScores = [0, 0];
-  let currentPositionKey = "";
+  let currentPositionKey = "", scorePositionKey = "";
   // Keep Fairyground's game result and PGN in agreement with the native engine.
   // This small Board WASM uses the same C++ rules; it contains no evaluator.
   let pointsRules = null, installedBoardApi = false;
   const resultCache = new Map();
+  const legalCache = new Map();
+  let renderedHistoryKey = "", renderedHistoryText = "";
+  function renderHistory() {
+    const host = document.getElementById("label-pgn");
+    if (!scoreData || !pointsRules || !host || !currentPositionKey || scorePositionKey !== currentPositionKey) return;
+    // Keep the analysis move list visible when the experimental PGN widget
+    // loses its detached DOM host. This fallback uses our common rules API.
+    const historyKey = currentPositionKey + "|" + scoreData.result;
+    if (renderedHistoryKey !== historyKey) {
+      const [fen, moves, values] = JSON.parse(currentPositionKey);
+      let scored;
+      try {
+        scored = new pointsRules.Board("petrifiedpoints", `${fen} points=${values.join(",")}`);
+        const parts = [], fields = fen.split(/\s+/);
+        let white = fields[1] === "w", number = Number(fields[5]);
+        for (const move of moves.trim().split(/\s+/).filter(Boolean)) {
+          if (white) parts.push(`${number}.`);
+          else if (!parts.length) parts.push(`${number}...`);
+          parts.push(scored.sanMove(move));
+          if (!scored.push(move)) return;
+          if (!white) number++;
+          white = !white;
+        }
+        if (scoreData.result !== "*") parts.push(scoreData.result);
+        renderedHistoryText = parts.join(" ");
+        renderedHistoryKey = historyKey;
+      } finally { scored?.delete(); }
+    }
+    if (!host.textContent || host.dataset.petrifiedHistory === "true") {
+      setText(host, renderedHistoryText);
+      host.dataset.petrifiedHistory = "true";
+    }
+  }
   const rulesScript = document.createElement("script");
   rulesScript.src = "./lib/petrified-points/ffish.js";
   rulesScript.onload = () => {
     createPetrifiedStockfish({locateFile: file => `./lib/petrified-points/${file}`}).then(api => {
       pointsRules = api;
       installBoardResults();
+      const fge = window.fairyground?.BinaryEngineFeature;
+      if (fge) {
+        const position = fge.GetBoardPosition();
+        for (const engine of [fge.first_engine, fge.second_engine, fge.analysis_engine])
+          if (engine?.IsLoaded) engine.SetPosition(position.fen, position.moves, fge.GetBoardWidth(), fge.GetBoardHeight());
+      }
     }).catch(error => { status.textContent = "No se pudo cargar el árbitro del tablero: " + error; });
   };
   rulesScript.onerror = () => { status.textContent = "Falta el módulo de reglas Game of Points del tablero."; };
@@ -126,12 +176,63 @@ window.addEventListener("DOMContentLoaded", () => {
     installedBoardApi = true;
     const originalResult = api.Board.prototype.result;
     const originalEnd = api.Board.prototype.isGameOver;
+    const originalLegal = api.Board.prototype.legalMoves;
+    const originalPush = api.Board.prototype.push;
+    // Geometry must also follow the points rules, including pinned sideways
+    // pawns. A neutral score suffices here; results retain the full history.
+    function legalMoves(board) {
+      const fen = board.fen();
+      let legal = legalCache.get(fen);
+      if (legal === undefined) {
+        let scored;
+        try {
+          scored = new pointsRules.Board("petrifiedpoints", `${fen} points=0,0`);
+          legal = scored.legalMoves();
+          if (legalCache.size > 1024) legalCache.clear();
+          legalCache.set(fen, legal);
+        } finally { scored?.delete(); }
+      }
+      return legal;
+    }
+    api.Board.prototype.legalMoves = Object.assign(function(...args) {
+      return this.variant() === "petrified" ? legalMoves(this) : originalLegal.apply(this, args);
+    }, originalLegal);
+    api.Board.prototype.push = Object.assign(function(move, ...args) {
+      if (this.variant() === "petrified" && !legalMoves(this).split(" ").includes(move)) return false;
+      return originalPush.call(this, move, ...args);
+    }, originalPush);
     api.Board.prototype.result = Object.assign(function(...args) { return boardResult(this) ?? originalResult.apply(this, args); }, originalResult);
     api.Board.prototype.isGameOver = Object.assign(function(...args) {
       const result = boardResult(this);
       return result === undefined ? originalEnd.apply(this, args) : result !== "*";
     }, originalEnd);
   }
+  function validateHistory(base, moves, values) {
+    let checked;
+    try {
+      if (!pointsRules) throw new Error("El módulo de reglas todavía se está cargando.");
+      checked = new pointsRules.Board("petrifiedpoints", `${base} points=${values.join(",")}`);
+      for (const move of moves.trim().split(/\s+/).filter(Boolean))
+        if (!checked.push(move)) throw new Error(`Jugada ilegal en Game of Points: ${move}`);
+      return true;
+    } catch (error) {
+      status.textContent = error.message;
+      scoreData = null;
+      scorePending = error.message;
+      renderPoints();
+      return false;
+    } finally { checked?.delete(); }
+  }
+  // Validate before Fairyground's legacy onPositionSet handler, whose illegal
+  // move path opens a blocking alert and removes entries from the input.
+  document.getElementById("setpos").addEventListener("click", event => {
+    const base = document.getElementById("fen").value.trim() || startFen;
+    const moves = document.getElementById("move").value;
+    if (!validateHistory(base, moves, [0, 0])) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }, true);
   function attachPoints(engine) {
     const scoreRequests = [];
     const setVariant = engine.SetVariant.bind(engine);
@@ -152,6 +253,11 @@ window.addEventListener("DOMContentLoaded", () => {
         return false;
       }
       const values = base === startFen && base !== confirmedFen ? [0, 0] : confirmedScores;
+      if (!validateHistory(base, moves, values)) {
+        engine.PointsReady = false;
+        engine.PostMessage("stop");
+        return false;
+      }
       const key = JSON.stringify([base, moves, values]);
       if (engine === window.fairyground.BinaryEngineFeature.analysis_engine) currentPositionKey = key;
       scoreRequests.push(key);
@@ -168,7 +274,9 @@ window.addEventListener("DOMContentLoaded", () => {
         const key = scoreRequests.shift();
         if (engine === window.fairyground.BinaryEngineFeature.analysis_engine && key === currentPositionKey) {
           scoreData = data;
+          scorePositionKey = key;
           renderPoints();
+          renderHistory();
           document.getElementById("petrified-points-score").textContent =
             `Marcador: blancas ${data.final[0]} — negras ${data.final[1]}` +
             (data.result !== "*" ? ` · Resultado: ${data.result} (${data.termination})` :
@@ -188,6 +296,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const fge = window.fairyground?.BinaryEngineFeature;
     if (!fge) return;
     const position = fge.GetBoardPosition();
+    if (!validateHistory(position.fen.trim() || startFen, position.moves, values)) return;
     confirmedFen = position.fen.trim() || startFen;
     confirmedScores = values;
     for (const engine of [fge.first_engine, fge.second_engine, fge.analysis_engine]) {

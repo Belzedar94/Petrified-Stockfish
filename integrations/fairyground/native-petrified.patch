@@ -1,5 +1,5 @@
 diff --git a/src/html/index.html b/src/html/index.html
-index cca7953..97df900 100644
+index cca7953..b43b11e 100644
 --- a/src/html/index.html
 +++ b/src/html/index.html
 @@ -98,6 +98,7 @@
@@ -109,6 +109,15 @@ index cca7953..97df900 100644
          let engine_multipv = 1;
          let engine_skill = 20;
          // Search limits; the last slider position means "no limit".
+@@ -6722,7 +6751,7 @@
+               ]),
+               m("p#positioninfo", ""),
+               m("p#checkcounts"),
+-              m("p#label-pgn"),
++              m("p#label-pgn", { onbeforeupdate: () => false }),
+               m(
+                 "div#pgn-operation-container.pgntools",
+                 { hidden: !advanced_pgn_mode },
 @@ -7001,7 +7030,12 @@
              [
                m("div.subsection", [
@@ -189,6 +198,19 @@ index 6468ad5..208e4a4 100644
        this.PostMessage("go infinite");
      } else if (IsAdvancedTimeControl) {
        let cmd = "";
+diff --git a/src/js/main.js b/src/js/main.js
+index 73f2f7e..fa4d203 100644
+--- a/src/js/main.js
++++ b/src/js/main.js
+@@ -7095,6 +7095,8 @@ function updatePGNDivisionTimeoutCheck() {
+ }
+ 
+ function updatePGNDivision(forceupdate = false) {
++  const labelPgn = document.getElementById("label-pgn");
++  if (!labelPgn) return;
+   if (
+     forceupdate ||
+     Date.now() - PgnDivThrottleStartTime > PgnDivThrottleDurationMs
 diff --git a/src/js/server.js b/src/js/server.js
 index 6544b95..f6c54bc 100644
 --- a/src/js/server.js

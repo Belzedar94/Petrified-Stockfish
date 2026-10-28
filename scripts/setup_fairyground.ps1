@@ -1,6 +1,7 @@
 param(
     [string]$Engine,
     [string]$Network,
+    [string]$BoardDirectory,
     [switch]$InstallDependencies
 )
 $ErrorActionPreference = 'Stop'
@@ -8,11 +9,12 @@ $projectRoot = Split-Path -Parent $PSScriptRoot
 $guiRoot = Join-Path $projectRoot '.local/fairyground'
 $integrationRoot = Join-Path $projectRoot 'integrations/fairyground'
 $revision = '5f7392c3416b3949a3352d729f4e32368f03bade'
-if (!$Engine) { $Engine = Join-Path $projectRoot 'src/petrified-points-bmi2.exe' }
+if (!$Engine) { $Engine = Join-Path $projectRoot 'src/petrified-points-rules-r1-bmi2.exe' }
 if (!$Network) { $Network = Join-Path $projectRoot '../../../Match script/petrified_run4test_e19_l085.nnue' }
 $Engine = (Resolve-Path -LiteralPath $Engine).Path
 $Network = (Resolve-Path -LiteralPath $Network).Path
-$pointsBoard = Join-Path $projectRoot 'build/wasm-points/cjs'
+if (!$BoardDirectory) { $BoardDirectory = Join-Path $projectRoot 'build/wasm-points/cjs' }
+$pointsBoard = (Resolve-Path -LiteralPath $BoardDirectory).Path
 if (!(Test-Path -LiteralPath (Join-Path $pointsBoard 'ffish.wasm'))) {
     throw 'Build the points Board WASM first: python scripts/build_wasm.py --target cjs --out build/wasm-points'
 }

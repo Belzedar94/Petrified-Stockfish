@@ -1,10 +1,10 @@
-"""Fixed-size color-paired panel under the pinned Chess.com points referee.
+"""Color-paired LOS panel under the pinned Chess.com points referee.
 
 Uses the frozen shared variantfishtest statistics, never its orthodox result
 adjudication. The owner's manually paused T8 instance stays paused.
 """
 import argparse
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 import hashlib
 import json
 import os
@@ -59,13 +59,20 @@ def pair(index, opening, tc, args, directory, cancelled):
     from contextlib import ExitStack
     folder = directory/f'pair-{index:04d}'; folder.mkdir()
     with ExitStack() as stack:
-        engines = [stack.enter_context(Uci(exe, network=args.network, timeout=60, log_prefix=folder/f'engine-{i}'))
+        networks = [args.network, args.opponent_network]
+        engines = [stack.enter_context(Uci(exe, network=networks[i], timeout=60, log_prefix=folder/f'engine-{i}'))
                    for i, exe in enumerate((args.candidate, args.opponent))]
         referee = Referee(args, folder/'referee.jsonl'); stack.callback(referee.close)
         for i, engine in enumerate(engines):
-            verify_loaded_network(engine, args.network)
+            if sha(networks[i]) == '345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933':
+                verify_loaded_network(engine, networks[i])
+            else:
+                engine.send('position startpos'); engine.send('go depth 1')
+                lines = engine.until(lambda s:s.startswith('bestmove '))
+                expected = 'NNUE PointsAdapter v1 loaded; SHA256='+sha(networks[i])
+                if not any(expected in line for line in lines): raise RuntimeError('Unverified candidate network')
             engine.send(f'setoption name Hash value {args.hash}')
-            engine.send('setoption name UCI_Variant value '+('petrifiedpoints' if i == 0 else 'petrified'))
+            engine.send('setoption name UCI_Variant value '+('petrifiedpoints' if i == 0 else args.opponent_variant))
             engine.ready()
         write_json(folder/'processes.json', {'owner':os.getpid(), 'engines':[e.proc.pid for e in engines], 'referee':referee.process.pid})
         results = []
@@ -119,17 +126,28 @@ def pair(index, opening, tc, args, directory, cancelled):
         return results
 
 
+def decided(scores, statistics, minimum):
+    return sum(scores) >= minimum and any(
+        f'LOS: {boundary}%' in statistics for boundary in ('100.0', '0.0'))
+
+
 def main():
     ap = argparse.ArgumentParser()
     for name in ['candidate','opponent','network','bundle','modules','runner','out']:
         ap.add_argument('--'+name, type=Path, required=True)
-    ap.add_argument('--games', type=int, default=40)
+    ap.add_argument('--min-games', '--games', dest='min_games', type=int, default=40)
+    ap.add_argument('--max-games', type=int, default=64000)
+    ap.add_argument('--opponent-network', type=Path)
+    ap.add_argument('--opponent-variant', choices=['petrified','petrifiedpoints'], default='petrified')
     ap.add_argument('--concurrency', type=int, default=3)
     ap.add_argument('--hash', type=int, default=512)
     ap.add_argument('--controls', nargs='+', choices=list(TCS), default=list(TCS))
     args = ap.parse_args()
-    if args.games < 2 or args.games % 2 or not 1 <= args.concurrency <= 4: ap.error('Require complete pairs and concurrency 1..4')
+    if (args.min_games < 40 or args.min_games % 2 or args.max_games % 2
+        or not args.min_games <= args.max_games <= 64000 or not 1 <= args.concurrency <= 4):
+        ap.error('Require complete pairs, minimum >=40, maximum <=64000 and concurrency 1..4')
     for name in ['candidate','opponent','network','bundle','modules','runner','out']: setattr(args,name,getattr(args,name).resolve())
+    args.opponent_network = (args.opponent_network or args.network).resolve()
     if os.name == 'nt':
         flag = Path(r'D:\OpenBench-workers\opportunistic-t8-20260719-launch2\Client\openbench.exit')
         if not flag.exists(): raise RuntimeError('Owner pause marker is absent; do not touch the worker')
@@ -143,41 +161,58 @@ def main():
     # Histories, not bare FENs: opening captures have known provenance and scores.
     openings = [w['moves'][:16] for w in walks]
     write_json(args.out/'openings.json', openings)
-    write_json(args.out/'manifest.json', {'schema':'petrified-points-panel-v1','pid':os.getpid(),
+    write_json(args.out/'manifest.json', {'schema':'petrified-points-panel-v2','pid':os.getpid(),
        'rules':'Chess.com client 2026.10.3, FFA Deadwall EnPassant FatalCapture Sideways, 2PC',
        'clock_basis':'variantfishtest engine-reported milliseconds; real elapsed separately logged',
-       'stopping':'fixed games per control; all pending pairs complete; no extension based on result',
-       'games_per_control':args.games,'hash':args.hash,'threads':1,'concurrency':args.concurrency,
-       'worker':'owner-paused; no restart', 'files':{str(p):sha(p) for p in [args.candidate,args.opponent,args.network,args.bundle,
-        Path(__file__),ROOT/'tests/petrified/chesscom_reference.cjs',ROOT/'tests/petrified/protocol.py',walks_path,args.out/'openings.json']}})
+       'stopping':'minimum games then displayed LOS 100.0% or 0.0%; drain pending pairs and recheck; resume if boundary lost; maximum games remains binding; run every control regardless of direction',
+       'minimum_games':args.min_games,'maximum_games':args.max_games,'hash':args.hash,'threads':1,'concurrency':args.concurrency,
+       'opponent_variant':args.opponent_variant,
+       'worker':'owner-paused; no restart', 'files':{str(p):sha(p) for p in [args.candidate,args.opponent,args.network,args.opponent_network,args.bundle,
+        Path(__file__),ROOT/'scripts/local_campaign.py',ROOT/'tests/petrified/chesscom_reference.cjs',ROOT/'tests/petrified/protocol.py',walks_path,args.out/'openings.json']}})
     cancelled = threading.Event()
     summaries = []
     for name in args.controls:
         directory = args.out/name; directory.mkdir()
         scores=[0,0,0]; losses=[0,0]; pentanomial=[0]*5
-        result={'control':name,'status':'RUNNING','scores':scores,'time_losses':losses}
+        result={'control':name,'status':'RUNNING','scores':scores,'time_losses':losses,
+                'minimum_games':args.min_games,'maximum_games':args.max_games}
         write_json(directory/'result.json',result)
         pool=ThreadPoolExecutor(max_workers=args.concurrency)
+        pending={}; submitted=0; draining=False; stats=''; started=time.monotonic()
         try:
             rng=random.Random(20261028)
-            futures=[pool.submit(pair,i,rng.choice(openings),TCS[name],args,directory,cancelled) for i in range(args.games//2)]
-            for future in as_completed(futures):
-                games=future.result()
-                for game in games:
-                    score=game['candidate_score']; scores[0 if score==1 else 1 if score==0 else 2]+=1
-                    losses=[a+b for a,b in zip(losses,game['time_losses'])]
-                pentanomial[int(2*sum(g['candidate_score'] for g in games))]+=1
-                stats=runner.print_scores(scores)+' '+runner.elo_stats(scores).strip()
-                result.update(scores=scores,time_losses=losses,pentanomial=pentanomial,statistics=stats)
-                write_json(directory/'result.json',result)
-                print(name+' '+stats,flush=True)
+            while True:
+                while not draining and len(pending)<args.concurrency and submitted*2<args.max_games:
+                    future=pool.submit(pair,submitted,rng.choice(openings),TCS[name],args,directory,cancelled)
+                    pending[future]=submitted; submitted+=1
+                if not pending:
+                    if decided(scores,stats,args.min_games) or submitted*2>=args.max_games: break
+                    # A late pair can move the rounded LOS away from the boundary.
+                    draining=False
+                    continue
+                done,_=wait(pending,timeout=1,return_when=FIRST_COMPLETED)
+                if (args.out/'STOP').exists(): raise InterruptedError('Panel stopped')
+                for future in sorted(done,key=lambda f:pending[f]):
+                    games=future.result(); del pending[future]
+                    for game in games:
+                        score=game['candidate_score']; scores[0 if score==1 else 1 if score==0 else 2]+=1
+                        losses=[a+b for a,b in zip(losses,game['time_losses'])]
+                    pentanomial[int(2*sum(g['candidate_score'] for g in games))]+=1
+                    stats=runner.print_scores(scores)+' '+runner.elo_stats(scores).strip()
+                    result.update(scores=scores,time_losses=losses,pentanomial=pentanomial,statistics=stats,
+                                  completed_pairs=sum(pentanomial),elapsed_seconds=round(time.monotonic()-started,3))
+                    write_json(directory/'result.json',result)
+                    print(name+' '+stats,flush=True)
+                    if decided(scores,stats,args.min_games): draining=True
+                if submitted*2>=args.max_games: draining=True
         except BaseException as error:
             cancelled.set()
-            for future in futures: future.cancel()
-            result.update(status='INVALID_OR_INTERRUPTED',error=str(error)); write_json(directory/'result.json',result)
+            for future in pending: future.cancel()
+            result.update(status='INTERRUPTED' if isinstance(error,(InterruptedError,KeyboardInterrupt)) else 'INVALID',error=str(error)); write_json(directory/'result.json',result)
             raise
         finally: pool.shutdown(wait=True,cancel_futures=True)
-        result['status']='COMPLETE'; write_json(directory/'result.json',result)
+        result['status']=('WIN' if 'LOS: 100.0%' in stats else 'LOSS') if decided(scores,stats,args.min_games) else 'INCONCLUSIVE_LIMIT'
+        write_json(directory/'result.json',result)
         summaries.append(result); write_json(args.out/'results.json',summaries)
 
 if __name__ == '__main__': main()
