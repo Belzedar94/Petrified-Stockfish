@@ -89,6 +89,17 @@ Its source, binary and evidence are preserved; run4test + winning-mate-r2
 remains champion. Points bench: candidate 175377, champion 173124, each verified
 twice. The authorized capture-futility experiment follows from that champion.
 
+The [capture-futility experiment](experiments/2026-10-29-capture-futility-v1.json)
+adds earned points to the optimistic main-search capture-futility bound. It
+starts from the unchanged champion; the rejected capture-order code is absent.
+Local state/NNUE, points, UCI/CECP and Windows/Linux CI including sanitizers pass.
+Points bench is 160497 (candidate) versus 173124 (champion), each repeated twice;
+legacy bench remains 179335 for both. These node counts are not strength results.
+The frozen BMI2/LTO/run4test panel is running with the same three TCs, T1/Hash512,
+concurrency four and 40..400-game criteria. Only three valid wins allow promotion.
+T8 remains manually paused; the machine lease stays held until this final
+authorized experiment is closed. The GUI continues to use the champion.
+
 The final points-profile bench uses `tests/petrified/bench-points.epd` with
 explicit synthetic scores (16 positions). Commands: select
 `UCI_Variant=petrifiedpoints`, set `EvalFile` to the frozen candidate or run4test,
