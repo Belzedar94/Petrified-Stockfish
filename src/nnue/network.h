@@ -33,6 +33,12 @@ class AccumulatorStack;
 struct AccumulatorCaches;
 class Network {
 public:
+    // Training export: transformer and PSQT stay frozen in the embedded run4test.
+    struct HeadInput {
+        std::array<u8,1056> input{};
+        i32 bucket, psqt, entertainment, scale, rule50, difference;
+    };
+    HeadInput head_input(const Position&) const;
     void load(const std::filesystem::path&, std::filesystem::path, EvalFile&);
     bool save(const EvalFile&, const std::optional<std::filesystem::path>&) const;
     usize get_content_hash() const { return initialized ? usize(contentHash) : 0; }
@@ -47,10 +53,13 @@ private:
         i32 bias2[32]; i8 weight2[32][32]; // 16 inputs padded to 32 on disk
         i32 bias3; i8 weight3[32];
     };
+    struct PointsHead { Head board; i8 scoreWeight[16][32]; };
     alignas(64) i16 biases[512];
     alignas(64) i16 weights[49152][512];
     alignas(64) i32 psqtWeights[49152][8];
     Head heads[8];
+    PointsHead pointsHeads[8];
+    bool pointsHeadActive = false;
     bool initialized = false;
     PointsAdapter adapter;
     std::array<char,65> networkSha{};

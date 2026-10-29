@@ -3,6 +3,19 @@
 This branch starts at official Stockfish `ff7cee4244ec96ea488c402669e3674c0574dce6`.
 It is an implementation in progress, **not a version 1.0 release**.
 
+## Active points head experiment (2026-10-29)
+
+The owner authorized [points-head-v1](experiments/2026-10-29-points-head-v1.json)
+after manually closing capture-futility-v1 as neutral. The new branch starts from
+the champion `7dd7c827`; neither rejected search change is included. It trains the
+eight actual run4test dense heads with scoreboard inputs, keeping the transformer,
+PSQT, rules, search, scaling and fixed scoreboard skip unchanged. A fresh bounded
+corpus uses 1,024 independently refereed games and 8,192 nodes/move, separated by
+opening family. The candidate remains experimental until validation and all three
+direct controls finish (minimum 40 / maximum 400, rounded LOS boundaries and
+completed pairs). The champion and Fairyground remain run4test + winning-mate-r2.
+T8 is still manually paused. No remote workers or OpenBench work are involved.
+
 Acceptance order: reproducible baseline; rules/state differential tests; exact
 Legacy Walls evaluation; native and packaged interfaces; the three local strength
 controls; only then OpenBench registration and specialization/modern NNUE work.
@@ -62,6 +75,63 @@ results or proof of statistical equivalence. The candidate is rejected for
 promotion; run4test remains champion. All current panel processes exited and
 the machine was released to Misere. The heartbeat was deleted; T8 stays paused.
 See [the pilot record](experiments/2026-10-28-points-adapter-v1.json).
+
+The owner authorized two sequential local search experiments: points-aware
+capture ordering, then points-aware capture futility on the resulting champion.
+The [capture-order experiment](experiments/2026-10-28-capture-order-v1.json)
+completed against run4test with the mandatory winning-mate-r2 fix. Both frozen
+binaries use GCC 16.1, BMI2/LTO without PGO; T1/Hash512, four concurrent pairs.
+Every TC has minimum 40 and maximum 400 games with displayed LOS 100.0%/0.0%,
+pending-pair completion and recheck. All three run even if one loses; promotion
+requires three valid wins. An undecided cap rejects the candidate as neutral
+for selection, without claiming equivalence. The champion is tracked separately
+in [points-champion.json](points-champion.json); no experimental code or network
+has yet been promoted. Misere is paused by the owner and needs no coordination.
+T8 remains paused and no distributed workload is authorized by this experiment.
+Capture-order VSTC closed at its 400-game cap: 202/179/19, +20.00 +/-33.3 Elo,
+LOS 88.1%, no time losses. All 200 pairs and 400 independent referee terminal
+records were audited, with frozen hashes unchanged. This is NEUTRAL_SCREEN
+for selection, not equivalence; the candidate cannot be promoted. STC also
+closed at 400 games: 190/190/20, 0.00 +/-33.2 Elo, LOS 50.0%, no time losses.
+Its 200 pairs and 400 referee terminal records were audited with unchanged
+hashes; it is another NEUTRAL_SCREEN. LTC closed at 400 games: 184/188/28,
+-3.47 +/-32.9 Elo, LOS 41.8%, no time losses. Final audit verified all 600
+color-reversed pairs and 1,200 referee terminal records. All panel processes
+exited, and the three neutral screens reject capture-order-v1 for promotion.
+Its source, binary and evidence are preserved; run4test + winning-mate-r2
+remains champion. Points bench: candidate 175377, champion 173124, each verified
+twice. The authorized capture-futility experiment follows from that champion.
+
+The [capture-futility experiment](experiments/2026-10-29-capture-futility-v1.json)
+adds earned points to the optimistic main-search capture-futility bound. It
+starts from the unchanged champion; the rejected capture-order code is absent.
+Local state/NNUE, points, UCI/CECP and Windows/Linux CI including sanitizers pass.
+Points bench is 160497 (candidate) versus 173124 (champion), each repeated twice;
+legacy bench remains 179335 for both. These node counts are not strength results.
+The frozen BMI2/LTO/run4test panel used the same three TCs, T1/Hash512,
+concurrency four and 40..400-game criteria. Only three valid wins allow promotion.
+The GUI continues to use the champion.
+Capture-futility VSTC closed at 400 games: 208/167/25, +35.74 +/-33.2 Elo,
+LOS 98.4%, no time losses. All 200 color-reversed pairs and 400 independent
+referee terminal records were audited, with frozen hashes unchanged. This is
+NEUTRAL_SCREEN for selection, not statistical equivalence. The candidate is
+ineligible for promotion.
+STC also closed at 400 games: 187/187/26, 0.00 +/-33.0 Elo, LOS 50.0%,
+no time losses. Its 200 color-reversed pairs, opening histories and 400
+independent referee terminal records passed audit with unchanged frozen hashes.
+This is another NEUTRAL_SCREEN.
+On 2026-10-29 the owner explicitly adjudicated the whole experiment as neutral
+and requested closure. LTC stopped at 112 complete games: 44/51/17,
+-21.74 +/-59.9 Elo, LOS 23.6%, no time losses. This is NEUTRAL_MANUAL,
+not an automatic LOS result or evidence of statistical equivalence. Four
+interrupted pairs without completed games remain preserved and excluded.
+The final audit verified 456 complete pairs and 912 independent referee
+terminal records, all frozen and validation hashes, and exit of all panel
+processes. Both authorized search experiments are closed and rejected; their
+source, binaries and evidence are preserved. run4test + winning-mate-r2 remains
+the final champion (points bench 173124). The follow-up automation is deleted.
+The machine lease is released after confirming that both panels have exited.
+T8 remains manually paused; no new experiment or distributed workload is started.
 
 The final points-profile bench uses `tests/petrified/bench-points.epd` with
 explicit synthetic scores (16 positions). Commands: select

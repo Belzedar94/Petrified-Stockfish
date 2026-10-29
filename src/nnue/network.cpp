@@ -36,6 +36,19 @@ namespace {
 constexpr char Run4Sha[] = "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933";
 constexpr usize LegacyBytes=52046752;
 constexpr usize AdapterBytes=8+3*4+16*4+16*16*2+16*2+4+64;
+constexpr usize PointsHeadBytes=8+5*4+8*(16*4+16*1024+32*4+32*32+4+32+16*32)+64;
+std::array<u8,32> score_inputs(const Position& pos) {
+    const Color us=pos.side_to_move();
+    const int difference=std::clamp(pos.points(us)-pos.points(~us),-200,200);
+    std::array<u8,32> x{};
+    x[0]=2*std::clamp(difference,0,63); x[1]=2*std::clamp(-difference,0,63);
+    x[2]=2*std::clamp(pos.points(us),0,63); x[3]=2*std::clamp(pos.points(~us),0,63);
+    x[4]=std::clamp(pos.rule50_count(),0,100); x[5]=2*popcount(pos.walls());
+    constexpr int thresholds[26]={-40,-32,-24,-22,-21,-20,-19,-16,-12,-8,-4,-2,
+                                 0,2,4,8,12,16,19,20,21,22,24,32,40,64};
+    for(int i=0;i<26;++i) x[6+i]=std::clamp(64+16*(difference-thresholds[i]),0,127);
+    return x;
+}
 template<typename T> void read_le(std::istream& in, T* out, usize count) {
     for (usize i=0;i<count;++i) {
         u64 v=0;
@@ -65,7 +78,8 @@ int legacy_material(const Position& pos, Color c) {
 }
 bool Network::read_file(const std::filesystem::path& path, EvalFile& file) {
     std::ifstream input(path,std::ios::binary|std::ios::ate);
-    if (!input || (input.tellg()!=LegacyBytes && input.tellg()!=LegacyBytes+AdapterBytes)) return false;
+    if (!input || (input.tellg()!=LegacyBytes && input.tellg()!=LegacyBytes+AdapterBytes
+                  && input.tellg()!=LegacyBytes+PointsHeadBytes)) return false;
     const usize fileBytes=usize(input.tellg());
     input.seekg(0);
     std::vector<unsigned char> bytes(fileBytes);
@@ -74,12 +88,30 @@ bool Network::read_file(const std::filesystem::path& path, EvalFile& file) {
     const std::string digest=sha256(bytes);
     std::copy(digest.begin(),digest.end(),networkSha.begin());
     adapter=PointsAdapter{};
+    pointsHeadActive=false;
     if (fileBytes!=LegacyBytes) {
         const std::string payloadDigest(bytes.end()-64,bytes.end());
         if (sha256(std::vector<unsigned char>(bytes.begin(),bytes.end()-64))!=payloadDigest) return false;
         std::string extension(bytes.begin()+LegacyBytes,bytes.end()-64);
         std::istringstream extra(extension,std::ios::binary);
         char magic[8]; extra.read(magic,8);
+        if (fileBytes==LegacyBytes+PointsHeadBytes) {
+            if (std::string(magic,8)!="PTHD0001" || read_u32(extra)!=1 || read_u32(extra)!=32
+                || read_u32(extra)!=16 || read_u32(extra)!=32 || read_u32(extra)!=8) return false;
+            for(auto& pointHead:pointsHeads) {
+                auto& head=pointHead.board;
+                read_le(extra,head.bias1,16); read_le(extra,&head.weight1[0][0],16*1024);
+                read_le(extra,head.bias2,32); read_le(extra,&head.weight2[0][0],32*32);
+                read_le(extra,&head.bias3,1); read_le(extra,head.weight3,32);
+                read_le(extra,&pointHead.scoreWeight[0][0],16*32);
+                // Safe scalar/SIMD dot products, including malicious checksummed files.
+                for(auto b:head.bias1) if(b < -(1<<24) || b > (1<<24)) return false;
+                for(auto b:head.bias2) if(b < -(1<<24) || b > (1<<24)) return false;
+                if(head.bias3 < -(1<<20) || head.bias3 > (1<<20)) return false;
+                for(auto& row:head.weight2) for(int j=16;j<32;++j) if(row[j]!=0) return false;
+            }
+            pointsHeadActive=true;
+        } else {
         if (std::string(magic,8)!="PTADPT01" || read_u32(extra)!=1 || read_u32(extra)!=16 || read_u32(extra)!=16) return false;
         read_le(extra,adapter.biases.data(),16);
         for (auto& row:adapter.weights) read_le(extra,row.data(),16);
@@ -90,6 +122,8 @@ bool Network::read_file(const std::filesystem::path& path, EvalFile& file) {
         for (auto w:adapter.output) if (std::abs(int(w))>8192) return false;
         if (adapter.outputBias < -8192 || adapter.outputBias > 8192) return false;
         adapter.active=true;
+        }
+        if (!extra || extra.peek()!=std::char_traits<char>::eof()) return false;
         bytes.resize(LegacyBytes);
     }
     if (sha256(bytes)!=Run4Sha) return false;
@@ -131,7 +165,7 @@ bool Network::save(const EvalFile& file, const std::optional<std::filesystem::pa
     std::ifstream in(file.source,std::ios::binary|std::ios::ate);
     if(!in) return false;
     const auto size=in.tellg();
-    if(size!=LegacyBytes && size!=LegacyBytes+AdapterBytes) return false;
+    if(size!=LegacyBytes && size!=LegacyBytes+AdapterBytes && size!=LegacyBytes+PointsHeadBytes) return false;
     in.seekg(0);
     auto bytes=std::vector<unsigned char>(usize(size));
     in.read(reinterpret_cast<char*>(bytes.data()),bytes.size());
@@ -151,7 +185,8 @@ void Network::verify(const std::function<void(std::string_view)>& f, const EvalF
         std::exit(EXIT_FAILURE);
     }
     if(f) {
-        if (adapter.active) f("NNUE PointsAdapter v1 loaded; SHA256="+std::string(networkSha.data())+"; base="+Run4Sha+"; 16/16/1");
+        if (pointsHeadActive) f("NNUE PointsHead v1 loaded; SHA256="+std::string(networkSha.data())+"; base="+Run4Sha+"; 1056/16/32/1, 8 buckets");
+        else if (adapter.active) f("NNUE PointsAdapter v1 loaded; SHA256="+std::string(networkSha.data())+"; base="+Run4Sha+"; 16/16/1");
         else f("NNUE Legacy Walls run4test loaded; SHA256="+std::string(Run4Sha)+"; 49152/512x2/16/32/1, 8 buckets");
     }
 }
@@ -190,11 +225,14 @@ Value Network::forward(const Position& pos, const AccumulatorCaches& cache, bool
     const auto& a=cache.entries[us][pos.square<KING>(us)];
     const auto& b=cache.entries[~us][pos.square<KING>(~us)];
     const int bucket=std::min((pos.count<ALL_PIECES>()-1)/4,7);
-    const auto& head=heads[bucket];
+    const bool scored=pointsHeadActive && pos.game_of_points();
+    const auto& head=scored ? pointsHeads[bucket].board : heads[bucket];
+    const auto scores=scored ? score_inputs(pos) : std::array<u8,32>{};
     u8 input[1024], hidden1[32]={},hidden2[32];
     for(int j=0;j<512;++j) { input[j]=std::clamp<int>(a.sums[j],0,127); input[j+512]=std::clamp<int>(b.sums[j],0,127); }
     for(int i=0;i<16;++i) {
         i32 sum=head.bias1[i];
+        if(scored) for(int j=0;j<32;++j) sum+=scores[j]*pointsHeads[bucket].scoreWeight[i][j];
 #if defined(USE_AVX2)
         if(!scalar) {
             auto total=_mm256_setzero_si256();
@@ -218,6 +256,27 @@ Value Network::forward(const Position& pos, const AccumulatorCaches& cache, bool
     const int psqt=(a.psqt[bucket]-b.psqt[bucket])/2;
     const int entertainment=adjusted && std::abs(legacy_material(pos,WHITE)-legacy_material(pos,BLACK))<=44 ? 7 : 0;
     return ((128-entertainment)*psqt+(128+entertainment)*output)/128/16;
+}
+Network::HeadInput Network::head_input(const Position& pos) const {
+    auto cache=std::make_unique<AccumulatorCaches>(*this);
+    update(pos,WHITE,*cache,true); update(pos,BLACK,*cache,true);
+    const Color us=pos.side_to_move();
+    const auto& a=cache->entries[us][pos.square<KING>(us)];
+    const auto& b=cache->entries[~us][pos.square<KING>(~us)];
+    HeadInput row{};
+    for(int i=0;i<512;++i) {
+        row.input[i]=std::clamp<int>(a.sums[i],0,127);
+        row.input[i+512]=std::clamp<int>(b.sums[i],0,127);
+    }
+    const auto scores=score_inputs(pos);
+    std::copy(scores.begin(),scores.end(),row.input.begin()+1024);
+    row.bucket=std::min((pos.count<ALL_PIECES>()-1)/4,7);
+    row.psqt=(a.psqt[row.bucket]-b.psqt[row.bucket])/2;
+    row.entertainment=std::abs(legacy_material(pos,WHITE)-legacy_material(pos,BLACK))<=44 ? 7 : 0;
+    row.scale=903+32*(legacy_material(pos,WHITE)+legacy_material(pos,BLACK))/1024;
+    row.rule50=std::min(pos.rule50_count(),100);
+    row.difference=std::clamp(pos.points(us)-pos.points(~us),-200,200);
+    return row;
 }
 Value Network::evaluate(const Position& pos, AccumulatorStack&, AccumulatorCaches& cache) const {
     update(pos,WHITE,cache); update(pos,BLACK,cache);

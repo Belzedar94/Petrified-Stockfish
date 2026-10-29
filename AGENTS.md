@@ -1,5 +1,13 @@
 # Petrified-Stockfish
 
+On 2026-10-29 the owner authorized a new points-head-v1 experiment: retrain the
+actual run4test dense head with scoreboard inputs, freeze the accumulators, improve
+the data and use the local GPU. Test one selected candidate against the frozen
+champion in all three controls, minimum 40 / maximum 400, displayed LOS 100.0% or
+0.0%, complete pending pairs and recheck. See the points-head experiment record.
+This authorization follows the closure of both search experiments; neither
+rejected search change belongs in the new candidate. T8 remains manually paused.
+
 The approved implementation plan and immutable inputs are in
 `docs/petrified/STATUS.md`, `baseline.json`, and `rules.md`. This repository is
 dedicated to Petrified and starts from official SF's pinned SFNNv19 commit.
@@ -43,6 +51,21 @@ remains champion. All panel processes exited, the machine lease is released,
 and Misere was explicitly notified to resume. No new local load may take
 Misere's priority. The owner also allows reviewing 40-50 games per TC for
 large gains; this alone does not establish a new automatic stopping rule.
+The owner then explicitly authorized a sequential search-specialization loop:
+capture ordering first, then a separate points-aware capture-pruning experiment.
+Each candidate runs all three TCs with minimum 40, maximum 400 and displayed
+LOS 100.0%/0.0%, draining pending pairs and rechecking. Promote only after three
+valid wins; otherwise preserve and reject the candidate, keeping the champion.
+Misere is paused by the owner; do not message its chat or wait on that project.
+Use docs/petrified/points-champion.json and the current experiment record for
+the frozen baseline and operational state. The manual T8 pause remains in force.
+On 2026-10-29 the owner explicitly adjudicated capture-futility-v1 as neutral
+and closed the remaining panel. Final counts: VSTC 400, STC 400, LTC 112;
+LTC is NEUTRAL_MANUAL with measured LOS 23.6%, not an automatic boundary.
+Four interrupted LTC pairs without completed games are preserved and excluded.
+Both authorized search experiments are closed and rejected; run4test plus
+winning-mate-r2 remains champion. No further experiment is authorized by that
+sequence. The follow-up automation is deleted; T8 remains manually paused.
 Use BMI2 and LTO for both opponents, with the same compiler and no PGO.
 On 2026-10-28 the owner accepted campaign-003-walls-lto as a win and stopped
 LTC at 16 games. Preserve this as a manual acceptance, never as 40+ games or

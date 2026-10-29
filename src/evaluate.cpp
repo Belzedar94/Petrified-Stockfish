@@ -44,8 +44,9 @@ static Value scale_evaluation(Value nnue, int, const Position& pos, const Eval::
     v=v*(100-std::min(pos.rule50_count(),100))/100;
     if (pos.game_of_points())
     {
-        // run4test has no points inputs. This provisional correction values
-        // earned points without changing the frozen NNUE backend/scale.
+        // Fixed scoreboard skip shared by the champion and learned-head trials.
+        // Original run4test lacks score inputs; a PointsHead can learn board/score
+        // interactions while retaining this starting value and the legacy scale.
         const Color us = pos.side_to_move();
         const Value adjustment=network.points_adjustment(pos,v);
         v += 100 * std::clamp(pos.points(us) - pos.points(~us), -200, 200) + adjustment;

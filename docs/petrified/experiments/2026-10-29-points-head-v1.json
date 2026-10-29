@@ -1,0 +1,16 @@
+{
+  "schema": "petrified-points-head-experiment-v1",
+  "status": "IMPLEMENTING",
+  "promoted": false,
+  "owner_authorized": "Train a score-conditioned run4test head with frozen accumulators and better data on GPU, then all three controls against the champion.",
+  "baseline_ref": "7dd7c827b41e9460184730227fed4222929dbbaf",
+  "champion": "run4test + winning-mate-r2",
+  "hypothesis": "Fine-tuning the actual eight run4test dense heads with score inputs can learn interactions between board geometry and points that the previous aggregate-feature residual could not represent.",
+  "frozen": ["run4test transformer biases and weights", "PSQT weights", "rules", "search", "fixed 100 * score difference skip", "legacy evaluation scale"],
+  "data_plan": {"games": 1024, "nodes_per_move": 8192, "concurrency": 4, "seed": 29102901, "random_prefix_plies": [8,12,16,20], "sample_stride": 3, "referee": "Pinned Chess.com client validates every move and terminal", "split": "opening-family hash; no shared rows or opening families across splits", "targets": "actual points outcome plus deeper searched teacher probability; no static teacher labels or invented censored draws"},
+  "training_plan": {"device": "CUDA RTX 3080", "epochs": 24, "selection": "one quantization-aware training run; checkpoint selected on validation only; test evaluated once after selection"},
+  "panel": {"controls": ["2+0.02", "10+0.1", "30+0.3"], "minimum_games": 40, "maximum_games": 400, "threads": 1, "hash_mib": 512, "concurrency": 4, "stopping": "Displayed LOS 100.0%/0.0%, complete pending color-reversed pairs and recheck", "promotion": "three valid WIN controls; otherwise preserve/reject candidate and retain champion", "at_limit": "NEUTRAL_SCREEN, not statistical equivalence"},
+  "worker": "T8 stays manually paused",
+  "misere": "Paused by owner; no messages",
+  "openbench": "No workload authorized"
+}
