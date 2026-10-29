@@ -1,3 +1,15 @@
+PR #13 points-pin-legality-v1 retained for future OpenBench by the owner (2026-10-29).
+The local panel closed manually at VSTC400/STC400/LTC32: 204/183/13,
+195/178/27, 18/11/3; time losses0/0. Raw VSTC/STC are INCONCLUSIVE_LIMIT
+(selection NEUTRAL_SCREEN), LTC INTERRUPTED (manual stop below40). The audit
+verified832 games/416 pairs/165115 independent referee plies, frozen hashes and
+exit of1264 panel plus35 build identities. Four incomplete pairs and three
+completed unpaired games are preserved and excluded. Source tag
+`candidates/points-pin-legality-v1-openbench`,86-input bundle and closure evidence
+are in `experiments/2026-10-29-points-pin-legality-v1.json`. PR13 remains a draft;
+PR11 remains champion. Its lease is released. One new sparse NNUE head execution
+experiment is authorized; no OpenBench workload is authorized.
+
 # Active: points-pin-legality-v1 / PR13
 
 The owner closed PR12 as a potential win retained for future OpenBench and

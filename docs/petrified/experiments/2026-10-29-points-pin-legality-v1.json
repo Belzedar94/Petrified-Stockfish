@@ -1,7 +1,7 @@
 {
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-pin-legality-v1",
-  "status": "PANEL_RUNNING",
+  "status": "RETAINED_FOR_FUTURE_OPENBENCH",
   "owner_request": "Cierra como potencial win, y dejalo para openbench, continua con la siguiente gran idea",
   "candidate_count": 1,
   "branch": "exp/points-pin-legality-v1",
@@ -49,7 +49,7 @@
     "early_rejection": "Owner-delegated manual neutral or clear loss; retain measured statistics",
     "promotion": "Three audited WIN controls plus distribution/interfaces",
     "referee": "Pinned independent Chess.com public client",
-    "status": "RUNNING",
+    "status": "CLOSED_MANUAL_RETAINED",
     "identities": {
       "controller": {
         "pid": 7880,
@@ -71,7 +71,7 @@
     "session": 73520,
     "started_utc": "2026-10-29T17:44:06.511303+00:00",
     "promotion_eligible_under_current_gate": false,
-    "continuation": "Continue LTC as authorized; PR11 remains champion"
+    "continuation": "None; owner closed the whole local panel"
   },
   "constraints": {
     "T8": "Manually paused",
@@ -86,7 +86,7 @@
   "execution_manifest": ".local\\points-pin-legality-v1\\execution-manifest.json",
   "execution_manifest_sha256": "0adfbb83f6e22a48e96e281c6ac1be69d72a81900d36c27924bf5ac0cbdbbb3d",
   "frozen_inputs": 78,
-  "updated_utc": "2026-10-29T19:06:13.835889+00:00",
+  "updated_utc": "2026-10-29T19:25:09.944744+00:00",
   "candidate_binary": ".local\\points-pin-legality-v1-inputs\\petrified-points-pin-legality-v1-bmi2.exe",
   "candidate_sha256": "1a19035c92daabe97b116b536609d0004090d5e404aa80ef84d7bf9d4377694e",
   "validation": {
@@ -242,16 +242,1304 @@
   "observed_utc": "2026-10-29T19:06:13.835889+00:00",
   "control_selection": {
     "VSTC": {
-      "raw_status": "INCONCLUSIVE_LIMIT",
       "selection": "NEUTRAL_SCREEN",
-      "audit": ".local\\points-pin-legality-v1\\vstc-close-audit.json",
-      "meaning": "Screening selection only; no statistical equivalence claim"
+      "raw_status": "INCONCLUSIVE_LIMIT"
     },
     "STC": {
-      "raw_status": "INCONCLUSIVE_LIMIT",
       "selection": "NEUTRAL_SCREEN",
-      "audit": ".local\\points-pin-legality-v1\\stc-close-audit.json",
-      "meaning": "Screening selection only; no statistical equivalence claim"
+      "raw_status": "INCONCLUSIVE_LIMIT"
+    },
+    "LTC": {
+      "selection": "STOPPED_MANUAL",
+      "raw_status": "INTERRUPTED"
     }
+  },
+  "completed_utc": "2026-10-29T19:25:09.944744+00:00",
+  "results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "NEUTRAL_SCREEN",
+      "scores": [
+        204,
+        183,
+        13
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        34,
+        5,
+        112,
+        4,
+        45
+      ],
+      "statistics": "Total: 400 W: 204 L: 183 D: 13 ELO: 18.26 +-33.6 (95%) LOS: 85.8%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 890.61,
+      "raw_status": "INCONCLUSIVE_LIMIT"
+    },
+    "STC": {
+      "control": "STC",
+      "status": "NEUTRAL_SCREEN",
+      "scores": [
+        195,
+        178,
+        27
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        17,
+        14,
+        132,
+        9,
+        28
+      ],
+      "statistics": "Total: 400 W: 195 L: 178 D: 27 ELO: 14.77 +-33.0 (95%) LOS: 81.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 3954.593,
+      "raw_status": "INCONCLUSIVE_LIMIT"
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "STOPPED_MANUAL",
+      "scores": [
+        18,
+        11,
+        3
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        1,
+        8,
+        2,
+        4
+      ],
+      "statistics": "Total: 32 W: 18 L: 11 D: 3 ELO: 77.25 +-122.5 (95%) LOS: 90.9%",
+      "completed_pairs": 16,
+      "elapsed_seconds": 1032.047,
+      "error": "Panel stopped",
+      "raw_status": "INTERRUPTED"
+    }
+  },
+  "raw_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        204,
+        183,
+        13
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        34,
+        5,
+        112,
+        4,
+        45
+      ],
+      "statistics": "Total: 400 W: 204 L: 183 D: 13 ELO: 18.26 +-33.6 (95%) LOS: 85.8%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 890.61
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        195,
+        178,
+        27
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        17,
+        14,
+        132,
+        9,
+        28
+      ],
+      "statistics": "Total: 400 W: 195 L: 178 D: 27 ELO: 14.77 +-33.0 (95%) LOS: 81.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 3954.593
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INTERRUPTED",
+      "scores": [
+        18,
+        11,
+        3
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        1,
+        8,
+        2,
+        4
+      ],
+      "statistics": "Total: 32 W: 18 L: 11 D: 3 ELO: 77.25 +-122.5 (95%) LOS: 90.9%",
+      "completed_pairs": 16,
+      "elapsed_seconds": 1032.047,
+      "error": "Panel stopped"
+    }
+  },
+  "manual_adjudication": {
+    "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+    "owner_request": "Otro que tienes que guardar para openbench, continua con la siguiente gran idea",
+    "recorded_utc": "2026-10-29T19:25:09.944744+00:00",
+    "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
+    "statistical_win_claim": false,
+    "promoted": false,
+    "openbench_started": false,
+    "interpretation": "Positive but inconclusive measured estimates. Owner retains this candidate for future OpenBench; LTC was stopped manually below the automatic minimum.",
+    "source_commit": "8f27dd7356c18aa9d63530c1d87fbde09ebb8327",
+    "source_tag": "candidates/points-pin-legality-v1-openbench",
+    "frozen_inputs_bundle": ".local\\points-pin-legality-v1\\frozen-inputs.zip",
+    "frozen_inputs_bundle_sha256": "14be286947de5a74a61157d867d01935f19f882bd3e60d8feb9c92f8d3097acf",
+    "frozen_inputs": 86,
+    "candidate_binary_sha256": "1a19035c92daabe97b116b536609d0004090d5e404aa80ef84d7bf9d4377694e",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "candidate_bench": 177290,
+    "champion_bench": 177290,
+    "legacy_bench": 179335,
+    "champion_unchanged": "Qualified PR11",
+    "results": {
+      "VSTC": {
+        "control": "VSTC",
+        "status": "NEUTRAL_SCREEN",
+        "scores": [
+          204,
+          183,
+          13
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          34,
+          5,
+          112,
+          4,
+          45
+        ],
+        "statistics": "Total: 400 W: 204 L: 183 D: 13 ELO: 18.26 +-33.6 (95%) LOS: 85.8%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 890.61,
+        "raw_status": "INCONCLUSIVE_LIMIT"
+      },
+      "STC": {
+        "control": "STC",
+        "status": "NEUTRAL_SCREEN",
+        "scores": [
+          195,
+          178,
+          27
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          17,
+          14,
+          132,
+          9,
+          28
+        ],
+        "statistics": "Total: 400 W: 195 L: 178 D: 27 ELO: 14.77 +-33.0 (95%) LOS: 81.1%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 3954.593,
+        "raw_status": "INCONCLUSIVE_LIMIT"
+      },
+      "LTC": {
+        "control": "LTC",
+        "status": "STOPPED_MANUAL",
+        "scores": [
+          18,
+          11,
+          3
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          1,
+          1,
+          8,
+          2,
+          4
+        ],
+        "statistics": "Total: 32 W: 18 L: 11 D: 3 ELO: 77.25 +-122.5 (95%) LOS: 90.9%",
+        "completed_pairs": 16,
+        "elapsed_seconds": 1032.047,
+        "error": "Panel stopped",
+        "raw_status": "INTERRUPTED"
+      }
+    },
+    "audit": ".local\\points-pin-legality-v1\\manual-closure-audit.json",
+    "new_experiment_authorized": true,
+    "T8": "Manually paused"
+  },
+  "final_audit": {
+    "schema": "points-pin-legality-manual-closure-v1",
+    "result": "PASS",
+    "checked_utc": "2026-10-29T19:24:15.355332+00:00",
+    "request": {
+      "requested_utc": "2026-10-29T19:23:36.959728+00:00",
+      "owner_request": "Otro que tienes que guardar para openbench, continua con la siguiente gran idea",
+      "selection": "MANUAL_RETAINED_FOR_FUTURE_OPENBENCH",
+      "statistical_win_claim": false,
+      "champion_unchanged": true,
+      "openbench_workload_authorized_now": false,
+      "observed_results": {
+        "VSTC": {
+          "control": "VSTC",
+          "status": "INCONCLUSIVE_LIMIT",
+          "scores": [
+            204,
+            183,
+            13
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "minimum_games": 40,
+          "maximum_games": 400,
+          "pentanomial": [
+            34,
+            5,
+            112,
+            4,
+            45
+          ],
+          "statistics": "Total: 400 W: 204 L: 183 D: 13 ELO: 18.26 +-33.6 (95%) LOS: 85.8%",
+          "completed_pairs": 200,
+          "elapsed_seconds": 890.61
+        },
+        "STC": {
+          "control": "STC",
+          "status": "INCONCLUSIVE_LIMIT",
+          "scores": [
+            195,
+            178,
+            27
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "minimum_games": 40,
+          "maximum_games": 400,
+          "pentanomial": [
+            17,
+            14,
+            132,
+            9,
+            28
+          ],
+          "statistics": "Total: 400 W: 195 L: 178 D: 27 ELO: 14.77 +-33.0 (95%) LOS: 81.1%",
+          "completed_pairs": 200,
+          "elapsed_seconds": 3954.593
+        },
+        "LTC": {
+          "control": "LTC",
+          "status": "RUNNING",
+          "scores": [
+            18,
+            11,
+            3
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "minimum_games": 40,
+          "maximum_games": 400,
+          "pentanomial": [
+            1,
+            1,
+            8,
+            2,
+            4
+          ],
+          "statistics": "Total: 32 W: 18 L: 11 D: 3 ELO: 77.25 +-122.5 (95%) LOS: 90.9%",
+          "completed_pairs": 16,
+          "elapsed_seconds": 1032.047
+        }
+      },
+      "identities": {
+        "controller": {
+          "pid": 7880,
+          "creation_filetime": 134377694464375382,
+          "creation_utc": "2026-10-29T17:44:06.437538+00:00"
+        },
+        "launcher": {
+          "pid": 1464,
+          "creation_filetime": 134377694466536678,
+          "creation_utc": "2026-10-29T17:44:06.653667+00:00"
+        },
+        "panel": {
+          "pid": 7336,
+          "creation_filetime": 134377694466755130,
+          "creation_utc": "2026-10-29T17:44:06.675514+00:00"
+        }
+      }
+    },
+    "raw_results": {
+      "VSTC": {
+        "control": "VSTC",
+        "status": "INCONCLUSIVE_LIMIT",
+        "scores": [
+          204,
+          183,
+          13
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          34,
+          5,
+          112,
+          4,
+          45
+        ],
+        "statistics": "Total: 400 W: 204 L: 183 D: 13 ELO: 18.26 +-33.6 (95%) LOS: 85.8%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 890.61
+      },
+      "STC": {
+        "control": "STC",
+        "status": "INCONCLUSIVE_LIMIT",
+        "scores": [
+          195,
+          178,
+          27
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          17,
+          14,
+          132,
+          9,
+          28
+        ],
+        "statistics": "Total: 400 W: 195 L: 178 D: 27 ELO: 14.77 +-33.0 (95%) LOS: 81.1%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 3954.593
+      },
+      "LTC": {
+        "control": "LTC",
+        "status": "INTERRUPTED",
+        "scores": [
+          18,
+          11,
+          3
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          1,
+          1,
+          8,
+          2,
+          4
+        ],
+        "statistics": "Total: 32 W: 18 L: 11 D: 3 ELO: 77.25 +-122.5 (95%) LOS: 90.9%",
+        "completed_pairs": 16,
+        "elapsed_seconds": 1032.047,
+        "error": "Panel stopped"
+      }
+    },
+    "results": {
+      "VSTC": {
+        "control": "VSTC",
+        "status": "NEUTRAL_SCREEN",
+        "scores": [
+          204,
+          183,
+          13
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          34,
+          5,
+          112,
+          4,
+          45
+        ],
+        "statistics": "Total: 400 W: 204 L: 183 D: 13 ELO: 18.26 +-33.6 (95%) LOS: 85.8%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 890.61,
+        "raw_status": "INCONCLUSIVE_LIMIT"
+      },
+      "STC": {
+        "control": "STC",
+        "status": "NEUTRAL_SCREEN",
+        "scores": [
+          195,
+          178,
+          27
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          17,
+          14,
+          132,
+          9,
+          28
+        ],
+        "statistics": "Total: 400 W: 195 L: 178 D: 27 ELO: 14.77 +-33.0 (95%) LOS: 81.1%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 3954.593,
+        "raw_status": "INCONCLUSIVE_LIMIT"
+      },
+      "LTC": {
+        "control": "LTC",
+        "status": "STOPPED_MANUAL",
+        "scores": [
+          18,
+          11,
+          3
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          1,
+          1,
+          8,
+          2,
+          4
+        ],
+        "statistics": "Total: 32 W: 18 L: 11 D: 3 ELO: 77.25 +-122.5 (95%) LOS: 90.9%",
+        "completed_pairs": 16,
+        "elapsed_seconds": 1032.047,
+        "error": "Panel stopped",
+        "raw_status": "INTERRUPTED"
+      }
+    },
+    "controls": {
+      "VSTC": {
+        "result": "PASS",
+        "games": 400,
+        "complete_pairs": 200,
+        "independent_plies": 75469,
+        "scores": [
+          204,
+          183,
+          13
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "statistics": "Total: 400 W: 204 L: 183 D: 13 ELO: 18.26 +-33.6 (95%) LOS: 85.8%",
+        "complete_pair_ids": [
+          "pair-0000",
+          "pair-0001",
+          "pair-0002",
+          "pair-0003",
+          "pair-0004",
+          "pair-0005",
+          "pair-0006",
+          "pair-0007",
+          "pair-0008",
+          "pair-0009",
+          "pair-0010",
+          "pair-0011",
+          "pair-0012",
+          "pair-0013",
+          "pair-0014",
+          "pair-0015",
+          "pair-0016",
+          "pair-0017",
+          "pair-0018",
+          "pair-0019",
+          "pair-0020",
+          "pair-0021",
+          "pair-0022",
+          "pair-0023",
+          "pair-0024",
+          "pair-0025",
+          "pair-0026",
+          "pair-0027",
+          "pair-0028",
+          "pair-0029",
+          "pair-0030",
+          "pair-0031",
+          "pair-0032",
+          "pair-0033",
+          "pair-0034",
+          "pair-0035",
+          "pair-0036",
+          "pair-0037",
+          "pair-0038",
+          "pair-0039",
+          "pair-0040",
+          "pair-0041",
+          "pair-0042",
+          "pair-0043",
+          "pair-0044",
+          "pair-0045",
+          "pair-0046",
+          "pair-0047",
+          "pair-0048",
+          "pair-0049",
+          "pair-0050",
+          "pair-0051",
+          "pair-0052",
+          "pair-0053",
+          "pair-0054",
+          "pair-0055",
+          "pair-0056",
+          "pair-0057",
+          "pair-0058",
+          "pair-0059",
+          "pair-0060",
+          "pair-0061",
+          "pair-0062",
+          "pair-0063",
+          "pair-0064",
+          "pair-0065",
+          "pair-0066",
+          "pair-0067",
+          "pair-0068",
+          "pair-0069",
+          "pair-0070",
+          "pair-0071",
+          "pair-0072",
+          "pair-0073",
+          "pair-0074",
+          "pair-0075",
+          "pair-0076",
+          "pair-0077",
+          "pair-0078",
+          "pair-0079",
+          "pair-0080",
+          "pair-0081",
+          "pair-0082",
+          "pair-0083",
+          "pair-0084",
+          "pair-0085",
+          "pair-0086",
+          "pair-0087",
+          "pair-0088",
+          "pair-0089",
+          "pair-0090",
+          "pair-0091",
+          "pair-0092",
+          "pair-0093",
+          "pair-0094",
+          "pair-0095",
+          "pair-0096",
+          "pair-0097",
+          "pair-0098",
+          "pair-0099",
+          "pair-0100",
+          "pair-0101",
+          "pair-0102",
+          "pair-0103",
+          "pair-0104",
+          "pair-0105",
+          "pair-0106",
+          "pair-0107",
+          "pair-0108",
+          "pair-0109",
+          "pair-0110",
+          "pair-0111",
+          "pair-0112",
+          "pair-0113",
+          "pair-0114",
+          "pair-0115",
+          "pair-0116",
+          "pair-0117",
+          "pair-0118",
+          "pair-0119",
+          "pair-0120",
+          "pair-0121",
+          "pair-0122",
+          "pair-0123",
+          "pair-0124",
+          "pair-0125",
+          "pair-0126",
+          "pair-0127",
+          "pair-0128",
+          "pair-0129",
+          "pair-0130",
+          "pair-0131",
+          "pair-0132",
+          "pair-0133",
+          "pair-0134",
+          "pair-0135",
+          "pair-0136",
+          "pair-0137",
+          "pair-0138",
+          "pair-0139",
+          "pair-0140",
+          "pair-0141",
+          "pair-0142",
+          "pair-0143",
+          "pair-0144",
+          "pair-0145",
+          "pair-0146",
+          "pair-0147",
+          "pair-0148",
+          "pair-0149",
+          "pair-0150",
+          "pair-0151",
+          "pair-0152",
+          "pair-0153",
+          "pair-0154",
+          "pair-0155",
+          "pair-0156",
+          "pair-0157",
+          "pair-0158",
+          "pair-0159",
+          "pair-0160",
+          "pair-0161",
+          "pair-0162",
+          "pair-0163",
+          "pair-0164",
+          "pair-0165",
+          "pair-0166",
+          "pair-0167",
+          "pair-0168",
+          "pair-0169",
+          "pair-0170",
+          "pair-0171",
+          "pair-0172",
+          "pair-0173",
+          "pair-0174",
+          "pair-0175",
+          "pair-0176",
+          "pair-0177",
+          "pair-0178",
+          "pair-0179",
+          "pair-0180",
+          "pair-0181",
+          "pair-0182",
+          "pair-0183",
+          "pair-0184",
+          "pair-0185",
+          "pair-0186",
+          "pair-0187",
+          "pair-0188",
+          "pair-0189",
+          "pair-0190",
+          "pair-0191",
+          "pair-0192",
+          "pair-0193",
+          "pair-0194",
+          "pair-0195",
+          "pair-0196",
+          "pair-0197",
+          "pair-0198",
+          "pair-0199"
+        ],
+        "incomplete_pairs_preserved": [],
+        "unpaired_completed_games_excluded": [],
+        "raw_result_sha256": "a6a38fc64074fd943bded646b4d5a4decf4bf4b8321deb9d401800b84ccf19b6"
+      },
+      "STC": {
+        "result": "PASS",
+        "games": 400,
+        "complete_pairs": 200,
+        "independent_plies": 82454,
+        "scores": [
+          195,
+          178,
+          27
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "statistics": "Total: 400 W: 195 L: 178 D: 27 ELO: 14.77 +-33.0 (95%) LOS: 81.1%",
+        "complete_pair_ids": [
+          "pair-0000",
+          "pair-0001",
+          "pair-0002",
+          "pair-0003",
+          "pair-0004",
+          "pair-0005",
+          "pair-0006",
+          "pair-0007",
+          "pair-0008",
+          "pair-0009",
+          "pair-0010",
+          "pair-0011",
+          "pair-0012",
+          "pair-0013",
+          "pair-0014",
+          "pair-0015",
+          "pair-0016",
+          "pair-0017",
+          "pair-0018",
+          "pair-0019",
+          "pair-0020",
+          "pair-0021",
+          "pair-0022",
+          "pair-0023",
+          "pair-0024",
+          "pair-0025",
+          "pair-0026",
+          "pair-0027",
+          "pair-0028",
+          "pair-0029",
+          "pair-0030",
+          "pair-0031",
+          "pair-0032",
+          "pair-0033",
+          "pair-0034",
+          "pair-0035",
+          "pair-0036",
+          "pair-0037",
+          "pair-0038",
+          "pair-0039",
+          "pair-0040",
+          "pair-0041",
+          "pair-0042",
+          "pair-0043",
+          "pair-0044",
+          "pair-0045",
+          "pair-0046",
+          "pair-0047",
+          "pair-0048",
+          "pair-0049",
+          "pair-0050",
+          "pair-0051",
+          "pair-0052",
+          "pair-0053",
+          "pair-0054",
+          "pair-0055",
+          "pair-0056",
+          "pair-0057",
+          "pair-0058",
+          "pair-0059",
+          "pair-0060",
+          "pair-0061",
+          "pair-0062",
+          "pair-0063",
+          "pair-0064",
+          "pair-0065",
+          "pair-0066",
+          "pair-0067",
+          "pair-0068",
+          "pair-0069",
+          "pair-0070",
+          "pair-0071",
+          "pair-0072",
+          "pair-0073",
+          "pair-0074",
+          "pair-0075",
+          "pair-0076",
+          "pair-0077",
+          "pair-0078",
+          "pair-0079",
+          "pair-0080",
+          "pair-0081",
+          "pair-0082",
+          "pair-0083",
+          "pair-0084",
+          "pair-0085",
+          "pair-0086",
+          "pair-0087",
+          "pair-0088",
+          "pair-0089",
+          "pair-0090",
+          "pair-0091",
+          "pair-0092",
+          "pair-0093",
+          "pair-0094",
+          "pair-0095",
+          "pair-0096",
+          "pair-0097",
+          "pair-0098",
+          "pair-0099",
+          "pair-0100",
+          "pair-0101",
+          "pair-0102",
+          "pair-0103",
+          "pair-0104",
+          "pair-0105",
+          "pair-0106",
+          "pair-0107",
+          "pair-0108",
+          "pair-0109",
+          "pair-0110",
+          "pair-0111",
+          "pair-0112",
+          "pair-0113",
+          "pair-0114",
+          "pair-0115",
+          "pair-0116",
+          "pair-0117",
+          "pair-0118",
+          "pair-0119",
+          "pair-0120",
+          "pair-0121",
+          "pair-0122",
+          "pair-0123",
+          "pair-0124",
+          "pair-0125",
+          "pair-0126",
+          "pair-0127",
+          "pair-0128",
+          "pair-0129",
+          "pair-0130",
+          "pair-0131",
+          "pair-0132",
+          "pair-0133",
+          "pair-0134",
+          "pair-0135",
+          "pair-0136",
+          "pair-0137",
+          "pair-0138",
+          "pair-0139",
+          "pair-0140",
+          "pair-0141",
+          "pair-0142",
+          "pair-0143",
+          "pair-0144",
+          "pair-0145",
+          "pair-0146",
+          "pair-0147",
+          "pair-0148",
+          "pair-0149",
+          "pair-0150",
+          "pair-0151",
+          "pair-0152",
+          "pair-0153",
+          "pair-0154",
+          "pair-0155",
+          "pair-0156",
+          "pair-0157",
+          "pair-0158",
+          "pair-0159",
+          "pair-0160",
+          "pair-0161",
+          "pair-0162",
+          "pair-0163",
+          "pair-0164",
+          "pair-0165",
+          "pair-0166",
+          "pair-0167",
+          "pair-0168",
+          "pair-0169",
+          "pair-0170",
+          "pair-0171",
+          "pair-0172",
+          "pair-0173",
+          "pair-0174",
+          "pair-0175",
+          "pair-0176",
+          "pair-0177",
+          "pair-0178",
+          "pair-0179",
+          "pair-0180",
+          "pair-0181",
+          "pair-0182",
+          "pair-0183",
+          "pair-0184",
+          "pair-0185",
+          "pair-0186",
+          "pair-0187",
+          "pair-0188",
+          "pair-0189",
+          "pair-0190",
+          "pair-0191",
+          "pair-0192",
+          "pair-0193",
+          "pair-0194",
+          "pair-0195",
+          "pair-0196",
+          "pair-0197",
+          "pair-0198",
+          "pair-0199"
+        ],
+        "incomplete_pairs_preserved": [],
+        "unpaired_completed_games_excluded": [],
+        "raw_result_sha256": "6f1eac73bd85e2f175cd811dce28d00dba0044d541b809920df77b524f5b4a85"
+      },
+      "LTC": {
+        "result": "PASS",
+        "games": 32,
+        "complete_pairs": 16,
+        "independent_plies": 7192,
+        "scores": [
+          18,
+          11,
+          3
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "statistics": "Total: 32 W: 18 L: 11 D: 3 ELO: 77.25 +-122.5 (95%) LOS: 90.9%",
+        "complete_pair_ids": [
+          "pair-0000",
+          "pair-0001",
+          "pair-0002",
+          "pair-0003",
+          "pair-0004",
+          "pair-0005",
+          "pair-0006",
+          "pair-0007",
+          "pair-0008",
+          "pair-0009",
+          "pair-0010",
+          "pair-0011",
+          "pair-0012",
+          "pair-0013",
+          "pair-0014",
+          "pair-0015"
+        ],
+        "incomplete_pairs_preserved": [
+          {
+            "pair": "pair-0016",
+            "referee_groups": 2,
+            "recorded_moves_per_group": [
+              219,
+              86
+            ]
+          },
+          {
+            "pair": "pair-0017",
+            "referee_groups": 2,
+            "recorded_moves_per_group": [
+              405,
+              11
+            ]
+          },
+          {
+            "pair": "pair-0018",
+            "referee_groups": 2,
+            "recorded_moves_per_group": [
+              263,
+              18
+            ]
+          },
+          {
+            "pair": "pair-0019",
+            "referee_groups": 1,
+            "recorded_moves_per_group": [
+              107
+            ]
+          }
+        ],
+        "unpaired_completed_games_excluded": [
+          {
+            "pair": "pair-0016",
+            "color": "white",
+            "candidate_score": 1,
+            "result": "1-0",
+            "points": [
+              28,
+              22
+            ],
+            "independent_plies": 235,
+            "reason": "Incomplete reversed-color pair; excluded irrespective of result"
+          },
+          {
+            "pair": "pair-0017",
+            "color": "white",
+            "candidate_score": 1,
+            "result": "1-0",
+            "points": [
+              31,
+              20
+            ],
+            "independent_plies": 421,
+            "reason": "Incomplete reversed-color pair; excluded irrespective of result"
+          },
+          {
+            "pair": "pair-0018",
+            "color": "white",
+            "candidate_score": 0,
+            "result": "0-1",
+            "points": [
+              25,
+              32
+            ],
+            "independent_plies": 279,
+            "reason": "Incomplete reversed-color pair; excluded irrespective of result"
+          }
+        ],
+        "raw_result_sha256": "8a33c64b8b285d6439877c916423e7af00156fb1802cd176816a385183884ca0"
+      }
+    },
+    "games": 832,
+    "complete_pairs": 416,
+    "independent_plies": 165115,
+    "incomplete_pairs_preserved": 4,
+    "unpaired_completed_games_excluded": 3,
+    "execution_hashes": 78,
+    "panel_hashes": 11,
+    "dependency_hashes": 7,
+    "raw_files_preserved": 4633,
+    "raw_inventory_sha256": "f807af50bdfa66adea5c1421fe365f8dbd30aadda320fc7731c27fef64ae9106",
+    "owned_panel_process_identities_exited": 1264,
+    "build_process_identities_exited": 35,
+    "reused_pids_not_touched": [
+      {
+        "expected": {
+          "pid": 20612,
+          "creation_filetime": 134377697716332356,
+          "creation_utc": "2026-10-29T17:49:31.633236+00:00",
+          "parent_pid": 7336,
+          "name": "champion-pr11-bmi2.exe",
+          "first_seen_utc": "2026-10-29T17:49:32.746161+00:00",
+          "last_seen_utc": "2026-10-29T17:49:42.778193+00:00"
+        },
+        "current": {
+          "pid": 20612,
+          "creation_filetime": 134377754374666430,
+          "creation_utc": "2026-10-29T19:23:57.466642+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 18148,
+          "creation_filetime": 134377699050238259,
+          "creation_utc": "2026-10-29T17:51:45.023825+00:00",
+          "parent_pid": 7336,
+          "name": "petrified-points-pin-legality-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T17:51:48.160690+00:00",
+          "last_seen_utc": "2026-10-29T17:51:58.191916+00:00"
+        },
+        "current": {
+          "pid": 18148,
+          "creation_filetime": 134377753267988176,
+          "creation_utc": "2026-10-29T19:22:06.798817+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 22544,
+          "creation_filetime": 134377723210031477,
+          "creation_utc": "2026-10-29T18:32:01.003147+00:00",
+          "parent_pid": 7336,
+          "name": "champion-pr11-bmi2.exe",
+          "first_seen_utc": "2026-10-29T18:32:01.330128+00:00",
+          "last_seen_utc": "2026-10-29T18:33:26.653717+00:00"
+        },
+        "current": {
+          "pid": 22544,
+          "creation_filetime": 134377753271557248,
+          "creation_utc": "2026-10-29T19:22:07.155725+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 26312,
+          "creation_filetime": 134377745684061337,
+          "creation_utc": "2026-10-29T19:09:28.406134+00:00",
+          "parent_pid": 7336,
+          "name": "champion-pr11-bmi2.exe",
+          "first_seen_utc": "2026-10-29T19:09:29.829725+00:00",
+          "last_seen_utc": "2026-10-29T19:12:30.522918+00:00"
+        },
+        "current": {
+          "pid": 26312,
+          "creation_filetime": 134377754039569391,
+          "creation_utc": "2026-10-29T19:23:23.956940+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 33904,
+          "creation_filetime": 134377692686867945,
+          "creation_utc": "2026-10-29T17:41:08.686794+00:00"
+        },
+        "current": {
+          "pid": 33904,
+          "creation_filetime": 134377753267858490,
+          "creation_utc": "2026-10-29T19:22:06.785851+00:00"
+        }
+      }
+    ],
+    "remaining_owned": [],
+    "T8_pause_verified": true,
+    "controller_status_interpretation": "FAILED is the expected cooperative STOP requested by the owner; no engine failure",
+    "promotion_eligible": false,
+    "champion_unchanged": "Qualified PR11, Bench177290",
+    "interpretation": "Owner retains the exact candidate for future OpenBench. No statistical win, equivalence, promotion or OpenBench workload is claimed."
+  },
+  "preservation": {
+    "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+    "owner_request": "Otro que tienes que guardar para openbench, continua con la siguiente gran idea",
+    "recorded_utc": "2026-10-29T19:25:09.944744+00:00",
+    "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
+    "statistical_win_claim": false,
+    "promoted": false,
+    "openbench_started": false,
+    "interpretation": "Positive but inconclusive measured estimates. Owner retains this candidate for future OpenBench; LTC was stopped manually below the automatic minimum.",
+    "source_commit": "8f27dd7356c18aa9d63530c1d87fbde09ebb8327",
+    "source_tag": "candidates/points-pin-legality-v1-openbench",
+    "frozen_inputs_bundle": ".local\\points-pin-legality-v1\\frozen-inputs.zip",
+    "frozen_inputs_bundle_sha256": "14be286947de5a74a61157d867d01935f19f882bd3e60d8feb9c92f8d3097acf",
+    "frozen_inputs": 86,
+    "candidate_binary_sha256": "1a19035c92daabe97b116b536609d0004090d5e404aa80ef84d7bf9d4377694e",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "candidate_bench": 177290,
+    "champion_bench": 177290,
+    "legacy_bench": 179335,
+    "champion_unchanged": "Qualified PR11",
+    "results": {
+      "VSTC": {
+        "control": "VSTC",
+        "status": "NEUTRAL_SCREEN",
+        "scores": [
+          204,
+          183,
+          13
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          34,
+          5,
+          112,
+          4,
+          45
+        ],
+        "statistics": "Total: 400 W: 204 L: 183 D: 13 ELO: 18.26 +-33.6 (95%) LOS: 85.8%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 890.61,
+        "raw_status": "INCONCLUSIVE_LIMIT"
+      },
+      "STC": {
+        "control": "STC",
+        "status": "NEUTRAL_SCREEN",
+        "scores": [
+          195,
+          178,
+          27
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          17,
+          14,
+          132,
+          9,
+          28
+        ],
+        "statistics": "Total: 400 W: 195 L: 178 D: 27 ELO: 14.77 +-33.0 (95%) LOS: 81.1%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 3954.593,
+        "raw_status": "INCONCLUSIVE_LIMIT"
+      },
+      "LTC": {
+        "control": "LTC",
+        "status": "STOPPED_MANUAL",
+        "scores": [
+          18,
+          11,
+          3
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          1,
+          1,
+          8,
+          2,
+          4
+        ],
+        "statistics": "Total: 32 W: 18 L: 11 D: 3 ELO: 77.25 +-122.5 (95%) LOS: 90.9%",
+        "completed_pairs": 16,
+        "elapsed_seconds": 1032.047,
+        "error": "Panel stopped",
+        "raw_status": "INTERRUPTED"
+      }
+    },
+    "audit": ".local\\points-pin-legality-v1\\manual-closure-audit.json",
+    "new_experiment_authorized": true,
+    "T8": "Manually paused"
+  },
+  "runtime": {
+    "state": "COMPLETED_RETAINED",
+    "released": true,
+    "released_utc": "2026-10-29T19:25:09.944744+00:00",
+    "pull_request_state": "OPEN_DRAFT_RETAINED"
   }
 }

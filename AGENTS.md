@@ -1,5 +1,29 @@
 # Petrified-Stockfish
 
+On 2026-10-29 the owner retained PR #13 points-pin-legality-v1 for future
+OpenBench and requested the next substantial experiment. Its local panel is
+closed manually: VSTC400 (204/183/13), STC400 (195/178/27), LTC32 (18/11/3),
+time losses0/0. All832 games/416 pairs and165115 independent referee plies
+passed audit. Four incomplete pairs, including three completed unpaired games,
+are preserved and excluded. All1264 panel and35 build process identities exited.
+The86-input bundle and exact source tag are recorded in the experiment. PR13
+stays open as a draft, without promotion or a statistical win. PR11 remains the
+qualified champion. No OpenBench workload is authorized now.
+
+The same owner request authorizes one successor: points-sparse-head-v1, based
+only on qualified PR11. Repack the frozen NNUE first-layer weights at load time
+for input-major SIMD products and skip all-zero four-input blocks. Preserve
+exact integer arithmetic, evaluation, network file bytes, rules, search and state.
+Keep the scalar evaluation as a reference, test dense/sparse and extreme inputs,
+all buckets, cached evaluation and undo, and require identical deterministic
+benches before one frozen VSTC/STC/LTC panel. Do not include retained PR9, PR12
+or PR13 engine changes. Existing40/400 LOS/pair gates and delegated manual
+rejection apply. T8 stays manually paused; Fairyground stays closed with PR11
+profile preserved. No OpenBench, AtomicDB, remote-worker or Misere action.
+
+The entries below preserve prior decisions and their historical runtime states.
+
+
 On 2026-10-29 the owner closed PR #12 points-incremental-state-v1 as a
 POTENTIAL_WIN retained for future OpenBench. This is a manual selection, not a
 statistical win or promotion. Final complete-pair counts: VSTC400 (201/181/18),
