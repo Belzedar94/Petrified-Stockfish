@@ -1,0 +1,235 @@
+{
+  "schema": "petrified-strength-experiment-v1",
+  "id": "2026-10-28-capture-order-v1",
+  "branch": "exp/points-capture-order-v1",
+  "hypothesis": "Order points captures by victim board value plus earned points minus the petrifying capturer; retain surviving pawn and capture-promotion value. Better first moves may improve pruning and depth without changing the baseline good/bad SEE boundary.",
+  "implementation": "src/movepick.cpp only: CAPTURES and capture EVASIONS; inverse adjustment retains the existing GOOD_CAPTURE SEE boundary. No changes to evaluation, SEE, pruning or quiet promotion ordering.",
+  "validation": "PASS: Debug capture-order cases; 9,338 state/undo positions with exact NNUE; points fixtures and UCI/CECP interfaces (mate 1/2, 19/20/21, losing 25-24, Threads 1/2, stop/ponderhit, invalid nets); scheduler synthetic contract; each points bench repeated twice.",
+  "baseline": {
+    "schema": "petrified-points-champion-v1",
+    "rules": "chesscom-points-v1",
+    "name": "run4test + winning-mate-r2",
+    "source_commit": "f44f93700bbb3eca6813eee4728a675ea08447d9",
+    "baseline_branch": "fix/winning-points-mate",
+    "baseline_ref": "7dd7c827b41e9460184730227fed4222929dbbaf",
+    "binary": "src/petrified-points-mate-r2-bmi2.exe",
+    "binary_sha256": "2401d95d3481349ae5bc61cbd1ea3e444337611b2a3d60c6ba8bb3492bb5fe49",
+    "network": "petrified_run4test_e19_l085.nnue",
+    "network_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+    "compiler": "GCC 16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false,
+    "points_bench": 173124,
+    "selection": "Existing demonstrated run4test champion with the mandatory winning-mate correctness fix; no strength gain claimed for that fix. Rejected adapter-v1 is not used."
+  },
+  "candidate": {
+    "binary": "src/petrified-capture-order-v1-bmi2.exe",
+    "source_commit": "df8f734952976fe592872770deda0a07a69a4577",
+    "sha256": "48e46ad1f988feed6c9f690bebcd20ef8084e16d4f0322e404e1f2ab65c14df0",
+    "points_bench": 175377
+  },
+  "campaign": ".local/points-capture-order-panel-001",
+  "controls": {
+    "VSTC": "2+0.02",
+    "STC": "10+0.1",
+    "LTC": "30+0.3"
+  },
+  "threads": 1,
+  "hash_mb": 512,
+  "concurrency": 4,
+  "minimum_games": 40,
+  "maximum_games": 400,
+  "stopping": "Displayed LOS 100.0% or 0.0%, minimum 40, drain complete color-reversed pairs and recheck; resume inside cap if boundary is lost. Run every TC. No boundary at cap => NEUTRAL_SCREEN for selection, not equivalence.",
+  "promotion": "All three valid controls WIN; otherwise reject and preserve.",
+  "status": "COMPLETED",
+  "decision": "REJECTED_NEUTRAL_SCREEN",
+  "next_step": "After closing all controls, run a separate points-aware capture-futility experiment on the resulting champion. Do not test another candidate concurrently.",
+  "worker": "T8 manually paused, no restart",
+  "coordination": "Owner paused Misere; no cross-chat messages.",
+  "frozen_inputs": {
+    "candidate": {
+      "path": ".local\\capture-order-v1-inputs\\petrified-capture-order-v1-bmi2.exe",
+      "sha256": "48e46ad1f988feed6c9f690bebcd20ef8084e16d4f0322e404e1f2ab65c14df0"
+    },
+    "opponent": {
+      "path": ".local\\capture-order-v1-inputs\\petrified-points-mate-r2-bmi2.exe",
+      "sha256": "2401d95d3481349ae5bc61cbd1ea3e444337611b2a3d60c6ba8bb3492bb5fe49"
+    },
+    "network": {
+      "path": ".local\\capture-order-v1-inputs\\petrified_run4test_e19_l085.nnue",
+      "sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933"
+    },
+    "bundle": {
+      "path": ".local\\capture-order-v1-inputs\\variants.js",
+      "sha256": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b"
+    },
+    "source_commit": "df8f734952976fe592872770deda0a07a69a4577",
+    "bench": {
+      "opponent": [
+        173124,
+        173124
+      ],
+      "candidate": [
+        175377,
+        175377
+      ]
+    },
+    "modules_lock_sha256": "24545295e38f03dd19541d7faf73d31c45714a8f549a9d9676e7d317ddf51beb"
+  },
+  "manifest_sha256": "b20fb0b1118e46915a758e3dd9113b491398bc2595657b9201895ab82ccc498c",
+  "started_utc": "2026-10-28T22:31:54.6202618Z",
+  "owner_pid": 41964,
+  "launcher_pid": 25896,
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/5",
+  "memory_preflight": {
+    "free_gib_before_launch": 9.18,
+    "minimum_gib_for_concurrency4": 7.0625,
+    "passed": true
+  },
+  "ci": {
+    "source_commit": "df8f734952976fe592872770deda0a07a69a4577",
+    "run": 40780405480,
+    "status": "PASS",
+    "jobs": "Windows/Linux Debug/Release, Linux ASan/UBSan"
+  },
+  "results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        202,
+        179,
+        19
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        28,
+        13,
+        110,
+        6,
+        43
+      ],
+      "statistics": "Total: 400 W: 202 L: 179 D: 19 ELO: 20.00 +-33.3 (95%) LOS: 88.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 902.375,
+      "selection_status": "NEUTRAL_SCREEN",
+      "audit": {
+        "completed_pairs": 200,
+        "games": 400,
+        "color_reversal_verified": true,
+        "independent_referee_terminal_records_verified": 400,
+        "hashes_verified": true,
+        "audited_utc": "2026-10-29T03:06:53.839249+00:00"
+      }
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        190,
+        190,
+        20
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        32,
+        10,
+        116,
+        10,
+        32
+      ],
+      "statistics": "Total: 400 W: 190 L: 190 D: 20 ELO: -0.00 +-33.2 (95%) LOS: 50.0%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 3753.0,
+      "selection_status": "NEUTRAL_SCREEN",
+      "audit": {
+        "completed_pairs": 200,
+        "games": 400,
+        "color_reversal_verified": true,
+        "independent_referee_terminal_records_verified": 400,
+        "hashes_verified": true,
+        "audited_utc": "2026-10-29T03:06:53.839249+00:00"
+      }
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        184,
+        188,
+        28
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        28,
+        9,
+        127,
+        11,
+        25
+      ],
+      "statistics": "Total: 400 W: 184 L: 188 D: 28 ELO: -3.47 +-32.9 (95%) LOS: 41.8%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 11497.531,
+      "selection_status": "NEUTRAL_SCREEN",
+      "audit": {
+        "completed_pairs": 200,
+        "games": 400,
+        "color_reversal_verified": true,
+        "independent_referee_terminal_records_verified": 400,
+        "hashes_verified": true,
+        "audited_utc": "2026-10-29T03:06:53.839249+00:00"
+      }
+    }
+  },
+  "promotion_eligible": false,
+  "closed_utc": "2026-10-29T03:06:53.839249+00:00",
+  "owned_panel_processes_exited": true,
+  "final_audit": {
+    "audit": {
+      "VSTC": {
+        "completed_pairs": 200,
+        "games": 400,
+        "color_reversal_verified": true,
+        "independent_referee_terminal_records_verified": 400,
+        "hashes_verified": true,
+        "audited_utc": "2026-10-29T03:06:53.839249+00:00"
+      },
+      "STC": {
+        "completed_pairs": 200,
+        "games": 400,
+        "color_reversal_verified": true,
+        "independent_referee_terminal_records_verified": 400,
+        "hashes_verified": true,
+        "audited_utc": "2026-10-29T03:06:53.839249+00:00"
+      },
+      "LTC": {
+        "completed_pairs": 200,
+        "games": 400,
+        "color_reversal_verified": true,
+        "independent_referee_terminal_records_verified": 400,
+        "hashes_verified": true,
+        "audited_utc": "2026-10-29T03:06:53.839249+00:00"
+      }
+    },
+    "owned_panel_processes_exited": true,
+    "frozen_hashes_verified": true,
+    "stderr_empty": true,
+    "completed_utc": "2026-10-29T03:06:53.839249+00:00"
+  }
+}

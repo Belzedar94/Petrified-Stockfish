@@ -1,0 +1,43 @@
+--- a/src/uci.cpp
++++ b/src/uci.cpp
+@@ -24,6 +24,7 @@
+ #include <string>
+ 
+ #include "evaluate.h"
++#include "apiutil.h"
+ #include "movegen.h"
+ #include "position.h"
+ #include "search.h"
+@@ -388,6 +389,32 @@
+       else if (token == "flip")     pos.flip();
+       else if (token == "bench")    bench(pos, is, states);
+       else if (token == "d")        sync_cout << pos << sync_endl;
++      else if (token == "evalraw") {
++          Eval::NNUE::verify();
++          sync_cout << "Legacy raw adjusted: " << Eval::NNUE::evaluate(pos, true)
++                    << "\nLegacy raw unadjusted: " << Eval::NNUE::evaluate(pos, false)
++                    << "\nLegacy final: " << Eval::evaluate(pos)
++                    << "\nLegacy material: " << pos.non_pawn_material(WHITE) << " " << pos.non_pawn_material(BLACK)
++                    << sync_endl;
++      }
++      else if (token == "rulesraw") {
++          const MoveList<LEGAL> legal(pos);
++          Value immediateValue = VALUE_ZERO, optionalValue = VALUE_ZERO;
++          const bool immediate = pos.is_immediate_game_end(immediateValue);
++          const bool optional = pos.is_optional_game_end(optionalValue);
++          const Value terminal = legal.size() ? VALUE_ZERO : pos.checkers() ? pos.checkmate_value() : pos.stalemate_value();
++          sync_cout << "Check: " << bool(checked(pos))
++                    << "\nImmediate: " << immediate << " " << immediateValue
++                    << "\nOptional: " << optional << " " << optionalValue
++                    << "\nTerminal: " << (legal.size() == 0) << " " << terminal
++                    << "\nInsufficient: " << has_insufficient_material(WHITE, pos)
++                    << " " << has_insufficient_material(BLACK, pos) << sync_endl;
++          for (const auto& entry : legal) {
++              const Move move = entry;
++              const std::string san = SAN::move_to_san(pos, move, NOTATION_SAN);
++              sync_cout << "Move: " << UCI::move(pos, move) << " " << san << sync_endl;
++          }
++      }
+       else if (token == "eval")     trace_eval(pos);
+       else if (token == "compiler") sync_cout << compiler_info() << sync_endl;
+       else if (token == "export_net")
