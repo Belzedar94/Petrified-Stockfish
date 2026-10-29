@@ -16,6 +16,21 @@ deep-search PVs must pass before the three-control 40/400 panel is frozen. This 
 a hypothesis about search efficiency; only the direct matches can establish Elo.
 No new training, rejected capture change or other candidate is included.
 
+The candidate is validated and frozen in [PR #9](https://github.com/Belzedar94/Petrified-Stockfish/pull/9):
+source `182255847accc7e4301df97a3546d11a4e5d2c0f`, BMI2/LTO binary
+`a927e8e41cf6cde7dd6d53f608ba0a5dc58ed974c99bc1d7b7963b282598bb79`.
+Both sides use the unchanged PR #7 network `ab8bc1e4...`. Candidate points bench
+is **148203 twice**, versus **177290** for the champion; legacy bench is identical
+at **179335**. Debug and Release each pass 9,338 state positions, including
+2,283 null transitions and 68 null en-passant cases with exact NNUE restoration.
+Points/mate regressions, native UCI/CECP and 32 searched positions (282 PV plies)
+checked by the independent referee pass. All five source CI jobs pass in run
+[40865273726](https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40865273726).
+The clean archive's 210 source files match exactly, and 45 execution inputs are
+hash-frozen. The local three-control panel is the next acceptance gate; these
+correctness checks and benchmark counts make no Elo claim. Candidate WASM and
+Fairyground distribution qualification is required only if all three controls win.
+
 ## Successor data experiment: closed as neutral (2026-10-29)
 
 The owner requested one next idea against the newly qualified champion.
