@@ -3,6 +3,7 @@ import argparse
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
+import os
 from pathlib import Path
 import struct
 import subprocess
@@ -104,9 +105,13 @@ def main():
             assert [s for s in candidate_legacy if s.startswith('Legacy ')]==[s for s in base_legacy if s.startswith('Legacy ')]
             e.send('setoption name EvalFile value '+str(args.network.resolve()));e.ready()
         saved=args.out/'roundtrip.pnnue'
-        # Upstream export_net consumes one path token; the local output directory
-        # is relative to this repo and deliberately contains no spaces.
-        e.send('export_net '+str(saved));e.ready()
+        # Upstream export_net consumes one path token. An absolute --out can
+        # include spaces in the repository's parent directory, even when the
+        # output directory itself is safe. Normalize against the engine's cwd.
+        export_path=os.path.relpath(saved.resolve(),Path.cwd())
+        if any(c.isspace() for c in export_path):
+            raise ValueError('export_net test needs an output path without whitespace relative to cwd')
+        e.send('export_net '+export_path);e.ready()
         assert saved.read_bytes()==args.network.read_bytes()
     data=args.network.read_bytes(); corrupt={}
     def resigned(buf):return buf[:-64]+hashlib.sha256(buf[:-64]).hexdigest().encode()

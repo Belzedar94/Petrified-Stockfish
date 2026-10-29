@@ -1,7 +1,7 @@
 {
   "schema": "petrified-points-head-experiment-v2",
   "experiment": "points-head-v2",
-  "status": "DATAGEN",
+  "status": "VALIDATION_RETRY_READY",
   "promoted": false,
   "owner_authorized": "Continue with the next major idea and a panel against the new baseline; one successor candidate.",
   "authorized_utc": "2026-10-29T08:29:37.692129+00:00",
@@ -131,6 +131,34 @@
       "run_id": 40843211668,
       "source_commit": "0e2a8dc4e2be6c2b332aa16c57901cb70d6671d7",
       "conclusion": "PASS: Windows/Linux Debug/Release, holdout/replay tests and sanitizers; no external NNUE in CI"
+    },
+    "data_audit": {
+      "schema": "points-head-v2-data-audit",
+      "verified_utc": "2026-10-29T09:20:57.450860+00:00",
+      "games": 1024,
+      "sampled_positions": 57840,
+      "plies": 198871,
+      "results": {
+        "0-1": 337,
+        "1-0": 653,
+        "1/2-1/2": 32,
+        "*": 2
+      },
+      "censored_preserved_and_excluded": [
+        {
+          "game": 56,
+          "excluded_samples": 198
+        },
+        {
+          "game": 392,
+          "excluded_samples": 199
+        }
+      ],
+      "referee_history_and_terminal": "PASS",
+      "sample_score_and_side": "PASS",
+      "raw_and_prepared_hashes": "PASS",
+      "datagen_manifest_sha256": "d6bf94b2610ee7de12b3709a78cfc60763f3484276b63d6a87b46d2102d12e46",
+      "prepared_manifest_sha256": "630d604246b47568e1adb3ee4f9d2f717b05b37ffec751b0e0165d4f721476cb"
     }
   },
   "runtime": {
@@ -139,15 +167,124 @@
     "trained": ".local/points-head-v2/trained",
     "followup": ".local/points-head-v2-followup.json",
     "pipeline_pid": 17976,
-    "updated_utc": "2026-10-29T08:37:16.591773+00:00",
+    "updated_utc": "2026-10-29T09:21:20.836981+00:00",
     "datagen_pid": 21068,
     "supervisor_session_id": 88240,
-    "automation_id": "pointshead-v2-autojuego-y-panel"
+    "automation_id": "pointshead-v2-autojuego-y-panel",
+    "continuation_script": ".local/points-head-v2/resume_validation.py"
   },
   "worker": "T8 stays manually paused; do not restart",
   "misere": "Paused by owner; do not message",
   "openbench": "No workload",
   "champion_during_experiment": "run4test PointsHead v1 + winning-mate-r2",
   "implementation_commit": "0e2a8dc4e2be6c2b332aa16c57901cb70d6671d7",
-  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/8"
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/8",
+  "incidents": [
+    {
+      "utc": "2026-10-29T09:26:54.758519+00:00",
+      "phase": "CANDIDATE_VALIDATION",
+      "failure": "Absolute output path containing spaces was split by single-token UCI export_net; full candidate was written under the truncated pathname.",
+      "evidence": ".local/points-head-v2/validation-failure-001",
+      "old_validator_sha256": "ab2f99ba5761a1ab4d5796ce735f2d8296c950eaefeb41971a266b4d68575157",
+      "new_validator_sha256": "ef281f1973bd06411e51c44558d37aba764f43c3922e6bd2906b485b343ed698",
+      "resolution": "Normalize export target relative to process cwd and reject remaining whitespace; retry validation only in a new directory.",
+      "candidate_unchanged_sha256": "e6321352ff49d151cc21b3e9b5b7b8c7b92cebdd8acf6bc6e67ade4183e77c3c",
+      "stray_export": "Full hash and creation time verified; recovered own orphan export into failure evidence; no sibling repository changed.",
+      "datagen_rerun": false,
+      "training_rerun": false,
+      "original_execution_manifest_sha256": "25140721387ff2f446e42bdab87e13dd8f66afd5bd56f7e41a9472d5c34cbfac"
+    }
+  ],
+  "training": {
+    "schema": "points-head-training-v1",
+    "device": "NVIDIA GeForce RTX 3080",
+    "torch": "2.7.1+cu118",
+    "cuda": "11.8",
+    "seconds": 44.81,
+    "rows": [
+      62241,
+      5665,
+      5494
+    ],
+    "selected_epoch": 5,
+    "epochs": 24,
+    "validation": {
+      "candidate_blend_loss": 0.4393998980522156,
+      "baseline_blend_loss": 0.44626283645629883,
+      "candidate_result_loss": 0.3769569396972656,
+      "baseline_result_loss": 0.4001198709011078
+    },
+    "test": {
+      "candidate_blend_loss": 0.43089187145233154,
+      "baseline_blend_loss": 0.4317799210548401,
+      "candidate_result_loss": 0.3771914541721344,
+      "baseline_result_loss": 0.38763800263404846
+    },
+    "seed": 29112901,
+    "initial_head_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "initial_export_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "initial_learning_rate": 0.04,
+    "sha256": "e6321352ff49d151cc21b3e9b5b7b8c7b92cebdd8acf6bc6e67ade4183e77c3c",
+    "frozen_base_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+    "qat_integer_mismatches": 0,
+    "trainable_parameters": 139912,
+    "dataset_manifest_sha256": "630d604246b47568e1adb3ee4f9d2f717b05b37ffec751b0e0165d4f721476cb",
+    "promotion": "Requires three valid direct match wins; loss is not Elo"
+  },
+  "data": {
+    "schema": "points-head-prepared-v1",
+    "game_count": 1024,
+    "rows": [
+      62241,
+      5665,
+      5494
+    ],
+    "games_per_split": [
+      1624,
+      99,
+      99
+    ],
+    "censored_games": 2,
+    "match_opening_families_excluded": 0,
+    "historical_overlap_rows_excluded": 0,
+    "cross_split_duplicates_removed": 0,
+    "within_split_duplicates_removed": 0,
+    "fresh_train_rows": 46681,
+    "replay_train_rows": 15560,
+    "replay_fraction_requested": 0.25,
+    "replay_fraction_actual": 0.2499959833550232,
+    "replay_manifest_sha256": "c31378703227647f588c15439255d558b31c52f04a2c7ffcef3cd2750d042b0d",
+    "selection_seed": 29112901,
+    "bucket_rows": [
+      3074,
+      14882,
+      12286,
+      11244,
+      9400,
+      8322,
+      7950,
+      6242
+    ],
+    "score_difference_range": [
+      -29,
+      27
+    ],
+    "base_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+    "baseline_network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "exporter_sha256": "b84d4500f7944d3214babe2adca0597c39b54540d3b5c8f87b5730824ca4b806",
+    "datagen_manifest_sha256": "d6bf94b2610ee7de12b3709a78cfc60763f3484276b63d6a87b46d2102d12e46",
+    "referee": "Every source game move and terminal checked by pinned Chess.com client; log hashes checked",
+    "raw": {
+      "games": 1024,
+      "rows": 57840,
+      "audited_plies": 198871,
+      "results": {
+        "1-0": 653,
+        "0-1": 337,
+        "1/2-1/2": 32,
+        "*": 2
+      },
+      "seconds": 2526.6
+    }
+  }
 }
