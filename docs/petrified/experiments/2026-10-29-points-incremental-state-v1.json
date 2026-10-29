@@ -1,0 +1,62 @@
+{
+  "schema": "petrified-search-experiment-v1",
+  "experiment": "points-incremental-state-v1",
+  "status": "IMPLEMENTING",
+  "owner_request": "Ahora, continúa con la siguiente gran idea",
+  "candidate_count": 1,
+  "branch": "exp/points-incremental-state-v1",
+  "baseline_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
+  "qualified_baseline_ref": "352cd3eed1ab9604adc1e8e4048ef8208d86f90e",
+  "champion": "PR11 PointsHead v1 + legal-query-v1",
+  "champion_binary_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "hypothesis": "Update Zobrist keys and material from move deltas instead of rebuilding over all pieces and walls on every move. Preserve exact keys, all state semantics and fixed-depth search.",
+  "scope": [
+    "Incremental main, pawn, minor, non-pawn and material keys",
+    "Incremental non-pawn material, walls, score, EP and castling deltas",
+    "Keep full initialization as an independent recomputation path",
+    "No NNUE, rule, move order, search parameter or pruning changes"
+  ],
+  "expected_points_bench": 177290,
+  "expected_legacy_bench": 179335,
+  "build": {
+    "compiler": "GCC16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false
+  },
+  "validation_plan": [
+    "Every derived key/material against full FEN reconstruction in both variants",
+    "All moves/replies in EP, castling including Chess960, capture-to-wall and promotion fixtures",
+    "Random walks plus undo, repetition and null restoration",
+    "Debug/Release state and NNUE equality, independent referee, points/mates, UCI/CECP",
+    "Two candidate benches identical to PR11 and eight alternating depth12 speed samples",
+    "Source CI before panel"
+  ],
+  "panel": {
+    "directory": ".local/points-incremental-state-panel-001",
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%; drain pending pairs and recheck; resume within cap if lost",
+    "at_cap": "NEUTRAL_SCREEN for selection, not equivalence",
+    "early_rejection": "Owner-delegated manual neutral or clear loss; preserve measured statistics",
+    "promotion": "Three audited WIN controls plus distribution/interfaces",
+    "referee": "Pinned independent Chess.com public client"
+  },
+  "constraints": {
+    "T8": "Manually paused",
+    "Misere": "Do not contact",
+    "OpenBench_AtomicDB_remote_workers": "No action",
+    "Fairyground": "Leave current PR11 server and user analysis intact",
+    "PR9": "Retained, not included"
+  },
+  "created_utc": "2026-10-29T15:43:55.595988+00:00"
+}

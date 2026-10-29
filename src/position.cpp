@@ -798,6 +798,9 @@ void Position::do_move(Move m, StateInfo& newSt, bool, Dirties& dirties,
     std::memcpy(&newSt, st, offsetof(StateInfo, key));
     newSt.previous = st;
     st = &newSt;
+    st->key = st->previous->key ^ Zobrist::side;
+    for (Bitboard b = st->epSquares; b;)
+        st->key ^= make_key(0x455000 + pop_lsb(b));
     ++gamePly;
     ++st->rule50;
     ++st->pliesFromNull;
@@ -818,26 +821,71 @@ void Position::do_move(Move m, StateInfo& newSt, bool, Dirties& dirties,
     dirties.dirtyPawnPairs.before[WHITE] = pieces(WHITE, PAWN);
     dirties.dirtyPawnPairs.before[BLACK] = pieces(BLACK, PAWN);
     st->castlingRights &= ~(castlingRightsMask[from] | castlingRightsMask[to]);
+    st->key ^= Zobrist::castling[st->previous->castlingRights]
+             ^ Zobrist::castling[st->castlingRights];
+
+    // Keep set_state() as the full initialization path. A move changes only a
+    // few piece-square terms; walls and scores also enter all correction keys.
+    auto xor_piece = [&](Piece piece, Square square) {
+        const Key delta = Zobrist::psq[piece][square];
+        st->key ^= delta;
+        if (type_of(piece) == PAWN)
+            st->pawnKey ^= delta;
+        else
+        {
+            st->nonPawnKey[color_of(piece)] ^= delta;
+            if (type_of(piece) <= BISHOP)
+                st->minorPieceKey ^= delta;
+        }
+    };
+    auto xor_shared = [&](Key delta) {
+        st->key ^= delta;
+        st->pawnKey ^= delta;
+        st->minorPieceKey ^= delta;
+        st->nonPawnKey[WHITE] ^= delta;
+        st->nonPawnKey[BLACK] ^= delta;
+    };
+    // Called after removal, so pieceCount already identifies the removed term.
+    auto remove_material = [&](Piece piece) {
+        st->materialKey ^= Zobrist::psq[piece][8 + pieceCount[piece]];
+        if (type_of(piece) != PAWN && type_of(piece) != KING)
+            st->nonPawnMaterial[color_of(piece)] -= PieceValue[piece];
+    };
     if (m.type_of() == CASTLING)
     {
         Square rfrom, rto;
         do_castling<true>(us, from, to, rfrom, rto, nullptr, &dp);
+        xor_piece(pc, from);
+        xor_piece(pc, to);
+        xor_piece(make_piece(us, ROOK), rfrom);
+        xor_piece(make_piece(us, ROOK), rto);
     }
     else
     {
+        xor_piece(pc, from);
         if (st->capturedPiece)
         {
-            if (game_of_points()) st->points[us] += capture_points(type_of(st->capturedPiece));
+            if (game_of_points())
+            {
+                const Key scoreBase = us == WHITE ? 0x100000000ULL : 0x200000000ULL;
+                const Key before = make_key(scoreBase + st->points[us]);
+                st->points[us] += capture_points(type_of(st->capturedPiece));
+                xor_shared(before ^ make_key(scoreBase + st->points[us]));
+            }
             const Square cs = m.type_of() == EN_PASSANT ? to - pawn_push(us) : to;
             dp.remove_pc = st->capturedPiece;
             dp.remove_sq = cs;
             remove_piece(cs);
+            xor_piece(st->capturedPiece, cs);
+            remove_material(st->capturedPiece);
             st->rule50 = 0;
         }
         if (st->capturedPiece && type_of(pc) != PAWN)
         {
             remove_piece(from);
+            remove_material(pc);
             wallBB |= to;
+            xor_shared(Zobrist::walls[to]);
             st->petrified = true;
             dp.to = SQ_NONE;
         }
@@ -850,7 +898,11 @@ void Position::do_move(Move m, StateInfo& newSt, bool, Dirties& dirties,
                 dp.to = SQ_NONE;
                 dp.add_sq = to;
                 dp.add_pc = piece_on(to);
+                remove_material(pc);
+                st->materialKey ^= Zobrist::psq[dp.add_pc][8 + pieceCount[dp.add_pc] - 1];
+                st->nonPawnMaterial[us] += PieceValue[dp.add_pc];
             }
+            xor_piece(piece_on(to), to);
         }
         if (type_of(pc) == PAWN)
         {
@@ -864,7 +916,10 @@ void Position::do_move(Move m, StateInfo& newSt, bool, Dirties& dirties,
         }
     }
     sideToMove = ~sideToMove;
-    set_state();
+    for (Bitboard b = st->epSquares; b;)
+        st->key ^= make_key(0x455000 + pop_lsb(b));
+    st->checkersBB = attackers_to(square<KING>(sideToMove)) & pieces(~sideToMove);
+    set_extra_bitboards();
     const int end = std::min(st->rule50, st->pliesFromNull);
     StateInfo* prior = st;
     for (int i = 2; i <= end; i += 2)

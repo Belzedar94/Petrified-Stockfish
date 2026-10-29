@@ -1,5 +1,16 @@
 # Petrified-Stockfish
 
+The owner authorized one next experiment on 2026-10-29: points-incremental-state-v1,
+from the qualified PR #11 champion. Update keys/material from move deltas while
+preserving exact state, evaluation, rules and search. Keep the full initialization
+path as a recomputation oracle, compare every derived key across special moves,
+random walks and undo, require identical benches and complete the existing
+min40/max400 three-control gate against the frozen PR #11 binary/network.
+No PR #9 pruning or rejected weights are included. Leave the owner's Fairyground
+server and analysis intact. Check memory before the four-way panel; T8 stays
+paused and no OpenBench, AtomicDB, remote-worker or Misere action is authorized.
+See the 2026-10-29-points-incremental-state-v1 experiment record.
+
 Current champion (2026-10-29): points-legal-query-v1 / PR #11, qualified source
 `74ea5095e84656c7d7e5783888a3a003b23c0ad9`. It won VSTC/STC/LTC at 70/70/88 games,
 all displayed LOS100.0% after pending pairs, with zero time losses. All 228 games,

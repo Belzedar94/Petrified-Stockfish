@@ -1,3 +1,21 @@
+# Active: points-incremental-state-v1
+
+The owner authorized one next candidate from the new PR #11 champion.
+The hypothesis is to update Zobrist/history/material keys from the move delta,
+instead of rebuilding over all pieces and walls at every search node. Rules,
+move order, NNUE and search settings stay fixed. Full FEN initialization remains
+the recomputation oracle; special moves, score/wall deltas, undo, repetition and
+null restoration must match exactly. Both deterministic benches must match PR #11.
+
+After correctness and source CI, freeze one candidate for the usual three-control
+panel (minimum40/maximum400, displayed LOS100.0%/0.0%, drain/recheck pairs).
+Promotion still requires three audited wins and complete interfaces. The owner
+has delegated early rejection of neutral or clearly losing candidates.
+Fairyground stays on PR #11 for the owner's tests; its server/analysis are kept.
+The four-way Hash512 panel waits for enough free memory. T8 stays paused;
+no OpenBench, AtomicDB, remote-worker or Misere action is authorized.
+See `experiments/2026-10-29-points-incremental-state-v1.json`.
+
 # Promoted champion: points-legal-query-v1
 
 PR #11 accelerates boolean legal-move queries from qualified PR #7 while
@@ -415,11 +433,11 @@ The four-game concurrency preflight failed with 5.73 GiB free against a 6.58 GiB
 requirement, and T8 was restored. The next campaign fixed concurrency at three;
 its preflight passed. Threads=1 and Hash=512 are unchanged for both players.
 
-| Control | Games | W/L/D | Elo ± 95% interval | LOS | Time losses (candidate/Walls) | Status |
+| Control | Games | W/L/D | Elo Â± 95% interval | LOS | Time losses (candidate/Walls) | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 106 | 85/2/19 | +365.89 ± 81.9 | 100.0% | 0/0 | Passed after pending pairs |
-| STC 10+0.1 | 106 | 70/2/34 | +264.31 ± 59.3 | 100.0% | 0/0 | Passed after pending pairs |
-| LTC 30+0.3 | 16 | 9/0/7 | +221.14 ± 135.8 | 100.0% | 0/0 | Cancelled by owner |
+| VSTC 2+0.02 | 106 | 85/2/19 | +365.89 Â± 81.9 | 100.0% | 0/0 | Passed after pending pairs |
+| STC 10+0.1 | 106 | 70/2/34 | +264.31 Â± 59.3 | 100.0% | 0/0 | Passed after pending pairs |
+| LTC 30+0.3 | 16 | 9/0/7 | +221.14 Â± 135.8 | 100.0% | 0/0 | Cancelled by owner |
 
 Local raw records are under `.local/campaign-002/` with separate engine streams,
 every move and clock, referee results, full pairs, manifests and the worker lease.
@@ -433,11 +451,11 @@ GCC 16.1.0, `-O3 -flto -flto-partition=one`, BMI2/AVX2, no PGO. The Walls binary
 SHA-256 is `757fe43a33624648f22fe99fc55976192fe86140080e333de27e422e51672da7`.
 Both players used run4test, Threads=1, Hash=512 and concurrency three.
 
-| Control | Games | W/L/D | Elo ± 95% interval | LOS | Time losses | Status |
+| Control | Games | W/L/D | Elo Â± 95% interval | LOS | Time losses | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 44 | 30/2/12 | +261.29 ± 104.4 | 100.0% | 0/0 | Passed, pending pairs completed |
-| STC 10+0.1 | 44 | 23/0/21 | +201.54 ± 72.3 | 100.0% | 0/0 | Passed, pending pairs completed |
-| LTC 30+0.3 | 16 | 8/0/8 | +190.85 ± 121.5 | 100.0% | 0/0 | Owner accepted; stopped early |
+| VSTC 2+0.02 | 44 | 30/2/12 | +261.29 Â± 104.4 | 100.0% | 0/0 | Passed, pending pairs completed |
+| STC 10+0.1 | 44 | 23/0/21 | +201.54 Â± 72.3 | 100.0% | 0/0 | Passed, pending pairs completed |
+| LTC 30+0.3 | 16 | 8/0/8 | +190.85 Â± 121.5 | 100.0% | 0/0 | Owner accepted; stopped early |
 
 The exact owner instruction was: "Puedes adjudicarlo como win. Empieza el panel
 vs fsf dev". LTC did not reach 40 games. Its original result remains INTERRUPTED;
@@ -454,11 +472,11 @@ including all 7,939 openings, against the pinned Walls referee. Both players
 positively identified their respective NNUE before the match.
 Records: `.local/campaign-004-fsf-dev/`.
 
-| Control | Games | W/L/D | Elo ± 95% interval | LOS | Time losses | Status |
+| Control | Games | W/L/D | Elo Â± 95% interval | LOS | Time losses | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 46 | 42/0/4 | +536.97 ± 302.2 | 100.0% | 0/0 | Passed, pending pairs completed |
-| STC 10+0.1 | 44 | 33/0/11 | +338.04 ± 110.7 | 100.0% | 0/0 | Passed, pending pairs completed |
-| LTC 30+0.3 | 44 | 31/1/12 | +289.24 ± 105.4 | 100.0% | 0/0 | Passed, pending pairs completed |
+| VSTC 2+0.02 | 46 | 42/0/4 | +536.97 Â± 302.2 | 100.0% | 0/0 | Passed, pending pairs completed |
+| STC 10+0.1 | 44 | 33/0/11 | +338.04 Â± 110.7 | 100.0% | 0/0 | Passed, pending pairs completed |
+| LTC 30+0.3 | 44 | 31/1/12 | +289.24 Â± 105.4 | 100.0% | 0/0 | Passed, pending pairs completed |
 
 All controls used Threads=1, Hash=512 and concurrency three; no clock losses or
 measured wall-clock overruns occurred. Public results and hashes are in
