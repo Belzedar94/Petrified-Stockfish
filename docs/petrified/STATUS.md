@@ -14,8 +14,14 @@ and opening families from fresh data. The transformer, PSQT, head architecture,
 rules, search and engine binary are unchanged. The local GPU trains one selected
 network; the panel compares it directly to v1 at VSTC/STC/LTC, minimum 40,
 maximum 400, displayed LOS 100.0%/0.0%, with completed pairs and boundary recheck.
-Only three valid wins can replace v1. Training and screening are pending;
-Fairyground remains on v1. T8 remains manually paused.
+Only three valid wins can replace v1. Data generation and one CUDA training run
+are complete: 57,840 fresh positions plus 15,560 replay rows, fresh holdouts,
+and epoch 5 selected by validation. The unchanged candidate passes integer,
+state, points and native/Node interface checks; bench is 172506 twice versus
+177290 for v1. An absolute-path bug in the export test was corrected, with its
+failed attempt and accidental export preserved; no data generation or training
+was repeated. The VSTC/STC/LTC panel is now running. Fairyground remains on v1.
+T8 remains manually paused.
 
 ## Qualified points head (2026-10-29)
 

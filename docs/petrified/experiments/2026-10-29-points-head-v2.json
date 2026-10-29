@@ -1,10 +1,10 @@
 {
   "schema": "petrified-points-head-experiment-v2",
   "experiment": "points-head-v2",
-  "status": "VALIDATION_RETRY_READY",
+  "status": "PANEL_RUNNING",
   "promoted": false,
   "owner_authorized": "Continue with the next major idea and a panel against the new baseline; one successor candidate.",
-  "authorized_utc": "2026-10-29T08:29:37.692129+00:00",
+  "authorized_utc": "2026-10-29T09:29:37.692129+01:00",
   "baseline_ref": "5c31333762a41609a410fd2db71a190b6fd73679",
   "champion": "run4test PointsHead v1 + winning-mate-r2",
   "engine_source_commit": "00a7fb11587f2120e1b5a3c7bcc97400c3b36480",
@@ -95,7 +95,11 @@
     "at_limit": "NEUTRAL_SCREEN for selection, not statistical equivalence",
     "promotion": "Only three valid WIN controls, audited hashes/pairs/referee and completed interfaces; otherwise preserve and reject",
     "opponent_binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
-    "opponent_network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c"
+    "opponent_network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "pid": 30204,
+    "launcher_pid": 26720,
+    "controller_pid": 32416,
+    "manifest_sha256": "8d07df14328c843d76bbf5a21d54d32375547b872a121bc29e2b62d01b5bc575"
   },
   "validation": {
     "curriculum_tests": "4 PASS; historical holdout isolation, cross-split duplicates, deterministic replay, score/rule50 keys",
@@ -114,8 +118,39 @@
       ],
       "trainable_parameters": 139912
     },
-    "candidate": "PENDING",
-    "bench": "PENDING",
+    "candidate": {
+      "schema": "points-head-validation-v1",
+      "positions": 202,
+      "independent_numpy_transformer": "PASS",
+      "numpy_integer_vs_cpp": "PASS",
+      "zero_head_vs_champion": "EXACT",
+      "base_vs_champion": "EXACT",
+      "legacy_unchanged": "PASS",
+      "two_threads_and_multiple_instances": "PASS",
+      "save_roundtrip": "PASS",
+      "invalid_files_rejected": [
+        "truncated",
+        "trailing",
+        "version",
+        "dimensions",
+        "changed-base",
+        "checksum",
+        "bias-overflow",
+        "nonzero-padding"
+      ],
+      "candidate_sha256": "e6321352ff49d151cc21b3e9b5b7b8c7b92cebdd8acf6bc6e67ade4183e77c3c",
+      "base_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933"
+    },
+    "bench": {
+      "candidate": [
+        172506,
+        172506
+      ],
+      "champion": 177290,
+      "command": "bench 16 1 10 tests/petrified/bench-points.epd depth",
+      "binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+      "network_sha256": "e6321352ff49d151cc21b3e9b5b7b8c7b92cebdd8acf6bc6e67ade4183e77c3c"
+    },
     "datagen_smoke": {
       "games": 2,
       "rows": 81,
@@ -134,7 +169,7 @@
     },
     "data_audit": {
       "schema": "points-head-v2-data-audit",
-      "verified_utc": "2026-10-29T09:20:57.450860+00:00",
+      "verified_utc": "2026-10-29T10:20:57.45086+01:00",
       "games": 1024,
       "sampled_positions": 57840,
       "plies": 198871,
@@ -159,6 +194,58 @@
       "raw_and_prepared_hashes": "PASS",
       "datagen_manifest_sha256": "d6bf94b2610ee7de12b3709a78cfc60763f3484276b63d6a87b46d2102d12e46",
       "prepared_manifest_sha256": "630d604246b47568e1adb3ee4f9d2f717b05b37ffec751b0e0165d4f721476cb"
+    },
+    "interfaces": {
+      "passed": true,
+      "uci": true,
+      "xboard": true,
+      "node_wasm": true,
+      "checks": [
+        "MultiPV",
+        "real NNUE",
+        "Threads 1/2",
+        "stop",
+        "ponderhit",
+        "terminal roots",
+        "winning mate distances/TT",
+        "points deficits 19/20/21, both colors",
+        "losing mate 25-24",
+        "invalid/missing NNUE",
+        "rules without NNUE",
+        "CECP edit/walls/fractional clocks/analysis"
+      ]
+    },
+    "state": "Debug/Release PASS",
+    "points_regressions": "PASS",
+    "split_audit": {
+      "checked_utc": "2026-10-29T10:29:44.282206+01:00",
+      "fresh_positions": 57840,
+      "replay_train_positions": 15560,
+      "split_rows": [
+        62241,
+        5665,
+        5494
+      ],
+      "fresh_vs_historical_positions_and_families": "DISJOINT",
+      "all_replay_from_original_train_only": "PASS",
+      "retained_targets_identical": "PASS",
+      "cross_split_positions_and_families": "DISJOINT",
+      "validation_and_test": "FRESH_ONLY",
+      "prepared_manifest_sha256": "630d604246b47568e1adb3ee4f9d2f717b05b37ffec751b0e0165d4f721476cb"
+    },
+    "source_ci_validation_fix": {
+      "run_id": 40849780384,
+      "source_commit": "f0c670855bcf31e9d79ac2ddae8cc9c06821b505",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        "Windows Debug PASS",
+        "Windows Release PASS",
+        "Linux Debug PASS",
+        "Linux Release PASS",
+        "sanitizers PASS"
+      ],
+      "checked_utc": "2026-10-29T09:38:12.9661256Z"
     }
   },
   "runtime": {
@@ -166,12 +253,34 @@
     "prepared": ".local/points-head-v2/prepared",
     "trained": ".local/points-head-v2/trained",
     "followup": ".local/points-head-v2-followup.json",
-    "pipeline_pid": 17976,
-    "updated_utc": "2026-10-29T09:21:20.836981+00:00",
+    "pipeline_pid": 32416,
+    "updated_utc": "2026-10-29T10:28:42.973813+01:00",
     "datagen_pid": 21068,
-    "supervisor_session_id": 88240,
+    "supervisor_session_id": 76657,
     "automation_id": "pointshead-v2-autojuego-y-panel",
-    "continuation_script": ".local/points-head-v2/resume_validation.py"
+    "continuation_script": ".local/points-head-v2/resume_validation.py",
+    "last_verified_utc": "2026-10-29T09:38:12.9661256Z",
+    "owned_processes": [
+      {
+        "ProcessId": 32416,
+        "ParentProcessId": 41160,
+        "Name": "python.exe",
+        "CreationDate": "2026-10-29T10:27:26.685322+01:00"
+      },
+      {
+        "ProcessId": 26720,
+        "ParentProcessId": 32416,
+        "Name": "python.exe",
+        "CreationDate": "2026-10-29T10:28:42.967914+01:00"
+      },
+      {
+        "ProcessId": 30204,
+        "ParentProcessId": 26720,
+        "Name": "python.exe",
+        "CreationDate": "2026-10-29T10:28:42.991592+01:00"
+      }
+    ],
+    "panel_start_verification": ".local/points-head-v2/panel-start-verification.json"
   },
   "worker": "T8 stays manually paused; do not restart",
   "misere": "Paused by owner; do not message",
@@ -181,7 +290,7 @@
   "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/8",
   "incidents": [
     {
-      "utc": "2026-10-29T09:26:54.758519+00:00",
+      "utc": "2026-10-29T10:26:54.758519+01:00",
       "phase": "CANDIDATE_VALIDATION",
       "failure": "Absolute output path containing spaces was split by single-token UCI export_net; full candidate was written under the truncated pathname.",
       "evidence": ".local/points-head-v2/validation-failure-001",
@@ -192,7 +301,8 @@
       "stray_export": "Full hash and creation time verified; recovered own orphan export into failure evidence; no sibling repository changed.",
       "datagen_rerun": false,
       "training_rerun": false,
-      "original_execution_manifest_sha256": "25140721387ff2f446e42bdab87e13dd8f66afd5bd56f7e41a9472d5c34cbfac"
+      "original_execution_manifest_sha256": "25140721387ff2f446e42bdab87e13dd8f66afd5bd56f7e41a9472d5c34cbfac",
+      "resolution_status": "RESOLVED: absolute-output retry passed all checks, including byte-identical roundtrip and eight invalid-file rejections"
     }
   ],
   "training": {
@@ -286,5 +396,11 @@
       },
       "seconds": 2526.6
     }
+  },
+  "candidate": {
+    "binary": ".local\\points-head-v2-inputs\\petrified-points-head-bmi2.exe",
+    "binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+    "network": ".local\\points-head-v2-inputs\\candidate-v2.pnnue",
+    "network_sha256": "e6321352ff49d151cc21b3e9b5b7b8c7b92cebdd8acf6bc6e67ade4183e77c3c"
   }
 }
