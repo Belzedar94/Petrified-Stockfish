@@ -17,6 +17,7 @@ and rejected artifacts remain preserved; all owned process identities exited.
 The final baseline remains **PR #7 PointsHead v1 + winning-mate-r2**, network
 `ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c`,
 binary `547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87`.
+The machine lease is released (`released=true`) and the follow-up was deleted.
 No next experiment is authorized. T8 stays manually paused. See the experiment
 record for all validation, provenance, process-exit and release evidence.
 

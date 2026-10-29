@@ -105,9 +105,12 @@
     },
     "panel_session": 19832,
     "execution_inputs": 66,
-    "released": false,
+    "released": true,
     "process_exit_evidence": ".local/points-wall-ft-v1/final-process-exit.json",
-    "next_experiment_authorized": false
+    "next_experiment_authorized": false,
+    "released_utc": "2026-10-29T12:34:31.001744+00:00",
+    "automation_state": "DELETED",
+    "pull_request_state": "CLOSED"
   },
   "implementation_incidents": [
     {
@@ -668,5 +671,26 @@
     "raw_panel": ".local/points-wall-ft-panel-001",
     "inventory": ".local/points-wall-ft-v1/closed-panel-files.json",
     "branch_retained": "exp/points-wall-ft-v1"
+  },
+  "closure_receipts": {
+    "pull_request": {
+      "number": 10,
+      "state": "closed",
+      "merged": false,
+      "closed_at": "2026-10-29T12:33:30Z",
+      "url": "https://github.com/Belzedar94/Petrified-Stockfish/pull/10",
+      "head_sha": "08b1271e5f20648912fcc1628b50a830ef629440",
+      "closure_commit": "08b1271e"
+    },
+    "automation": ".local/points-wall-ft-v1/automation-deletion.json",
+    "lease": ".local/points-wall-ft-v1/machine-lease-released.json",
+    "processes": ".local/points-wall-ft-v1/final-process-exit.json"
+  },
+  "final_baseline": {
+    "name": "PR #7 PointsHead v1 + winning-mate-r2",
+    "qualified_source_commit": "5c31333762a41609a410fd2db71a190b6fd73679",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+    "points_bench": 177290
   }
 }

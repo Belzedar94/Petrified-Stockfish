@@ -6,12 +6,13 @@ owner's delegated early-rejection policy: VSTC 100 paired games, 43/52/5,
 This is candidate selection, not statistical equivalence or a 0.0% boundary.
 Four incomplete pairs (three finished unpaired games) are preserved and excluded.
 The GPU candidate, data and all raw results are retained. The winner of PR #7
-remains champion; T8 remains manually paused. No next experiment is authorized.
+remains champion. All owned processes exited, the lease is released, and the
+follow-up was deleted. T8 remains manually paused. No next experiment is authorized.
 
-The completed successor is points-wall-ft-v1, on the qualified PR #7
-source. Train one bounded wall-feature transformer delta matrix on the already
-audited v2 dataset, while freezing the winning v1 dense head, live-piece features,
-biases, PSQT, search and rules. No rejected candidate weights are reused.
+The completed points-wall-ft-v1 experiment started from qualified PR #7 and
+trained one bounded wall-feature delta matrix on the audited v2 dataset, with
+the winning head, live-piece features, biases, PSQT, search and rules frozen.
+No rejected candidate weights were reused.
 The fixed recipe and acceptance policy are recorded in
 docs/petrified/experiments/2026-10-29-points-wall-ft-v1.json. Early manual neutral
 or loss rejection is delegated to the agent; record the reason and measured
