@@ -1,7 +1,7 @@
 {
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-incremental-state-v1",
-  "status": "VALIDATED_WAITING_MEMORY",
+  "status": "PANEL_RUNNING",
   "owner_request": "Ahora, contin\u00c3\u00baa con la siguiente gran idea",
   "candidate_count": 1,
   "branch": "exp/points-incremental-state-v1",
@@ -50,13 +50,33 @@
     "early_rejection": "Owner-delegated manual neutral or clear loss; preserve measured statistics",
     "promotion": "Three audited WIN controls plus distribution/interfaces",
     "referee": "Pinned independent Chess.com public client",
-    "status": "NOT_STARTED_WAITING_MEMORY"
+    "status": "RUNNING",
+    "identities": {
+      "controller": {
+        "pid": 41960,
+        "creation_filetime": 134377638421384076,
+        "creation_utc": "2026-10-29T16:10:42.138409+00:00"
+      },
+      "launcher": {
+        "pid": 38860,
+        "creation_filetime": 134377638422972926,
+        "creation_utc": "2026-10-29T16:10:42.297293+00:00"
+      },
+      "panel": {
+        "pid": 27280,
+        "creation_filetime": 134377638423200999,
+        "creation_utc": "2026-10-29T16:10:42.320099+00:00"
+      }
+    },
+    "launch_audit": ".local\\points-incremental-state-v1\\panel-launch-audit.json",
+    "session": 77274,
+    "started_utc": "2026-10-29T16:10:42.210930+00:00"
   },
   "constraints": {
     "T8": "Manually paused",
     "Misere": "Do not contact",
     "OpenBench_AtomicDB_remote_workers": "No action",
-    "Fairyground": "Leave current PR11 server and user analysis intact",
+    "Fairyground": "Closed with subsequent owner authorization to free memory; profile preserved",
     "PR9": "Retained, not included"
   },
   "created_utc": "2026-10-29T15:43:55.595988+00:00",
@@ -67,7 +87,7 @@
   "execution_manifest": ".local\\points-incremental-state-v1\\execution-manifest.json",
   "execution_manifest_sha256": "359aef5d6734e88eb9e98b75054a9927c3f9f554887d5ea7dbaa57f994b97cd9",
   "frozen_inputs": 80,
-  "updated_utc": "2026-10-29T16:02:12.698976+00:00",
+  "updated_utc": "2026-10-29T16:12:39.670876+00:00",
   "validation": {
     "result": "PASS",
     "report": ".local\\points-incremental-state-v1\\validation-report.json",
@@ -142,9 +162,9 @@
   "resource_preflight": {
     "correctness": "PASS",
     "source_ci": "PASS",
-    "checked_utc": "2026-10-29T15:59:47.538841+00:00",
-    "stage": "WAITING_MEMORY",
-    "free_bytes": 5803884544,
+    "checked_utc": "2026-10-29T16:10:25.975836+00:00",
+    "stage": "READY_FOR_PANEL",
+    "free_bytes": 9364590592,
     "required_bytes": 7583301632,
     "frozen_input_count": 80,
     "source_archive_files": 214,
@@ -157,36 +177,65 @@
   "observed_results": {
     "VSTC": {
       "control": "VSTC",
-      "status": "PENDING_MEMORY",
+      "status": "RUNNING",
       "scores": [
-        0,
+        22,
+        24,
+        2
+      ],
+      "time_losses": [
         0,
         0
       ],
-      "time_losses": null,
-      "statistics": null
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        4,
+        2,
+        14,
+        0,
+        4
+      ],
+      "statistics": "Total: 48 W: 22 L: 24 D: 2 ELO: -14.48 +-98.8 (95%) LOS: 38.4%",
+      "completed_pairs": 24,
+      "elapsed_seconds": 114.218
     },
     "STC": {
       "control": "STC",
-      "status": "PENDING_MEMORY",
+      "status": "PENDING",
       "scores": [
         0,
         0,
         0
       ],
-      "time_losses": null,
-      "statistics": null
+      "time_losses": [
+        0,
+        0
+      ]
     },
     "LTC": {
       "control": "LTC",
-      "status": "PENDING_MEMORY",
+      "status": "PENDING",
       "scores": [
         0,
         0,
         0
       ],
-      "time_losses": null,
-      "statistics": null
+      "time_losses": [
+        0,
+        0
+      ]
     }
+  },
+  "observed_utc": "2026-10-29T16:12:39.670876+00:00",
+  "fairyground_closure": {
+    "owner_request": "Puedes cerrar fairyground si lo necesitas",
+    "server_and_engines_closed": true,
+    "process_identities_exited": 8,
+    "audit": ".local\\points-incremental-state-v1\\fairyground-stop-audit.json",
+    "audit_sha256": "3741d056e475049d3254f0db79da7ba20d79828a7f598aa43afe1454688a15a2",
+    "browser_tab_closed": true,
+    "browser_method": "Observed local Fairyground tab; Ctrl+W; window inventory verified",
+    "installed_profile_preserved": true
   }
 }

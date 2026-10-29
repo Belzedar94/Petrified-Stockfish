@@ -11,8 +11,9 @@ After correctness and source CI, freeze one candidate for the usual three-contro
 panel (minimum40/maximum400, displayed LOS100.0%/0.0%, drain/recheck pairs).
 Promotion still requires three audited wins and complete interfaces. The owner
 has delegated early rejection of neutral or clearly losing candidates.
-Fairyground stays on PR #11 for the owner's tests; its server/analysis are kept.
-The four-way Hash512 panel waits for enough free memory. T8 stays paused;
+The owner authorized closing Fairyground to free memory for this panel; the
+PR #11 server and its engines exited through the owned shutdown endpoint.
+The four-way Hash512 panel is running after its memory check. T8 stays paused;
 no OpenBench, AtomicDB, remote-worker or Misere action is authorized.
 See `experiments/2026-10-29-points-incremental-state-v1.json`.
 
@@ -22,10 +23,12 @@ frozen with 80 inputs. Debug/Release each passed 72,078 full-state comparisons,
 independent referee. Five source CI jobs passed. Points bench is 177290 twice,
 legacy 179335, both identical to PR #11. Eight alternating depth12 samples
 visited the same 376,705 nodes: median343.5ms versus374ms (1.08879x throughput,
-not Elo). All 35 recorded build process identities exited. The panel has not
-started: its preflight needs 7,583,301,632 free bytes; the latest observation was
-5,803,884,544. The follow-up will start the frozen panel once memory is sufficient.
-Fairyground and the owner's personal analysis remain open.
+not Elo). All 35 recorded build process identities exited. The panel started
+at 2026-10-29T16:10:42Z after checking 9,364,590,592 free bytes against the
+required 7,583,301,632. Session77274: controller41960, launcher38860, real
+panel27280; exact creation identities are recorded in the panel launch audit.
+All eight Fairyground process identities exited after the owner's subsequent
+authorization to close it. The installed PR #11 profile is preserved.
 
 # Promoted champion: points-legal-query-v1
 

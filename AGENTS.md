@@ -6,8 +6,10 @@ preserving exact state, evaluation, rules and search. Keep the full initializati
 path as a recomputation oracle, compare every derived key across special moves,
 random walks and undo, require identical benches and complete the existing
 min40/max400 three-control gate against the frozen PR #11 binary/network.
-No PR #9 pruning or rejected weights are included. Leave the owner's Fairyground
-server and analysis intact. Check memory before the four-way panel; T8 stays
+No PR #9 pruning or rejected weights are included. The owner subsequently
+authorized closing Fairyground to free memory for this panel. Its own shutdown
+endpoint closed the server and engines; all eight recorded identities exited.
+Check memory before the four-way panel; T8 stays
 paused and no OpenBench, AtomicDB, remote-worker or Misere action is authorized.
 See the 2026-10-29-points-incremental-state-v1 experiment record.
 
