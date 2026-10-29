@@ -1,0 +1,99 @@
+{
+  "schema": "petrified-experiment-v1",
+  "date": "2026-10-28",
+  "comparison": "Chess.com points-aware baseline versus frozen legacy Petrified-Stockfish",
+  "compiler": "GCC 16.1.0",
+  "isa": "x86-64-bmi2",
+  "lto": true,
+  "pgo": false,
+  "manifest": {
+    "schema": "petrified-points-panel-v1",
+    "pid": 42448,
+    "rules": "Chess.com client 2026.10.3, FFA Deadwall EnPassant FatalCapture Sideways, 2PC",
+    "clock_basis": "variantfishtest engine-reported milliseconds; real elapsed separately logged",
+    "stopping": "fixed games per control; all pending pairs complete; no extension based on result",
+    "games_per_control": 40,
+    "hash": 512,
+    "threads": 1,
+    "concurrency": 3,
+    "worker": "owner-paused; no restart",
+    "files": {
+      "C:\\Users\\djime\\Documents\\Chess_variants\\Codex\\Fairy-Stockfish organization\\Petrified-Stockfish\\src\\petrified-points-bmi2.exe": "c79ab058c22c68f5e27b96c84e418bac09d77a527d1da5dfc92bacb6bd193da7",
+      "C:\\Users\\djime\\Documents\\Chess_variants\\Codex\\Fairy-Stockfish organization\\Petrified-Stockfish\\src\\petrified-bmi2.exe": "4664ec97c4b7a6f8ac5c05df2111668906812eb41c900466c28b138afdb47b7c",
+      "C:\\Users\\djime\\Documents\\Chess_variants\\Match script\\petrified_run4test_e19_l085.nnue": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+      "C:\\Users\\djime\\Documents\\Chess_variants\\Codex\\Fairy-Stockfish organization\\Petrified-Stockfish\\.local\\chesscom-points\\variants.js": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b",
+      "C:\\Users\\djime\\Documents\\Chess_variants\\Codex\\Fairy-Stockfish organization\\Petrified-Stockfish\\scripts\\points_panel.py": "6906269a1c7a5d98c194fb0274d265932693f11392308f68876af3f021c31fbf",
+      "C:\\Users\\djime\\Documents\\Chess_variants\\Codex\\Fairy-Stockfish organization\\Petrified-Stockfish\\tests\\petrified\\chesscom_reference.cjs": "d08b9e22c5ace1605208ce1806e9c96a0f9f3608330507a4261bc46ed2a79c7a",
+      "C:\\Users\\djime\\Documents\\Chess_variants\\Codex\\Fairy-Stockfish organization\\Petrified-Stockfish\\tests\\petrified\\protocol.py": "0145bcfaf986517bec1ad1e18650ffd9646c9a995a5a4f20cc78476a2803d0f4",
+      "C:\\Users\\djime\\Documents\\Chess_variants\\Codex\\Fairy-Stockfish organization\\Petrified-Stockfish\\tests\\petrified\\fixtures\\chesscom-walks.json": "e7c52d55ec83a3ddfbd85648bc7e243a0c49ad617623d160f8e4a6c2260940ed",
+      "C:\\Users\\djime\\Documents\\Chess_variants\\Codex\\Fairy-Stockfish organization\\Petrified-Stockfish\\.local\\points-panel-001\\openings.json": "bc3e9ee7d35544f7dd9f14ee9fdea594d6293018686de2642201670ae35ba7a9"
+    }
+  },
+  "results": [
+    {
+      "control": "VSTC",
+      "status": "COMPLETE",
+      "scores": [
+        39,
+        0,
+        1
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        0,
+        0,
+        0,
+        1,
+        19
+      ],
+      "statistics": "Total: 40 W: 39 L: 0 D: 1 "
+    },
+    {
+      "control": "STC",
+      "status": "COMPLETE",
+      "scores": [
+        40,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        0,
+        0,
+        0,
+        0,
+        20
+      ],
+      "statistics": "Total: 40 W: 40 L: 0 D: 0 "
+    },
+    {
+      "control": "LTC",
+      "status": "COMPLETE",
+      "scores": [
+        40,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        0,
+        0,
+        0,
+        0,
+        20
+      ],
+      "statistics": "Total: 40 W: 40 L: 0 D: 0 "
+    }
+  ],
+  "interpretation": "119 wins, 0 losses, 1 draw. Fixed 40 games per TC, all pairs complete. The shared runner cannot produce finite confidence intervals/LOS at these boundary scores; no invented statistical gate PASS. The VSTC empirical logistic Elo estimate is +759.05; STC/LTC estimates are unbounded.",
+  "scope": "All games use the pinned independent Chess.com client. This is not a score-aware competitor or a world-leadership test."
+}

@@ -21,6 +21,7 @@
 #include <utility>
 
 #include "attacks.h"
+#include "petrified_init.h"
 #include "misc.h"
 #include "position.h"
 #include "tune.h"
@@ -39,8 +40,7 @@ __attribute__((used)) // keep main alive
 int main(int argc, char* argv[]) {
     std::cout << engine_info() << std::endl;
 
-    Attacks::init();
-    Position::init();
+    initialize_petrified_core();
 
     auto cli = CommandLine(argc, argv);
     auto uci = std::make_unique<UCIEngine>(std::move(cli));
