@@ -1,5 +1,17 @@
 # Petrified-Stockfish
 
+On 2026-10-29 the owner adjudicated points-verified-null-v1 as a loss and closed
+the whole panel. VSTC finished 400 games, 175/212/13, -32.23 +/-33.7 Elo,
+measured LOS 2.9%; its raw automatic result remains INCONCLUSIVE_LIMIT. STC
+stopped at 14 paired games (8/4/2); LTC was not run. This is LOSS_MANUAL, not
+a displayed LOS 0.0% boundary. Preserve all raw records and rejected artifacts.
+The owner then delegated early rejection: the agent may adjudicate neutral or
+clearly losing candidates before the cap or remaining controls, recording the
+reason and actual statistics separately. This discretion authorizes early
+rejection only; promotion still requires three valid wins and completed audits
+and interfaces. The owner requested the next substantial experiment against the
+unchanged PR #7 PointsHead v1 champion. T8 remains manually paused.
+
 The owner resumed the next experiment on 2026-10-29 after the baseline identity
 clarification. The single new candidate is points-verified-null-v1, starting from
 the qualified PR #7 PointsHead v1 source and using its exact winning network.

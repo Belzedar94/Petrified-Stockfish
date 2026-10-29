@@ -3,7 +3,29 @@
 This branch starts at official Stockfish `ff7cee4244ec96ea488c402669e3674c0574dce6`.
 It is an implementation in progress, **not a version 1.0 release**.
 
-## Verified null-move experiment (2026-10-29)
+## Verified null-move experiment: rejected by owner (2026-10-29)
+
+The owner adjudicated the whole experiment as a loss and requested closure.
+The measured statistics remain distinct from that decision:
+
+| TC | Games | W/L/D | Elo +/-95% | LOS | Time losses candidate/opponent | Status |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 400 | 175/212/13 | -32.23 +/-33.7 | 2.9% | 0/0 | LOSS_MANUAL |
+| STC 10+0.1 | 14 | 8/4/2 | +102.11 +/-198.3 | 88.8% | 0/0 | STOPPED_MANUAL |
+| LTC 30+0.3 | 0 | 0/0/0 | - | - | 0/0 | NOT_RUN |
+
+VSTC's raw result is INCONCLUSIVE_LIMIT (NEUTRAL_SCREEN under the automatic
+selection rule), never a displayed LOS 0.0% loss. STC is below the minimum and
+LTC was not run: the owner explicitly closed the whole experiment. All 414
+counted games form 207 complete pairs; 76,975 referee plies and every ending
+match the independent logs. Four incomplete STC pairs and one completed unpaired
+game are preserved and excluded. All 63 frozen execution/panel/dependency inputs
+match, 2,331 raw files are inventoried, and all 636 observed process identities
+have exited. The raw controller FAILED status is the expected cooperative STOP.
+The candidate/source and branch are preserved; the PR #7 champion stays installed.
+The follow-up is deleted and T8 remains manually paused. The owner now permits
+early manual rejection of neutral or clearly losing candidates; the three-win
+promotion gate remains in force.
 
 The owner resumed the next experiment after clarifying that today's PR #7 winner
 is the baseline. [Points-verified-null-v1](experiments/2026-10-29-points-verified-null-v1.json)
@@ -27,9 +49,9 @@ Points/mate regressions, native UCI/CECP and 32 searched positions (282 PV plies
 checked by the independent referee pass. All five source CI jobs pass in run
 [40865273726](https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40865273726).
 The clean archive's 210 source files match exactly, and 45 execution inputs are
-hash-frozen. The local three-control panel is the next acceptance gate; these
-correctness checks and benchmark counts make no Elo claim. Candidate WASM and
-Fairyground distribution qualification is required only if all three controls win.
+hash-frozen. These correctness checks and benchmark counts make no Elo claim.
+Candidate WASM and Fairyground distribution qualification was not performed
+because the candidate was rejected; the qualified PR #7 interfaces stay installed.
 
 ## Successor data experiment: closed as neutral (2026-10-29)
 
