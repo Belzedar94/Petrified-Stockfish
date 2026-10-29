@@ -259,7 +259,7 @@
     "supervisor_session_id": 76657,
     "automation_id": "pointshead-v2-autojuego-y-panel",
     "continuation_script": ".local/points-head-v2/resume_validation.py",
-    "last_verified_utc": "2026-10-29T09:47:13.6414438Z",
+    "last_verified_utc": "2026-10-29T10:45:26.6935779Z",
     "owned_processes": [
       {
         "ProcessId": 32416,
@@ -281,7 +281,7 @@
       }
     ],
     "panel_start_verification": ".local/points-head-v2/panel-start-verification.json",
-    "latest_verification": ".local/points-head-v2/VSTC-close-check.json"
+    "latest_verification": ".local/points-head-v2/STC-close-check.json"
   },
   "worker": "T8 stays manually paused; do not restart",
   "misere": "Paused by owner; do not message",
@@ -406,11 +406,11 @@
   },
   "control_classification": {
     "VSTC": "NEUTRAL_SCREEN",
-    "STC": "RUNNING",
-    "LTC": "PENDING"
+    "STC": "NEUTRAL_SCREEN",
+    "LTC": "RUNNING"
   },
   "promotion_eligible": false,
-  "promotion_decision": "VSTC reached the 400-game cap without a LOS boundary; no promotion, complete STC/LTC as authorized.",
+  "promotion_decision": "VSTC and STC reached the 400-game cap without a LOS boundary; no promotion, complete LTC as authorized.",
   "completed_control_results": {
     "VSTC": {
       "control": "VSTC",
@@ -436,6 +436,31 @@
       "statistics": "Total: 400 W: 204 L: 183 D: 13 ELO: 18.26 +-33.6 (95%) LOS: 85.8%",
       "completed_pairs": 200,
       "elapsed_seconds": 841.125
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        193,
+        191,
+        16
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        31,
+        9,
+        120,
+        7,
+        33
+      ],
+      "statistics": "Total: 400 W: 193 L: 191 D: 16 ELO: 1.74 +-33.4 (95%) LOS: 54.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 3736.438
     }
   },
   "control_audits": {
@@ -464,6 +489,32 @@
       "independent_plies": 67123,
       "frozen_inputs": "all matched",
       "utc": "2026-10-29T09:46:28.954364+00:00"
+    },
+    "STC": {
+      "control": "STC",
+      "result": "PASS",
+      "games": 400,
+      "complete_pairs": 200,
+      "scores": [
+        193,
+        191,
+        16
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        31,
+        9,
+        120,
+        7,
+        33
+      ],
+      "independent_terminals": "all matched",
+      "independent_plies": 73113,
+      "frozen_inputs": "all matched",
+      "utc": "2026-10-29T10:45:41.644993+00:00"
     }
   }
 }
