@@ -1,3 +1,21 @@
+points-exchange-see-v1 / PR15 is RETAINED_FOR_FUTURE_OPENBENCH by the owner.
+The local panel closed manually: VSTC400 (203/185/12), STC288 (147/123/18),
+LTC not run, all time losses0/0. All688 games/344 pairs and133648 independent
+referee plies passed audit. Four incomplete pairs including one completed
+unpaired game are preserved and excluded. All1046 panel and30 development/build
+process identities exited, verified strictly by PID+CreationDate. The157-input
+bundle and exact source tag are in the experiment record. PR15 remains an open
+draft, without a statistical win or promotion. PR11 remains champion. The lease
+is released and its follow-up is deleted. No OpenBench workload is authorized.
+
+The owner now authorizes one next substantial Petrified-specific search
+experiment from qualified PR11 only. Do not include retained PR9/12/13/15 or
+rejected PR14 code. Preserve the existing validation, frozen-input and three-TC
+screening gates. T8 stays paused; Fairyground stays closed; do not contact Misere
+or touch AtomicDB, OpenBench or remote workers.
+
+Earlier entries below are historical; they do not authorize restarting panels.
+
 points-exchange-see-v1 / PR15 is frozen and running from qualified PR11.
 Source08cfc88f74f770dad86d86cf1662aa26a0c561ab passed Debug/Release, independent
 exchange/PV audits, native interfaces and all five source CI jobs40947924033.

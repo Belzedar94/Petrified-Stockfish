@@ -1,3 +1,9 @@
+PR15 points-exchange-see-v1 retained for future OpenBench by owner request.
+Local panel closed at VSTC400/STC288/LTC0; all688 paired games and133648 referee
+plies audited. Exact157-input bundle and source tag are recorded in its experiment.
+All1076 owned process identities exited; lease released. PR11 remains champion.
+One next search-specific successor from PR11 is authorized. No OpenBench load.
+
 # Active: points-exchange-see-v1, one search hypothesis from PR11
 
 The owner requested a deeper search review after the rejected sparse-head speed

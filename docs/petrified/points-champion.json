@@ -132,18 +132,17 @@
   },
   "promoted_utc": "2026-10-29T15:04:44.281140+00:00",
   "latest_candidate_evaluation": {
-    "experiment": "docs\\petrified\\experiments\\2026-10-29-points-sparse-head-v1.json",
-    "status": "REJECTED_PERFORMANCE_SCREEN",
+    "experiment": "docs\\petrified\\experiments\\2026-10-29-points-exchange-see-v1.json",
+    "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+    "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
     "champion_unchanged": true,
     "games": {
-      "VSTC": 0,
-      "STC": 0,
+      "VSTC": 400,
+      "STC": 288,
       "LTC": 0
     },
-    "completed_utc": "2026-10-29T19:46:50.497763+00:00",
-    "source_tag": "candidates/points-sparse-head-v1-rejected-performance",
-    "throughput_ratio": 0.9194139194139194,
-    "interpretation": "Measured speed regression; no strength result"
+    "completed_utc": "2026-10-29T21:26:17.434743+00:00",
+    "source_tag": "candidates/points-exchange-see-v1-openbench"
   },
   "candidate_evaluation_history": [
     {
@@ -221,6 +220,19 @@
       },
       "completed_utc": "2026-10-29T19:25:09.944744+00:00",
       "source_tag": "candidates/points-pin-legality-v1-openbench"
+    },
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-29-points-exchange-see-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 288,
+        "LTC": 0
+      },
+      "completed_utc": "2026-10-29T21:26:17.434743+00:00",
+      "source_tag": "candidates/points-exchange-see-v1-openbench"
     }
   ],
   "distribution": {
