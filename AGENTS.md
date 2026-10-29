@@ -1,5 +1,38 @@
 # Petrified-Stockfish
 
+The current authorized successor is points-wall-ft-v1, on the qualified PR #7
+source. Train one bounded wall-feature transformer delta matrix on the already
+audited v2 dataset, while freezing the winning v1 dense head, live-piece features,
+biases, PSQT, search and rules. No rejected candidate weights are reused.
+The fixed recipe and acceptance policy are recorded in
+docs/petrified/experiments/2026-10-29-points-wall-ft-v1.json. Early manual neutral
+or loss rejection is delegated to the agent; record the reason and measured
+statistics, preserve incomplete pairs, and do not call it an automatic boundary.
+Promotion still requires three valid wins plus all audits and interfaces.
+
+On 2026-10-29 the owner adjudicated points-verified-null-v1 as a loss and closed
+the whole panel. VSTC finished 400 games, 175/212/13, -32.23 +/-33.7 Elo,
+measured LOS 2.9%; its raw automatic result remains INCONCLUSIVE_LIMIT. STC
+stopped at 14 paired games (8/4/2); LTC was not run. This is LOSS_MANUAL, not
+a displayed LOS 0.0% boundary. Preserve all raw records and rejected artifacts.
+The owner then delegated early rejection: the agent may adjudicate neutral or
+clearly losing candidates before the cap or remaining controls, recording the
+reason and actual statistics separately. This discretion authorizes early
+rejection only; promotion still requires three valid wins and completed audits
+and interfaces. The owner requested the next substantial experiment against the
+unchanged PR #7 PointsHead v1 champion. T8 remains manually paused.
+
+The owner resumed the next experiment on 2026-10-29 after the baseline identity
+clarification. The single new candidate is points-verified-null-v1, starting from
+the qualified PR #7 PointsHead v1 source and using its exact winning network.
+See docs/petrified/experiments/2026-10-29-points-verified-null-v1.json. It tests
+guarded null-move pruning with mandatory non-null verification at every cutoff.
+No new training or rejected capture changes are included. Validate the candidate,
+then run all three controls at min40/max400 with the same boundary/pair policy;
+only three audited wins and finished interfaces can replace PR #7's champion.
+One candidate only; do not tune after viewing the panel. T8 remains manually
+paused; do not touch other workers, OpenBench or the paused Misere chat.
+
 On 2026-10-29 the owner authorized a new points-head-v1 experiment: retrain the
 actual run4test dense head with scoreboard inputs, freeze the accumulators, improve
 the data and use the local GPU. Test one selected candidate against the frozen
@@ -12,8 +45,30 @@ The experiment is now complete: points-head-v1 won all three controls at
 and independent referee audits. Local native/Node, CJS/ESM, isolated Python and
 Fairyground backend checks passed. It is the new points champion; see
 `docs/petrified/points-champion.json` for immutable binaries, weights and source.
-The previous champion and all data/candidates are preserved. No further training
-or experiment is authorized by this completed request. T8 stays manually paused.
+The previous champion and all data/candidates are preserved. That request is closed.
+The owner then explicitly requested the next idea and a panel against the new
+baseline. The single successor is points-head-v2: continue the winning dense head
+on fresh, deeper self-play from points-head-v1, with 25% replay of prior training
+rows, frozen accumulators/PSQT and exactly the same engine binary. Its predeclared
+recipe and immutable champion are in the 2026-10-29-points-head-v2 experiment record.
+Train one selected candidate on the local GPU, then all three controls with the
+same 40/400 and displayed LOS boundary gate. Do not promote from training loss or
+start a further candidate. T8 stays manually paused and Misere is not contacted.
+On 2026-10-29 the owner adjudicated the whole points-head-v2 experiment as neutral
+and closed it manually. VSTC/STC finished at 400 games each (NEUTRAL_SCREEN);
+LTC stopped at 22 games in 11 complete pairs, 12/10/0, measured LOS 66.6%
+(NEUTRAL_MANUAL, below the automatic minimum). Four incomplete pairs are preserved
+and excluded, including one completed but unpaired candidate win. All 822 paired
+games and 144,807 referee plies passed audit. This is an explicit manual exception,
+not statistical equivalence or a three-control pass. V2 is rejected for promotion.
+The baseline remains the winner of today's PR #7, PointsHead v1, bench 177290;
+the prior run4test + winning-mate-r2 baseline had bench 173124. The v2 panel used
+the exact PR #7 champion binary and network as its opponent. The owner requested
+a next idea, then asked to wait while this baseline identity was clarified. No
+successor was launched during the v2 closure. Preserve all v2 artifacts and do
+not restart its finished panel. PR #8 is closed, all panel processes exited,
+the machine lease is released, and its follow-up is deleted. T8 remains manually
+paused.
 
 The approved implementation plan and immutable inputs are in
 `docs/petrified/STATUS.md`, `baseline.json`, and `rules.md`. This repository is

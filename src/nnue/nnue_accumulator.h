@@ -30,6 +30,7 @@ struct AccumulatorCaches {
         std::array<Piece,64> board{};
         Bitboard walls = 0;
         bool valid = false;
+        bool pointsWall = false;
     };
     std::array<std::array<Entry,64>,2> entries;
     template<typename N> explicit AccumulatorCaches(const N&) { clear(); }

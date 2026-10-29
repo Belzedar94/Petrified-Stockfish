@@ -62,6 +62,17 @@ int main(int argc, char** argv) {
     }
     auto cache=std::make_unique<Eval::NNUE::AccumulatorCaches>(*network);
     auto stack=std::make_unique<Eval::NNUE::AccumulatorStack>();
+    if(argc>1) {
+        // Reuse the same king entries while switching rulesets: a points-only
+        // wall transformer must never leak into the legacy accumulator.
+        const std::string board="*4r2/2p1qpk1/2*2*P1/1p2p3/1P2P1*1/8/2P4Q/1N2K1NR w K - 3 22";
+        for(bool points : {false,true,false,true}) {
+            Position pos; StateInfo state;
+            require(!pos.set(board+(points?" points=7,4":""),false,&state),"variant cache FEN");
+            require(network->evaluate(pos,*stack,*cache)==network->evaluate_reference(pos),
+                    "points/legacy accumulator cache contamination");
+        }
+    }
     std::mt19937 rng(20261028);
     std::size_t checked=0;
     for(int game=0;game<60;++game) {

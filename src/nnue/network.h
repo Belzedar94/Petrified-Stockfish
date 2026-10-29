@@ -56,10 +56,13 @@ private:
     struct PointsHead { Head board; i8 scoreWeight[16][32]; };
     alignas(64) i16 biases[512];
     alignas(64) i16 weights[49152][512];
+    // Points-only wall rows, reconstructed once from the pinned base plus deltas.
+    alignas(64) i16 pointsWallWeights[4096][512];
     alignas(64) i32 psqtWeights[49152][8];
     Head heads[8];
     PointsHead pointsHeads[8];
     bool pointsHeadActive = false;
+    bool pointsWallActive = false;
     bool initialized = false;
     PointsAdapter adapter;
     std::array<char,65> networkSha{};

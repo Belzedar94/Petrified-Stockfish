@@ -1,0 +1,59 @@
+{
+  "schema": "petrified-points-experiment-v1",
+  "id": "points-wall-ft-v1",
+  "status": "IMPLEMENTING",
+  "owner_authorization": "Las ideas buenas las veras claras como en el pr 7, si ya ves que son neutras o claramente perdedoras, puedes adjudicar antes, lo dejo a tu criterio. Ponte con la siguiente gran idea",
+  "hypothesis": "Adapt only petrified-square transformer features, retaining the winning PR #7 dense head and all live-piece features, PSQT, biases, search and rules.",
+  "qualified_base_commit": "5c31333762a41609a410fd2db71a190b6fd73679",
+  "branch": "exp/points-wall-ft-v1",
+  "champion": {
+    "name": "PointsHead v1 winner of PR #7",
+    "binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "bench": 177290
+  },
+  "recipe": {
+    "source_data": ".local/points-head-v2/prepared",
+    "data_sha256": "b2084df0386d562042d84bda8305abe0df28a9a1231d350d273713c2169004aa",
+    "rows_train_validation_test": [62241, 5665, 5494],
+    "provenance": "57840 positions from 1024 v1 games at 32768 nodes plus 15560 rows exclusively from old training; two censored games preserved and excluded",
+    "prior_data_audits": [".local/points-head-v2/data-audit.json", ".local/points-head-v2/split-audit.json"],
+    "holdout_limitation": "Reuses the v2 holdout; not a fresh external generalization test. No v2 weights or match records enter training.",
+    "initial_network": "Exact qualified v1",
+    "trainable": "4096x512 int16 wall deltas, initialized zero, QAT bounded [-8,+8]",
+    "frozen": ["all original run4test bytes", "dense heads from PR #7", "live-piece feature weights", "transformer biases", "PSQT", "score inputs", "rules", "search"],
+    "seed": 29102904,
+    "epochs": 24,
+    "batch_size": 512,
+    "optimizer": "Adam",
+    "learning_rate": 0.04,
+    "schedule": "0.04*(0.15+0.85*(1+cos(pi*epoch/24))/2), zero-based epoch",
+    "gradient_clip": 1.0,
+    "loss": "BCE(pred/600,0.5*result+0.5*sigmoid(teacher/600)) + 0.001*mean(((pred-v1)/600)^2) + 0.0001*mean((delta/8)^2)",
+    "selection": "One GPU run; lowest validation blend loss; test loss after selection; never tune from panel",
+    "gpu": "Local RTX 3080",
+    "format": "PTWF0001"
+  },
+  "panel": {
+    "directory": ".local/points-wall-ft-panel-001",
+    "controls": {"VSTC":"2+0.02", "STC":"10+0.1", "LTC":"30+0.3"},
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "boundary": "Displayed LOS 100.0%/0.0%; finish pending pairs and recheck, resume within cap if boundary lost",
+    "at_cap": "NEUTRAL_SCREEN for selection, not statistical equivalence",
+    "early_rejection": "Owner delegates manual neutral or clear loss adjudication before cap or remaining TCs; preserve raw stats and incomplete pairs, document reason",
+    "promotion": "Only three valid WIN controls, independent referee/pair/hash/process audits and finished distribution/interfaces",
+    "referee": "Hash-pinned independent Chess.com client through audit adapter"
+  },
+  "constraints": {
+    "candidate_count": 1,
+    "t8": "Manually paused; never restart",
+    "misere": "Paused by owner; do not contact",
+    "remote_workers_atomicdb_openbench": "Do not touch",
+    "rejected_artifacts": "Preserve",
+    "release": "Only after final decision and exit of all owned processes"
+  }
+}

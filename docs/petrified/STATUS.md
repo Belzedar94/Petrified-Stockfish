@@ -1,7 +1,113 @@
+# Active: points-wall-ft-v1
+
+The owner authorized one next experiment and delegated early neutral/loss rejection.
+Adapt only wall-feature transformer rows from original run4test, freezing the winning
+PR #7 head, live features, PSQT, search and rules. The fixed recipe and acceptance
+criteria are in `experiments/2026-10-29-points-wall-ft-v1.json`. No new strength
+result yet. PR #7 remains champion; T8 stays manually paused.
+
 # Petrified-Stockfish implementation status
 
 This branch starts at official Stockfish `ff7cee4244ec96ea488c402669e3674c0574dce6`.
 It is an implementation in progress, **not a version 1.0 release**.
+
+## Verified null-move experiment: rejected by owner (2026-10-29)
+
+The owner adjudicated the whole experiment as a loss and requested closure.
+The measured statistics remain distinct from that decision:
+
+| TC | Games | W/L/D | Elo +/-95% | LOS | Time losses candidate/opponent | Status |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 400 | 175/212/13 | -32.23 +/-33.7 | 2.9% | 0/0 | LOSS_MANUAL |
+| STC 10+0.1 | 14 | 8/4/2 | +102.11 +/-198.3 | 88.8% | 0/0 | STOPPED_MANUAL |
+| LTC 30+0.3 | 0 | 0/0/0 | - | - | 0/0 | NOT_RUN |
+
+VSTC's raw result is INCONCLUSIVE_LIMIT (NEUTRAL_SCREEN under the automatic
+selection rule), never a displayed LOS 0.0% loss. STC is below the minimum and
+LTC was not run: the owner explicitly closed the whole experiment. All 414
+counted games form 207 complete pairs; 76,975 referee plies and every ending
+match the independent logs. Four incomplete STC pairs and one completed unpaired
+game are preserved and excluded. All 63 frozen execution/panel/dependency inputs
+match, 2,331 raw files are inventoried, and all 636 observed process identities
+have exited. The raw controller FAILED status is the expected cooperative STOP.
+The candidate/source and branch are preserved; the PR #7 champion stays installed.
+The follow-up is deleted and T8 remains manually paused. The owner now permits
+early manual rejection of neutral or clearly losing candidates; the three-win
+promotion gate remains in force.
+
+The owner resumed the next experiment after clarifying that today's PR #7 winner
+is the baseline. [Points-verified-null-v1](experiments/2026-10-29-points-verified-null-v1.json)
+starts from that qualified source and keeps its exact network. The single change
+enables guarded null probes for points, with mandatory verification from the real
+position at at least two plies and null pruning disabled throughout verification.
+Terminal score windows and rule50_count + depth >= 100 are excluded. The unchanged
+legacy search, state/NNUE restoration, scoring boundaries and independently checked
+deep-search PVs must pass before the three-control 40/400 panel is frozen. This is
+a hypothesis about search efficiency; only the direct matches can establish Elo.
+No new training, rejected capture change or other candidate is included.
+
+The candidate is validated and frozen in [PR #9](https://github.com/Belzedar94/Petrified-Stockfish/pull/9):
+source `182255847accc7e4301df97a3546d11a4e5d2c0f`, BMI2/LTO binary
+`a927e8e41cf6cde7dd6d53f608ba0a5dc58ed974c99bc1d7b7963b282598bb79`.
+Both sides use the unchanged PR #7 network `ab8bc1e4...`. Candidate points bench
+is **148203 twice**, versus **177290** for the champion; legacy bench is identical
+at **179335**. Debug and Release each pass 9,338 state positions, including
+2,283 null transitions and 68 null en-passant cases with exact NNUE restoration.
+Points/mate regressions, native UCI/CECP and 32 searched positions (282 PV plies)
+checked by the independent referee pass. All five source CI jobs pass in run
+[40865273726](https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40865273726).
+The clean archive's 210 source files match exactly, and 45 execution inputs are
+hash-frozen. These correctness checks and benchmark counts make no Elo claim.
+Candidate WASM and Fairyground distribution qualification was not performed
+because the candidate was rejected; the qualified PR #7 interfaces stay installed.
+
+## Successor data experiment: closed as neutral (2026-10-29)
+
+The owner requested one next idea against the newly qualified champion.
+[Points-head-v2](experiments/2026-10-29-points-head-v2.json) tests whether the
+winning head can improve from its own stronger play and four times the search
+budget per label: 1,024 fresh games at 32,768 nodes/move. It starts from the exact
+v1 head, retains 25% historical training rows, and excludes all old holdout rows
+and opening families from fresh data. The transformer, PSQT, head architecture,
+rules, search and engine binary are unchanged. The local GPU trains one selected
+network; the panel compares it directly to v1 at VSTC/STC/LTC, minimum 40,
+maximum 400, displayed LOS 100.0%/0.0%, with completed pairs and boundary recheck.
+Only three valid wins can replace v1. Data generation and one CUDA training run
+are complete: 57,840 fresh positions plus 15,560 replay rows, fresh holdouts,
+and epoch 5 selected by validation. The unchanged candidate passes integer,
+state, points and native/Node interface checks; bench is 172506 twice versus
+177290 for v1. An absolute-path bug in the export test was corrected, with its
+failed attempt and accidental export preserved; no data generation or training
+was repeated. VSTC and STC both reached the 400-game cap without a LOS boundary.
+The owner then adjudicated the whole experiment as neutral and stopped LTC.
+Final results from the candidate perspective:
+
+| TC | Games | W/L/D | Elo +/-95% | LOS | Time losses candidate/opponent | Status |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 400 | 204/183/13 | +18.26 +/-33.6 | 85.8% | 0/0 | NEUTRAL_SCREEN |
+| STC 10+0.1 | 400 | 193/191/16 | +1.74 +/-33.4 | 54.1% | 0/0 | NEUTRAL_SCREEN |
+| LTC 30+0.3 | 22 | 12/10/0 | +31.67 +/-155.4 | 66.6% | 0/0 | NEUTRAL_MANUAL |
+
+The 822 counted games form 411 complete color-reversed pairs; all 144,807 plies
+and endings match the independent referee logs. Four interrupted LTC pairs are
+preserved and excluded, including one completed but unpaired white candidate win
+(26-25, 50-move rule; its 284 plies were also audited). LTC did not reach the
+40-game minimum or a LOS boundary: this is an explicit manual closure, not an
+automatic gate pass or statistical equivalence. V2 is rejected for promotion.
+All 37 execution inputs and 11 panel inputs match their frozen hashes; 4,576 raw
+panel files are inventoried. The controller's raw FAILED/INTERRUPTED records are
+preserved as the consequence of the requested cooperative STOP, not an engine
+crash. Panel processes exited with PID/CreationDate checks; candidate, training
+data, checkpoints, and known validation-failure evidence remain preserved.
+
+The champion and Fairyground remain on **PointsHead v1, the winner of today's
+PR #7**, with network `ab8bc1e4...` and bench 177290. This is the version that beat
+the previous run4test baseline (bench 173124), and the exact opponent tested by
+PR #8. The owner requested the next idea, then asked to wait while that identity
+was clarified. No successor was launched in this closure. T8 remains manually
+paused. PR #8 is closed, the machine lease has `released=true`, and the v2
+follow-up automation is deleted. Closure receipts are linked from the experiment
+record; no panel load remains.
 
 ## Qualified points head (2026-10-29)
 

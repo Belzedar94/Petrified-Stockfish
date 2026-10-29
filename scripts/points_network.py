@@ -11,7 +11,8 @@ def verify_points_network(engine,network):
     with network.open('rb') as stream:
         stream.seek(BASE_BYTES); magic=stream.read(8)
     descriptions={b'PTADPT01':('PointsAdapter v1','16/16/1'),
-                  b'PTHD0001':('PointsHead v1','1056/16/32/1, 8 buckets')}
+                  b'PTHD0001':('PointsHead v1','1056/16/32/1, 8 buckets'),
+                  b'PTWF0001':('PointsWallFT v1','1056/16/32/1, 8 buckets, 4096x512 wall deltas')}
     if magic not in descriptions: raise RuntimeError('Unknown points network extension')
     name,dimensions=descriptions[magic]
     digest=hashlib.sha256(network.read_bytes()).hexdigest()

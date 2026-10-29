@@ -1,0 +1,717 @@
+{
+  "schema": "petrified-search-experiment-v1",
+  "experiment": "points-verified-null-v1",
+  "status": "REJECTED_LOSS_MANUAL",
+  "promoted": false,
+  "owner_authorized": "Ponte con el siguiente gran experimento pues",
+  "branch": "exp/points-verified-null-v1",
+  "baseline_ref": "5c31333762a41609a410fd2db71a190b6fd73679",
+  "champion": "run4test PointsHead v1 + winning-mate-r2, the winner of PR #7 on 2026-10-29",
+  "champion_binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "champion_points_bench": 177290,
+  "hypothesis": "The qualified points engine disables all null-move pruning. A guarded null probe followed by mandatory non-null verification may reduce wasted search enough to improve playing strength with the unchanged winning evaluation.",
+  "candidate_count": 1,
+  "policy_frozen_before_panel": {
+    "ordinary_eligibility": "Keep existing cut-node, static-evaluation, non-pawn-material and excluded-move conditions",
+    "points_extra_eligibility": "depth >= 4; no verification already active; beta outside decisive score range; rule50_count + depth < 100",
+    "reduction": "Existing dynamic reduction, capped at depth - 2 for points",
+    "verification": "Every eligible nondecisive null fail-high must pass a search from the original position, at depth - R >= 2, with null pruning disabled throughout that verification subtree",
+    "returned_bound": "Return the real-position verification value for points; preserve legacy behavior",
+    "terminal_rules": "Existing point settlements, resignation claims and mate logic remain ahead of the probe",
+    "no_result_aware_tuning": true
+  },
+  "frozen": [
+    "PointsHead v1 weights",
+    "accumulators and PSQT",
+    "rules",
+    "evaluation",
+    "capture ordering and capture pruning",
+    "all other search parameters"
+  ],
+  "research_basis": "https://arxiv.org/abs/0808.1125; inspiration for verification, not a claim that its orthodox-chess results transfer to Petrified",
+  "validation_plan": [
+    "Debug and Release null/do/undo state, scores, en passant, repetition isolation and NNUE/reference checks",
+    "Existing independent Chess.com points/mate regressions, including 19/20/21 deficits and winning/losing mates",
+    "Bounded deep-search best moves and PVs checked by the independent pinned Chess.com client",
+    "Native UCI/CECP lifecycle; immutable v1 interfaces retained until any promotion",
+    "Deterministic candidate bench twice; champion points bench 177290; legacy search bench unchanged",
+    "Source CI and frozen source/binary/network/referee/runner/opening hashes"
+  ],
+  "build": {
+    "compiler": "GCC 16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false
+  },
+  "panel": {
+    "path": ".local/points-verified-null-panel-001",
+    "controls": [
+      "2+0.02",
+      "10+0.1",
+      "30+0.3"
+    ],
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "stopping": "Displayed LOS 100.0%/0.0%; finish pending reversed-color pairs, recheck, and resume within the same cap if the boundary is lost",
+    "all_three_required": true,
+    "at_limit": "NEUTRAL_SCREEN for candidate selection, not statistical equivalence",
+    "promotion": "Only three valid WIN controls plus final audits and interfaces; otherwise preserve/reject and retain PR #7 champion",
+    "referee": "Independent hash-pinned public Chess.com client",
+    "manifest": ".local/points-verified-null-panel-001/manifest.json",
+    "launched_utc": "2026-10-29T11:36:55.538516+00:00",
+    "controller": {
+      "pid": 26544,
+      "creation_filetime": 134377474154677864,
+      "creation_utc": "2026-10-29T11:36:55.467785+00:00"
+    },
+    "process": {
+      "pid": 9800,
+      "creation_filetime": 134377474156106229,
+      "creation_utc": "2026-10-29T11:36:55.610622+00:00"
+    },
+    "supervised_session_id": 60114,
+    "execution_manifest": ".local/points-verified-null-v1/execution-manifest.json",
+    "launch_audit": ".local/points-verified-null-v1/panel-launch-audit.json",
+    "raw_results_at_launch": {
+      "VSTC": {
+        "control": "VSTC",
+        "status": "RUNNING",
+        "scores": [
+          37,
+          38,
+          3
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          7,
+          1,
+          23,
+          2,
+          6
+        ],
+        "statistics": "Total: 78 W: 37 L: 38 D: 3 ELO: -4.45 +-76.7 (95%) LOS: 45.4%",
+        "completed_pairs": 39,
+        "elapsed_seconds": 181.766
+      },
+      "STC": {
+        "control": "STC",
+        "status": "PENDING",
+        "scores": [
+          0,
+          0,
+          0
+        ],
+        "time_losses": [
+          0,
+          0
+        ]
+      },
+      "LTC": {
+        "control": "LTC",
+        "status": "PENDING",
+        "scores": [
+          0,
+          0,
+          0
+        ],
+        "time_losses": [
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "worker": "T8 stays manually paused",
+  "misere": "Paused by owner; do not contact",
+  "openbench": "No workload authorized",
+  "implementation_commit": "182255847accc7e4301df97a3546d11a4e5d2c0f",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/9",
+  "candidate": {
+    "binary": ".local\\points-verified-null-v1-inputs\\petrified-points-verified-null-v1-bmi2.exe",
+    "binary_sha256": "a927e8e41cf6cde7dd6d53f608ba0a5dc58ed974c99bc1d7b7963b282598bb79",
+    "network": ".local\\points-verified-null-v1-inputs\\champion-v1.pnnue",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "points_bench": 148203
+  },
+  "validation": {
+    "result": "PASS",
+    "report": ".local/points-verified-null-v1/validation-report.json",
+    "state": {
+      "configurations": [
+        "Debug",
+        "Release"
+      ],
+      "positions_each": 9338,
+      "null_moves_each": 2283,
+      "null_en_passant_each": 68,
+      "NNUE": "exact"
+    },
+    "points": {
+      "configurations": [
+        "Debug",
+        "BMI2-LTO"
+      ],
+      "reference_cases": 23,
+      "pin_regressions": 5,
+      "oracle_walk_plies": 4976,
+      "winning_mate_game_plies": 43
+    },
+    "independent_search": {
+      "positions": 32,
+      "T1": 24,
+      "T2": 8,
+      "PV_plies": 282,
+      "mate_in_7_verified": true
+    },
+    "native_interfaces": {
+      "passed": true,
+      "uci": true,
+      "xboard": true,
+      "node_wasm": false,
+      "checks": [
+        "MultiPV",
+        "real NNUE",
+        "Threads 1/2",
+        "stop",
+        "ponderhit",
+        "terminal roots",
+        "winning mate distances/TT",
+        "points deficits 19/20/21, both colors",
+        "losing mate 25-24",
+        "invalid/missing NNUE",
+        "rules without NNUE",
+        "CECP edit/walls/fractional clocks/analysis"
+      ]
+    },
+    "wasm_note": "Candidate WASM/Fairyground qualification is deferred until a three-WIN panel; v1 distribution remains unchanged",
+    "bench": {
+      "points_candidate": [
+        148203,
+        148203
+      ],
+      "points_champion": 177290,
+      "legacy_candidate_champion": [
+        179335,
+        179335
+      ],
+      "meaning": "Deterministic identity, not Elo"
+    },
+    "source_ci": {
+      "commit": "182255847accc7e4301df97a3546d11a4e5d2c0f",
+      "run_id": 40865273726,
+      "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40865273726",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        "rules (windows-latest, Debug)",
+        "rules (ubuntu-latest, Debug)",
+        "sanitizers",
+        "rules (windows-latest, Release)",
+        "rules (ubuntu-latest, Release)"
+      ],
+      "checked_utc": "2026-10-29T11:32:38.7964101Z"
+    },
+    "source_archive_files_exact": 210,
+    "build_processes_exited": true
+  },
+  "followup": {
+    "automation_id": "petrified-poda-nula-verificada",
+    "path": ".local/points-verified-null-followup.json"
+  },
+  "promotion_eligible": false,
+  "completed_utc": "2026-10-29T12:01:28.061079+00:00",
+  "champion_after": "run4test PointsHead v1 + winning-mate-r2",
+  "results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        175,
+        212,
+        13
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        40,
+        8,
+        124,
+        5,
+        23
+      ],
+      "statistics": "Total: 400 W: 175 L: 212 D: 13 ELO: -32.23 +-33.7 (95%) LOS: 2.9%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 877.063
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INTERRUPTED",
+      "scores": [
+        8,
+        4,
+        2
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        0,
+        2,
+        2,
+        2
+      ],
+      "statistics": "Total: 14 W: 8 L: 4 D: 2 ELO: 102.11 +-198.3 (95%) LOS: 88.8%",
+      "completed_pairs": 7,
+      "elapsed_seconds": 168.156,
+      "error": "Panel stopped"
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "NOT_RUN",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ]
+    }
+  },
+  "control_classification": {
+    "VSTC": "LOSS_MANUAL",
+    "STC": "STOPPED_MANUAL",
+    "LTC": "NOT_RUN"
+  },
+  "manual_adjudication": {
+    "decision": "LOSS_MANUAL",
+    "owner_request": "Adjudica, es una clara derrota",
+    "requested_utc": "2026-10-29T11:54:30.780415+00:00",
+    "scope": "Close the whole experiment and remaining controls; preserve raw statistics and all incomplete pairs",
+    "automatic_LOS_boundary_claimed": false,
+    "promote": false,
+    "raw_VSTC_selection": "NEUTRAL_SCREEN at 400; displayed LOS 2.9%, not 0.0%",
+    "exception": "Owner closes the entire experiment; STC below minimum and LTC not run",
+    "raw_controller_status": "FAILED / panel exit 1 after requested cooperative STOP; not an engine failure"
+  },
+  "final_audit": {
+    "schema": "points-verified-null-manual-closure-v1",
+    "result": "PASS",
+    "checked_utc": "2026-10-29T11:56:59.868171+00:00",
+    "games_in_complete_pairs": 414,
+    "complete_pairs": 207,
+    "independent_plies": 76975,
+    "incomplete_pairs_preserved": 4,
+    "unpaired_completed_games_excluded": 1,
+    "manifest_inputs_verified": {
+      "execution": 45,
+      "panel": 11,
+      "dependencies": 7
+    },
+    "raw_panel_files_preserved": 2331,
+    "raw_inventory_sha256": "06197a2a7617d2f9029e2f3cbd367f0eb3fab22fe4cba52810b7e640be6630e1",
+    "process_identities_checked": 636,
+    "same_owned_processes_alive": [],
+    "raw_controller_status": "FAILED following requested STOP; expected interruption, not an engine failure",
+    "interpretation": "Owner adjudicates whole experiment as a loss. VSTC measured LOS remains 2.9%, not 0%. STC below minimum, LTC not run.",
+    "promotion_eligible": false,
+    "champion_after": "PointsHead v1, winner of PR7; Bench177290",
+    "process_exit": {
+      "checked_utc": "2026-10-29T11:57:50.5513905Z",
+      "identities_checked": 636,
+      "remaining": [],
+      "related_processes": [],
+      "worker_original_processes_alive": [],
+      "pause_marker_present": true,
+      "pause_file_sha256": "48b26776a15e15e37b602def45d72b143dfd31f1bbe531874e0f6a674ecc9af5"
+    }
+  },
+  "control_audits": {
+    "VSTC": {
+      "result": "PASS",
+      "games": 400,
+      "complete_pairs": 200,
+      "scores": [
+        175,
+        212,
+        13
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        40,
+        8,
+        124,
+        5,
+        23
+      ],
+      "independent_plies": 74025,
+      "independent_terminals": "all matched",
+      "complete_pair_ids": [
+        "pair-0000",
+        "pair-0001",
+        "pair-0002",
+        "pair-0003",
+        "pair-0004",
+        "pair-0005",
+        "pair-0006",
+        "pair-0007",
+        "pair-0008",
+        "pair-0009",
+        "pair-0010",
+        "pair-0011",
+        "pair-0012",
+        "pair-0013",
+        "pair-0014",
+        "pair-0015",
+        "pair-0016",
+        "pair-0017",
+        "pair-0018",
+        "pair-0019",
+        "pair-0020",
+        "pair-0021",
+        "pair-0022",
+        "pair-0023",
+        "pair-0024",
+        "pair-0025",
+        "pair-0026",
+        "pair-0027",
+        "pair-0028",
+        "pair-0029",
+        "pair-0030",
+        "pair-0031",
+        "pair-0032",
+        "pair-0033",
+        "pair-0034",
+        "pair-0035",
+        "pair-0036",
+        "pair-0037",
+        "pair-0038",
+        "pair-0039",
+        "pair-0040",
+        "pair-0041",
+        "pair-0042",
+        "pair-0043",
+        "pair-0044",
+        "pair-0045",
+        "pair-0046",
+        "pair-0047",
+        "pair-0048",
+        "pair-0049",
+        "pair-0050",
+        "pair-0051",
+        "pair-0052",
+        "pair-0053",
+        "pair-0054",
+        "pair-0055",
+        "pair-0056",
+        "pair-0057",
+        "pair-0058",
+        "pair-0059",
+        "pair-0060",
+        "pair-0061",
+        "pair-0062",
+        "pair-0063",
+        "pair-0064",
+        "pair-0065",
+        "pair-0066",
+        "pair-0067",
+        "pair-0068",
+        "pair-0069",
+        "pair-0070",
+        "pair-0071",
+        "pair-0072",
+        "pair-0073",
+        "pair-0074",
+        "pair-0075",
+        "pair-0076",
+        "pair-0077",
+        "pair-0078",
+        "pair-0079",
+        "pair-0080",
+        "pair-0081",
+        "pair-0082",
+        "pair-0083",
+        "pair-0084",
+        "pair-0085",
+        "pair-0086",
+        "pair-0087",
+        "pair-0088",
+        "pair-0089",
+        "pair-0090",
+        "pair-0091",
+        "pair-0092",
+        "pair-0093",
+        "pair-0094",
+        "pair-0095",
+        "pair-0096",
+        "pair-0097",
+        "pair-0098",
+        "pair-0099",
+        "pair-0100",
+        "pair-0101",
+        "pair-0102",
+        "pair-0103",
+        "pair-0104",
+        "pair-0105",
+        "pair-0106",
+        "pair-0107",
+        "pair-0108",
+        "pair-0109",
+        "pair-0110",
+        "pair-0111",
+        "pair-0112",
+        "pair-0113",
+        "pair-0114",
+        "pair-0115",
+        "pair-0116",
+        "pair-0117",
+        "pair-0118",
+        "pair-0119",
+        "pair-0120",
+        "pair-0121",
+        "pair-0122",
+        "pair-0123",
+        "pair-0124",
+        "pair-0125",
+        "pair-0126",
+        "pair-0127",
+        "pair-0128",
+        "pair-0129",
+        "pair-0130",
+        "pair-0131",
+        "pair-0132",
+        "pair-0133",
+        "pair-0134",
+        "pair-0135",
+        "pair-0136",
+        "pair-0137",
+        "pair-0138",
+        "pair-0139",
+        "pair-0140",
+        "pair-0141",
+        "pair-0142",
+        "pair-0143",
+        "pair-0144",
+        "pair-0145",
+        "pair-0146",
+        "pair-0147",
+        "pair-0148",
+        "pair-0149",
+        "pair-0150",
+        "pair-0151",
+        "pair-0152",
+        "pair-0153",
+        "pair-0154",
+        "pair-0155",
+        "pair-0156",
+        "pair-0157",
+        "pair-0158",
+        "pair-0159",
+        "pair-0160",
+        "pair-0161",
+        "pair-0162",
+        "pair-0163",
+        "pair-0164",
+        "pair-0165",
+        "pair-0166",
+        "pair-0167",
+        "pair-0168",
+        "pair-0169",
+        "pair-0170",
+        "pair-0171",
+        "pair-0172",
+        "pair-0173",
+        "pair-0174",
+        "pair-0175",
+        "pair-0176",
+        "pair-0177",
+        "pair-0178",
+        "pair-0179",
+        "pair-0180",
+        "pair-0181",
+        "pair-0182",
+        "pair-0183",
+        "pair-0184",
+        "pair-0185",
+        "pair-0186",
+        "pair-0187",
+        "pair-0188",
+        "pair-0189",
+        "pair-0190",
+        "pair-0191",
+        "pair-0192",
+        "pair-0193",
+        "pair-0194",
+        "pair-0195",
+        "pair-0196",
+        "pair-0197",
+        "pair-0198",
+        "pair-0199"
+      ],
+      "incomplete_pairs_preserved": [],
+      "unpaired_completed_games_excluded": [],
+      "raw_result_sha256": "505990ed898443f12c292c17eb676117e7b2e533440625fdc7a6eff695342923",
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "raw_statistics": "Total: 400 W: 175 L: 212 D: 13 ELO: -32.23 +-33.7 (95%) LOS: 2.9%"
+    },
+    "STC": {
+      "result": "PASS",
+      "games": 14,
+      "complete_pairs": 7,
+      "scores": [
+        8,
+        4,
+        2
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        1,
+        0,
+        2,
+        2,
+        2
+      ],
+      "independent_plies": 2950,
+      "independent_terminals": "all matched",
+      "complete_pair_ids": [
+        "pair-0000",
+        "pair-0001",
+        "pair-0002",
+        "pair-0003",
+        "pair-0004",
+        "pair-0005",
+        "pair-0006"
+      ],
+      "incomplete_pairs_preserved": [
+        {
+          "pair": "pair-0007",
+          "referee_groups": 2,
+          "recorded_moves_per_group": [
+            358,
+            86
+          ]
+        },
+        {
+          "pair": "pair-0008",
+          "referee_groups": 1,
+          "recorded_moves_per_group": [
+            74
+          ]
+        },
+        {
+          "pair": "pair-0009",
+          "referee_groups": 1,
+          "recorded_moves_per_group": [
+            51
+          ]
+        },
+        {
+          "pair": "pair-0010",
+          "referee_groups": 1,
+          "recorded_moves_per_group": [
+            13
+          ]
+        }
+      ],
+      "unpaired_completed_games_excluded": [
+        {
+          "pair": "pair-0007",
+          "color": "white",
+          "candidate_score": 0,
+          "result": "0-1",
+          "points": [
+            13,
+            38
+          ],
+          "termination": "Checkmate \u2022 1-0",
+          "independent_plies": 374,
+          "reason": "Incomplete reversed-color pair; preserved and excluded irrespective of result"
+        }
+      ],
+      "raw_result_sha256": "91f4c5cde2674ba1c97909fad49b08966b7f409d85337375809a997908d0b436",
+      "raw_status": "INTERRUPTED",
+      "raw_statistics": "Total: 14 W: 8 L: 4 D: 2 ELO: 102.11 +-198.3 (95%) LOS: 88.8%"
+    },
+    "LTC": {
+      "result": "NOT_RUN",
+      "games": 0,
+      "complete_pairs": 0,
+      "independent_plies": 0,
+      "incomplete_pairs_preserved": [],
+      "unpaired_completed_games_excluded": []
+    }
+  },
+  "preservation": {
+    "source_archive": ".local/points-verified-null-v1/source.tar",
+    "candidate": {
+      "binary": ".local\\points-verified-null-v1-inputs\\petrified-points-verified-null-v1-bmi2.exe",
+      "binary_sha256": "a927e8e41cf6cde7dd6d53f608ba0a5dc58ed974c99bc1d7b7963b282598bb79",
+      "network": ".local\\points-verified-null-v1-inputs\\champion-v1.pnnue",
+      "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+      "points_bench": 148203
+    },
+    "raw_panel": ".local/points-verified-null-panel-001",
+    "inventory": ".local/points-verified-null-v1/closed-panel-files.json",
+    "branch_retained": "exp/points-verified-null-v1",
+    "archived_shared_source_inputs": ".local/points-verified-null-v1/closed-source-inputs.json"
+  },
+  "runtime": {
+    "state": "CLOSED_LOSS_MANUAL",
+    "released": true,
+    "automation_state": "DELETED",
+    "T8": "Manually paused",
+    "next_candidate_authorized": true,
+    "owner_early_rejection_policy": "Agent may adjudicate neutral or clearly losing candidates early; retain measured statistics and explicit manual decision. Three valid WINs still required for promotion.",
+    "released_utc": "2026-10-29T12:03:37.410142+00:00",
+    "pull_request_state": "CLOSED"
+  },
+  "closure_receipts": {
+    "pull_request": {
+      "number": 9,
+      "state": "closed",
+      "merged": false,
+      "url": "https://github.com/Belzedar94/Petrified-Stockfish/pull/9",
+      "closed_at": "2026-10-29T12:02:57Z"
+    },
+    "automation": {
+      "automationId": "petrified-poda-nula-verificada",
+      "deleteStatus": "deleted",
+      "checked_utc": "2026-10-29T12:01:28.060079+00:00"
+    },
+    "release": ".local/points-verified-null-v1/machine-lease-released.json"
+  },
+  "closure_files": {
+    ".local\\points-verified-null-v1\\manual-adjudication-request.json": "f65370864b2d395bf536b87bf06f9ebcd09c00df67e75429d8a894745b1bc00a",
+    ".local\\points-verified-null-v1\\manual-closure-audit.json": "c9cafafa4bc6e2fe7e8a616d9c879ec59e3c7bf9c367f7fe6cc4e13c0ef6334a",
+    ".local\\points-verified-null-v1\\final-process-exit.json": "f472e9cfdb025ad58529ca248c748abbe77a6e828457f6e87c604d36750db30b",
+    ".local\\points-verified-null-v1\\closed-panel-files.json": "06197a2a7617d2f9029e2f3cbd367f0eb3fab22fe4cba52810b7e640be6630e1",
+    ".local\\points-verified-null-v1\\pr-closure.json": "f16eb12834e8c4ce43305c34ec1b9747b5a78de91f709b7b8f4e9bc35435a8f0",
+    ".local\\points-verified-null-v1\\automation-deletion.json": "01a6c88be1a350e182f2dccdde8c33b3996273bd8a4815c36aa3f0e109a20cc4",
+    ".local\\points-verified-null-v1\\machine-lease-released.json": "3c9a2bcb52b769757520a022bcd3fd18590de46ea8943f43ca11f546842aab05",
+    ".local\\points-verified-null-v1\\closed-source-inputs.json": "b2e72b6ec2904a78ab6a2c9be2d8cc1319a7014cc86d84db8d1ac27277eba28b"
+  }
+}

@@ -7,6 +7,7 @@ on:
       - 'src/**'
       - 'tests/petrified/**'
       - 'training/points_head/**'
+      - 'training/points_wall/**'
       - 'CMakeLists.txt'
       - 'setup.py'
       - 'pyproject.toml'

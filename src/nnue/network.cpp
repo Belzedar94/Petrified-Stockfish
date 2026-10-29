@@ -37,6 +37,7 @@ constexpr char Run4Sha[] = "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6
 constexpr usize LegacyBytes=52046752;
 constexpr usize AdapterBytes=8+3*4+16*4+16*16*2+16*2+4+64;
 constexpr usize PointsHeadBytes=8+5*4+8*(16*4+16*1024+32*4+32*32+4+32+16*32)+64;
+constexpr usize PointsWallBytes=PointsHeadBytes+4096*512*sizeof(i16);
 std::array<u8,32> score_inputs(const Position& pos) {
     const Color us=pos.side_to_move();
     const int difference=std::clamp(pos.points(us)-pos.points(~us),-200,200);
@@ -79,7 +80,8 @@ int legacy_material(const Position& pos, Color c) {
 bool Network::read_file(const std::filesystem::path& path, EvalFile& file) {
     std::ifstream input(path,std::ios::binary|std::ios::ate);
     if (!input || (input.tellg()!=LegacyBytes && input.tellg()!=LegacyBytes+AdapterBytes
-                  && input.tellg()!=LegacyBytes+PointsHeadBytes)) return false;
+                  && input.tellg()!=LegacyBytes+PointsHeadBytes
+                  && input.tellg()!=LegacyBytes+PointsWallBytes)) return false;
     const usize fileBytes=usize(input.tellg());
     input.seekg(0);
     std::vector<unsigned char> bytes(fileBytes);
@@ -89,14 +91,16 @@ bool Network::read_file(const std::filesystem::path& path, EvalFile& file) {
     std::copy(digest.begin(),digest.end(),networkSha.begin());
     adapter=PointsAdapter{};
     pointsHeadActive=false;
+    pointsWallActive=false;
     if (fileBytes!=LegacyBytes) {
         const std::string payloadDigest(bytes.end()-64,bytes.end());
         if (sha256(std::vector<unsigned char>(bytes.begin(),bytes.end()-64))!=payloadDigest) return false;
         std::string extension(bytes.begin()+LegacyBytes,bytes.end()-64);
         std::istringstream extra(extension,std::ios::binary);
         char magic[8]; extra.read(magic,8);
-        if (fileBytes==LegacyBytes+PointsHeadBytes) {
-            if (std::string(magic,8)!="PTHD0001" || read_u32(extra)!=1 || read_u32(extra)!=32
+        if (fileBytes==LegacyBytes+PointsHeadBytes || fileBytes==LegacyBytes+PointsWallBytes) {
+            const bool walls=fileBytes==LegacyBytes+PointsWallBytes;
+            if (std::string(magic,8)!=(walls ? "PTWF0001" : "PTHD0001") || read_u32(extra)!=1 || read_u32(extra)!=32
                 || read_u32(extra)!=16 || read_u32(extra)!=32 || read_u32(extra)!=8) return false;
             for(auto& pointHead:pointsHeads) {
                 auto& head=pointHead.board;
@@ -111,6 +115,13 @@ bool Network::read_file(const std::filesystem::path& path, EvalFile& file) {
                 for(auto& row:head.weight2) for(int j=16;j<32;++j) if(row[j]!=0) return false;
             }
             pointsHeadActive=true;
+            if (walls) {
+                read_le(extra,&pointsWallWeights[0][0],4096*512);
+                for (auto& row:pointsWallWeights)
+                    for (auto delta:row)
+                        if (delta < -8 || delta > 8) return false;
+                pointsWallActive=true;
+            }
         } else {
         if (std::string(magic,8)!="PTADPT01" || read_u32(extra)!=1 || read_u32(extra)!=16 || read_u32(extra)!=16) return false;
         read_le(extra,adapter.biases.data(),16);
@@ -144,6 +155,14 @@ bool Network::read_file(const std::filesystem::path& path, EvalFile& file) {
         read_le(in,&head.bias3,1); read_le(in,head.weight3,32);
     }
     if (!in || in.peek()!=std::char_traits<char>::eof()) return false;
+    if (pointsWallActive)
+        for (int king=0;king<64;++king)
+            for (int sq=0;sq<64;++sq)
+                for (int j=0;j<512;++j) {
+                    const int combined=weights[king*768+11*64+sq][j]+pointsWallWeights[king*64+sq][j];
+                    if (combined < -32768 || combined > 32767) return false;
+                    pointsWallWeights[king*64+sq][j]=i16(combined);
+                }
     file.netDescription=description;
     contentHash=std::stoull(digest.substr(0,16),nullptr,16);
     initialized=true;
@@ -165,7 +184,8 @@ bool Network::save(const EvalFile& file, const std::optional<std::filesystem::pa
     std::ifstream in(file.source,std::ios::binary|std::ios::ate);
     if(!in) return false;
     const auto size=in.tellg();
-    if(size!=LegacyBytes && size!=LegacyBytes+AdapterBytes && size!=LegacyBytes+PointsHeadBytes) return false;
+    if(size!=LegacyBytes && size!=LegacyBytes+AdapterBytes && size!=LegacyBytes+PointsHeadBytes
+       && size!=LegacyBytes+PointsWallBytes) return false;
     in.seekg(0);
     auto bytes=std::vector<unsigned char>(usize(size));
     in.read(reinterpret_cast<char*>(bytes.data()),bytes.size());
@@ -185,7 +205,8 @@ void Network::verify(const std::function<void(std::string_view)>& f, const EvalF
         std::exit(EXIT_FAILURE);
     }
     if(f) {
-        if (pointsHeadActive) f("NNUE PointsHead v1 loaded; SHA256="+std::string(networkSha.data())+"; base="+Run4Sha+"; 1056/16/32/1, 8 buckets");
+        if (pointsWallActive) f("NNUE PointsWallFT v1 loaded; SHA256="+std::string(networkSha.data())+"; base="+Run4Sha+"; 1056/16/32/1, 8 buckets, 4096x512 wall deltas");
+        else if (pointsHeadActive) f("NNUE PointsHead v1 loaded; SHA256="+std::string(networkSha.data())+"; base="+Run4Sha+"; 1056/16/32/1, 8 buckets");
         else if (adapter.active) f("NNUE PointsAdapter v1 loaded; SHA256="+std::string(networkSha.data())+"; base="+Run4Sha+"; 16/16/1");
         else f("NNUE Legacy Walls run4test loaded; SHA256="+std::string(Run4Sha)+"; 49152/512x2/16/32/1, 8 buckets");
     }
@@ -193,22 +214,28 @@ void Network::verify(const std::function<void(std::string_view)>& f, const EvalF
 void Network::update(const Position& pos, Color side, AccumulatorCaches& cache, bool reference) const {
     const Square king=pos.square<KING>(side);
     auto& e=cache.entries[side][king];
-    if(reference || !e.valid) {
+    const bool pointsWall=pointsWallActive && pos.game_of_points();
+    if(reference || !e.valid || e.pointsWall!=pointsWall) {
         std::copy(std::begin(biases),std::end(biases),e.sums.begin());
         e.psqt.fill(0); e.board.fill(NO_PIECE); e.walls=0; e.valid=true;
+        e.pointsWall=pointsWall;
     }
     auto add=[&](Square s,Piece pc,int sign) {
         const int idx=feature(side,king,s,pc);
+        const i16* row=pointsWall && !pc
+                         ? pointsWallWeights[(int(king)^(side==BLACK ? 56:0))*64
+                                             +(int(s)^(side==BLACK ? 56:0))]
+                         : weights[idx];
 #if defined(USE_AVX2)
         if (!reference) {
             for(int j=0;j<512;j+=16) {
                 auto old=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(&e.sums[j]));
-                auto w=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(&weights[idx][j]));
+                auto w=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(&row[j]));
                 _mm256_storeu_si256(reinterpret_cast<__m256i*>(&e.sums[j]),sign>0?_mm256_add_epi16(old,w):_mm256_sub_epi16(old,w));
             }
         } else
 #endif
-        for(int j=0;j<512;++j) e.sums[j]=i16(e.sums[j]+sign*weights[idx][j]);
+        for(int j=0;j<512;++j) e.sums[j]=i16(e.sums[j]+sign*row[j]);
         for(int j=0;j<8;++j) e.psqt[j]+=sign*psqtWeights[idx][j];
     };
     for(Square s=SQ_A1;s<=SQ_H8;++s) {
