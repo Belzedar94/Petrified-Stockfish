@@ -14,5 +14,15 @@
   "lto": true,
   "pgo": false,
   "points_bench": 173124,
-  "selection": "Existing demonstrated run4test champion with the mandatory winning-mate correctness fix; no strength gain claimed for that fix. Rejected adapter-v1 is not used."
+  "selection": "Existing demonstrated run4test champion with the mandatory winning-mate correctness fix; no strength gain claimed for that fix. Rejected adapter-v1 is not used.",
+  "latest_selection": {
+    "date": "2026-10-29",
+    "champion_unchanged": true,
+    "capture_order_v1": "REJECTED_NEUTRAL_SCREEN; all three controls completed",
+    "capture_futility_v1": "REJECTED_NEUTRAL_MANUAL; owner closed whole experiment, LTC stopped at 112 completed games",
+    "records": [
+      "docs/petrified/experiments/2026-10-28-capture-order-v1.json",
+      "docs/petrified/experiments/2026-10-29-capture-futility-v1.json"
+    ]
+  }
 }

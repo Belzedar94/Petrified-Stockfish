@@ -51,6 +51,13 @@ valid wins; otherwise preserve and reject the candidate, keeping the champion.
 Misere is paused by the owner; do not message its chat or wait on that project.
 Use docs/petrified/points-champion.json and the current experiment record for
 the frozen baseline and operational state. The manual T8 pause remains in force.
+On 2026-10-29 the owner explicitly adjudicated capture-futility-v1 as neutral
+and closed the remaining panel. Final counts: VSTC 400, STC 400, LTC 112;
+LTC is NEUTRAL_MANUAL with measured LOS 23.6%, not an automatic boundary.
+Four interrupted LTC pairs without completed games are preserved and excluded.
+Both authorized search experiments are closed and rejected; run4test plus
+winning-mate-r2 remains champion. No further experiment is authorized by that
+sequence. The follow-up automation is deleted; T8 remains manually paused.
 Use BMI2 and LTO for both opponents, with the same compiler and no PGO.
 On 2026-10-28 the owner accepted campaign-003-walls-lto as a win and stopped
 LTC at 16 games. Preserve this as a manual acceptance, never as 40+ games or

@@ -95,19 +95,30 @@ starts from the unchanged champion; the rejected capture-order code is absent.
 Local state/NNUE, points, UCI/CECP and Windows/Linux CI including sanitizers pass.
 Points bench is 160497 (candidate) versus 173124 (champion), each repeated twice;
 legacy bench remains 179335 for both. These node counts are not strength results.
-The frozen BMI2/LTO/run4test panel is running with the same three TCs, T1/Hash512,
+The frozen BMI2/LTO/run4test panel used the same three TCs, T1/Hash512,
 concurrency four and 40..400-game criteria. Only three valid wins allow promotion.
-T8 remains manually paused; the machine lease stays held until this final
-authorized experiment is closed. The GUI continues to use the champion.
+The GUI continues to use the champion.
 Capture-futility VSTC closed at 400 games: 208/167/25, +35.74 +/-33.2 Elo,
 LOS 98.4%, no time losses. All 200 color-reversed pairs and 400 independent
 referee terminal records were audited, with frozen hashes unchanged. This is
 NEUTRAL_SCREEN for selection, not statistical equivalence. The candidate is
-ineligible for promotion; STC and LTC continue under the agreed protocol.
+ineligible for promotion.
 STC also closed at 400 games: 187/187/26, 0.00 +/-33.0 Elo, LOS 50.0%,
 no time losses. Its 200 color-reversed pairs, opening histories and 400
 independent referee terminal records passed audit with unchanged frozen hashes.
-This is another NEUTRAL_SCREEN; LTC is running and the champion is unchanged.
+This is another NEUTRAL_SCREEN.
+On 2026-10-29 the owner explicitly adjudicated the whole experiment as neutral
+and requested closure. LTC stopped at 112 complete games: 44/51/17,
+-21.74 +/-59.9 Elo, LOS 23.6%, no time losses. This is NEUTRAL_MANUAL,
+not an automatic LOS result or evidence of statistical equivalence. Four
+interrupted pairs without completed games remain preserved and excluded.
+The final audit verified 456 complete pairs and 912 independent referee
+terminal records, all frozen and validation hashes, and exit of all panel
+processes. Both authorized search experiments are closed and rejected; their
+source, binaries and evidence are preserved. run4test + winning-mate-r2 remains
+the final champion (points bench 173124). The follow-up automation is deleted.
+The machine lease is released after confirming that both panels have exited.
+T8 remains manually paused; no new experiment or distributed workload is started.
 
 The final points-profile bench uses `tests/petrified/bench-points.epd` with
 explicit synthetic scores (16 positions). Commands: select

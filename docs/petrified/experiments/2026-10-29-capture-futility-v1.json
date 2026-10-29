@@ -41,8 +41,8 @@
   "maximum_games": 400,
   "stopping": "Displayed LOS 100.0% or 0.0%, minimum 40, drain complete color-reversed pairs and recheck; resume inside cap if boundary is lost. Run every TC. No boundary at cap => NEUTRAL_SCREEN for selection, not equivalence.",
   "promotion": "All three valid controls WIN; otherwise reject and preserve.",
-  "status": "RUNNING",
-  "decision": "REJECTED_FOR_PROMOTION_VSTC_STC_NEUTRAL_PENDING_LTC",
+  "status": "CLOSED_NEUTRAL_MANUAL",
+  "decision": "REJECTED_NEUTRAL_MANUAL",
   "previous_experiment": "2026-10-28-capture-order-v1: rejected after three NEUTRAL_SCREEN controls; no capture-order code carried into this branch.",
   "worker": "T8 manually paused, no restart",
   "coordination": "Owner paused Misere; no cross-chat messages.",
@@ -237,9 +237,13 @@
         "completed_pairs": 200,
         "games": 400,
         "color_reversal_verified": true,
+        "opening_histories_verified": true,
         "independent_referee_terminal_records_verified": 400,
-        "hashes_verified": true,
-        "audited_utc": "2026-10-29T03:33:41.512001+00:00"
+        "incomplete_pairs_excluded": [],
+        "all_reported_counts_match": true,
+        "raw_result_sha256": "d57d48ab6bc9c90701fd5074da235a7da026963c8fc79e7df0e907535da81124",
+        "audited_utc": "2026-10-29T05:32:03.327818+00:00",
+        "hashes_verified": true
       }
     },
     "STC": {
@@ -268,32 +272,121 @@
       "elapsed_seconds": 3817.0,
       "selection_status": "NEUTRAL_SCREEN",
       "audit": {
-        "control": "STC",
         "completed_pairs": 200,
         "games": 400,
-        "scores": [
-          187,
-          187,
-          26
-        ],
-        "time_losses": [
-          0,
-          0
-        ],
-        "pentanomial": [
-          30,
-          17,
-          111,
-          7,
-          35
-        ],
         "color_reversal_verified": true,
         "opening_histories_verified": true,
         "independent_referee_terminal_records_verified": 400,
-        "hashes_verified": true,
-        "audited_utc": "2026-10-29T04:39:19.246202+00:00"
+        "incomplete_pairs_excluded": [],
+        "all_reported_counts_match": true,
+        "raw_result_sha256": "de201d8c23ba9cee8e2f8014ddaee3606d09c3026b70d13ebf26ca3d0116bd33",
+        "audited_utc": "2026-10-29T05:32:03.327818+00:00",
+        "hashes_verified": true
+      }
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INTERRUPTED",
+      "scores": [
+        44,
+        51,
+        17
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        8,
+        10,
+        26,
+        5,
+        7
+      ],
+      "statistics": "Total: 112 W: 44 L: 51 D: 17 ELO: -21.74 +-59.9 (95%) LOS: 23.6%",
+      "completed_pairs": 56,
+      "elapsed_seconds": 3243.516,
+      "error": "Panel stopped",
+      "selection_status": "NEUTRAL_MANUAL",
+      "audit": {
+        "completed_pairs": 56,
+        "games": 112,
+        "color_reversal_verified": true,
+        "opening_histories_verified": true,
+        "independent_referee_terminal_records_verified": 112,
+        "incomplete_pairs_excluded": [
+          {
+            "pair": "pair-0056",
+            "finished_games": [],
+            "raw_files_preserved": true
+          },
+          {
+            "pair": "pair-0057",
+            "finished_games": [],
+            "raw_files_preserved": true
+          },
+          {
+            "pair": "pair-0058",
+            "finished_games": [],
+            "raw_files_preserved": true
+          },
+          {
+            "pair": "pair-0059",
+            "finished_games": [],
+            "raw_files_preserved": true
+          }
+        ],
+        "all_reported_counts_match": true,
+        "raw_result_sha256": "a79ba45c7bf271ca0a91e0d67e5a8d4dffdc4adef6602d52eb89a12ac7ad8417",
+        "audited_utc": "2026-10-29T05:32:03.327818+00:00",
+        "hashes_verified": true
       }
     }
   },
-  "promotion_eligible": false
+  "promotion_eligible": false,
+  "closed_utc": "2026-10-29T05:32:53.425567+00:00",
+  "manual_closure": {
+    "owner_instruction": "Adjudica este experimento como neutral y cierra el panel.",
+    "automatic_gate_passed": false,
+    "selection": "NEUTRAL_MANUAL",
+    "reason": "Explicit owner exception: stop remaining LTC and close whole experiment as neutral; measured LOS retained without change.",
+    "evidence": ".local\\capture-futility-v1-validation\\manual-closure.json",
+    "evidence_sha256": "27544a4d7af8bc1847256a8859d845e8f6ec214548ed56256bddb4281923590d"
+  },
+  "final_audit": {
+    "path": ".local\\capture-futility-v1-validation\\final-audit.json",
+    "sha256": "fcc28fd6b08146ea060652dce9b90634645e77a9cf7bf98e2125b52d41eaa9b2",
+    "included_games": 912,
+    "completed_pairs": 456,
+    "all_frozen_and_validation_hashes_verified": true,
+    "owned_processes_exited": true
+  },
+  "final_champion": {
+    "schema": "petrified-points-champion-v1",
+    "rules": "chesscom-points-v1",
+    "name": "run4test + winning-mate-r2",
+    "source_commit": "f44f93700bbb3eca6813eee4728a675ea08447d9",
+    "baseline_branch": "fix/winning-points-mate",
+    "baseline_ref": "7dd7c827b41e9460184730227fed4222929dbbaf",
+    "binary": "src/petrified-points-mate-r2-bmi2.exe",
+    "binary_sha256": "2401d95d3481349ae5bc61cbd1ea3e444337611b2a3d60c6ba8bb3492bb5fe49",
+    "network": "petrified_run4test_e19_l085.nnue",
+    "network_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+    "compiler": "GCC 16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false,
+    "points_bench": 173124,
+    "selection": "Existing demonstrated run4test champion with the mandatory winning-mate correctness fix; no strength gain claimed for that fix. Rejected adapter-v1 is not used."
+  },
+  "candidate_preserved": true,
+  "machine_release": {
+    "released": true,
+    "released_utc": "2026-10-29T05:34:21.942705+00:00",
+    "all_owned_panel_processes_exited": true,
+    "T8": "manual pause preserved",
+    "automation": "deleted"
+  }
 }
