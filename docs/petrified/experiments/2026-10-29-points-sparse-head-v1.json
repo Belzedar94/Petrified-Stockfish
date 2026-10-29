@@ -1,0 +1,61 @@
+{
+  "schema": "petrified-strength-experiment-v1",
+  "experiment": "points-sparse-head-v1",
+  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "owner_request": "Otro que tienes que guardar para openbench, continua con la siguiente gran idea",
+  "hypothesis": "Repack the frozen NNUE first layer into four-input blocks across sixteen outputs; skip zero blocks and avoid per-output horizontal reductions. Exact integer evaluation and unchanged network bytes.",
+  "branch": "exp/points-sparse-head-v1",
+  "qualified_base_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
+  "champion_source_commit": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+  "champion_binary_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "candidate_selection": "One structural candidate; no tuning after strength results",
+  "excluded_changes": [
+    "PR9 null-move pruning",
+    "PR12 incremental state",
+    "PR13 pin legality",
+    "Rejected NNUE weights"
+  ],
+  "compiler": {
+    "compiler": "GCC16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false
+  },
+  "validation_plan": [
+    "Synthetic scalar int64 versus packed dot products: zero/singleton/dense/random inputs, -128/127 weights and bounded extreme biases",
+    "All eight buckets, both perspectives, score boundaries and rule50: exact scalar parity",
+    "Debug/Release random walks and undo with exact NNUE",
+    "Reload, native legacy/points evaluations versus PR11, byte-identical export and invalid file rejection",
+    "Independent Chess.com referee, native UCI/CECP interfaces, identical points/legacy deterministic benches",
+    "Eight alternating depth12 throughput samples, identical nodes; speed is not Elo",
+    "Five source CI jobs before the one frozen panel"
+  ],
+  "panel": {
+    "directory": ".local/points-sparse-head-panel-001",
+    "status": "NOT_STARTED",
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%; complete pending pairs and recheck; resume inside cap if lost",
+    "at_cap": "NEUTRAL_SCREEN for selection, not equivalence",
+    "early_rejection": "Owner-delegated manual neutral or clear loss; retain measured statistics",
+    "promotion": "Three audited WIN controls plus distribution/interfaces",
+    "referee": "Pinned independent Chess.com public client"
+  },
+  "constraints": {
+    "T8": "Manually paused",
+    "Misere": "Do not contact",
+    "OpenBench_AtomicDB_remote_workers": "No action",
+    "Fairyground": "Closed with authorization; PR11 profile preserved",
+    "PR9_PR12_PR13": "Retained separately; none included"
+  },
+  "created_utc": "2026-10-29T19:30:32.831491+00:00"
+}

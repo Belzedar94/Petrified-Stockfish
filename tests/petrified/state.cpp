@@ -18,6 +18,80 @@ static void require(bool ok, const char* what) {
     if (!ok) { std::cerr << what << '\n'; std::exit(1); }
 }
 static std::size_t queryChecks = 0;
+static void check_sparse_head() {
+    // Independent output-major dot products cover every packed lane, empty
+    // blocks, fully dense inputs and the signed-byte saturation boundaries.
+    i8 weights[16][1024];
+    Eval::NNUE::SparseHeadWeights packed;
+    std::mt19937 random(20261029);
+    std::size_t comparisons = 0;
+    for (int bank = 0; bank < 3; ++bank) {
+        for (auto& row : weights)
+            for (auto& weight : row)
+                weight = bank == 0 ? -128 : bank == 1 ? 127 : int(random() % 256) - 128;
+        packed.pack(weights);
+        for (int sample = 0; sample < 1284; ++sample) {
+            u8 input[1024] = {};
+            if (sample >= 1 && sample <= 1024) input[sample - 1] = 127;
+            else if (sample > 1024)
+                for (int j = 0; j < 1024; ++j)
+                    input[j] = sample == 1025 ? 127
+                             : sample == 1026 ? (j % 2 ? 127 : 0)
+                             : sample == 1027 ? (j % 4 ? 0 : 127)
+                             : random() % 16 < unsigned(sample % 16) ? random() % 128 : 0;
+            i32 output[16];
+            for (int i = 0; i < 16; ++i) output[i] = i % 2 ? 1 << 24 : -(1 << 24);
+            Eval::NNUE::sparse_head_affine(input, packed, output);
+            for (int i = 0; i < 16; ++i) {
+                i64 expected = i % 2 ? 1 << 24 : -(1 << 24);
+                for (int j = 0; j < 1024; ++j) expected += input[j] * weights[i][j];
+                require(expected == output[i], "sparse-head dot product mismatch");
+                ++comparisons;
+            }
+        }
+    }
+    std::cout << "Sparse-head output comparisons: " << comparisons << '\n';
+}
+
+static void check_head_buckets(const Eval::NNUE::Network& network) {
+    const std::string initial = "rnbqkbnrpppppppp" + std::string(32, '.') + "PPPPPPPPRNBQKBNR";
+    auto cache = std::make_unique<Eval::NNUE::AccumulatorCaches>(network);
+    auto stack = std::make_unique<Eval::NNUE::AccumulatorStack>();
+    unsigned buckets = 0;
+    std::size_t checked = 0;
+    for (int count = 2; count <= 32; ++count)
+        for (char side : {'w', 'b'})
+            for (int score : {0, 19, 20, 21, 63, 200})
+                for (int clock : {0, 99, 100}) {
+                    int remaining = count - 2;
+                    std::string fen;
+                    for (int rank = 0; rank < 8; ++rank) {
+                        int empty = 0;
+                        for (int file = 0; file < 8; ++file) {
+                            char piece = initial[rank * 8 + file];
+                            if (piece != 'K' && piece != 'k' && piece != '.') {
+                                if (remaining) --remaining;
+                                else piece = '.';
+                            }
+                            if (piece == '.') { ++empty; continue; }
+                            if (empty) { fen += char('0' + empty); empty = 0; }
+                            fen += piece;
+                        }
+                        if (empty) fen += char('0' + empty);
+                        if (rank != 7) fen += '/';
+                    }
+                    fen += std::string(" ") + side + " - - " + std::to_string(clock)
+                         + " 200 points=" + std::to_string(score) + ",0";
+                    Position pos; StateInfo state;
+                    require(!pos.set(fen, false, &state), "head bucket FEN");
+                    require(network.evaluate(pos, *stack, *cache) == network.evaluate_reference(pos),
+                            "head bucket/scoring/reference mismatch");
+                    buckets |= 1U << std::min((count - 1) / 4, 7);
+                    ++checked;
+                }
+    require(buckets == 255, "missing head bucket");
+    std::cout << "Head bucket/score/clock comparisons: " << checked << '\n';
+}
 template<GenType Type>
 static void check_move_order(const Position& pos) {
     Move expected[MAX_MOVES];
@@ -45,6 +119,7 @@ static void check_queries(const Position& pos, unsigned salt, bool exhaustive = 
 }
 
 int main(int argc, char** argv) {
+    check_sparse_head();
     Option variant("petrified var petrified", "petrified", nullptr);
     variant = std::string("petrified");
     require(variant == "petrified", "combo default must also be an allowed value");
@@ -99,6 +174,7 @@ int main(int argc, char** argv) {
     if(argc>1) {
         network->load({},argv[1],file);
         network->verify([](auto s){std::cout<<s<<'\n';},file,argv[1]);
+        check_head_buckets(*network);
     }
     auto cache=std::make_unique<Eval::NNUE::AccumulatorCaches>(*network);
     auto stack=std::make_unique<Eval::NNUE::AccumulatorStack>();

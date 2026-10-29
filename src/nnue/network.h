@@ -27,6 +27,7 @@
 #include "../types.h"
 #include "nnue_misc.h"
 #include "points_adapter.h"
+#include "sparse_head.h"
 namespace Stockfish { class Position; }
 namespace Stockfish::Eval::NNUE {
 class AccumulatorStack;
@@ -52,6 +53,9 @@ private:
         i32 bias1[16]; i8 weight1[16][1024];
         i32 bias2[32]; i8 weight2[32][32]; // 16 inputs padded to 32 on disk
         i32 bias3; i8 weight3[32];
+#if defined(USE_AVX2)
+        SparseHeadWeights packedWeight1;
+#endif
     };
     struct PointsHead { Head board; i8 scoreWeight[16][32]; };
     alignas(64) i16 biases[512];

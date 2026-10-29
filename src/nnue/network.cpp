@@ -144,6 +144,11 @@ bool Network::read_file(const std::filesystem::path& path, EvalFile& file) {
         read_le(in,&head.bias3,1); read_le(in,head.weight3,32);
     }
     if (!in || in.peek()!=std::char_traits<char>::eof()) return false;
+#if defined(USE_AVX2)
+    for (auto& head : heads) head.packedWeight1.pack(head.weight1);
+    if (pointsHeadActive)
+        for (auto& head : pointsHeads) head.board.packedWeight1.pack(head.board.weight1);
+#endif
     file.netDescription=description;
     contentHash=std::stoull(digest.substr(0,16),nullptr,16);
     initialized=true;
@@ -230,24 +235,19 @@ Value Network::forward(const Position& pos, const AccumulatorCaches& cache, bool
     const auto scores=scored ? score_inputs(pos) : std::array<u8,32>{};
     u8 input[1024], hidden1[32]={},hidden2[32];
     for(int j=0;j<512;++j) { input[j]=std::clamp<int>(a.sums[j],0,127); input[j+512]=std::clamp<int>(b.sums[j],0,127); }
+    i32 sums[16];
     for(int i=0;i<16;++i) {
-        i32 sum=head.bias1[i];
-        if(scored) for(int j=0;j<32;++j) sum+=scores[j]*pointsHeads[bucket].scoreWeight[i][j];
-#if defined(USE_AVX2)
-        if(!scalar) {
-            auto total=_mm256_setzero_si256();
-            for(int j=0;j<1024;j+=32) {
-                auto x=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(&input[j]));
-                auto w=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(&head.weight1[i][j]));
-                total=_mm256_add_epi32(total,_mm256_madd_epi16(_mm256_maddubs_epi16(x,w),_mm256_set1_epi16(1)));
-            }
-            i32 lanes[8]; _mm256_storeu_si256(reinterpret_cast<__m256i*>(lanes),total);
-            for(int j=0;j<8;++j) sum+=lanes[j];
-        } else
-#endif
-        for(int j=0;j<1024;++j) sum+=input[j]*head.weight1[i][j];
-        hidden1[i]=std::clamp(sum>>6,0,127);
+        sums[i]=head.bias1[i];
+        if(scored) for(int j=0;j<32;++j) sums[i]+=scores[j]*pointsHeads[bucket].scoreWeight[i][j];
     }
+#if defined(USE_AVX2)
+    if(!scalar)
+        sparse_head_affine(input,head.packedWeight1,sums);
+    else
+#endif
+        for(int i=0;i<16;++i)
+            for(int j=0;j<1024;++j) sums[i]+=input[j]*head.weight1[i][j];
+    for(int i=0;i<16;++i) hidden1[i]=std::clamp(sums[i]>>6,0,127);
     for(int i=0;i<32;++i) {
         i32 sum=head.bias2[i]; for(int j=0;j<16;++j) sum+=hidden1[j]*head.weight2[i][j];
         hidden2[i]=std::clamp(sum>>6,0,127);
