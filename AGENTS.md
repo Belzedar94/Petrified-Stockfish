@@ -1,3 +1,12 @@
+points-exchange-see-v1 / PR15 is frozen and running from qualified PR11.
+Source08cfc88f74f770dad86d86cf1662aa26a0c561ab passed Debug/Release, independent
+exchange/PV audits, native interfaces and all five source CI jobs40947924033.
+Candidate bench192555 reproduced twice; rival177290 and legacy179335 verified.
+The149-input manifest and followup record exact hashes and process identities.
+Use .local/points-exchange-see-v1/monitor_panel.py; never alter or duplicate
+active inputs. See .local/points-exchange-see-followup.json for current state.
+No other candidate or workload is authorized by this request.
+
 On 2026-10-29 the owner requested one next substantial experiment from PR11
 and then explicitly redirected the investigation toward Petrified-specific
 search, using Fabian's Atomic feedback as motivation, not as literal variant
