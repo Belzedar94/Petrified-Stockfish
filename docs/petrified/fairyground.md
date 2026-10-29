@@ -2,7 +2,7 @@
 
 Abrir: <http://127.0.0.1:5185/public/index.html?variant=petrified>.
 
-La etiqueta inferior debe mostrar **Petrified-Stockfish + run4test PointsHead v1 ·
+La etiqueta inferior debe mostrar **Petrified-Stockfish + run4test PointsHead v1 + LegalQuery v1 (PR #11) ·
 Game of Points activo**. Recarga la página tras actualizar el perfil. El servidor
 carga automáticamente el mismo motor para blancas, negras y análisis, con
 `Threads=1`, `Hash=128` y `Ponder=false`. La cabeza recibe el marcador; los
@@ -59,7 +59,7 @@ está en `.local/fairyground`; pesos y ejecutables no se publican en el parche.
 
 ```powershell
 # Con el entorno Emscripten activado:
-python scripts/build_wasm.py --target cjs --out build/wasm-points-head-v1
+python scripts/build_wasm.py --target cjs --out build/wasm-points-legal-query-v1
 .\scripts\setup_fairyground.ps1
 .\scripts\start_fairyground.ps1 -OpenBrowser
 ```
@@ -72,7 +72,10 @@ conserva las modificaciones de un checkout incompatible y escribe
 `-InstallDependencies` vuelve a instalar exactamente el lockfile.
 `-BoardDirectory` permite seleccionar otro directorio CJS compilado. El motor
 y el Board deben incluir la misma corrección de reglas; la instalación actual
-usa `build/wasm-points-head-v1/cjs` y la cabeza con marcador cualificada.
+usa `build/wasm-points-legal-query-v1/cjs` y la cabeza con marcador cualificada.
+El perfil instalado añade `LegalQuery v1 (PR #11)` al nombre para distinguir
+la nueva ganadora; el instalador puede mostrar sólo el nombre de la red v1.
+La identidad definitiva es el hash del ejecutable y la red del perfil.
 
 El parche y el perfil están en `integrations/fairyground/`. Usan el backend
 nativo de Fairyground: la representación del tablero sigue usando ffish-es6,
@@ -122,3 +125,20 @@ locales. La prueba HTTP/WebSocket verificó los archivos servidos, el hash compl
 de la red cargada, `h2h7` con `score mate 1` y el final 25–24/`1-0` del mate que
 pierde. El control visual del navegador no estuvo disponible en esa sesión;
 las capturas anteriores documentan la revisión r2, no la nueva red.
+
+El 2026-10-29 se instaló después la ganadora de PR #11, LegalQuery v1, tras
+70/70/88 partidas y tres victorias auditadas frente a PR #7. Conserva exactamente
+su red PointsHead v1 y todas las correcciones anteriores de puntos y mates;
+acelera las consultas de existencia y pertenencia de jugadas legales.
+El ejecutable es `.local/points-legal-query-v1-inputs/petrified-points-legal-query-v1-bmi2.exe`,
+SHA256 `03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45`.
+La red es `.local/points-legal-query-v1-inputs/champion-v1.pnnue`, con el mismo
+SHA256 `ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c`.
+El Board servido corresponde a la misma fuente `74ea5095`.
+
+Pasaron HTTP/WebSocket, hashes de los archivos servidos, `h2h7` con mate ganador
+y el final 25–24/`1-0`. El navegador mostró Petrified Chess, marcador 0–0 y el
+perfil LegalQuery v1 con Game of Points activo. Se dejó el servidor abierto
+por petición expresa del dueño, con el análisis desactivado inicialmente.
+La evidencia está en `.local/points-legal-query-v1/fairyground-*-audit.json`;
+el perfil anterior está preservado en el directorio del experimento.

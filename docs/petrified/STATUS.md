@@ -1,4 +1,4 @@
-# Active: points-legal-query-v1
+# Qualified winner: points-legal-query-v1
 
 PR #11 accelerates boolean legal-move queries from qualified PR #7 while
 preserving rules, move order, NNUE and search. Debug/Release each passed 883,968
@@ -7,16 +7,42 @@ interfaces and all five source CI jobs passed. Points Bench177290 and legacy
 Bench179335 match the champion exactly. Eight alternating depth12 samples used
 the same 376,705 nodes: median369ms versus598.5ms (1.622x local throughput, not Elo).
 
-The frozen panel is running with T1/Hash512/concurrency4. VSTC completed 70 games
-(47/21/2), +135.53 +/-88.7 Elo95%, LOS100.0%, time losses0/0: WIN after complete
-pairs. STC also completed 70 games (48/19/3), +153.14 +/-89.9 Elo95%,
-LOS100.0%, time losses0/0: WIN after complete pairs. LTC is now running.
-The champion remains PR #7 until all
-three controls, final audit and distribution/interface acceptance pass.
-The execution manifest pins 70 files, with 11 panel and seven dependency hashes
-checked after launch. T8 remains manually paused. PR #9 is retained separately
-for future OpenBench; no OpenBench workload is running from this experiment.
-See `experiments/2026-10-29-points-legal-query-v1.json` for current evidence.
+The completed panel used T1/Hash512/concurrency4 against PR #7 PointsHead v1.
+All three controls retained the displayed boundary after draining pending pairs:
+
+| Control | Games | W/L/D | Elo +/-95% | LOS | Time losses C/O | State |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 70 | 47/21/2 | +135.53 +/-88.7 | 100.0% | 0/0 | WIN |
+| STC 10+0.1 | 70 | 48/19/3 | +153.14 +/-89.9 | 100.0% | 0/0 | WIN |
+| LTC 30+0.3 | 88 | 59/25/4 | +141.59 +/-78.3 | 100.0% | 0/0 | WIN |
+
+All 228 games / 114 color-reversed pairs / 48,908 independent Chess.com referee
+plies passed audit. The 70 execution inputs, 11 panel inputs and seven
+dependencies match; all 1,271 raw panel files are preserved unchanged.
+Native UCI/CECP, Node/WASM, CJS/ESM and isolated Python passed acceptance.
+Native/Node evaluation matched exactly on 64 positions; each Board package and
+Python passed 513 positions, in addition to points and mate checks.
+
+The final source check initially compared Windows CRLF against Git archive LF;
+this operational failure is preserved in `acceptance-failure-001`. All eight
+build/test stages had passed. All 213 actual build source files match the frozen
+archive byte for byte; the corrected final check passed without changing or
+rebuilding the candidate. No acceptance failure remains unresolved.
+
+The local native/WASM/Python distribution is
+`build/petrified-points-legal-query-v1-local.zip`, SHA256
+`d93aae9a7b1887ca293ff614c2263238fd98fd972b9a96eda04034c2d6334205`;
+all 30 artifacts and the ZIP manifest are verified. Fairyground uses the exact
+winning binary and network, with the new CJS Board. HTTP/WebSocket mate tests and
+the visible browser profile passed. The owner requested it be left running on
+loopback for manual testing; this GUI service is separate from experiment load.
+
+All 346 panel and 83 interface-build process identities exited; the initial
+build identities were rechecked too. Qualification is complete. The canonical
+baseline and final promotion are recorded in `points-champion.json` and
+`experiments/2026-10-29-points-legal-query-v1.json`. T8 remains manually paused.
+PR #9 stays retained independently for future OpenBench. No new experiment or
+OpenBench workload is authorized.
 
 # PR #9 retained for future OpenBench; local extension complete
 

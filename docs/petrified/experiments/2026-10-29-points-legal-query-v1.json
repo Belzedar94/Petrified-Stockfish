@@ -1,7 +1,7 @@
 {
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-legal-query-v1",
-  "status": "PANEL_RUNNING",
+  "status": "ACCEPTED_READY_FOR_PROMOTION",
   "owner_request": "Guarda este, porque mas adelante lo meteremos directamente en OpenBench, y pasa a la siguiente gran idea",
   "candidate_count": 1,
   "branch": "exp/points-legal-query-v1",
@@ -245,19 +245,478 @@
     },
     "LTC": {
       "control": "LTC",
-      "status": "RUNNING",
+      "status": "WIN",
       "scores": [
-        0,
-        0,
-        0
+        59,
+        25,
+        4
       ],
       "time_losses": [
         0,
         0
       ],
       "minimum_games": 40,
-      "maximum_games": 400
+      "maximum_games": 400,
+      "pentanomial": [
+        2,
+        1,
+        20,
+        3,
+        18
+      ],
+      "statistics": "Total: 88 W: 59 L: 25 D: 4 ELO: 141.59 +-78.3 (95%) LOS: 100.0%",
+      "completed_pairs": 44,
+      "elapsed_seconds": 2755.907
     }
   },
-  "observed_utc": "2026-10-29T13:53:00.774525+00:00"
+  "observed_utc": "2026-10-29T14:46:27.873046+00:00",
+  "raw_results": [
+    {
+      "control": "VSTC",
+      "status": "WIN",
+      "scores": [
+        47,
+        21,
+        2
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        1,
+        18,
+        1,
+        14
+      ],
+      "statistics": "Total: 70 W: 47 L: 21 D: 2 ELO: 135.53 +-88.7 (95%) LOS: 100.0%",
+      "completed_pairs": 35,
+      "elapsed_seconds": 157.594
+    },
+    {
+      "control": "STC",
+      "status": "WIN",
+      "scores": [
+        48,
+        19,
+        3
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        0,
+        0,
+        19,
+        3,
+        13
+      ],
+      "statistics": "Total: 70 W: 48 L: 19 D: 3 ELO: 153.14 +-89.9 (95%) LOS: 100.0%",
+      "completed_pairs": 35,
+      "elapsed_seconds": 788.843
+    },
+    {
+      "control": "LTC",
+      "status": "WIN",
+      "scores": [
+        59,
+        25,
+        4
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        2,
+        1,
+        20,
+        3,
+        18
+      ],
+      "statistics": "Total: 88 W: 59 L: 25 D: 4 ELO: 141.59 +-78.3 (95%) LOS: 100.0%",
+      "completed_pairs": 44,
+      "elapsed_seconds": 2755.907
+    }
+  ],
+  "final_panel_audit": {
+    "schema": "points-legal-query-panel-audit-v1",
+    "result": "PASS",
+    "checked_utc": "2026-10-29T14:40:03.454090+00:00",
+    "raw_results": [
+      {
+        "control": "VSTC",
+        "status": "WIN",
+        "scores": [
+          47,
+          21,
+          2
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          1,
+          1,
+          18,
+          1,
+          14
+        ],
+        "statistics": "Total: 70 W: 47 L: 21 D: 2 ELO: 135.53 +-88.7 (95%) LOS: 100.0%",
+        "completed_pairs": 35,
+        "elapsed_seconds": 157.594
+      },
+      {
+        "control": "STC",
+        "status": "WIN",
+        "scores": [
+          48,
+          19,
+          3
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          0,
+          0,
+          19,
+          3,
+          13
+        ],
+        "statistics": "Total: 70 W: 48 L: 19 D: 3 ELO: 153.14 +-89.9 (95%) LOS: 100.0%",
+        "completed_pairs": 35,
+        "elapsed_seconds": 788.843
+      },
+      {
+        "control": "LTC",
+        "status": "WIN",
+        "scores": [
+          59,
+          25,
+          4
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          2,
+          1,
+          20,
+          3,
+          18
+        ],
+        "statistics": "Total: 88 W: 59 L: 25 D: 4 ELO: 141.59 +-78.3 (95%) LOS: 100.0%",
+        "completed_pairs": 44,
+        "elapsed_seconds": 2755.907
+      }
+    ],
+    "controls": {
+      "VSTC": {
+        "result": "PASS",
+        "games": 70,
+        "complete_pairs": 35,
+        "independent_plies": 13044,
+        "scores": [
+          47,
+          21,
+          2
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "statistics": "Total: 70 W: 47 L: 21 D: 2 ELO: 135.53 +-88.7 (95%) LOS: 100.0%",
+        "raw_result_sha256": "10f1a29967b8755f2d6ea796c6f9d26e90983c1a7d606bad9fe70ed2037ba27b"
+      },
+      "STC": {
+        "result": "PASS",
+        "games": 70,
+        "complete_pairs": 35,
+        "independent_plies": 15416,
+        "scores": [
+          48,
+          19,
+          3
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "statistics": "Total: 70 W: 48 L: 19 D: 3 ELO: 153.14 +-89.9 (95%) LOS: 100.0%",
+        "raw_result_sha256": "3f03402a5d1ea338f57fa564b8152c85e7f383bda048e77d63fb6dc6653e6479"
+      },
+      "LTC": {
+        "result": "PASS",
+        "games": 88,
+        "complete_pairs": 44,
+        "independent_plies": 20448,
+        "scores": [
+          59,
+          25,
+          4
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "statistics": "Total: 88 W: 59 L: 25 D: 4 ELO: 141.59 +-78.3 (95%) LOS: 100.0%",
+        "raw_result_sha256": "5dd25e58f3b4f24f93ca7091dc6cfab8da7470f17bdc7fd0cdf0f13086c09038"
+      }
+    },
+    "games": 228,
+    "complete_pairs": 114,
+    "independent_plies": 48908,
+    "execution_hashes": 70,
+    "panel_hashes": 11,
+    "dependency_hashes": 7,
+    "raw_files_preserved": 1271,
+    "raw_inventory_sha256": "e5891ecd9427a4956c51e985b02b33a105064b45a6a49f52da3184918d32069b",
+    "owned_process_identities_exited": 346,
+    "reused_pids_not_touched": [
+      {
+        "expected": {
+          "pid": 18700,
+          "creation_filetime": 134377545291276387,
+          "creation_utc": "2026-10-29T13:35:29.127638+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:35:32.719087+00:00",
+          "last_seen_utc": "2026-10-29T13:35:47.760595+00:00"
+        },
+        "current": {
+          "pid": 18700,
+          "creation_filetime": 134377583931656764,
+          "creation_utc": "2026-10-29T14:39:53.165676+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 20996,
+          "creation_filetime": 134377545582963957,
+          "creation_utc": "2026-10-29T13:35:58.296394+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:36:02.812661+00:00",
+          "last_seen_utc": "2026-10-29T13:36:12.836165+00:00"
+        },
+        "current": {
+          "pid": 20996,
+          "creation_filetime": 134377581475872719,
+          "creation_utc": "2026-10-29T14:35:47.587273+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 9052,
+          "creation_filetime": 134377546201768570,
+          "creation_utc": "2026-10-29T13:37:00.176857+00:00",
+          "parent_pid": 44400,
+          "name": "petrified-points-legal-query-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:37:02.970311+00:00",
+          "last_seen_utc": "2026-10-29T13:37:18.008372+00:00"
+        },
+        "current": {
+          "pid": 9052,
+          "creation_filetime": 134377583944487186,
+          "creation_utc": "2026-10-29T14:39:54.448719+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 20996,
+          "creation_filetime": 134377546201821713,
+          "creation_utc": "2026-10-29T13:37:00.182171+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:37:02.970311+00:00",
+          "last_seen_utc": "2026-10-29T13:37:12.995775+00:00"
+        },
+        "current": {
+          "pid": 20996,
+          "creation_filetime": 134377581475872719,
+          "creation_utc": "2026-10-29T14:35:47.587273+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 41668,
+          "creation_filetime": 134377546503071954,
+          "creation_utc": "2026-10-29T13:37:30.307196+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:37:33.056630+00:00",
+          "last_seen_utc": "2026-10-29T13:37:43.082623+00:00"
+        },
+        "current": {
+          "pid": 41668,
+          "creation_filetime": 134377583944061210,
+          "creation_utc": "2026-10-29T14:39:54.406122+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 28396,
+          "creation_filetime": 134377549909565185,
+          "creation_utc": "2026-10-29T13:43:10.956518+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:43:13.957599+00:00",
+          "last_seen_utc": "2026-10-29T13:44:49.207073+00:00"
+        },
+        "current": {
+          "pid": 28396,
+          "creation_filetime": 134377583944540070,
+          "creation_utc": "2026-10-29T14:39:54.454006+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 14140,
+          "creation_filetime": 134377549917332147,
+          "creation_utc": "2026-10-29T13:43:11.733215+00:00",
+          "parent_pid": 44400,
+          "name": "node.exe",
+          "first_seen_utc": "2026-10-29T13:43:13.957599+00:00",
+          "last_seen_utc": "2026-10-29T13:44:49.207073+00:00"
+        },
+        "current": {
+          "pid": 14140,
+          "creation_filetime": 134377583945820162,
+          "creation_utc": "2026-10-29T14:39:54.582016+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 39476,
+          "creation_filetime": 134377553180166958,
+          "creation_utc": "2026-10-29T13:48:38.016697+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:48:39.793356+00:00",
+          "last_seen_utc": "2026-10-29T13:50:25.068777+00:00"
+        },
+        "current": {
+          "pid": 39476,
+          "creation_filetime": 134377583962479594,
+          "creation_utc": "2026-10-29T14:39:56.247959+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 9624,
+          "creation_filetime": 134377565639495828,
+          "creation_utc": "2026-10-29T14:09:23.949583+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T14:09:28.063808+00:00",
+          "last_seen_utc": "2026-10-29T14:14:03.799709+00:00"
+        },
+        "current": {
+          "pid": 9624,
+          "creation_filetime": 134377583882862762,
+          "creation_utc": "2026-10-29T14:39:48.286276+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 12912,
+          "creation_filetime": 134377568496811163,
+          "creation_utc": "2026-10-29T14:14:09.681116+00:00",
+          "parent_pid": 44400,
+          "name": "node.exe",
+          "first_seen_utc": "2026-10-29T14:14:13.829620+00:00",
+          "last_seen_utc": "2026-10-29T14:19:19.660309+00:00"
+        },
+        "current": {
+          "pid": 12912,
+          "creation_filetime": 134377583944511677,
+          "creation_utc": "2026-10-29T14:39:54.451168+00:00"
+        }
+      }
+    ],
+    "three_control_gate_passed": true,
+    "promotion": "Pending distribution and interface acceptance"
+  },
+  "interface_acceptance": {
+    "report": ".local\\points-legal-query-v1\\interface-acceptance.json",
+    "sha256": "9c7bb63050562ceeb35518279a33c9eff96931942ca1491b2345054392df6770",
+    "result": "PASS",
+    "archive_source_files_exact": 213,
+    "native_node_integer_positions": 64,
+    "board_CJS_ESM_and_Python_positions_each": 513,
+    "owned_build_processes_exited": 83
+  },
+  "operational_issues": [
+    {
+      "issue": "Final check compared Windows CRLF checkout against LF Git archive",
+      "resolution": "Compiled sources match all 213 archive files byte for byte; Windows checkout normalized comparison matches. All eight build/test stages exited 0. No source, binary or network changed.",
+      "preserved": ".local/points-legal-query-v1/acceptance-failure-001",
+      "status": "RESOLVED"
+    },
+    {
+      "issue": "Fairyground installer initially refused an existing local server",
+      "resolution": "Verified the previous owned listener, stopped it cooperatively, then setup exited 0.",
+      "logs": [
+        ".local/points-legal-query-v1/fairyground-setup.log",
+        ".local/points-legal-query-v1/fairyground-setup-002.log"
+      ],
+      "status": "RESOLVED"
+    }
+  ],
+  "fairyground": {
+    "result": "PASS",
+    "owner_request": "Replace the champion in Fairyground and open the server for testing",
+    "backend_audit": ".local/points-legal-query-v1/fairyground-backend-audit.json",
+    "browser_audit": ".local/points-legal-query-v1/fairyground-browser-audit.json",
+    "server_identity": ".local/points-legal-query-v1/fairyground-server-identity.json",
+    "url": "http://127.0.0.1:5185/public/index.html?variant=petrified",
+    "keep_running": true,
+    "board_directory": "build/wasm-points-legal-query-v1/cjs"
+  },
+  "completed_utc": "2026-10-29T15:02:55.874947+00:00",
+  "distribution": {
+    "result": "PASS",
+    "checked_utc": "2026-10-29T15:01:49.512938+00:00",
+    "directory": "build\\points-legal-query-v1-distribution",
+    "archive": "build\\petrified-points-legal-query-v1-local.zip",
+    "archive_sha256": "d93aae9a7b1887ca293ff614c2263238fd98fd972b9a96eda04034c2d6334205",
+    "archive_bytes": 30302224,
+    "manifest_sha256": "48ef817bfd6e7d01eed4093fd3682b871ef4370c8d55f0d56cbcfd897ae281fc",
+    "artifact_count": 30,
+    "verification": "Every ZIP entry verified against the artifact manifest"
+  },
+  "closure_audit": {
+    "path": ".local\\points-legal-query-v1\\closure-audit.json",
+    "sha256": "894c3801a2f53c692285a13f04a92900e1001c5eabf00f1ea547767ebff9e5fb",
+    "result": "PASS",
+    "panel_processes_exited": 346,
+    "interface_processes_exited": 83,
+    "raw_panel_files_unchanged": 1271,
+    "gui_kept_running_for_owner": true
+  },
+  "decision": {
+    "result": "PROMOTE_AFTER_THREE_AUDITED_WINS_AND_INTERFACES",
+    "manual_adjudication": false,
+    "previous_champion": "PR7 PointsHead v1",
+    "panel_repeated": false,
+    "next_experiment_authorized": false
+  }
 }
