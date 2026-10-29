@@ -1,6 +1,6 @@
 {
   "schema": "petrified-points-head-experiment-v1",
-  "status": "VALIDATED_AWAITING_PANEL",
+  "status": "PANEL_RUNNING",
   "promoted": false,
   "owner_authorized": "Train a score-conditioned run4test head with frozen accumulators and better data on GPU, then all three controls against the champion.",
   "baseline_ref": "7dd7c827b41e9460184730227fed4222929dbbaf",
@@ -49,7 +49,10 @@
     "stopping": "Displayed LOS 100.0%/0.0%, complete pending color-reversed pairs and recheck",
     "promotion": "three valid WIN controls; otherwise preserve/reject candidate and retain champion",
     "at_limit": "NEUTRAL_SCREEN, not statistical equivalence",
-    "path": ".local/points-head-panel-001"
+    "path": ".local/points-head-panel-001",
+    "pid": 39524,
+    "launcher_pid": 40184,
+    "manifest_sha256": "f2fe6b27a8993c13135b9e0da42d3ef76344b7874f07a80162e5b0bf6ced388d"
   },
   "worker": "T8 stays manually paused",
   "misere": "Paused by owner; no messages",
@@ -242,5 +245,6 @@
     ".local/points-head-v1/candidate-wasm-evaluation.json": "afec4d0958611f7125046f6f6cd05f75328cd13a9d7893ae10ef9921706e6611",
     ".local/points-head-v1/bench-candidate.json": "29c753a01d51665d6e9beeb4e7acf59c5e50a662926576cdc1a3689b0d159fb8",
     ".local/points-head-v1-inputs/manifest.json": "0987cf525117b0d232fc0c71f2eb99118053568c4a2f251a1b8d78d5e8bc8882"
-  }
+  },
+  "runner_commit": "e926428184ce2086f4688d5d82098c467c830ecf"
 }
