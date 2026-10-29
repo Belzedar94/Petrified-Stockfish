@@ -246,5 +246,65 @@
     ".local/points-head-v1/bench-candidate.json": "29c753a01d51665d6e9beeb4e7acf59c5e50a662926576cdc1a3689b0d159fb8",
     ".local/points-head-v1-inputs/manifest.json": "0987cf525117b0d232fc0c71f2eb99118053568c4a2f251a1b8d78d5e8bc8882"
   },
-  "runner_commit": "e926428184ce2086f4688d5d82098c467c830ecf"
+  "runner_commit": "e926428184ce2086f4688d5d82098c467c830ecf",
+  "results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "WIN",
+      "scores": [
+        33,
+        12,
+        1
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        0,
+        10,
+        1,
+        11
+      ],
+      "statistics": "Total: 46 W: 33 L: 12 D: 1 ELO: 171.25 +-118.2 (95%) LOS: 100.0%",
+      "completed_pairs": 23,
+      "elapsed_seconds": 112.906
+    },
+    "STC": {
+      "status": "RUNNING"
+    },
+    "LTC": {
+      "status": "PENDING"
+    }
+  },
+  "control_audits": {
+    "VSTC": {
+      "control": "VSTC",
+      "result": "PASS",
+      "games": 46,
+      "complete_pairs": 23,
+      "scores": [
+        33,
+        12,
+        1
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        1,
+        0,
+        10,
+        1,
+        11
+      ],
+      "independent_terminals": "all matched",
+      "frozen_inputs": "all matched",
+      "utc": "2026-10-29T06:38:26.691736+00:00"
+    }
+  }
 }
