@@ -1,10 +1,43 @@
+# Current: points-capture-lmr-v1 / PR16, from qualified PR11
+
+The single successor assigns capture search depth using the immediate material
+and earned-points transaction, including the disappearing non-pawn mover and
+surviving pawn promotions. Coefficient873/128 and all other search policies,
+SEE, history, move ordering, rules, state and NNUE stay unchanged. No retained
+PR9/12/13/15 code or rejected PR14 change is included. Engine source is frozen
+at e6faae706d6217342d580714045cb37699a6cb94.
+
+Debug/Release each passed177911 transaction checks,883968 legal queries and9338
+state/undo positions with exact NNUE. The independent client matched403 local
+transactions, including promotions and en passant. Its15 terminal settlements
+are explicitly outside this local objective; points/mates regression tests
+cover terminal outcomes. Native UCI/CECP and32 independent searches/248 PV plies
+passed. Candidate points bench151183 reproduced twice; PR11 remains177290 and
+both legacy benches remain179335. These are correctness checks, not Elo.
+
+Two adapter faults and their fixes are preserved: EP FEN is reconstructed by
+replaying the preceding double push, and fixture walls are checked as neutral
+X pieces. Engine source, executable and network never changed. All28 recorded
+build/validation identities exited. The original source CI passed five jobs;
+the adapter correction is a separate commit a541bfe9360c4ae34726b2f1501a2100c3bab8b1,
+also green in all five jobs40959917423. The panel is active in
+`.local/points-capture-lmr-panel-001`;201 frozen inputs,11 panel hashes and7
+dependencies passed launch audit. Memory preflight found9548095488 free bytes
+against7583301632 required. The experiment record and local followup contain
+the current panel state and exact PID+CreationDate identities.
+PR11 remains champion. One min40/max400 VSTC/STC/LTC panel only; promotion needs
+three audited wins and complete distribution/interface acceptance. T8 remains
+paused, Fairyground closed, no OpenBench/AtomicDB/remote-worker or Misere action.
+
+# PR15 retained for future OpenBench
+
 PR15 points-exchange-see-v1 retained for future OpenBench by owner request.
 Local panel closed at VSTC400/STC288/LTC0; all688 paired games and133648 referee
 plies audited. Exact157-input bundle and source tag are recorded in its experiment.
 All1076 owned process identities exited; lease released. PR11 remains champion.
 One next search-specific successor from PR11 is authorized. No OpenBench load.
 
-# Active: points-exchange-see-v1, one search hypothesis from PR11
+# Historical setup: points-exchange-see-v1, one search hypothesis from PR11
 
 The owner requested a deeper search review after the rejected sparse-head speed
 experiment. The review is in `search-specialization-review.md`. The selected

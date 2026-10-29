@@ -1,3 +1,17 @@
+points-capture-lmr-v1 / PR16 is frozen and running its one local panel from PR11.
+Engine source e6faae706d6217342d580714045cb37699a6cb94, candidate bench151183 twice,
+rival177290 and legacy179335 passed. Debug/Release transaction/state/NNUE checks,
+independent transaction and PV audits, native interfaces and all five source CI
+jobs40958404344 passed. Two preserved adapter failures were fixed without any
+engine, binary or network change; correction a541bfe9360c4ae34726b2f1501a2100c3bab8b1
+also passed five CI jobs40959917423. Original build-state FAILED is historical;
+development-validation-002/state.json records the successful continuation.
+All28 recorded build/validation identities exited before launch. The201-input
+manifest and .local/points-capture-lmr-followup.json fix exact hashes and real
+process identities. Use monitor_panel.py in that experiment folder; never alter,
+duplicate or relaunch active inputs. PR11 stays champion. No other candidate,
+training, tuning or OpenBench workload is authorized. No automatic next experiment.
+
 The sole current successor is points-capture-lmr-v1, from qualified PR11 only.
 Replace the victim-only material term in capture LMR depth allocation with the
 immediate material plus earned-points transaction, subtracting a fatal non-pawn

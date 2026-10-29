@@ -1,6 +1,6 @@
 {
   "experiment": "points-capture-lmr-v1",
-  "status": "LOCAL_VALIDATION_PASS",
+  "status": "PANEL_RUNNING",
   "hypothesis": "Replace victim-only capture LMR value with the immediate live-material plus capture-points transaction, including disappearing non-pawn movers and pawn promotions. One depth-allocation policy only.",
   "base_qualified_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
   "base_qualified_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
@@ -16,7 +16,7 @@
     "limits": "Not a SEE, terminal proof, or wall/tempo valuation; reduced searches still use actual rules and terminal outcomes."
   },
   "panel": {
-    "status": "NOT_STARTED",
+    "status": "PANEL_RUNNING",
     "controls": {
       "VSTC": "2+0.02",
       "STC": "10+0.1",
@@ -27,7 +27,46 @@
     "threads": 1,
     "hash": 512,
     "concurrency": 4,
-    "decision": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; limit without boundary is NEUTRAL_SCREEN, not equivalence. Three audited wins plus interfaces required. Existing manual rejection delegation applies."
+    "decision": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; limit without boundary is NEUTRAL_SCREEN, not equivalence. Three audited wins plus interfaces required. Existing manual rejection delegation applies.",
+    "readiness": {
+      "correctness": "PASS",
+      "source_ci": "PASS",
+      "checked_utc": "2026-10-29T21:45:13.434802+00:00",
+      "harness_correction_ci": "PASS",
+      "harness_correction_engine_diff": "EMPTY",
+      "stage": "READY_FOR_PANEL",
+      "free_bytes": 9548095488,
+      "required_bytes": 7583301632,
+      "frozen_input_count": 201,
+      "source_archive_files": 222,
+      "build_process_identities_exited": 28,
+      "reused_pids_not_touched": [],
+      "T8_pause_verified": true,
+      "Fairyground": "Untouched",
+      "panel_started": false
+    },
+    "path": ".local/points-capture-lmr-panel-001",
+    "identities": {
+      "controller": {
+        "pid": 31272,
+        "creation_filetime": 134377839326694003,
+        "creation_utc": "2026-10-29T21:45:32.669399+00:00"
+      },
+      "launcher": {
+        "pid": 33416,
+        "creation_filetime": 134377839329107972,
+        "creation_utc": "2026-10-29T21:45:32.910797+00:00"
+      },
+      "panel": {
+        "pid": 10964,
+        "creation_filetime": 134377839329342753,
+        "creation_utc": "2026-10-29T21:45:32.934275+00:00"
+      }
+    },
+    "launch_audit": ".local\\points-capture-lmr-v1\\panel-launch-audit.json",
+    "session_id": 5638,
+    "followup": ".local\\points-capture-lmr-followup.json",
+    "automation_id": "petrified-profundidad-de-capturas-y-panel"
   },
   "constraints": {
     "T8": "Manually paused",
@@ -41,7 +80,7 @@
   "source_commit": "e6faae706d6217342d580714045cb37699a6cb94",
   "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/16",
   "execution_manifest": ".local\\points-capture-lmr-v1\\execution-manifest.json",
-  "frozen_inputs": 163,
+  "frozen_inputs": 201,
   "candidate_sha256": "5bf22c655f7ec593325fc09bc7b2dd82f67ff1d83d10b8bcd999a627321c04da",
   "champion_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
   "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
@@ -74,7 +113,13 @@
       "run_id": 40958404344,
       "jobs_passed": 5
     },
-    "build_process_identities_exited": 28
+    "build_process_identities_exited": 28,
+    "harness_correction_ci": {
+      "commit": "a541bfe9360c4ae34726b2f1501a2100c3bab8b1",
+      "run_id": 40959917423,
+      "jobs_passed": 5,
+      "engine_source_diff": "EMPTY"
+    }
   },
   "resolved_operational_failures": [
     {
@@ -88,5 +133,53 @@
       "resolution": "Check the independent neutral wall representation exactly"
     }
   ],
-  "candidate_unchanged_during_repairs": true
+  "candidate_unchanged_during_repairs": true,
+  "execution_manifest_sha256": "18d26832a120f83aaffe0552ad3608a0c0b2bbe72c5e79bb70d3f000850c2748",
+  "harness_correction_commit": "a541bfe9360c4ae34726b2f1501a2100c3bab8b1",
+  "observed_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "RUNNING",
+      "scores": [
+        1,
+        1,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "statistics": "Total: 2 W: 1 L: 1 D: 0 ",
+      "completed_pairs": 1,
+      "elapsed_seconds": 17.156
+    },
+    "STC": {
+      "control": "STC",
+      "status": "PENDING",
+      "scores": [
+        0,
+        0,
+        0
+      ]
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "PENDING",
+      "scores": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "observed_utc": "2026-10-29T21:45:52.134115+00:00"
 }
