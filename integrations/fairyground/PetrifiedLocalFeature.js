@@ -1,10 +1,11 @@
 // Local profile: use the audited native engine for all playing/analysis roles.
 window.addEventListener("DOMContentLoaded", () => {
+  let profileName = "Petrified-Stockfish";
   const status = document.createElement("div");
   status.id = "petrified-native-status";
   status.style.cssText =
     "position:fixed;bottom:8px;left:8px;z-index:9999;padding:8px 12px;border-radius:8px;background:#173b2b;color:white;font:14px system-ui";
-  status.textContent = "Petrified-Stockfish + run4test · Conectando…";
+  status.textContent = `${profileName} · Conectando…`;
   document.body.appendChild(status);
   const startFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
   const style = document.createElement("style");
@@ -281,7 +282,7 @@ window.addEventListener("DOMContentLoaded", () => {
             `Marcador: blancas ${data.final[0]} — negras ${data.final[1]}` +
             (data.result !== "*" ? ` · Resultado: ${data.result} (${data.termination})` :
               data.canClaimWin ? " · Se puede reclamar victoria por puntos" : "");
-          status.textContent = "Petrified-Stockfish + run4test · Game of Points activo";
+          status.textContent = `${profileName} · Game of Points activo`;
           status.style.background = "#173b2b";
         }
       }
@@ -321,12 +322,13 @@ window.addEventListener("DOMContentLoaded", () => {
     clearInterval(timer);
     fge.GetEngineList((list) => {
       const config = list.find(
-        (item) => item.id === "Petrified-Stockfish + run4test",
+        (item) => item.id.startsWith("Petrified-Stockfish + run4test"),
       );
       if (!config) {
         status.textContent = "Falta el perfil de Petrified-Stockfish.";
         return;
       }
+      profileName = config.id;
       let loaded = 0;
       for (const [role, key] of [
         ["WHITE", "first_engine"],
@@ -369,7 +371,7 @@ window.addEventListener("DOMContentLoaded", () => {
               ])
                 document.getElementById(id).hidden = true;
               status.textContent =
-                "Petrified-Stockfish + run4test · Motor nativo listo";
+                `${profileName} · Motor nativo listo`;
             }
           },
           (error) => {

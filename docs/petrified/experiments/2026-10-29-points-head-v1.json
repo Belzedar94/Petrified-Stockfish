@@ -1,6 +1,6 @@
 {
   "schema": "petrified-points-head-experiment-v1",
-  "status": "PANEL_RUNNING",
+  "status": "GATE_PASSED_PACKAGING",
   "promoted": false,
   "owner_authorized": "Train a score-conditioned run4test head with frozen accumulators and better data on GPU, then all three controls against the champion.",
   "baseline_ref": "7dd7c827b41e9460184730227fed4222929dbbaf",
@@ -300,11 +300,11 @@
     },
     "LTC": {
       "control": "LTC",
-      "status": "RUNNING",
+      "status": "WIN",
       "scores": [
-        2,
-        0,
-        0
+        39,
+        4,
+        3
       ],
       "time_losses": [
         0,
@@ -314,14 +314,14 @@
       "maximum_games": 400,
       "pentanomial": [
         0,
+        1,
+        4,
         0,
-        0,
-        0,
-        1
+        18
       ],
-      "statistics": "Total: 2 W: 2 L: 0 D: 0 ",
-      "completed_pairs": 1,
-      "elapsed_seconds": 174.0
+      "statistics": "Total: 46 W: 39 L: 4 D: 3 ELO: 346.84 +-174.7 (95%) LOS: 100.0%",
+      "completed_pairs": 23,
+      "elapsed_seconds": 1174.89
     }
   },
   "control_audits": {
@@ -347,8 +347,9 @@
         11
       ],
       "independent_terminals": "all matched",
+      "independent_plies": 7380,
       "frozen_inputs": "all matched",
-      "utc": "2026-10-29T06:38:26.691736+00:00"
+      "utc": "2026-10-29T07:09:07.386212+00:00"
     },
     "STC": {
       "control": "STC",
@@ -375,6 +376,32 @@
       "independent_plies": 7455,
       "frozen_inputs": "all matched",
       "utc": "2026-10-29T06:46:43.647288+00:00"
+    },
+    "LTC": {
+      "control": "LTC",
+      "result": "PASS",
+      "games": 46,
+      "complete_pairs": 23,
+      "scores": [
+        39,
+        4,
+        3
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        0,
+        1,
+        4,
+        0,
+        18
+      ],
+      "independent_terminals": "all matched",
+      "independent_plies": 6807,
+      "frozen_inputs": "all matched",
+      "utc": "2026-10-29T07:09:07.073649+00:00"
     }
   }
 }

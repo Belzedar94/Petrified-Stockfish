@@ -9,18 +9,32 @@ $projectRoot = Split-Path -Parent $PSScriptRoot
 $guiRoot = Join-Path $projectRoot '.local/fairyground'
 $integrationRoot = Join-Path $projectRoot 'integrations/fairyground'
 $revision = '5f7392c3416b3949a3352d729f4e32368f03bade'
-if (!$Engine) { $Engine = Join-Path $projectRoot 'src/petrified-points-mate-r2-bmi2.exe' }
-if (!$Network) { $Network = Join-Path $projectRoot '../../../Match script/petrified_run4test_e19_l085.nnue' }
+$champion = Get-Content -LiteralPath (Join-Path $projectRoot 'docs/petrified/points-champion.json') -Raw | ConvertFrom-Json
+if (!$Engine) { $Engine = Join-Path $projectRoot $champion.binary }
+if (!$Network) {
+    $Network = Join-Path $projectRoot $champion.network
+    if (!(Test-Path -LiteralPath $Network) -and $champion.network -eq 'petrified_run4test_e19_l085.nnue') {
+        $Network = Join-Path $projectRoot '../../../Match script/petrified_run4test_e19_l085.nnue'
+    }
+}
 $Engine = (Resolve-Path -LiteralPath $Engine).Path
 $Network = (Resolve-Path -LiteralPath $Network).Path
-if (!$BoardDirectory) { $BoardDirectory = Join-Path $projectRoot 'build/wasm-points-mate-r2/cjs' }
+if (!$BoardDirectory) {
+    $BoardDirectory = Join-Path $projectRoot $(if ($champion.board_directory) { $champion.board_directory } else { 'build/wasm-points-mate-r2/cjs' })
+}
 $pointsBoard = (Resolve-Path -LiteralPath $BoardDirectory).Path
 if (!(Test-Path -LiteralPath (Join-Path $pointsBoard 'ffish.wasm'))) {
     throw 'Build the points Board WASM first: python scripts/build_wasm.py --target cjs --out build/wasm-points-mate-r2'
 }
-if ((Get-FileHash -LiteralPath $Network -Algorithm SHA256).Hash.ToLowerInvariant() -ne '345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933') {
-    throw 'This Fairyground profile requires the frozen run4test network.'
+$networkHash = (Get-FileHash -LiteralPath $Network -Algorithm SHA256).Hash.ToLowerInvariant()
+$networkNames = @{
+    '345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933' = 'run4test'
+    'ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c' = 'run4test PointsHead v1'
 }
+if (!$networkNames.ContainsKey($networkHash)) {
+    throw 'This Fairyground profile requires a hash-pinned, qualified Petrified network.'
+}
+$profileName = 'Petrified-Stockfish + ' + $networkNames[$networkHash]
 if (@(Get-NetTCPConnection -State Listen -LocalPort 5185,5186 -ErrorAction SilentlyContinue).Count) {
     throw 'Stop this Fairyground instance with scripts/stop_fairyground.ps1 before reconfiguring it.'
 }
@@ -67,10 +81,11 @@ try {
     Copy-Item -LiteralPath 'src/js/server.js' -Destination 'server.js'
     Copy-Item -Path 'src/html/*' -Destination 'public'
     $engineCwd = Split-Path -Parent $Engine
-    $profile = "Petrified-Stockfish + run4test;$Engine;$engineCwd;UCI;UCI_Variant=petrifiedpoints,EvalFile=$Network,Threads=1,Hash=128,Ponder=false`n"
+    $profile = "$profileName;$Engine;$engineCwd;UCI;UCI_Variant=petrifiedpoints,EvalFile=$Network,Threads=1,Hash=128,Ponder=false`n"
     [IO.File]::WriteAllText((Join-Path $guiRoot 'EngineList.txt'), $profile, [Text.UTF8Encoding]::new($false))
     $manifest = [ordered]@{
         schema = 'petrified-fairyground-v2'; rules = 'chesscom-points-v1'; fairyground_commit = $revision
+        profile_name = $profileName
         engine = $Engine; engine_sha256 = (Get-FileHash -LiteralPath $Engine -Algorithm SHA256).Hash.ToLowerInvariant()
         network = $Network; network_sha256 = (Get-FileHash -LiteralPath $Network -Algorithm SHA256).Hash.ToLowerInvariant()
         patch_sha256 = (Get-FileHash -LiteralPath $patch -Algorithm SHA256).Hash.ToLowerInvariant()
