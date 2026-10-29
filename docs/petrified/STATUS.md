@@ -8,6 +8,20 @@ review pauses, not automatic wins or neutral adjudications. Original records
 and excluded incomplete pairs remain unchanged. PR #10 remains closed.
 PR #7 stays champion and T8 remains manually paused.
 
+Continuation snapshot: STC reached its review checkpoint; LTC is running.
+
+| Control | Games | W/L/D | Elo +/-95% | LOS | Time losses C/O | State |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 400 | 175/212/13 | -32.23 +/-33.7 | 2.9% | 0/0 | Original cap, unchanged |
+| STC 10+0.1 | 40 | 23/12/5 | +98.07 +/-108.1 | 97.4% | 0/0 | REVIEW_CHECKPOINT |
+| LTC 30+0.3 | 8 | 4/3/1 | +43.66 +/-275.0 | 64.9% | 0/0 | Running toward first review at 40 |
+
+The STC signal remains positive but has not reached the winning boundary.
+All 57 continuation input hashes and the original manifest were rechecked;
+the controller identity matches and no stderr errors were found. The heartbeat
+`petrified-pr9-continuaci-n-stc-ltc` supervises this bounded continuation.
+The machine lease is currently held (`released=false`) for this continuation.
+
 # Closed: points-wall-ft-v1
 
 PR #10 is rejected as **NEUTRAL_MANUAL** under the owner's delegated early

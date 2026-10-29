@@ -680,11 +680,11 @@
     "archived_shared_source_inputs": ".local/points-verified-null-v1/closed-source-inputs.json"
   },
   "runtime": {
-    "state": "STC_RUNNING",
+    "state": "LTC_RUNNING",
     "released": false,
-    "automation_state": "PENDING",
+    "automation_state": "ACTIVE",
     "T8": "Manually paused",
-    "next_candidate_authorized": true,
+    "next_candidate_authorized": false,
     "owner_early_rejection_policy": "Agent may adjudicate neutral or clearly losing candidates early; retain measured statistics and explicit manual decision. Three valid WINs still required for promotion.",
     "pull_request_state": "OPEN",
     "continuation": "points-verified-null-resume-001",
@@ -695,7 +695,8 @@
       "creation_filetime": 134377513849639916,
       "creation_utc": "2026-10-29T12:43:04.963991+00:00"
     },
-    "continuation_session": 15276
+    "continuation_session": 15276,
+    "automation_id": "petrified-pr9-continuaci-n-stc-ltc"
   },
   "closure_receipts": {
     "pull_request": {
@@ -734,7 +735,7 @@
         "old_incomplete_pairs": "Preserved/excluded; new RNG sequence starts after all 11 old submitted slots",
         "utc": "2026-10-29T12:39:17.306157+00:00"
       },
-      "status": "STC_RUNNING",
+      "status": "LTC_RUNNING",
       "output": ".local/points-verified-null-panel-001-resume-001",
       "manifest": ".local/points-verified-null-resume-001/execution-manifest.json",
       "frozen_inputs": 57,
@@ -755,7 +756,101 @@
         "creation_utc": "2026-10-29T12:43:04.963991+00:00"
       },
       "session_id": 15276,
-      "preflight": ".local/points-verified-null-resume-001/continuation-preflight.json"
+      "preflight": ".local/points-verified-null-resume-001/continuation-preflight.json",
+      "automation_id": "petrified-pr9-continuaci-n-stc-ltc",
+      "progress_snapshot": {
+        "VSTC": {
+          "control": "VSTC",
+          "status": "INCONCLUSIVE_LIMIT",
+          "scores": [
+            175,
+            212,
+            13
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "minimum_games": 40,
+          "maximum_games": 400,
+          "pentanomial": [
+            40,
+            8,
+            124,
+            5,
+            23
+          ],
+          "statistics": "Total: 400 W: 175 L: 212 D: 13 ELO: -32.23 +-33.7 (95%) LOS: 2.9%",
+          "completed_pairs": 200,
+          "elapsed_seconds": 877.063
+        },
+        "STC": {
+          "control": "STC",
+          "status": "REVIEW_CHECKPOINT",
+          "scores": [
+            23,
+            12,
+            5
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "pentanomial": [
+            2,
+            1,
+            7,
+            4,
+            6
+          ],
+          "minimum_games": 40,
+          "maximum_games": 400,
+          "review_checkpoint_games": 40,
+          "previous_games": 14,
+          "new_games": 26,
+          "completed_pairs": 20,
+          "new_completed_pairs": 13,
+          "first_new_pair_index": 11,
+          "previous_result": ".local\\points-verified-null-panel-001\\STC\\result.json",
+          "checkpoint_meaning": "Pause for owner-requested review; not equivalence, cap result or automatic adjudication",
+          "statistics": "Total: 40 W: 23 L: 12 D: 5 ELO: 98.07 +-108.1 (95%) LOS: 97.4%",
+          "elapsed_seconds": 300.078
+        },
+        "LTC": {
+          "control": "LTC",
+          "status": "RUNNING",
+          "scores": [
+            4,
+            3,
+            1
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "pentanomial": [
+            0,
+            0,
+            3,
+            1,
+            0
+          ],
+          "minimum_games": 40,
+          "maximum_games": 400,
+          "review_checkpoint_games": 40,
+          "previous_games": 0,
+          "new_games": 8,
+          "completed_pairs": 4,
+          "new_completed_pairs": 4,
+          "first_new_pair_index": 0,
+          "previous_result": null,
+          "checkpoint_meaning": "Pause for owner-requested review; not equivalence, cap result or automatic adjudication",
+          "statistics": "Total: 8 W: 4 L: 3 D: 1 ELO: 43.66 +-275.0 (95%) LOS: 64.9%",
+          "elapsed_seconds": 316.969
+        }
+      },
+      "progress_checked_utc": "2026-10-29T12:54:47.137566+00:00",
+      "monitor_evidence": ".local\\points-verified-null-resume-001\\monitor-current.json"
     }
   ]
 }
