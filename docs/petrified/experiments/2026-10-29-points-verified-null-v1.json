@@ -1,7 +1,7 @@
 {
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-verified-null-v1",
-  "status": "REJECTED_LOSS_MANUAL",
+  "status": "REOPENED_FOR_STC_LTC_OBSERVATION",
   "promoted": false,
   "owner_authorized": "Ponte con el siguiente gran experimento pues",
   "branch": "exp/points-verified-null-v1",
@@ -680,14 +680,22 @@
     "archived_shared_source_inputs": ".local/points-verified-null-v1/closed-source-inputs.json"
   },
   "runtime": {
-    "state": "CLOSED_LOSS_MANUAL",
-    "released": true,
-    "automation_state": "DELETED",
+    "state": "STC_RUNNING",
+    "released": false,
+    "automation_state": "PENDING",
     "T8": "Manually paused",
     "next_candidate_authorized": true,
     "owner_early_rejection_policy": "Agent may adjudicate neutral or clearly losing candidates early; retain measured statistics and explicit manual decision. Three valid WINs still required for promotion.",
-    "released_utc": "2026-10-29T12:03:37.410142+00:00",
-    "pull_request_state": "CLOSED"
+    "pull_request_state": "OPEN",
+    "continuation": "points-verified-null-resume-001",
+    "owner_reopened": true,
+    "previous_released_utc": "2026-10-29T12:03:37.410142+00:00",
+    "controller": {
+      "pid": 25816,
+      "creation_filetime": 134377513849639916,
+      "creation_utc": "2026-10-29T12:43:04.963991+00:00"
+    },
+    "continuation_session": 15276
   },
   "closure_receipts": {
     "pull_request": {
@@ -713,5 +721,41 @@
     ".local\\points-verified-null-v1\\automation-deletion.json": "01a6c88be1a350e182f2dccdde8c33b3996273bd8a4815c36aa3f0e109a20cc4",
     ".local\\points-verified-null-v1\\machine-lease-released.json": "3c9a2bcb52b769757520a022bcd3fd18590de46ea8943f43ca11f546842aab05",
     ".local\\points-verified-null-v1\\closed-source-inputs.json": "b2e72b6ec2904a78ab6a2c9be2d8cc1319a7014cc86d84db8d1ac27277eba28b"
-  }
+  },
+  "continuations": [
+    {
+      "id": "points-verified-null-resume-001",
+      "owner_request": {
+        "experiment": "points-verified-null-v1",
+        "owner_request": "Ah bueno espera, el stc marcaba 100 de elo, puedes si quieres dejarlo correr un pelin mas, y algunas partidas de ltc tambien, que acabo de ver la tabla",
+        "interpreted_candidate": "PR9 verified-null, the only STC at +102.11; PR10 never reached STC",
+        "scope": "Resume same frozen candidate and champion; carry all 14 completed STC games. Do not rerun VSTC or retrain. First review checkpoint at 40 accumulated STC and 40 LTC, complete reversed-color pairs. Checkpoint is neither neutral adjudication nor a cap result. Original global cap400 and valid-win boundary100/0 remain. Owner retains delegated early neutral/loss rejection discretion.",
+        "reuse_prior_pairs": 7,
+        "old_incomplete_pairs": "Preserved/excluded; new RNG sequence starts after all 11 old submitted slots",
+        "utc": "2026-10-29T12:39:17.306157+00:00"
+      },
+      "status": "STC_RUNNING",
+      "output": ".local/points-verified-null-panel-001-resume-001",
+      "manifest": ".local/points-verified-null-resume-001/execution-manifest.json",
+      "frozen_inputs": 57,
+      "checkpoint_games": {
+        "STC": 40,
+        "LTC": 40
+      },
+      "initial_games": {
+        "VSTC": 400,
+        "STC": 14,
+        "LTC": 0
+      },
+      "candidate_unchanged": true,
+      "champion_unchanged": true,
+      "controller": {
+        "pid": 25816,
+        "creation_filetime": 134377513849639916,
+        "creation_utc": "2026-10-29T12:43:04.963991+00:00"
+      },
+      "session_id": 15276,
+      "preflight": ".local/points-verified-null-resume-001/continuation-preflight.json"
+    }
+  ]
 }

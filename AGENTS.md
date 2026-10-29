@@ -1,5 +1,37 @@
 # Petrified-Stockfish
 
+The owner subsequently reopened ONLY PR #9 points-verified-null-v1 after noticing
+its STC +102.11 Elo at 14 games, and requested more STC and some LTC. This
+supersedes the prior closure for continued observation, not promotion. Reuse the
+exact candidate/network and preserve all original raw records. No VSTC restart,
+retraining or new hypothesis is authorized. The separate continuation is
+`.local/points-verified-null-panel-001-resume-001`, supervised by
+`.local/points-verified-null-resume-001/run.py`. Carry the 14 paired STC games;
+first review at 40 accumulated STC and 40 LTC. REVIEW_CHECKPOINT is not a
+neutral result, statistical boundary, or replacement for the cap of 400.
+The original VSTC stays at 400 and cannot pass promotion by this extension.
+PR #7 remains champion; T8 stays paused and Misere must not be contacted.
+
+
+points-wall-ft-v1 / PR #10 is closed as REJECTED_NEUTRAL_MANUAL under the
+owner's delegated early-rejection policy: VSTC 100 paired games, 43/52/5,
+-31.35 +/-67.4 Elo, measured LOS 17.7%, time losses 0/0. STC/LTC not run.
+This is candidate selection, not statistical equivalence or a 0.0% boundary.
+Four incomplete pairs (three finished unpaired games) are preserved and excluded.
+The GPU candidate, data and all raw results are retained. The winner of PR #7
+remains champion. All owned processes exited, the lease is released, and the
+follow-up was deleted. T8 remains manually paused. No next experiment is authorized.
+
+The completed points-wall-ft-v1 experiment started from qualified PR #7 and
+trained one bounded wall-feature delta matrix on the audited v2 dataset, with
+the winning head, live-piece features, biases, PSQT, search and rules frozen.
+No rejected candidate weights were reused.
+The fixed recipe and acceptance policy are recorded in
+docs/petrified/experiments/2026-10-29-points-wall-ft-v1.json. Early manual neutral
+or loss rejection is delegated to the agent; record the reason and measured
+statistics, preserve incomplete pairs, and do not call it an automatic boundary.
+Promotion still requires three valid wins plus all audits and interfaces.
+
 On 2026-10-29 the owner adjudicated points-verified-null-v1 as a loss and closed
 the whole panel. VSTC finished 400 games, 175/212/13, -32.23 +/-33.7 Elo,
 measured LOS 2.9%; its raw automatic result remains INCONCLUSIVE_LIMIT. STC

@@ -1,3 +1,36 @@
+# Active continuation: PR #9 STC/LTC
+
+The owner requested more STC and some LTC for verified-null-v1 after seeing
+its +102.11 +/-198.3 Elo in 14 STC games. Reuse the exact frozen PR #9 binary
+and PR #7 network; no code change or training. VSTC remains at 400 games.
+The first review checkpoints are 40 cumulative STC and 40 LTC; these are
+review pauses, not automatic wins or neutral adjudications. Original records
+and excluded incomplete pairs remain unchanged. PR #10 remains closed.
+PR #7 stays champion and T8 remains manually paused.
+
+# Closed: points-wall-ft-v1
+
+PR #10 is rejected as **NEUTRAL_MANUAL** under the owner's delegated early
+rejection policy. This is selection, not equivalence or an automatic LOS loss.
+
+| Control | Games | W/L/D | Elo +/-95% | LOS | Time losses C/O | Decision |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 100 | 43/52/5 | -31.35 +/-67.4 | 17.7% | 0/0 | NEUTRAL_MANUAL |
+| STC 10+0.1 | 0 | -- | -- | -- | -- | Not run after manual closure |
+| LTC 30+0.3 | 0 | -- | -- | -- | -- | Not run after manual closure |
+
+One GPU run, epoch 6 selected; candidate Bench200629 versus PR #7 Bench177290.
+The 100 games/50 pairs and 19,325 referee plies passed independent log audit.
+Four interrupted pairs and three completed unpaired games are preserved/excluded.
+All 66 execution, 12 panel and 7 dependency hashes match. Candidate, data, source
+and rejected artifacts remain preserved; all owned process identities exited.
+The final baseline remains **PR #7 PointsHead v1 + winning-mate-r2**, network
+`ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c`,
+binary `547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87`.
+The machine lease is released (`released=true`) and the follow-up was deleted.
+No next experiment is authorized. T8 stays manually paused. See the experiment
+record for all validation, provenance, process-exit and release evidence.
+
 # Petrified-Stockfish implementation status
 
 This branch starts at official Stockfish `ff7cee4244ec96ea488c402669e3674c0574dce6`.
