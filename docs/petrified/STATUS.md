@@ -99,6 +99,11 @@ The frozen BMI2/LTO/run4test panel is running with the same three TCs, T1/Hash51
 concurrency four and 40..400-game criteria. Only three valid wins allow promotion.
 T8 remains manually paused; the machine lease stays held until this final
 authorized experiment is closed. The GUI continues to use the champion.
+Capture-futility VSTC closed at 400 games: 208/167/25, +35.74 +/-33.2 Elo,
+LOS 98.4%, no time losses. All 200 color-reversed pairs and 400 independent
+referee terminal records were audited, with frozen hashes unchanged. This is
+NEUTRAL_SCREEN for selection, not statistical equivalence. The candidate is
+ineligible for promotion; STC and LTC continue under the agreed protocol.
 
 The final points-profile bench uses `tests/petrified/bench-points.epd` with
 explicit synthetic scores (16 positions). Commands: select
