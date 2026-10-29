@@ -26,6 +26,12 @@ verified78 execution inputs,11 panel hashes and7 frozen dependencies. PR11
 remains champion. T8 stays paused and the current lease remains reserved for
 PR13. No other candidate or OpenBench workload is authorized.
 
+VSTC closed at its 400-game cap: 204/183/13, +18.26 +/-33.6 Elo (95%),
+LOS 85.8%, time losses 0/0. Raw INCONCLUSIVE_LIMIT is NEUTRAL_SCREEN for
+selection, not statistical equivalence. All 200 pairs and 75,469 independent
+referee plies passed the control audit. STC continues and LTC remains pending;
+PR13 cannot satisfy the current three-WIN promotion gate. PR11 remains champion.
+
 # PR12 retained as potential win; local panel closed
 
 | Control | Games | W/L/D | Elo +/-95% | LOS | Time losses C/O | State |
