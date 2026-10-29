@@ -3,8 +3,10 @@
 The owner authorized one next experiment and delegated early neutral/loss rejection.
 Adapt only wall-feature transformer rows from original run4test, freezing the winning
 PR #7 head, live features, PSQT, search and rules. The fixed recipe and acceptance
-criteria are in `experiments/2026-10-29-points-wall-ft-v1.json`. No new strength
-result yet. PR #7 remains champion; T8 stays manually paused.
+criteria are in `experiments/2026-10-29-points-wall-ft-v1.json`. PR #10 is running the frozen panel. Source cc99c289 passes five CI jobs,
+local Debug/Release, integer export, malformed-file and UCI/CECP checks. The sole
+GPU run selected epoch 6; network 9cabd888... has Bench200629 twice, versus
+177290 for PR #7. No strength result yet. PR #7 remains champion; T8 stays manually paused.
 
 # Petrified-Stockfish implementation status
 
