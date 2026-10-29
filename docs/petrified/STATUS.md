@@ -20,8 +20,11 @@ and epoch 5 selected by validation. The unchanged candidate passes integer,
 state, points and native/Node interface checks; bench is 172506 twice versus
 177290 for v1. An absolute-path bug in the export test was corrected, with its
 failed attempt and accidental export preserved; no data generation or training
-was repeated. The VSTC/STC/LTC panel is now running. Fairyground remains on v1.
-T8 remains manually paused.
+was repeated. VSTC closed at the 400-game cap: 204/183/13, +18.26 +/-33.6 Elo,
+LOS 85.8%, no time losses. All 200 pairs and 67,123 independently refereed plies
+passed audit. This is NEUTRAL_SCREEN for selection, not statistical equivalence;
+v2 is ineligible for promotion. STC is running and LTC remains required.
+Fairyground remains on v1. T8 remains manually paused.
 
 ## Qualified points head (2026-10-29)
 

@@ -259,7 +259,7 @@
     "supervisor_session_id": 76657,
     "automation_id": "pointshead-v2-autojuego-y-panel",
     "continuation_script": ".local/points-head-v2/resume_validation.py",
-    "last_verified_utc": "2026-10-29T09:38:12.9661256Z",
+    "last_verified_utc": "2026-10-29T09:47:13.6414438Z",
     "owned_processes": [
       {
         "ProcessId": 32416,
@@ -280,7 +280,8 @@
         "CreationDate": "2026-10-29T10:28:42.991592+01:00"
       }
     ],
-    "panel_start_verification": ".local/points-head-v2/panel-start-verification.json"
+    "panel_start_verification": ".local/points-head-v2/panel-start-verification.json",
+    "latest_verification": ".local/points-head-v2/VSTC-close-check.json"
   },
   "worker": "T8 stays manually paused; do not restart",
   "misere": "Paused by owner; do not message",
@@ -402,5 +403,67 @@
     "binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
     "network": ".local\\points-head-v2-inputs\\candidate-v2.pnnue",
     "network_sha256": "e6321352ff49d151cc21b3e9b5b7b8c7b92cebdd8acf6bc6e67ade4183e77c3c"
+  },
+  "control_classification": {
+    "VSTC": "NEUTRAL_SCREEN",
+    "STC": "RUNNING",
+    "LTC": "PENDING"
+  },
+  "promotion_eligible": false,
+  "promotion_decision": "VSTC reached the 400-game cap without a LOS boundary; no promotion, complete STC/LTC as authorized.",
+  "completed_control_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        204,
+        183,
+        13
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        29,
+        8,
+        117,
+        5,
+        41
+      ],
+      "statistics": "Total: 400 W: 204 L: 183 D: 13 ELO: 18.26 +-33.6 (95%) LOS: 85.8%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 841.125
+    }
+  },
+  "control_audits": {
+    "VSTC": {
+      "control": "VSTC",
+      "result": "PASS",
+      "games": 400,
+      "complete_pairs": 200,
+      "scores": [
+        204,
+        183,
+        13
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        29,
+        8,
+        117,
+        5,
+        41
+      ],
+      "independent_terminals": "all matched",
+      "independent_plies": 67123,
+      "frozen_inputs": "all matched",
+      "utc": "2026-10-29T09:46:28.954364+00:00"
+    }
   }
 }
