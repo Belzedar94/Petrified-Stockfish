@@ -1,7 +1,7 @@
 {
   "schema": "petrified-points-head-experiment-v2",
   "experiment": "points-head-v2",
-  "status": "PREREGISTERED",
+  "status": "DATAGEN",
   "promoted": false,
   "owner_authorized": "Continue with the next major idea and a panel against the new baseline; one successor candidate.",
   "authorized_utc": "2026-10-29T08:29:37.692129+00:00",
@@ -126,16 +126,28 @@
       "seconds": 10.3,
       "excluded_from_training_and_panel": true
     },
-    "champion_bench_verified": 177290
+    "champion_bench_verified": 177290,
+    "source_ci": {
+      "run_id": 40843211668,
+      "source_commit": "0e2a8dc4e2be6c2b332aa16c57901cb70d6671d7",
+      "conclusion": "PASS: Windows/Linux Debug/Release, holdout/replay tests and sanitizers; no external NNUE in CI"
+    }
   },
   "runtime": {
     "data": ".local/points-head-v2/data",
     "prepared": ".local/points-head-v2/prepared",
     "trained": ".local/points-head-v2/trained",
-    "followup": ".local/points-head-v2-followup.json"
+    "followup": ".local/points-head-v2-followup.json",
+    "pipeline_pid": 17976,
+    "updated_utc": "2026-10-29T08:37:16.591773+00:00",
+    "datagen_pid": 21068,
+    "supervisor_session_id": 88240,
+    "automation_id": "pointshead-v2-autojuego-y-panel"
   },
   "worker": "T8 stays manually paused; do not restart",
   "misere": "Paused by owner; do not message",
   "openbench": "No workload",
-  "champion_during_experiment": "run4test PointsHead v1 + winning-mate-r2"
+  "champion_during_experiment": "run4test PointsHead v1 + winning-mate-r2",
+  "implementation_commit": "0e2a8dc4e2be6c2b332aa16c57901cb70d6671d7",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/8"
 }
