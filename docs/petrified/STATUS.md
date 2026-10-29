@@ -9,7 +9,9 @@ the same 376,705 nodes: median369ms versus598.5ms (1.622x local throughput, not 
 
 The frozen panel is running with T1/Hash512/concurrency4. VSTC completed 70 games
 (47/21/2), +135.53 +/-88.7 Elo95%, LOS100.0%, time losses0/0: WIN after complete
-pairs. STC is running and LTC is pending. The champion remains PR #7 until all
+pairs. STC also completed 70 games (48/19/3), +153.14 +/-89.9 Elo95%,
+LOS100.0%, time losses0/0: WIN after complete pairs. LTC is now running.
+The champion remains PR #7 until all
 three controls, final audit and distribution/interface acceptance pass.
 The execution manifest pins 70 files, with 11 panel and seven dependency hashes
 checked after launch. T8 remains manually paused. PR #9 is retained separately
