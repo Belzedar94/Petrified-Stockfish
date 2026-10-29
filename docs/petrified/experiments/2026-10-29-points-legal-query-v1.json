@@ -1,0 +1,69 @@
+{
+  "schema": "petrified-search-experiment-v1",
+  "experiment": "points-legal-query-v1",
+  "status": "IMPLEMENTING",
+  "owner_request": "Guarda este, porque mas adelante lo meteremos directamente en OpenBench, y pasa a la siguiente gran idea",
+  "candidate_count": 1,
+  "branch": "exp/points-legal-query-v1",
+  "baseline_ref": "5c31333762a41609a410fd2db71a190b6fd73679",
+  "champion": "PR7 PointsHead v1 + winning-mate-r2",
+  "hypothesis": "Avoid constructing complete legal-move lists for existence and membership queries; this may recover substantial search throughput while preserving the exact generated lists, move order, rules and fixed-depth search results. Strength remains unproven until the timed panel.",
+  "scope": [
+    "One shared generator, early exit for first legal move",
+    "Only validate king safety for the requested move in membership queries",
+    "Use boolean existence queries for terminal probes",
+    "No search pruning, NNUE, score, rule or normal move-order changes"
+  ],
+  "frozen": [
+    "PR7 network and evaluation",
+    "search parameters",
+    "rule semantics",
+    "normal move generation order"
+  ],
+  "champion_binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "champion_points_bench": 177290,
+  "legacy_bench": 179335,
+  "build": {
+    "compiler": "GCC16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false
+  },
+  "validation_plan": [
+    "Compare all four generation modes and order against hash-pinned PR7 generator across seeded walks",
+    "Exhaustively test all 65536 move encodings on castling, EP, promotion, pin and mate positions",
+    "Random membership probes and every legal move over the existing 9338-position walk",
+    "Debug/Release NNUE, points, mates and native interfaces",
+    "Independent referee PV checks",
+    "Require exact champion bench nodes twice in points and legacy",
+    "Eight alternating performance bench samples, depth12; report elapsed-time ratio, not Elo",
+    "Source CI"
+  ],
+  "panel": {
+    "directory": ".local/points-legal-query-panel-001",
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%; complete pending pairs and recheck; resume within cap if boundary lost",
+    "at_cap": "NEUTRAL_SCREEN for selection, not equivalence",
+    "early_rejection": "Owner-delegated manual neutral or clear loss rejection, with measured statistics preserved",
+    "promotion": "Only three valid WIN controls plus independent audits and qualified distribution/interfaces",
+    "referee": "Independent pinned Chess.com public client"
+  },
+  "constraints": {
+    "T8": "Manually paused",
+    "Misere": "Do not contact",
+    "AtomicDB_remote_workers_OpenBench": "No action",
+    "PR9": "Preserved independently for future OpenBench; not included in this candidate"
+  },
+  "research_reference": "https://raw.githubusercontent.com/official-stockfish/Stockfish/master/src/search.cpp",
+  "reference_note": "Upstream search uses legality/terminal probes; implementation here is based on the qualified Petrified generator, not ported upstream rules."
+}

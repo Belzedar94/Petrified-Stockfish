@@ -1621,7 +1621,7 @@ moves_loop:  // When in check, search starts here
 
     // Step 23. Check for mate and stalemate, otherwise update bestmove/countermove stats
 
-    assert(moveCount || !ss->inCheck || excludedMove || !MoveList<ALL>(pos).size());
+    assert(moveCount || !ss->inCheck || excludedMove || !has_legal_move(pos));
 
     // Adjust best value for fail high cases
     if (bestValue >= beta && !is_decisive(bestValue) && !is_decisive(alpha))
@@ -1777,7 +1777,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
     // Step 3. Transposition table lookup
     // Quiet walls can leave no legal moves without a capture or a conventional
     // check. Stand-pat must not turn such a terminal into an NNUE estimate.
-    if (!MoveList<ALL>(pos).size())
+    if (!has_legal_move(pos))
         return pos.no_moves_value(ss->ply);
 
     posKey                         = pos.key();
@@ -1937,7 +1937,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
     {
         if (ss->inCheck)  // Checkmate!
         {
-            assert(!MoveList<ALL>(pos).size());
+            assert(!has_legal_move(pos));
             return mated_in(ss->ply);  // Plies to mate from the root
         }
 
@@ -1945,7 +1945,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         Color us = pos.side_to_move();
         if (!(pawn_single_push_bb(us, pos.pieces(us, PAWN)) & ~pos.pieces())
             && !pos.non_pawn_material(us) && type_of(pos.captured_piece()) >= KNIGHT
-            && !MoveList<ALL>(pos).size())
+            && !has_legal_move(pos))
             bestValue = VALUE_DRAW;
     }
 

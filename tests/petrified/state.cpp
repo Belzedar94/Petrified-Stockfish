@@ -2,6 +2,7 @@
 #include "attacks.h"
 #include "position.h"
 #include "movegen.h"
+#include "movegen_reference.h"
 #include "nnue/network.h"
 #include "nnue/nnue_accumulator.h"
 #include "nnue/legacy_sha256.h"
@@ -16,6 +17,33 @@ using namespace Stockfish;
 static void require(bool ok, const char* what) {
     if (!ok) { std::cerr << what << '\n'; std::exit(1); }
 }
+static std::size_t queryChecks = 0;
+template<GenType Type>
+static void check_move_order(const Position& pos) {
+    Move expected[MAX_MOVES];
+    Move* end = reference_generate<Type>(pos, expected);
+    const auto actual = MoveList<Type>(pos);
+    require(actual.size() == std::size_t(end - expected)
+            && std::equal(actual.begin(), actual.end(), expected), "frozen move list/order mismatch");
+}
+static void check_queries(const Position& pos, unsigned salt, bool exhaustive = false) {
+    Move expected[MAX_MOVES];
+    Move* end = reference_generate<ALL>(pos, expected);
+    auto contains = [&](Move m) { return std::find(expected, end, m) != end; };
+    require(has_legal_move(pos) == (end != expected), "legal-existence query mismatch");
+    check_move_order<ALL>(pos); check_move_order<CAPTURES>(pos);
+    check_move_order<QUIETS>(pos); check_move_order<EVASIONS>(pos);
+    for (const Move* m = expected; m != end; ++m) {
+        require(pos.legal(*m), "generated legal move rejected by query"); ++queryChecks;
+    }
+    for (unsigned i = 0; i < (exhaustive ? 65536U : 24U); ++i) {
+        const Move m(u16(exhaustive ? i : ((i * 40503U + salt * 79U) & 65535U)));
+        require(pos.legal(m) == (m.is_ok() && contains(m)), "move-membership query mismatch");
+        ++queryChecks;
+    }
+    require(!pos.legal(Move::none()) && !pos.legal(Move::null()), "sentinel move accepted");
+}
+
 int main(int argc, char** argv) {
     Option variant("petrified var petrified", "petrified", nullptr);
     variant = std::string("petrified");
@@ -25,6 +53,18 @@ int main(int argc, char** argv) {
     variant = std::string("var");
     require(variant == "petrified", "combo must reject the UCI separator");
     Attacks::init(); Position::init();
+    for (const char* fen : {
+        "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",
+        "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1 points=0,0",
+        "4k3/8/8/3pP3/8/8/8/4K3 w - d6 0 1 points=0,0",
+        "4k3/P7/8/8/8/8/7p/4K3 w - - 0 1 points=0,0",
+        "4r1k1/8/8/8/8/8/4P3/4K3 w - - 0 1 points=0,0",
+        "*4r2/2p1qpkQ/2*2*P1/1p2p3/1P2P1*1/8/2P5/1N2K1NR b K - 4 22 points=0,0"
+    }) {
+        Position pos; StateInfo state;
+        require(!pos.set(fen,false,&state), "query fixture FEN");
+        check_queries(pos,0,true);
+    }
     for (bool whiteMates : {true, false}) {
         const std::string board = whiteMates
           ? "*4r2/2p1qpkQ/2*2*P1/1p2p3/1P2P1*1/8/2P5/1N2K1NR b K - 4 22"
@@ -74,6 +114,7 @@ int main(int argc, char** argv) {
         for(int ply=0;ply<160;++ply) {
             require(pos.pos_is_ok(),"state invariants");
             if(argc>1) require(network->evaluate(pos,*stack,*cache)==network->evaluate_reference(pos),"incremental/reference mismatch");
+            check_queries(pos, unsigned(game * 160 + ply));
             const auto legal=MoveList<ALL>(pos);
             if(!legal.size()) break;
             Move m=legal.begin()[rng()%legal.size()];
@@ -94,5 +135,6 @@ int main(int argc, char** argv) {
             fens.pop_back(); keys.pop_back();
         }
     }
+    std::cout<<"Legal query comparisons: "<<queryChecks<<'\n';
     std::cout<<"State/undo checks: "<<checked<<"; NNUE: "<<(argc>1?"exact":"not requested")<<'\n';
 }

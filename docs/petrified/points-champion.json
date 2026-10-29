@@ -58,5 +58,41 @@
       ]
     }
   },
-  "promoted_utc": "2026-10-29T07:30:40.431844+00:00"
+  "promoted_utc": "2026-10-29T07:30:40.431844+00:00",
+  "latest_candidate_evaluation": {
+    "experiment": "docs\\petrified\\experiments\\2026-10-29-points-verified-null-v1.json",
+    "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+    "champion_unchanged": true,
+    "games": {
+      "VSTC": 400,
+      "STC": 40,
+      "LTC": 40
+    },
+    "completed_utc": "2026-10-29T13:19:08.438536+00:00",
+    "source_tag": "candidates/points-verified-null-v1-openbench"
+  },
+  "candidate_evaluation_history": [
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-29-points-verified-null-v1.json",
+      "status": "REJECTED_LOSS_MANUAL",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 14,
+        "LTC": 0
+      },
+      "completed_utc": "2026-10-29T12:01:28.061079+00:00"
+    },
+    {
+      "experiment": "docs/petrified/experiments/2026-10-29-points-wall-ft-v1.json",
+      "status": "REJECTED_NEUTRAL_MANUAL",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 100,
+        "STC": 0,
+        "LTC": 0
+      },
+      "completed_utc": "2026-10-29T12:32:34.285969+00:00"
+    }
+  ]
 }

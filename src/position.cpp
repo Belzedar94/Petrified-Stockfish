@@ -687,7 +687,7 @@ Bitboard Position::attackers_to(Square s, Bitboard occupied) const {
 // Takes a random move and tests whether the move is legal. It is used to validate moves
 // from TT that can be corrupted due to SMP concurrent access or hash position key aliasing.
 bool Position::legal(Move m) const {
-    return m.is_ok() && MoveList<ALL>(*this).contains(m);
+    return contains_legal_move(*this, m);
 }
 
 bool Position::reported_check() const {

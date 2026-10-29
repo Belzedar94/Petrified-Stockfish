@@ -72,7 +72,7 @@ Value resignation_value(const Position& pos, int ply) {
 }
 
 Outcome outcome(const Position& pos, bool claimDraw, int repetitionPly) {
-    if (!MoveList<ALL>(pos).size()) {
+    if (!has_legal_move(pos)) {
         const bool check = pos.game_of_points() ? bool(pos.checkers()) : pos.reported_check();
         if (pos.game_of_points())
             return settle_points(pos, check ? Termination::Checkmate : Termination::Stalemate,
