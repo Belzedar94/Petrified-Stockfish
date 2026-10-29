@@ -1,4 +1,4 @@
-# Next authorized: points-pin-legality-v1
+# Active: points-pin-legality-v1 / PR13
 
 The owner closed PR12 as a potential win retained for future OpenBench and
 requested one next experiment. PR11 remains champion. The successor will avoid
@@ -8,6 +8,23 @@ kings/castling, pinned origins and en passant. Exact move order, rules, NNUE and
 search must remain unchanged, with differential and independent validation,
 identical benches and the existing three-control gate. No retained PR12 or PR9
 engine changes are included. No OpenBench workload is authorized now.
+
+Source8f27dd7356c18aa9d63530c1d87fbde09ebb8327 passed all five source CI jobs
+(run40923202572). Each Debug/Release passed1,079,359 exact query comparisons,
+4,934 king-safety fixture positions and9,338 state/undo positions with exact
+NNUE. Independent referee searches and native interfaces passed. Points bench
+177290 and legacy179335 match PR11 exactly. Eight alternating depth12 samples
+used376705 identical nodes: median351.5ms candidate versus379ms PR11,1.07824x
+local throughput, not Elo. The78-input manifest freezes source, binaries,
+network, validation evidence and the controller/auditor. Memory preflight found
+9,473,003,520bytes free, above the7,583,301,632 requirement.
+
+The one three-control panel is running at
+`.local/points-pin-legality-panel-001`; its real process identities and current
+results are in `.local/points-pin-legality-followup.json`. The launch audit
+verified78 execution inputs,11 panel hashes and7 frozen dependencies. PR11
+remains champion. T8 stays paused and the current lease remains reserved for
+PR13. No other candidate or OpenBench workload is authorized.
 
 # PR12 retained as potential win; local panel closed
 

@@ -1,7 +1,7 @@
 {
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-pin-legality-v1",
-  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "status": "PANEL_RUNNING",
   "owner_request": "Cierra como potencial win, y dejalo para openbench, continua con la siguiente gran idea",
   "candidate_count": 1,
   "branch": "exp/points-pin-legality-v1",
@@ -49,7 +49,27 @@
     "early_rejection": "Owner-delegated manual neutral or clear loss; retain measured statistics",
     "promotion": "Three audited WIN controls plus distribution/interfaces",
     "referee": "Pinned independent Chess.com public client",
-    "status": "NOT_STARTED"
+    "status": "RUNNING",
+    "identities": {
+      "controller": {
+        "pid": 7880,
+        "creation_filetime": 134377694464375382,
+        "creation_utc": "2026-10-29T17:44:06.437538+00:00"
+      },
+      "launcher": {
+        "pid": 1464,
+        "creation_filetime": 134377694466536678,
+        "creation_utc": "2026-10-29T17:44:06.653667+00:00"
+      },
+      "panel": {
+        "pid": 7336,
+        "creation_filetime": 134377694466755130,
+        "creation_utc": "2026-10-29T17:44:06.675514+00:00"
+      }
+    },
+    "launch_audit": ".local\\points-pin-legality-v1\\panel-launch-audit.json",
+    "session": 73520,
+    "started_utc": "2026-10-29T17:44:06.511303+00:00"
   },
   "constraints": {
     "T8": "Manually paused",
@@ -58,5 +78,150 @@
     "Fairyground": "Closed with authorization; PR11 profile preserved",
     "PR9_PR12": "Retained separately; neither included"
   },
-  "created_utc": "2026-10-29T17:37:19.478190+00:00"
+  "created_utc": "2026-10-29T17:37:19.478190+00:00",
+  "source_commit": "8f27dd7356c18aa9d63530c1d87fbde09ebb8327",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/13",
+  "execution_manifest": ".local\\points-pin-legality-v1\\execution-manifest.json",
+  "execution_manifest_sha256": "0adfbb83f6e22a48e96e281c6ac1be69d72a81900d36c27924bf5ac0cbdbbb3d",
+  "frozen_inputs": 78,
+  "updated_utc": "2026-10-29T17:45:53.430602+00:00",
+  "candidate_binary": ".local\\points-pin-legality-v1-inputs\\petrified-points-pin-legality-v1-bmi2.exe",
+  "candidate_sha256": "1a19035c92daabe97b116b536609d0004090d5e404aa80ef84d7bf9d4377694e",
+  "validation": {
+    "result": "PASS",
+    "report": ".local\\points-pin-legality-v1\\validation-report.json",
+    "debug_release_each": {
+      "legal_query_comparisons": 1079359,
+      "king_safety_fixture_positions": 4934,
+      "state_undo_positions": 9338,
+      "nnue": "exact"
+    },
+    "native_interfaces": "PASS",
+    "independent_referee_searches": 32,
+    "independent_pv_plies": 248,
+    "points_bench_candidate": [
+      177290,
+      177290
+    ],
+    "points_bench_champion": 177290,
+    "legacy_bench_candidate_champion": [
+      179335,
+      179335
+    ],
+    "build_process_identities_exited": 35,
+    "source_archive_files_verified": 215
+  },
+  "source_ci": {
+    "commit": "8f27dd7356c18aa9d63530c1d87fbde09ebb8327",
+    "run_id": 40923202572,
+    "jobs_passed": 5,
+    "conclusion": "success",
+    "evidence": ".local\\points-pin-legality-v1\\ci-source.json"
+  },
+  "speed": {
+    "depth": 12,
+    "samples": 8,
+    "alternating_order": true,
+    "reported_ms": {
+      "candidate": [
+        350,
+        350,
+        352,
+        347,
+        361,
+        351,
+        361,
+        362
+      ],
+      "champion": [
+        378,
+        378,
+        380,
+        372,
+        382,
+        371,
+        382,
+        381
+      ]
+    },
+    "median_ms": {
+      "candidate": 351.5,
+      "champion": 379.0
+    },
+    "nodes": {
+      "candidate": 376705,
+      "champion": 376705
+    },
+    "speedup": 1.0782361308677098,
+    "meaning": "Local throughput estimate only; not Elo"
+  },
+  "resource_preflight": {
+    "correctness": "PASS",
+    "source_ci": "PASS",
+    "checked_utc": "2026-10-29T17:44:02.354850+00:00",
+    "stage": "READY_FOR_PANEL",
+    "free_bytes": 9473003520,
+    "required_bytes": 7583301632,
+    "frozen_input_count": 78,
+    "source_archive_files": 215,
+    "build_process_identities_exited": 35,
+    "reused_pids_not_touched": [],
+    "T8_pause_verified": true,
+    "Fairyground": "Untouched",
+    "panel_started": false
+  },
+  "observed_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "RUNNING",
+      "scores": [
+        19,
+        19,
+        2
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        3,
+        2,
+        11,
+        0,
+        4
+      ],
+      "statistics": "Total: 40 W: 19 L: 19 D: 2 ELO: -0.00 +-108.2 (95%) LOS: 50.0%",
+      "completed_pairs": 20,
+      "elapsed_seconds": 96.891
+    },
+    "STC": {
+      "control": "STC",
+      "status": "PENDING",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ]
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "PENDING",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ]
+    }
+  },
+  "observed_utc": "2026-10-29T17:45:53.430602+00:00"
 }

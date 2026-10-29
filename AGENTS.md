@@ -24,6 +24,13 @@ OpenBench or Misere action is authorized.
 
 The entries below preserve earlier instructions and decisions.
 
+points-pin-legality-v1 / PR13 is now frozen and running its local panel. Source
+8f27dd7356c18aa9d63530c1d87fbde09ebb8327 passed local Debug/Release validation
+and all five source CI jobs. Bench177290 and legacy179335 are identical; local
+throughput was1.07824x, not an Elo result. Consult its experiment record and
+.local/points-pin-legality-followup.json for the real process identities and
+frozen78-input manifest. Do not alter or duplicate the active candidate/panel.
+
 The owner authorized one next experiment on 2026-10-29: points-incremental-state-v1,
 from the qualified PR #11 champion. Update keys/material from move deltas while
 preserving exact state, evaluation, rules and search. Keep the full initialization
