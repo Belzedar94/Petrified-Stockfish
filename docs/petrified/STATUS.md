@@ -1,3 +1,40 @@
+# PR14 rejected before the strength panel; PR11 remains champion
+
+points-sparse-head-v1 repacked the frozen first NNUE layer into input-major
+SIMD blocks and skipped all-zero input blocks. Exact correctness passed, but
+all eight alternating depth12 samples were slower than PR11 with the same
+376705 nodes: candidate median409.5ms versus376.5ms, throughput0.919414x
+(-8.06%; elapsed time +8.76%). This is REJECTED_PERFORMANCE_SCREEN, with no
+Elo measurement, statistical loss or equivalence claim. The candidate was not
+retuned and no strength panel was launched.
+
+| Control | Games | W/L/D | Elo 95% | LOS | Time losses C/O | Status |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 0 | 0/0/0 | N/A | N/A | 0/0 | NOT_RUN_PERFORMANCE_SCREEN |
+| STC 10+0.1 | 0 | 0/0/0 | N/A | N/A | 0/0 | NOT_RUN_PERFORMANCE_SCREEN |
+| LTC 30+0.3 | 0 | 0/0/0 | N/A | N/A | 0/0 | NOT_RUN_PERFORMANCE_SCREEN |
+
+Each Debug/Release passed61632 adversarial sparse-output comparisons,
+1116 bucket/score/clock cases,883968 legal queries and9338 state/undo positions
+with exact NNUE. Native UCI/CECP,32 independent referee searches/244 PV plies,
+network reload/export and eight invalid files passed. Points bench177290 twice
+and legacy179335 match PR11. All five source CI jobs passed in run40940935494.
+Two harness failures (wrong variant and post-exit process-handle checking) are
+preserved with successful repairs; source, executable and weights never changed.
+WASM/Fairyground acceptance was not attempted for this rejected candidate.
+
+The closure audit verified50 previously frozen inputs,217 source archive files,
+all timing logs and exit of43 recorded build/validation process identities.
+The final139-input bundle is `.local/points-sparse-head-v1/frozen-inputs.zip`,
+SHA256 `d1f10e8574bf01bef9ddc94eb61306fc12d52c3a6c459137d04a47aa5927eaba`.
+Its exact source is tagged `candidates/points-sparse-head-v1-rejected-performance`.
+The lease is released; no follow-up was created. PR11 remains qualified and
+installed. PR9/PR12/PR13 stay retained separately for future OpenBench; none was
+included. T8 stays manually paused. No next candidate or OpenBench load is
+authorized. Details: `experiments/2026-10-29-points-sparse-head-v1.json`.
+
+# PR13 retained for future OpenBench
+
 PR #13 points-pin-legality-v1 retained for future OpenBench by the owner (2026-10-29).
 The local panel closed manually at VSTC400/STC400/LTC32: 204/183/13,
 195/178/27, 18/11/3; time losses0/0. Raw VSTC/STC are INCONCLUSIVE_LIMIT
@@ -10,7 +47,7 @@ are in `experiments/2026-10-29-points-pin-legality-v1.json`. PR13 remains a draf
 PR11 remains champion. Its lease is released. One new sparse NNUE head execution
 experiment is authorized; no OpenBench workload is authorized.
 
-# Active: points-pin-legality-v1 / PR13
+# Historical setup: points-pin-legality-v1 / PR13
 
 The owner closed PR12 as a potential win retained for future OpenBench and
 requested one next experiment. PR11 remains champion. The successor will avoid

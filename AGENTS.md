@@ -1,5 +1,22 @@
 # Petrified-Stockfish
 
+points-sparse-head-v1 / PR14 is closed as REJECTED_PERFORMANCE_SCREEN. The one
+candidate passed exact Debug/Release validation, native interfaces, independent
+referee searches, identical points177290/legacy179335 benches and five source
+CI jobs. However, all eight alternating depth12 measurements were slower than
+PR11 at the same376705 nodes: median409.5ms versus376.5ms, throughput0.91941x.
+This is an engineering performance rejection, not an Elo loss or equivalence.
+VSTC/STC/LTC were never started. Source a7f4837065be91c1abf1c9c89aa70c4e61a750a5,
+the139-input bundle, raw validation evidence and two resolved harness failures
+are preserved in its experiment record. All43 recorded build/validation process
+identities exited; the lease is released and no follow-up was created. PR11
+remains champion. PR9, PR12 and PR13 remain retained separately for future
+OpenBench. This successor request is complete; no further candidate or OpenBench
+workload is authorized. T8 stays manually paused and Fairyground stays closed
+with its PR11 profile preserved. Do not contact Misere or touch other workers.
+
+The following entries preserve the prior authorization and experiment history.
+
 On 2026-10-29 the owner retained PR #13 points-pin-legality-v1 for future
 OpenBench and requested the next substantial experiment. Its local panel is
 closed manually: VSTC400 (204/183/13), STC400 (195/178/27), LTC32 (18/11/3),
