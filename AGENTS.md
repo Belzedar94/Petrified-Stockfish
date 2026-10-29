@@ -1,5 +1,29 @@
 # Petrified-Stockfish
 
+On 2026-10-29 the owner closed PR #12 points-incremental-state-v1 as a
+POTENTIAL_WIN retained for future OpenBench. This is a manual selection, not a
+statistical win or promotion. Final complete-pair counts: VSTC400 (201/181/18),
+STC398 (200/175/23), LTC not run; time losses0/0. All798 games/399 pairs and
+152114 independent referee plies passed audit. One incomplete pair, including
+one completed unpaired game, is preserved and excluded. All1204 panel and35
+build identities exited. Its88-input bundle and source tag are recorded in the
+experiment; PR12 stays open as a draft, its lease is released and follow-up deleted.
+PR11 remains the qualified champion. No OpenBench workload is authorized now.
+
+The same owner request authorizes one next substantial experiment:
+points-pin-legality-v1, from qualified PR11 only. Skip redundant full king-safety
+checks for generated non-king moves when not in check and the origin is not a
+cached slider blocker. En passant, kings/castling, pinned origins and check
+evasions retain the full safety path. Preserve exact move lists/order, rules,
+state, search and NNUE; compare with the unchanged full safety implementation,
+independent referee and identical benches before freezing one three-TC candidate.
+Do not include retained PR12 incremental-state code or PR9 pruning. The existing
+40/400 LOS/pair gate and delegated manual rejection still apply. T8 stays paused;
+Fairyground remains closed with authorization. No AtomicDB, remote worker,
+OpenBench or Misere action is authorized.
+
+The entries below preserve earlier instructions and decisions.
+
 The owner authorized one next experiment on 2026-10-29: points-incremental-state-v1,
 from the qualified PR #11 champion. Update keys/material from move deltas while
 preserving exact state, evaluation, rules and search. Keep the full initialization

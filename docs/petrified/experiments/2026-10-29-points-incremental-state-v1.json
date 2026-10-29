@@ -1,7 +1,7 @@
 {
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-incremental-state-v1",
-  "status": "PANEL_RUNNING",
+  "status": "RETAINED_POTENTIAL_WIN_FOR_FUTURE_OPENBENCH",
   "owner_request": "Ahora, contin\u00c3\u00baa con la siguiente gran idea",
   "candidate_count": 1,
   "branch": "exp/points-incremental-state-v1",
@@ -50,7 +50,7 @@
     "early_rejection": "Owner-delegated manual neutral or clear loss; preserve measured statistics",
     "promotion": "Three audited WIN controls plus distribution/interfaces",
     "referee": "Pinned independent Chess.com public client",
-    "status": "RUNNING",
+    "status": "CLOSED_MANUAL_RETAINED",
     "identities": {
       "controller": {
         "pid": 41960,
@@ -72,7 +72,7 @@
     "session": 77274,
     "started_utc": "2026-10-29T16:10:42.210930+00:00",
     "promotion_eligible_under_current_gate": false,
-    "continuation": "Continue STC and LTC as authorized; PR11 remains champion"
+    "continuation": "None; owner closed the whole local panel"
   },
   "constraints": {
     "T8": "Manually paused",
@@ -89,7 +89,7 @@
   "execution_manifest": ".local\\points-incremental-state-v1\\execution-manifest.json",
   "execution_manifest_sha256": "359aef5d6734e88eb9e98b75054a9927c3f9f554887d5ea7dbaa57f994b97cd9",
   "frozen_inputs": 80,
-  "updated_utc": "2026-10-29T16:30:45.079302+00:00",
+  "updated_utc": "2026-10-29T17:34:24.098056+00:00",
   "validation": {
     "result": "PASS",
     "report": ".local\\points-incremental-state-v1\\validation-report.json",
@@ -254,10 +254,1187 @@
   },
   "control_selection": {
     "VSTC": {
-      "raw_status": "INCONCLUSIVE_LIMIT",
       "selection": "NEUTRAL_SCREEN",
-      "audit": ".local\\points-incremental-state-v1\\vstc-close-audit.json",
-      "meaning": "Screening selection only; no statistical equivalence claim"
+      "raw_status": "INCONCLUSIVE_LIMIT"
+    },
+    "STC": {
+      "selection": "STOPPED_MANUAL",
+      "raw_status": "INTERRUPTED"
+    },
+    "LTC": {
+      "selection": "NOT_RUN_MANUAL"
     }
+  },
+  "completed_utc": "2026-10-29T17:33:03.206881+00:00",
+  "results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "NEUTRAL_SCREEN",
+      "scores": [
+        201,
+        181,
+        18
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        23,
+        9,
+        126,
+        9,
+        33
+      ],
+      "statistics": "Total: 400 W: 201 L: 181 D: 18 ELO: 17.39 +-33.4 (95%) LOS: 84.7%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 881.828,
+      "raw_status": "INCONCLUSIVE_LIMIT"
+    },
+    "STC": {
+      "control": "STC",
+      "status": "STOPPED_MANUAL",
+      "scores": [
+        200,
+        175,
+        23
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        18,
+        10,
+        130,
+        11,
+        30
+      ],
+      "statistics": "Total: 398 W: 200 L: 175 D: 23 ELO: 21.85 +-33.2 (95%) LOS: 90.2%",
+      "completed_pairs": 199,
+      "elapsed_seconds": 3780.922,
+      "error": "Panel stopped",
+      "raw_status": "INTERRUPTED"
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "NOT_RUN_MANUAL",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "completed_pairs": 0
+    }
+  },
+  "raw_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        201,
+        181,
+        18
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        23,
+        9,
+        126,
+        9,
+        33
+      ],
+      "statistics": "Total: 400 W: 201 L: 181 D: 18 ELO: 17.39 +-33.4 (95%) LOS: 84.7%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 881.828
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INTERRUPTED",
+      "scores": [
+        200,
+        175,
+        23
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        18,
+        10,
+        130,
+        11,
+        30
+      ],
+      "statistics": "Total: 398 W: 200 L: 175 D: 23 ELO: 21.85 +-33.2 (95%) LOS: 90.2%",
+      "completed_pairs": 199,
+      "elapsed_seconds": 3780.922,
+      "error": "Panel stopped"
+    }
+  },
+  "manual_adjudication": {
+    "status": "RETAINED_POTENTIAL_WIN_FOR_FUTURE_OPENBENCH",
+    "owner_request": "Cierra como potencial win, y dejalo para openbench, continua con la siguiente gran idea",
+    "recorded_utc": "2026-10-29T17:33:03.206881+00:00",
+    "manual_classification": "POTENTIAL_WIN",
+    "statistical_win_claim": false,
+    "promoted": false,
+    "openbench_started": false,
+    "interpretation": "Positive but inconclusive measured estimates. Owner retains this candidate as a potential win for future OpenBench; local panel closed manually before LTC.",
+    "source_commit": "b13df5004c57543e8e05f296ecd4dc67757dfb81",
+    "source_tag": "candidates/points-incremental-state-v1-openbench",
+    "frozen_inputs_bundle": ".local\\points-incremental-state-v1\\frozen-inputs.zip",
+    "frozen_inputs_bundle_sha256": "f71bf1fa6cccbbebf9cc3128e88310681ba6d91ae71502cf85b9268c2b804f5c",
+    "frozen_inputs": 88,
+    "candidate_binary_sha256": "9b28ba4683b6bc4c9f4dfa57fbeddd2c500359c151b50a4c7fe45c02234d246a",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "candidate_bench": 177290,
+    "champion_bench": 177290,
+    "legacy_bench": 179335,
+    "champion_unchanged": "Qualified PR11",
+    "results": {
+      "VSTC": {
+        "control": "VSTC",
+        "status": "NEUTRAL_SCREEN",
+        "scores": [
+          201,
+          181,
+          18
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          23,
+          9,
+          126,
+          9,
+          33
+        ],
+        "statistics": "Total: 400 W: 201 L: 181 D: 18 ELO: 17.39 +-33.4 (95%) LOS: 84.7%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 881.828,
+        "raw_status": "INCONCLUSIVE_LIMIT"
+      },
+      "STC": {
+        "control": "STC",
+        "status": "STOPPED_MANUAL",
+        "scores": [
+          200,
+          175,
+          23
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          18,
+          10,
+          130,
+          11,
+          30
+        ],
+        "statistics": "Total: 398 W: 200 L: 175 D: 23 ELO: 21.85 +-33.2 (95%) LOS: 90.2%",
+        "completed_pairs": 199,
+        "elapsed_seconds": 3780.922,
+        "error": "Panel stopped",
+        "raw_status": "INTERRUPTED"
+      },
+      "LTC": {
+        "control": "LTC",
+        "status": "NOT_RUN_MANUAL",
+        "scores": [
+          0,
+          0,
+          0
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "completed_pairs": 0
+      }
+    },
+    "audit": ".local\\points-incremental-state-v1\\manual-closure-audit.json",
+    "new_experiment_authorized": true,
+    "T8": "Manually paused"
+  },
+  "final_audit": {
+    "schema": "points-incremental-state-manual-closure-v1",
+    "result": "PASS",
+    "checked_utc": "2026-10-29T17:30:22.376230+00:00",
+    "request": {
+      "requested_utc": "2026-10-29T17:28:30.930724+00:00",
+      "owner_request": "Cierra como potencial win, y dejalo para openbench, continua con la siguiente gran idea",
+      "selection": "POTENTIAL_WIN_MANUAL_RETAINED_FOR_FUTURE_OPENBENCH",
+      "statistical_win_claim": false,
+      "champion_unchanged": true,
+      "openbench_workload_authorized_now": false,
+      "observed_results": {
+        "VSTC": {
+          "control": "VSTC",
+          "status": "INCONCLUSIVE_LIMIT",
+          "scores": [
+            201,
+            181,
+            18
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "minimum_games": 40,
+          "maximum_games": 400,
+          "pentanomial": [
+            23,
+            9,
+            126,
+            9,
+            33
+          ],
+          "statistics": "Total: 400 W: 201 L: 181 D: 18 ELO: 17.39 +-33.4 (95%) LOS: 84.7%",
+          "completed_pairs": 200,
+          "elapsed_seconds": 881.828
+        },
+        "STC": {
+          "control": "STC",
+          "status": "RUNNING",
+          "scores": [
+            200,
+            175,
+            23
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "minimum_games": 40,
+          "maximum_games": 400,
+          "pentanomial": [
+            18,
+            10,
+            130,
+            11,
+            30
+          ],
+          "statistics": "Total: 398 W: 200 L: 175 D: 23 ELO: 21.85 +-33.2 (95%) LOS: 90.2%",
+          "completed_pairs": 199,
+          "elapsed_seconds": 3780.922
+        },
+        "LTC": {
+          "control": "LTC",
+          "status": "PENDING",
+          "scores": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "identities": {
+        "controller": {
+          "pid": 41960,
+          "creation_filetime": 134377638421384076,
+          "creation_utc": "2026-10-29T16:10:42.138409+00:00"
+        },
+        "launcher": {
+          "pid": 38860,
+          "creation_filetime": 134377638422972926,
+          "creation_utc": "2026-10-29T16:10:42.297293+00:00"
+        },
+        "panel": {
+          "pid": 27280,
+          "creation_filetime": 134377638423200999,
+          "creation_utc": "2026-10-29T16:10:42.320099+00:00"
+        }
+      }
+    },
+    "raw_results": {
+      "VSTC": {
+        "control": "VSTC",
+        "status": "INCONCLUSIVE_LIMIT",
+        "scores": [
+          201,
+          181,
+          18
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          23,
+          9,
+          126,
+          9,
+          33
+        ],
+        "statistics": "Total: 400 W: 201 L: 181 D: 18 ELO: 17.39 +-33.4 (95%) LOS: 84.7%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 881.828
+      },
+      "STC": {
+        "control": "STC",
+        "status": "INTERRUPTED",
+        "scores": [
+          200,
+          175,
+          23
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          18,
+          10,
+          130,
+          11,
+          30
+        ],
+        "statistics": "Total: 398 W: 200 L: 175 D: 23 ELO: 21.85 +-33.2 (95%) LOS: 90.2%",
+        "completed_pairs": 199,
+        "elapsed_seconds": 3780.922,
+        "error": "Panel stopped"
+      }
+    },
+    "results": {
+      "VSTC": {
+        "control": "VSTC",
+        "status": "NEUTRAL_SCREEN",
+        "scores": [
+          201,
+          181,
+          18
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          23,
+          9,
+          126,
+          9,
+          33
+        ],
+        "statistics": "Total: 400 W: 201 L: 181 D: 18 ELO: 17.39 +-33.4 (95%) LOS: 84.7%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 881.828,
+        "raw_status": "INCONCLUSIVE_LIMIT"
+      },
+      "STC": {
+        "control": "STC",
+        "status": "STOPPED_MANUAL",
+        "scores": [
+          200,
+          175,
+          23
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          18,
+          10,
+          130,
+          11,
+          30
+        ],
+        "statistics": "Total: 398 W: 200 L: 175 D: 23 ELO: 21.85 +-33.2 (95%) LOS: 90.2%",
+        "completed_pairs": 199,
+        "elapsed_seconds": 3780.922,
+        "error": "Panel stopped",
+        "raw_status": "INTERRUPTED"
+      },
+      "LTC": {
+        "control": "LTC",
+        "status": "NOT_RUN_MANUAL",
+        "scores": [
+          0,
+          0,
+          0
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "completed_pairs": 0
+      }
+    },
+    "controls": {
+      "VSTC": {
+        "result": "PASS",
+        "games": 400,
+        "complete_pairs": 200,
+        "independent_plies": 75438,
+        "scores": [
+          201,
+          181,
+          18
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "statistics": "Total: 400 W: 201 L: 181 D: 18 ELO: 17.39 +-33.4 (95%) LOS: 84.7%",
+        "complete_pair_ids": [
+          "pair-0000",
+          "pair-0001",
+          "pair-0002",
+          "pair-0003",
+          "pair-0004",
+          "pair-0005",
+          "pair-0006",
+          "pair-0007",
+          "pair-0008",
+          "pair-0009",
+          "pair-0010",
+          "pair-0011",
+          "pair-0012",
+          "pair-0013",
+          "pair-0014",
+          "pair-0015",
+          "pair-0016",
+          "pair-0017",
+          "pair-0018",
+          "pair-0019",
+          "pair-0020",
+          "pair-0021",
+          "pair-0022",
+          "pair-0023",
+          "pair-0024",
+          "pair-0025",
+          "pair-0026",
+          "pair-0027",
+          "pair-0028",
+          "pair-0029",
+          "pair-0030",
+          "pair-0031",
+          "pair-0032",
+          "pair-0033",
+          "pair-0034",
+          "pair-0035",
+          "pair-0036",
+          "pair-0037",
+          "pair-0038",
+          "pair-0039",
+          "pair-0040",
+          "pair-0041",
+          "pair-0042",
+          "pair-0043",
+          "pair-0044",
+          "pair-0045",
+          "pair-0046",
+          "pair-0047",
+          "pair-0048",
+          "pair-0049",
+          "pair-0050",
+          "pair-0051",
+          "pair-0052",
+          "pair-0053",
+          "pair-0054",
+          "pair-0055",
+          "pair-0056",
+          "pair-0057",
+          "pair-0058",
+          "pair-0059",
+          "pair-0060",
+          "pair-0061",
+          "pair-0062",
+          "pair-0063",
+          "pair-0064",
+          "pair-0065",
+          "pair-0066",
+          "pair-0067",
+          "pair-0068",
+          "pair-0069",
+          "pair-0070",
+          "pair-0071",
+          "pair-0072",
+          "pair-0073",
+          "pair-0074",
+          "pair-0075",
+          "pair-0076",
+          "pair-0077",
+          "pair-0078",
+          "pair-0079",
+          "pair-0080",
+          "pair-0081",
+          "pair-0082",
+          "pair-0083",
+          "pair-0084",
+          "pair-0085",
+          "pair-0086",
+          "pair-0087",
+          "pair-0088",
+          "pair-0089",
+          "pair-0090",
+          "pair-0091",
+          "pair-0092",
+          "pair-0093",
+          "pair-0094",
+          "pair-0095",
+          "pair-0096",
+          "pair-0097",
+          "pair-0098",
+          "pair-0099",
+          "pair-0100",
+          "pair-0101",
+          "pair-0102",
+          "pair-0103",
+          "pair-0104",
+          "pair-0105",
+          "pair-0106",
+          "pair-0107",
+          "pair-0108",
+          "pair-0109",
+          "pair-0110",
+          "pair-0111",
+          "pair-0112",
+          "pair-0113",
+          "pair-0114",
+          "pair-0115",
+          "pair-0116",
+          "pair-0117",
+          "pair-0118",
+          "pair-0119",
+          "pair-0120",
+          "pair-0121",
+          "pair-0122",
+          "pair-0123",
+          "pair-0124",
+          "pair-0125",
+          "pair-0126",
+          "pair-0127",
+          "pair-0128",
+          "pair-0129",
+          "pair-0130",
+          "pair-0131",
+          "pair-0132",
+          "pair-0133",
+          "pair-0134",
+          "pair-0135",
+          "pair-0136",
+          "pair-0137",
+          "pair-0138",
+          "pair-0139",
+          "pair-0140",
+          "pair-0141",
+          "pair-0142",
+          "pair-0143",
+          "pair-0144",
+          "pair-0145",
+          "pair-0146",
+          "pair-0147",
+          "pair-0148",
+          "pair-0149",
+          "pair-0150",
+          "pair-0151",
+          "pair-0152",
+          "pair-0153",
+          "pair-0154",
+          "pair-0155",
+          "pair-0156",
+          "pair-0157",
+          "pair-0158",
+          "pair-0159",
+          "pair-0160",
+          "pair-0161",
+          "pair-0162",
+          "pair-0163",
+          "pair-0164",
+          "pair-0165",
+          "pair-0166",
+          "pair-0167",
+          "pair-0168",
+          "pair-0169",
+          "pair-0170",
+          "pair-0171",
+          "pair-0172",
+          "pair-0173",
+          "pair-0174",
+          "pair-0175",
+          "pair-0176",
+          "pair-0177",
+          "pair-0178",
+          "pair-0179",
+          "pair-0180",
+          "pair-0181",
+          "pair-0182",
+          "pair-0183",
+          "pair-0184",
+          "pair-0185",
+          "pair-0186",
+          "pair-0187",
+          "pair-0188",
+          "pair-0189",
+          "pair-0190",
+          "pair-0191",
+          "pair-0192",
+          "pair-0193",
+          "pair-0194",
+          "pair-0195",
+          "pair-0196",
+          "pair-0197",
+          "pair-0198",
+          "pair-0199"
+        ],
+        "incomplete_pairs_preserved": [],
+        "unpaired_completed_games_excluded": [],
+        "raw_result_sha256": "69ec12047e69f6b2c78223d19e2bdfdecde023c61f2a8313f40851d27397b3a0"
+      },
+      "STC": {
+        "result": "PASS",
+        "games": 398,
+        "complete_pairs": 199,
+        "independent_plies": 76676,
+        "scores": [
+          200,
+          175,
+          23
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "statistics": "Total: 398 W: 200 L: 175 D: 23 ELO: 21.85 +-33.2 (95%) LOS: 90.2%",
+        "complete_pair_ids": [
+          "pair-0000",
+          "pair-0001",
+          "pair-0002",
+          "pair-0003",
+          "pair-0004",
+          "pair-0005",
+          "pair-0006",
+          "pair-0007",
+          "pair-0008",
+          "pair-0009",
+          "pair-0010",
+          "pair-0011",
+          "pair-0012",
+          "pair-0013",
+          "pair-0014",
+          "pair-0015",
+          "pair-0016",
+          "pair-0017",
+          "pair-0018",
+          "pair-0019",
+          "pair-0020",
+          "pair-0021",
+          "pair-0022",
+          "pair-0023",
+          "pair-0024",
+          "pair-0025",
+          "pair-0026",
+          "pair-0027",
+          "pair-0028",
+          "pair-0029",
+          "pair-0030",
+          "pair-0031",
+          "pair-0032",
+          "pair-0033",
+          "pair-0034",
+          "pair-0035",
+          "pair-0036",
+          "pair-0037",
+          "pair-0038",
+          "pair-0039",
+          "pair-0040",
+          "pair-0041",
+          "pair-0042",
+          "pair-0043",
+          "pair-0044",
+          "pair-0045",
+          "pair-0046",
+          "pair-0047",
+          "pair-0048",
+          "pair-0049",
+          "pair-0050",
+          "pair-0051",
+          "pair-0052",
+          "pair-0053",
+          "pair-0054",
+          "pair-0055",
+          "pair-0056",
+          "pair-0057",
+          "pair-0058",
+          "pair-0059",
+          "pair-0060",
+          "pair-0061",
+          "pair-0062",
+          "pair-0063",
+          "pair-0064",
+          "pair-0065",
+          "pair-0066",
+          "pair-0067",
+          "pair-0068",
+          "pair-0069",
+          "pair-0070",
+          "pair-0071",
+          "pair-0072",
+          "pair-0073",
+          "pair-0074",
+          "pair-0075",
+          "pair-0076",
+          "pair-0077",
+          "pair-0078",
+          "pair-0079",
+          "pair-0080",
+          "pair-0081",
+          "pair-0082",
+          "pair-0083",
+          "pair-0084",
+          "pair-0085",
+          "pair-0086",
+          "pair-0087",
+          "pair-0088",
+          "pair-0089",
+          "pair-0090",
+          "pair-0091",
+          "pair-0092",
+          "pair-0093",
+          "pair-0094",
+          "pair-0095",
+          "pair-0096",
+          "pair-0097",
+          "pair-0098",
+          "pair-0099",
+          "pair-0100",
+          "pair-0101",
+          "pair-0102",
+          "pair-0103",
+          "pair-0104",
+          "pair-0105",
+          "pair-0106",
+          "pair-0107",
+          "pair-0108",
+          "pair-0109",
+          "pair-0110",
+          "pair-0111",
+          "pair-0112",
+          "pair-0113",
+          "pair-0114",
+          "pair-0115",
+          "pair-0116",
+          "pair-0117",
+          "pair-0118",
+          "pair-0119",
+          "pair-0120",
+          "pair-0121",
+          "pair-0122",
+          "pair-0123",
+          "pair-0124",
+          "pair-0125",
+          "pair-0126",
+          "pair-0127",
+          "pair-0128",
+          "pair-0129",
+          "pair-0130",
+          "pair-0131",
+          "pair-0132",
+          "pair-0133",
+          "pair-0134",
+          "pair-0135",
+          "pair-0136",
+          "pair-0137",
+          "pair-0138",
+          "pair-0139",
+          "pair-0140",
+          "pair-0141",
+          "pair-0142",
+          "pair-0143",
+          "pair-0144",
+          "pair-0145",
+          "pair-0146",
+          "pair-0147",
+          "pair-0148",
+          "pair-0149",
+          "pair-0150",
+          "pair-0151",
+          "pair-0152",
+          "pair-0153",
+          "pair-0154",
+          "pair-0155",
+          "pair-0156",
+          "pair-0157",
+          "pair-0158",
+          "pair-0159",
+          "pair-0160",
+          "pair-0161",
+          "pair-0162",
+          "pair-0163",
+          "pair-0164",
+          "pair-0165",
+          "pair-0166",
+          "pair-0167",
+          "pair-0168",
+          "pair-0169",
+          "pair-0170",
+          "pair-0171",
+          "pair-0172",
+          "pair-0173",
+          "pair-0174",
+          "pair-0175",
+          "pair-0176",
+          "pair-0177",
+          "pair-0178",
+          "pair-0179",
+          "pair-0180",
+          "pair-0181",
+          "pair-0182",
+          "pair-0183",
+          "pair-0184",
+          "pair-0185",
+          "pair-0186",
+          "pair-0187",
+          "pair-0188",
+          "pair-0189",
+          "pair-0190",
+          "pair-0191",
+          "pair-0192",
+          "pair-0193",
+          "pair-0194",
+          "pair-0195",
+          "pair-0196",
+          "pair-0197",
+          "pair-0198"
+        ],
+        "incomplete_pairs_preserved": [
+          {
+            "pair": "pair-0199",
+            "referee_groups": 2,
+            "recorded_moves_per_group": [
+              68,
+              41
+            ]
+          }
+        ],
+        "unpaired_completed_games_excluded": [
+          {
+            "pair": "pair-0199",
+            "color": "white",
+            "candidate_score": 0.5,
+            "result": "1/2-1/2",
+            "points": [
+              18,
+              18
+            ],
+            "independent_plies": 84,
+            "reason": "Incomplete reversed-color pair; excluded irrespective of result"
+          }
+        ],
+        "raw_result_sha256": "d6551178ceee3cd2556ad0e1e056119ce450b57632ab435f5da36e9cb383a410"
+      },
+      "LTC": {
+        "result": "NOT_RUN",
+        "games": 0,
+        "complete_pairs": 0,
+        "independent_plies": 0,
+        "incomplete_pairs_preserved": [],
+        "unpaired_completed_games_excluded": []
+      }
+    },
+    "games": 798,
+    "complete_pairs": 399,
+    "independent_plies": 152114,
+    "incomplete_pairs_preserved": 1,
+    "unpaired_completed_games_excluded": 1,
+    "execution_hashes": 80,
+    "panel_hashes": 11,
+    "dependency_hashes": 7,
+    "raw_files_preserved": 4416,
+    "raw_inventory_sha256": "971a8adbf5a2afa3afd87a09b296e01f6c0909fe1d8ace13822c7333d3937716",
+    "owned_panel_process_identities_exited": 1204,
+    "build_process_identities_exited": 35,
+    "reused_pids_not_touched": [
+      {
+        "expected": {
+          "pid": 41124,
+          "creation_filetime": 134377641997305822,
+          "creation_utc": "2026-10-29T16:16:39.730583+00:00",
+          "parent_pid": 27280,
+          "name": "petrified-points-incremental-state-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T16:16:43.352991+00:00",
+          "last_seen_utc": "2026-10-29T16:16:53.403194+00:00"
+        },
+        "current": {
+          "pid": 41124,
+          "creation_filetime": 134377651202305097,
+          "creation_utc": "2026-10-29T16:32:00.230511+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 34724,
+          "creation_filetime": 134377651872438713,
+          "creation_utc": "2026-10-29T16:33:07.243872+00:00",
+          "parent_pid": 27280,
+          "name": "petrified-points-incremental-state-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T16:33:11.519323+00:00",
+          "last_seen_utc": "2026-10-29T16:34:11.715791+00:00"
+        },
+        "current": {
+          "pid": 34724,
+          "creation_filetime": 134377683461955306,
+          "creation_utc": "2026-10-29T17:25:46.195532+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 10548,
+          "creation_filetime": 134377669078503478,
+          "creation_utc": "2026-10-29T17:01:47.850348+00:00",
+          "parent_pid": 27280,
+          "name": "node.exe",
+          "first_seen_utc": "2026-10-29T17:01:52.364301+00:00",
+          "last_seen_utc": "2026-10-29T17:02:37.532476+00:00"
+        },
+        "current": {
+          "pid": 10548,
+          "creation_filetime": 134377683460038257,
+          "creation_utc": "2026-10-29T17:25:46.003826+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 10828,
+          "creation_filetime": 134377669669509816,
+          "creation_utc": "2026-10-29T17:02:46.950983+00:00",
+          "parent_pid": 27280,
+          "name": "node.exe",
+          "first_seen_utc": "2026-10-29T17:02:47.572047+00:00",
+          "last_seen_utc": "2026-10-29T17:03:57.819678+00:00"
+        },
+        "current": {
+          "pid": 10828,
+          "creation_filetime": 134377683463118322,
+          "creation_utc": "2026-10-29T17:25:46.311832+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 15004,
+          "creation_filetime": 134377675489934228,
+          "creation_utc": "2026-10-29T17:12:28.993422+00:00",
+          "parent_pid": 27280,
+          "name": "petrified-points-incremental-state-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T17:12:29.671181+00:00",
+          "last_seen_utc": "2026-10-29T17:13:34.909227+00:00"
+        },
+        "current": {
+          "pid": 15004,
+          "creation_filetime": 134377684441746812,
+          "creation_utc": "2026-10-29T17:27:24.174681+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 10548,
+          "creation_filetime": 134377679334269639,
+          "creation_utc": "2026-10-29T17:18:53.426964+00:00",
+          "parent_pid": 27280,
+          "name": "champion-pr11-bmi2.exe",
+          "first_seen_utc": "2026-10-29T17:18:56.119866+00:00",
+          "last_seen_utc": "2026-10-29T17:19:56.340269+00:00"
+        },
+        "current": {
+          "pid": 10548,
+          "creation_filetime": 134377683460038257,
+          "creation_utc": "2026-10-29T17:25:46.003826+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 12128,
+          "creation_filetime": 134377681029816704,
+          "creation_utc": "2026-10-29T17:21:42.981670+00:00",
+          "parent_pid": 27280,
+          "name": "node.exe",
+          "first_seen_utc": "2026-10-29T17:21:46.745842+00:00",
+          "last_seen_utc": "2026-10-29T17:22:46.971568+00:00"
+        },
+        "current": {
+          "pid": 12128,
+          "creation_filetime": 134377686054274782,
+          "creation_utc": "2026-10-29T17:30:05.427479+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 26936,
+          "creation_filetime": 134377681454014480,
+          "creation_utc": "2026-10-29T17:22:25.401447+00:00",
+          "parent_pid": 27280,
+          "name": "petrified-points-incremental-state-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T17:22:26.895742+00:00",
+          "last_seen_utc": "2026-10-29T17:23:57.234382+00:00"
+        },
+        "current": {
+          "pid": 26936,
+          "creation_filetime": 134377683463082660,
+          "creation_utc": "2026-10-29T17:25:46.308266+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 10548,
+          "creation_filetime": 134377681693548944,
+          "creation_utc": "2026-10-29T17:22:49.354895+00:00",
+          "parent_pid": 27280,
+          "name": "champion-pr11-bmi2.exe",
+          "first_seen_utc": "2026-10-29T17:22:51.990336+00:00",
+          "last_seen_utc": "2026-10-29T17:23:47.195497+00:00"
+        },
+        "current": {
+          "pid": 10548,
+          "creation_filetime": 134377683460038257,
+          "creation_utc": "2026-10-29T17:25:46.003826+00:00"
+        }
+      }
+    ],
+    "remaining_owned": [],
+    "T8_pause_verified": true,
+    "controller_status_interpretation": "FAILED is the expected cooperative STOP requested by the owner; no engine failure",
+    "promotion_eligible": false,
+    "champion_unchanged": "Qualified PR11, Bench177290",
+    "interpretation": "Owner retains the exact candidate as a potential win for future OpenBench. No statistical win, equivalence, promotion or OpenBench workload is claimed."
+  },
+  "preservation": {
+    "status": "RETAINED_POTENTIAL_WIN_FOR_FUTURE_OPENBENCH",
+    "owner_request": "Cierra como potencial win, y dejalo para openbench, continua con la siguiente gran idea",
+    "recorded_utc": "2026-10-29T17:33:03.206881+00:00",
+    "manual_classification": "POTENTIAL_WIN",
+    "statistical_win_claim": false,
+    "promoted": false,
+    "openbench_started": false,
+    "interpretation": "Positive but inconclusive measured estimates. Owner retains this candidate as a potential win for future OpenBench; local panel closed manually before LTC.",
+    "source_commit": "b13df5004c57543e8e05f296ecd4dc67757dfb81",
+    "source_tag": "candidates/points-incremental-state-v1-openbench",
+    "frozen_inputs_bundle": ".local\\points-incremental-state-v1\\frozen-inputs.zip",
+    "frozen_inputs_bundle_sha256": "f71bf1fa6cccbbebf9cc3128e88310681ba6d91ae71502cf85b9268c2b804f5c",
+    "frozen_inputs": 88,
+    "candidate_binary_sha256": "9b28ba4683b6bc4c9f4dfa57fbeddd2c500359c151b50a4c7fe45c02234d246a",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "candidate_bench": 177290,
+    "champion_bench": 177290,
+    "legacy_bench": 179335,
+    "champion_unchanged": "Qualified PR11",
+    "results": {
+      "VSTC": {
+        "control": "VSTC",
+        "status": "NEUTRAL_SCREEN",
+        "scores": [
+          201,
+          181,
+          18
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          23,
+          9,
+          126,
+          9,
+          33
+        ],
+        "statistics": "Total: 400 W: 201 L: 181 D: 18 ELO: 17.39 +-33.4 (95%) LOS: 84.7%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 881.828,
+        "raw_status": "INCONCLUSIVE_LIMIT"
+      },
+      "STC": {
+        "control": "STC",
+        "status": "STOPPED_MANUAL",
+        "scores": [
+          200,
+          175,
+          23
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          18,
+          10,
+          130,
+          11,
+          30
+        ],
+        "statistics": "Total: 398 W: 200 L: 175 D: 23 ELO: 21.85 +-33.2 (95%) LOS: 90.2%",
+        "completed_pairs": 199,
+        "elapsed_seconds": 3780.922,
+        "error": "Panel stopped",
+        "raw_status": "INTERRUPTED"
+      },
+      "LTC": {
+        "control": "LTC",
+        "status": "NOT_RUN_MANUAL",
+        "scores": [
+          0,
+          0,
+          0
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "completed_pairs": 0
+      }
+    },
+    "audit": ".local\\points-incremental-state-v1\\manual-closure-audit.json",
+    "new_experiment_authorized": true,
+    "T8": "Manually paused"
+  },
+  "runtime": {
+    "state": "COMPLETED_RETAINED",
+    "released": true,
+    "released_utc": "2026-10-29T17:33:03.206881+00:00",
+    "pull_request_state": "OPEN_DRAFT_RETAINED"
+  },
+  "automation_status": "DELETED",
+  "automation_deleted": "petrified-estado-incremental-y-panel",
+  "preserved_operational_failure": {
+    "path": ".local/points-incremental-state-v1/retention-failure-001",
+    "resolved": true,
+    "reason": "Bundle index now supports the external runner path; input bytes unchanged"
   }
 }

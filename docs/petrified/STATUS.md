@@ -1,4 +1,35 @@
-# Active: points-incremental-state-v1
+# Next authorized: points-pin-legality-v1
+
+The owner closed PR12 as a potential win retained for future OpenBench and
+requested one next experiment. PR11 remains champion. The successor will avoid
+redundant full king-safety checks in move generation when cached blockers prove
+the move cannot expose the king. The full path remains for check evasions,
+kings/castling, pinned origins and en passant. Exact move order, rules, NNUE and
+search must remain unchanged, with differential and independent validation,
+identical benches and the existing three-control gate. No retained PR12 or PR9
+engine changes are included. No OpenBench workload is authorized now.
+
+# PR12 retained as potential win; local panel closed
+
+| Control | Games | W/L/D | Elo +/-95% | LOS | Time losses C/O | State |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 400 | 201/181/18 | +17.39 +/-33.4 | 84.7% | 0/0 | NEUTRAL_SCREEN |
+| STC 10+0.1 | 398 | 200/175/23 | +21.85 +/-33.2 | 90.2% | 0/0 | STOPPED_MANUAL |
+| LTC 30+0.3 | 0 | -- | -- | -- | 0/0 | NOT_RUN_MANUAL |
+
+POTENTIAL_WIN is the owner's selection for future testing, not a statistical
+win, equivalence or promotion. All798 games/399 pairs/152114 independent referee
+plies passed audit. One incomplete pair and its completed unpaired game remain
+preserved and excluded. All1204 panel and35 build process identities exited;
+the reservation is released and the heartbeat deleted. T8 remains paused.
+
+The exact source is tagged `candidates/points-incremental-state-v1-openbench`.
+Its88-input ZIP is `.local/points-incremental-state-v1/frozen-inputs.zip`, SHA256
+`f71bf1fa6cccbbebf9cc3128e88310681ba6d91ae71502cf85b9268c2b804f5c`.
+Every archived entry was verified. An initial external-path indexing failure
+was preserved and fixed without changing inputs. PR12 remains an open draft.
+
+# Historical setup: points-incremental-state-v1
 
 The owner authorized one next candidate from the new PR #11 champion.
 The hypothesis is to update Zobrist/history/material keys from the move delta,
