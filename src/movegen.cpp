@@ -29,12 +29,18 @@ Move* generate_impl(const Position& pos, Move* out, Move wanted = Move::none()) 
     const Color us = pos.side_to_move();
     const Bitboard enemies = pos.pieces(~us) & ~pos.pieces(KING);
     const Bitboard empty = ~pos.occupied();
+    // A generated non-king move leaves its destination occupied by the mover
+    // or a new wall. Outside check, only vacating a king blocker can expose an
+    // attack. En passant removes a second square and always needs the full test.
+    const Bitboard safetyOrigins = pos.checkers() ? ~Bitboard(0)
+        : pos.blockers_for_king(us) | pos.pieces(us, KING);
     auto emit = [&](Move m) {
         if constexpr (FirstOnly)
             if (wanted != Move::none() && m != wanted) return false;
         const bool stage = pos.capture_stage(m);
         if ((Type == CAPTURES && !stage) || (Type == QUIETS && stage)) return false;
-        if (!pos.safe_after(m)) return false;
+        if (((safetyOrigins & m.from_sq()) || m.type_of() == EN_PASSANT)
+            && !pos.safe_after(m)) return false;
         *out++ = m;
         return FirstOnly;
     };

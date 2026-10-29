@@ -1,3 +1,66 @@
+# Next authorized: points-pin-legality-v1
+
+The owner closed PR12 as a potential win retained for future OpenBench and
+requested one next experiment. PR11 remains champion. The successor will avoid
+redundant full king-safety checks in move generation when cached blockers prove
+the move cannot expose the king. The full path remains for check evasions,
+kings/castling, pinned origins and en passant. Exact move order, rules, NNUE and
+search must remain unchanged, with differential and independent validation,
+identical benches and the existing three-control gate. No retained PR12 or PR9
+engine changes are included. No OpenBench workload is authorized now.
+
+# PR12 retained as potential win; local panel closed
+
+| Control | Games | W/L/D | Elo +/-95% | LOS | Time losses C/O | State |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 400 | 201/181/18 | +17.39 +/-33.4 | 84.7% | 0/0 | NEUTRAL_SCREEN |
+| STC 10+0.1 | 398 | 200/175/23 | +21.85 +/-33.2 | 90.2% | 0/0 | STOPPED_MANUAL |
+| LTC 30+0.3 | 0 | -- | -- | -- | 0/0 | NOT_RUN_MANUAL |
+
+POTENTIAL_WIN is the owner's selection for future testing, not a statistical
+win, equivalence or promotion. All798 games/399 pairs/152114 independent referee
+plies passed audit. One incomplete pair and its completed unpaired game remain
+preserved and excluded. All1204 panel and35 build process identities exited;
+the reservation is released and the heartbeat deleted. T8 remains paused.
+
+The exact source is tagged `candidates/points-incremental-state-v1-openbench`.
+Its88-input ZIP is `.local/points-incremental-state-v1/frozen-inputs.zip`, SHA256
+`f71bf1fa6cccbbebf9cc3128e88310681ba6d91ae71502cf85b9268c2b804f5c`.
+Every archived entry was verified. An initial external-path indexing failure
+was preserved and fixed without changing inputs. PR12 remains an open draft.
+
+# Historical setup: points-incremental-state-v1
+
+The owner authorized one next candidate from the new PR #11 champion.
+The hypothesis is to update Zobrist/history/material keys from the move delta,
+instead of rebuilding over all pieces and walls at every search node. Rules,
+move order, NNUE and search settings stay fixed. Full FEN initialization remains
+the recomputation oracle; special moves, score/wall deltas, undo, repetition and
+null restoration must match exactly. Both deterministic benches must match PR #11.
+
+After correctness and source CI, freeze one candidate for the usual three-control
+panel (minimum40/maximum400, displayed LOS100.0%/0.0%, drain/recheck pairs).
+Promotion still requires three audited wins and complete interfaces. The owner
+has delegated early rejection of neutral or clearly losing candidates.
+The owner authorized closing Fairyground to free memory for this panel; the
+PR #11 server and its engines exited through the owned shutdown endpoint.
+The four-way Hash512 panel is running after its memory check. T8 stays paused;
+no OpenBench, AtomicDB, remote-worker or Misere action is authorized.
+See `experiments/2026-10-29-points-incremental-state-v1.json`.
+
+PR #12 source `b13df5004c57543e8e05f296ecd4dc67757dfb81` is validated and
+frozen with 80 inputs. Debug/Release each passed 72,078 full-state comparisons,
+883,968 legal queries and 9,338 state/NNUE checks; 32 searches passed the
+independent referee. Five source CI jobs passed. Points bench is 177290 twice,
+legacy 179335, both identical to PR #11. Eight alternating depth12 samples
+visited the same 376,705 nodes: median343.5ms versus374ms (1.08879x throughput,
+not Elo). All 35 recorded build process identities exited. The panel started
+at 2026-10-29T16:10:42Z after checking 9,364,590,592 free bytes against the
+required 7,583,301,632. Session77274: controller41960, launcher38860, real
+panel27280; exact creation identities are recorded in the panel launch audit.
+All eight Fairyground process identities exited after the owner's subsequent
+authorization to close it. The installed PR #11 profile is preserved.
+
 # Promoted champion: points-legal-query-v1
 
 PR #11 accelerates boolean legal-move queries from qualified PR #7 while
@@ -415,11 +478,11 @@ The four-game concurrency preflight failed with 5.73 GiB free against a 6.58 GiB
 requirement, and T8 was restored. The next campaign fixed concurrency at three;
 its preflight passed. Threads=1 and Hash=512 are unchanged for both players.
 
-| Control | Games | W/L/D | Elo ± 95% interval | LOS | Time losses (candidate/Walls) | Status |
+| Control | Games | W/L/D | Elo Â± 95% interval | LOS | Time losses (candidate/Walls) | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 106 | 85/2/19 | +365.89 ± 81.9 | 100.0% | 0/0 | Passed after pending pairs |
-| STC 10+0.1 | 106 | 70/2/34 | +264.31 ± 59.3 | 100.0% | 0/0 | Passed after pending pairs |
-| LTC 30+0.3 | 16 | 9/0/7 | +221.14 ± 135.8 | 100.0% | 0/0 | Cancelled by owner |
+| VSTC 2+0.02 | 106 | 85/2/19 | +365.89 Â± 81.9 | 100.0% | 0/0 | Passed after pending pairs |
+| STC 10+0.1 | 106 | 70/2/34 | +264.31 Â± 59.3 | 100.0% | 0/0 | Passed after pending pairs |
+| LTC 30+0.3 | 16 | 9/0/7 | +221.14 Â± 135.8 | 100.0% | 0/0 | Cancelled by owner |
 
 Local raw records are under `.local/campaign-002/` with separate engine streams,
 every move and clock, referee results, full pairs, manifests and the worker lease.
@@ -433,11 +496,11 @@ GCC 16.1.0, `-O3 -flto -flto-partition=one`, BMI2/AVX2, no PGO. The Walls binary
 SHA-256 is `757fe43a33624648f22fe99fc55976192fe86140080e333de27e422e51672da7`.
 Both players used run4test, Threads=1, Hash=512 and concurrency three.
 
-| Control | Games | W/L/D | Elo ± 95% interval | LOS | Time losses | Status |
+| Control | Games | W/L/D | Elo Â± 95% interval | LOS | Time losses | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 44 | 30/2/12 | +261.29 ± 104.4 | 100.0% | 0/0 | Passed, pending pairs completed |
-| STC 10+0.1 | 44 | 23/0/21 | +201.54 ± 72.3 | 100.0% | 0/0 | Passed, pending pairs completed |
-| LTC 30+0.3 | 16 | 8/0/8 | +190.85 ± 121.5 | 100.0% | 0/0 | Owner accepted; stopped early |
+| VSTC 2+0.02 | 44 | 30/2/12 | +261.29 Â± 104.4 | 100.0% | 0/0 | Passed, pending pairs completed |
+| STC 10+0.1 | 44 | 23/0/21 | +201.54 Â± 72.3 | 100.0% | 0/0 | Passed, pending pairs completed |
+| LTC 30+0.3 | 16 | 8/0/8 | +190.85 Â± 121.5 | 100.0% | 0/0 | Owner accepted; stopped early |
 
 The exact owner instruction was: "Puedes adjudicarlo como win. Empieza el panel
 vs fsf dev". LTC did not reach 40 games. Its original result remains INTERRUPTED;
@@ -454,11 +517,11 @@ including all 7,939 openings, against the pinned Walls referee. Both players
 positively identified their respective NNUE before the match.
 Records: `.local/campaign-004-fsf-dev/`.
 
-| Control | Games | W/L/D | Elo ± 95% interval | LOS | Time losses | Status |
+| Control | Games | W/L/D | Elo Â± 95% interval | LOS | Time losses | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 46 | 42/0/4 | +536.97 ± 302.2 | 100.0% | 0/0 | Passed, pending pairs completed |
-| STC 10+0.1 | 44 | 33/0/11 | +338.04 ± 110.7 | 100.0% | 0/0 | Passed, pending pairs completed |
-| LTC 30+0.3 | 44 | 31/1/12 | +289.24 ± 105.4 | 100.0% | 0/0 | Passed, pending pairs completed |
+| VSTC 2+0.02 | 46 | 42/0/4 | +536.97 Â± 302.2 | 100.0% | 0/0 | Passed, pending pairs completed |
+| STC 10+0.1 | 44 | 33/0/11 | +338.04 Â± 110.7 | 100.0% | 0/0 | Passed, pending pairs completed |
+| LTC 30+0.3 | 44 | 31/1/12 | +289.24 Â± 105.4 | 100.0% | 0/0 | Passed, pending pairs completed |
 
 All controls used Threads=1, Hash=512 and concurrency three; no clock losses or
 measured wall-clock overruns occurred. Public results and hashes are in

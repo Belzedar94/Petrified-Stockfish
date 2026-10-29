@@ -18,6 +18,7 @@ static void require(bool ok, const char* what) {
     if (!ok) { std::cerr << what << '\n'; std::exit(1); }
 }
 static std::size_t queryChecks = 0;
+static std::size_t safetyFixturePositions = 0;
 template<GenType Type>
 static void check_move_order(const Position& pos) {
     Move expected[MAX_MOVES];
@@ -44,6 +45,61 @@ static void check_queries(const Position& pos, unsigned salt, bool exhaustive = 
     require(!pos.legal(Move::none()) && !pos.legal(Move::null()), "sentinel move accepted");
 }
 
+// reference_generate retains a full safe_after() call for every candidate.
+// Descendants cover changed pins, capture-created walls and undo, not just roots.
+static void check_safety_tree(Position& pos, int depth) {
+    check_queries(pos, unsigned(++safetyFixturePositions));
+    if (!depth) return;
+    const std::string before = pos.fen();
+    const Key key = pos.key();
+    Move moves[MAX_MOVES];
+    Move* end = reference_generate<ALL>(pos, moves);
+    for (Move* move = moves; move != end; ++move) {
+        StateInfo child;
+        pos.do_move(*move, child);
+        check_safety_tree(pos, depth - 1);
+        pos.undo_move(*move);
+        require(pos.fen() == before && pos.key() == key, "safety fixture undo mismatch");
+    }
+}
+
+static void check_safety_fixtures() {
+    for (bool points : {false, true})
+        for (const char* fen : {
+            "4r1k1/8/8/8/8/8/4R3/4K3 w - - 0 1",
+            "4r1k1/8/8/8/8/8/4P3/4K3 w - - 0 1",
+            "4k3/4p3/8/8/8/8/8/4R1K1 b - - 0 1",
+            "6k1/8/8/8/1b6/8/3R4/4K3 w - - 0 1",
+            "4r1k1/8/8/8/8/8/4*3/3RK3 w - - 0 1",
+            "4r1k1/8/8/8/4r3/8/4R3/4K3 w - - 0 1",
+            "6k1/8/8/3n4/8/8/8/3RK3 w - - 0 1",
+            "4r1k1/8/8/8/8/8/3R4/4K3 w - - 0 1",
+            "4r1k1/8/8/8/1b6/8/3R4/4K3 w - - 0 1",
+            "6k1/8/8/8/8/5n2/3R4/4K3 w - - 0 1",
+            "7k/8/8/r4pPK/8/8/8/8 w - f6 0 1",
+            "8/8/8/8/R4Ppk/8/8/7K b - f3 0 1",
+            "4k3/8/8/3pP3/8/8/8/4K3 w - d6 0 1",
+            "1r2k3/P7/8/8/8/8/8/4K3 w - - 0 1",
+            "4k3/8/8/8/8/8/p7/1R2K3 b - - 0 1",
+            "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",
+            "4k3/8/8/8/8/8/4K3/3R4 w - - 0 1"
+        }) {
+            Position pos; StateInfo state;
+            require(!pos.set(std::string(fen) + (points ? " points=7,4" : ""), false, &state),
+                    "king-safety fixture FEN");
+            check_safety_tree(pos, 2);
+        }
+    for (const char* fen : {
+        "4k3/8/8/8/8/8/8/2R2K1R w HC - 0 1",
+        "4k3/8/8/8/8/8/8/6KR w H - 0 1",
+        "4k3/8/8/8/8/8/8/4KR2 w F - 0 1"
+    }) {
+        Position pos; StateInfo state;
+        require(!pos.set(fen, true, &state), "Chess960 king-safety fixture FEN");
+        check_safety_tree(pos, 2);
+    }
+}
+
 int main(int argc, char** argv) {
     Option variant("petrified var petrified", "petrified", nullptr);
     variant = std::string("petrified");
@@ -53,6 +109,7 @@ int main(int argc, char** argv) {
     variant = std::string("var");
     require(variant == "petrified", "combo must reject the UCI separator");
     Attacks::init(); Position::init();
+    check_safety_fixtures();
     for (const char* fen : {
         "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",
         "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1 points=0,0",
@@ -136,5 +193,6 @@ int main(int argc, char** argv) {
         }
     }
     std::cout<<"Legal query comparisons: "<<queryChecks<<'\n';
+    std::cout<<"King-safety fixture positions: "<<safetyFixturePositions<<'\n';
     std::cout<<"State/undo checks: "<<checked<<"; NNUE: "<<(argc>1?"exact":"not requested")<<'\n';
 }

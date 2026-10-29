@@ -1,0 +1,62 @@
+{
+  "schema": "petrified-search-experiment-v1",
+  "experiment": "points-pin-legality-v1",
+  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "owner_request": "Cierra como potencial win, y dejalo para openbench, continua con la siguiente gran idea",
+  "candidate_count": 1,
+  "branch": "exp/points-pin-legality-v1",
+  "baseline_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
+  "qualified_baseline_ref": "352cd3eed1ab9604adc1e8e4048ef8208d86f90e",
+  "champion": "PR11 PointsHead v1 + legal-query-v1",
+  "champion_binary_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "hypothesis": "Avoid full per-move king-safety simulation when not in check and the generated non-king move starts outside cached king blockers. Retain full safety checks for en passant, king/castling, pinned origins and all evasions.",
+  "scope": [
+    "Only move-generation safety filtering",
+    "Identical move lists and order, rules, state, search and NNUE",
+    "No retained PR12 incremental-state changes or PR9 pruning"
+  ],
+  "expected_points_bench": 177290,
+  "expected_legacy_bench": 179335,
+  "build": {
+    "compiler": "GCC16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false
+  },
+  "validation_plan": [
+    "Frozen full-safety reference move generator: exact list/order, all stages and membership",
+    "Both variants; pins, walls, capture-to-wall, checks/double checks, EP exposure, promotion and Chess960 fixtures to depth2",
+    "Debug/Release state, undo and NNUE equality on seeded random walks",
+    "Independent Chess.com referee searches and points/mates/interfaces",
+    "Two identical points benches, identical legacy bench and eight alternating depth12 speed samples",
+    "Source CI before the one frozen panel"
+  ],
+  "panel": {
+    "directory": ".local/points-pin-legality-panel-001",
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%; complete pending pairs and recheck; resume inside cap if lost",
+    "at_cap": "NEUTRAL_SCREEN for selection, not equivalence",
+    "early_rejection": "Owner-delegated manual neutral or clear loss; retain measured statistics",
+    "promotion": "Three audited WIN controls plus distribution/interfaces",
+    "referee": "Pinned independent Chess.com public client",
+    "status": "NOT_STARTED"
+  },
+  "constraints": {
+    "T8": "Manually paused",
+    "Misere": "Do not contact",
+    "OpenBench_AtomicDB_remote_workers": "No action",
+    "Fairyground": "Closed with authorization; PR11 profile preserved",
+    "PR9_PR12": "Retained separately; neither included"
+  },
+  "created_utc": "2026-10-29T17:37:19.478190+00:00"
+}
