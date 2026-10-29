@@ -1,7 +1,7 @@
 {
   "schema": "petrified-points-experiment-v1",
   "id": "points-wall-ft-v1",
-  "status": "PANEL_RUNNING",
+  "status": "REJECTED_NEUTRAL_MANUAL",
   "owner_authorization": "Las ideas buenas las veras claras como en el pr 7, si ya ves que son neutras o claramente perdedoras, puedes adjudicar antes, lo dejo a tu criterio. Ponte con la siguiente gran idea",
   "hypothesis": "Adapt only petrified-square transformer features, retaining the winning PR #7 dense head and all live-piece features, PSQT, biases, search and rules.",
   "qualified_base_commit": "5c31333762a41609a410fd2db71a190b6fd73679",
@@ -86,7 +86,7 @@
     },
     "session_id": 64107,
     "manifest": ".local/points-wall-ft-v1/execution-manifest.json",
-    "state": ".local/points-wall-ft-v1/build-state.json",
+    "state": "CLOSED_NEUTRAL_MANUAL",
     "process_identities": ".local/points-wall-ft-v1/owned-process-identities.json",
     "panel_controller": {
       "pid": 33600,
@@ -104,7 +104,10 @@
       "creation_utc": "2026-10-29T12:25:50.243177+00:00"
     },
     "panel_session": 19832,
-    "execution_inputs": 66
+    "execution_inputs": 66,
+    "released": false,
+    "process_exit_evidence": ".local/points-wall-ft-v1/final-process-exit.json",
+    "next_experiment_authorized": false
   },
   "implementation_incidents": [
     {
@@ -402,5 +405,268 @@
       }
     ],
     "meaning": "Validation loss selects one epoch; strength requires the independent three-control panel"
+  },
+  "decision": {
+    "decision": "NEUTRAL_MANUAL",
+    "authority": "Agent under explicit owner early-adjudication delegation",
+    "reason": "Screen for large Elo improvements comparable to PR7. VSTC has exceeded minimum40 and remains slightly behind; at the decision observation 90 games were 39/47/4, -30.96 +/-71.3, LOS19.3%. No large positive signal. Reject for selection under delegated discretion; not equivalence or automatic LOS loss. Preserve actual final paired statistics.",
+    "raw_statistics_unchanged": true,
+    "not_statistical_equivalence": true,
+    "promotion_eligible": false,
+    "champion_unchanged": true
+  },
+  "raw_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INTERRUPTED",
+      "scores": [
+        43,
+        52,
+        5
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        15,
+        3,
+        19,
+        2,
+        11
+      ],
+      "statistics": "Total: 100 W: 43 L: 52 D: 5 ELO: -31.35 +-67.4 (95%) LOS: 17.7%",
+      "completed_pairs": 50,
+      "elapsed_seconds": 234.234,
+      "error": "Panel stopped"
+    },
+    "STC": {
+      "control": "STC",
+      "status": "NOT_RUN",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ]
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "NOT_RUN",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ]
+    }
+  },
+  "control_audits": {
+    "VSTC": {
+      "result": "PASS",
+      "games": 100,
+      "complete_pairs": 50,
+      "scores": [
+        43,
+        52,
+        5
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        15,
+        3,
+        19,
+        2,
+        11
+      ],
+      "independent_plies": 19325,
+      "independent_terminals": "all matched",
+      "complete_pair_ids": [
+        "pair-0000",
+        "pair-0001",
+        "pair-0002",
+        "pair-0003",
+        "pair-0004",
+        "pair-0005",
+        "pair-0006",
+        "pair-0007",
+        "pair-0008",
+        "pair-0009",
+        "pair-0010",
+        "pair-0011",
+        "pair-0012",
+        "pair-0013",
+        "pair-0014",
+        "pair-0015",
+        "pair-0016",
+        "pair-0017",
+        "pair-0018",
+        "pair-0019",
+        "pair-0020",
+        "pair-0021",
+        "pair-0022",
+        "pair-0023",
+        "pair-0024",
+        "pair-0025",
+        "pair-0026",
+        "pair-0027",
+        "pair-0028",
+        "pair-0029",
+        "pair-0030",
+        "pair-0031",
+        "pair-0032",
+        "pair-0033",
+        "pair-0034",
+        "pair-0035",
+        "pair-0036",
+        "pair-0037",
+        "pair-0038",
+        "pair-0039",
+        "pair-0040",
+        "pair-0041",
+        "pair-0042",
+        "pair-0043",
+        "pair-0044",
+        "pair-0045",
+        "pair-0046",
+        "pair-0047",
+        "pair-0048",
+        "pair-0049"
+      ],
+      "incomplete_pairs_preserved": [
+        {
+          "pair": "pair-0050",
+          "referee_groups": 2,
+          "recorded_moves_per_group": [
+            310,
+            55
+          ]
+        },
+        {
+          "pair": "pair-0051",
+          "referee_groups": 2,
+          "recorded_moves_per_group": [
+            73,
+            192
+          ]
+        },
+        {
+          "pair": "pair-0052",
+          "referee_groups": 2,
+          "recorded_moves_per_group": [
+            163,
+            11
+          ]
+        },
+        {
+          "pair": "pair-0053",
+          "referee_groups": 1,
+          "recorded_moves_per_group": [
+            0
+          ]
+        }
+      ],
+      "unpaired_completed_games_excluded": [
+        {
+          "pair": "pair-0050",
+          "color": "white",
+          "candidate_score": 1,
+          "result": "1-0",
+          "points": [
+            34,
+            22
+          ],
+          "termination": "50-move-rule",
+          "independent_plies": 326,
+          "reason": "Incomplete reversed-color pair; preserved and excluded irrespective of result"
+        },
+        {
+          "pair": "pair-0051",
+          "color": "white",
+          "candidate_score": 1,
+          "result": "1-0",
+          "points": [
+            36,
+            10
+          ],
+          "termination": "Checkmate \u2022 1-0",
+          "independent_plies": 89,
+          "reason": "Incomplete reversed-color pair; preserved and excluded irrespective of result"
+        },
+        {
+          "pair": "pair-0052",
+          "color": "white",
+          "candidate_score": 1,
+          "result": "1-0",
+          "points": [
+            35,
+            14
+          ],
+          "termination": "Checkmate \u2022 1-0",
+          "independent_plies": 179,
+          "reason": "Incomplete reversed-color pair; preserved and excluded irrespective of result"
+        }
+      ],
+      "raw_result_sha256": "12c4ed866b742c7c72b954779348a4a3e1562b5937a119999960d46c2e554ec4",
+      "raw_status": "INTERRUPTED",
+      "raw_statistics": "Total: 100 W: 43 L: 52 D: 5 ELO: -31.35 +-67.4 (95%) LOS: 17.7%"
+    },
+    "STC": {
+      "result": "NOT_RUN",
+      "games": 0,
+      "complete_pairs": 0,
+      "independent_plies": 0,
+      "incomplete_pairs_preserved": [],
+      "unpaired_completed_games_excluded": []
+    },
+    "LTC": {
+      "result": "NOT_RUN",
+      "games": 0,
+      "complete_pairs": 0,
+      "independent_plies": 0,
+      "incomplete_pairs_preserved": [],
+      "unpaired_completed_games_excluded": []
+    }
+  },
+  "closure_audit": {
+    "schema": "points-wall-ft-manual-closure-v1",
+    "result": "PASS",
+    "checked_utc": "2026-10-29T12:30:44.741439+00:00",
+    "games_in_complete_pairs": 100,
+    "complete_pairs": 50,
+    "independent_plies": 19325,
+    "incomplete_pairs_preserved": 4,
+    "unpaired_completed_games_excluded": 3,
+    "manifest_inputs_verified": {
+      "execution": 66,
+      "panel": 12,
+      "dependencies": 7
+    },
+    "raw_panel_files_preserved": 604,
+    "raw_inventory_sha256": "33d8d73830f096b171cbc2b01743b3e24ebccdb4a0bfb4644d2dbe4a63b273e6",
+    "process_identities_checked": 165,
+    "same_owned_processes_alive": [],
+    "raw_controller_status": "FAILED following requested STOP; expected interruption, not an engine failure",
+    "interpretation": "Agent adjudicates whole experiment NEUTRAL_MANUAL under owner delegation, for selection only. Actual LOS remains the measured value. No statistical equivalence or automatic loss claimed; STC/LTC not run.",
+    "promotion_eligible": false,
+    "champion_after": "PointsHead v1, winner of PR7; Bench177290"
+  },
+  "preservation": {
+    "source_archive": ".local/points-wall-ft-v1/source.tar",
+    "network_checkpoint_data": "Candidate network, model.pt, prepared arrays, original source data, all manifests/logs preserved",
+    "raw_panel": ".local/points-wall-ft-panel-001",
+    "inventory": ".local/points-wall-ft-v1/closed-panel-files.json",
+    "branch_retained": "exp/points-wall-ft-v1"
   }
 }

@@ -1,6 +1,14 @@
 # Petrified-Stockfish
 
-The current authorized successor is points-wall-ft-v1, on the qualified PR #7
+points-wall-ft-v1 / PR #10 is closed as REJECTED_NEUTRAL_MANUAL under the
+owner's delegated early-rejection policy: VSTC 100 paired games, 43/52/5,
+-31.35 +/-67.4 Elo, measured LOS 17.7%, time losses 0/0. STC/LTC not run.
+This is candidate selection, not statistical equivalence or a 0.0% boundary.
+Four incomplete pairs (three finished unpaired games) are preserved and excluded.
+The GPU candidate, data and all raw results are retained. The winner of PR #7
+remains champion; T8 remains manually paused. No next experiment is authorized.
+
+The completed successor is points-wall-ft-v1, on the qualified PR #7
 source. Train one bounded wall-feature transformer delta matrix on the already
 audited v2 dataset, while freezing the winning v1 dense head, live-piece features,
 biases, PSQT, search and rules. No rejected candidate weights are reused.
