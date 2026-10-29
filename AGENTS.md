@@ -1,17 +1,26 @@
 # Petrified-Stockfish
 
-The owner subsequently reopened ONLY PR #9 points-verified-null-v1 after noticing
-its STC +102.11 Elo at 14 games, and requested more STC and some LTC. This
-supersedes the prior closure for continued observation, not promotion. Reuse the
-exact candidate/network and preserve all original raw records. No VSTC restart,
-retraining or new hypothesis is authorized. The separate continuation is
-`.local/points-verified-null-panel-001-resume-001`, supervised by
-`.local/points-verified-null-resume-001/run.py`. Carry the 14 paired STC games;
-first review at 40 accumulated STC and 40 LTC. REVIEW_CHECKPOINT is not a
-neutral result, statistical boundary, or replacement for the cap of 400.
-The original VSTC stays at 400 and cannot pass promotion by this extension.
-PR #7 remains champion; T8 stays paused and Misere must not be contacted.
+The owner retained PR #9 points-verified-null-v1 for a FUTURE OpenBench test
+on 2026-10-29. Its local extension is complete: VSTC400 (175/212/13),
+STC40 (23/12/5), LTC40 (19/19/2), all time losses0/0. This is mixed evidence,
+not a three-WIN pass, statistical equivalence or a global loss. Keep PR #9
+open as a draft and preserve its exact source, executable, network and audits.
+The frozen input bundle and source tag are recorded in the experiment record.
+No OpenBench workload is authorized now. All original and continuation owned
+process identities exited; the local extension lease is released and its
+follow-up is deleted. T8 remains manually paused.
 
+The latest owner request also authorizes one next substantial experiment from
+the qualified PR #7 champion, in a separate branch/PR. Do not incorporate the
+retained PR #9 pruning or rejected PR #10 weights. The next hypothesis is faster
+legal-move queries: stop on the first legal move for existence, and only run the
+safety check for the requested move during membership queries. Preserve the
+normal generated move list and order, search parameters, NNUE and rules.
+Validate exact query parity, independent rules/PVs, identical deterministic
+benches, and speed before freezing the one candidate for VSTC/STC/LTC.
+The existing min40/max400 LOS/pair gate and delegated manual early rejection
+remain; promotion still needs three valid wins and completed interfaces.
+Do not touch OpenBench, T8, AtomicDB, remote workers or Misere.
 
 points-wall-ft-v1 / PR #10 is closed as REJECTED_NEUTRAL_MANUAL under the
 owner's delegated early-rejection policy: VSTC 100 paired games, 43/52/5,

@@ -1,26 +1,30 @@
-# Active continuation: PR #9 STC/LTC
+# PR #9 retained for future OpenBench; local extension complete
 
-The owner requested more STC and some LTC for verified-null-v1 after seeing
-its +102.11 +/-198.3 Elo in 14 STC games. Reuse the exact frozen PR #9 binary
-and PR #7 network; no code change or training. VSTC remains at 400 games.
-The first review checkpoints are 40 cumulative STC and 40 LTC; these are
-review pauses, not automatic wins or neutral adjudications. Original records
-and excluded incomplete pairs remain unchanged. PR #10 remains closed.
-PR #7 stays champion and T8 remains manually paused.
-
-Continuation snapshot: STC reached its review checkpoint; LTC is running.
+The owner explicitly retained verified-null-v1. Its source, binary, v1 network,
+raw panels and audits are preserved; PR #9 stays open as a draft. This is no
+promotion and no OpenBench workload has been started.
 
 | Control | Games | W/L/D | Elo +/-95% | LOS | Time losses C/O | State |
 |---|---:|---|---|---|---|---|
 | VSTC 2+0.02 | 400 | 175/212/13 | -32.23 +/-33.7 | 2.9% | 0/0 | Original cap, unchanged |
-| STC 10+0.1 | 40 | 23/12/5 | +98.07 +/-108.1 | 97.4% | 0/0 | REVIEW_CHECKPOINT |
-| LTC 30+0.3 | 8 | 4/3/1 | +43.66 +/-275.0 | 64.9% | 0/0 | Running toward first review at 40 |
+| STC 10+0.1 | 40 | 23/12/5 | +98.07 +/-108.1 | 97.4% | 0/0 | Positive, inconclusive review |
+| LTC 30+0.3 | 40 | 19/19/2 | 0.00 +/-108.2 | 50.0% | 0/0 | Inconclusive review |
 
-The STC signal remains positive but has not reached the winning boundary.
-All 57 continuation input hashes and the original manifest were rechecked;
-the controller identity matches and no stderr errors were found. The heartbeat
-`petrified-pr9-continuaci-n-stc-ltc` supervises this bounded continuation.
-The machine lease is currently held (`released=false`) for this continuation.
+All 480 games / 240 complete pairs / 92,083 independent referee plies are audited.
+The original 2,331 raw files remain unchanged; four old incomplete pairs stay
+preserved/excluded. All 57 continuation inputs and seven dependencies match;
+100 continuation and 636 original process identities have exited. The local
+extension lease is released and its heartbeat deleted. T8 remains paused.
+
+Exact candidate source: `182255847accc7e4301df97a3546d11a4e5d2c0f`,
+tag `candidates/points-verified-null-v1-openbench`, Bench148203 versus177290.
+The 57-input bundle is `.local/points-verified-null-resume-001/frozen-inputs.zip`,
+SHA256 `104a6f2226d193064cd4471da7739bac54d9752bf7f954609514027f2242ac49`.
+The full retention record is in the verified-null experiment JSON.
+
+The newly authorized experiment will optimize legal-move existence/membership
+queries from PR #7. It will retain move order, search, rules and evaluation,
+then verify exact parity, deterministic benches and speed before its own panel.
 
 # Closed: points-wall-ft-v1
 
