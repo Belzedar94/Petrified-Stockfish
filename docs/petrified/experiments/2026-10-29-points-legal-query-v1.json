@@ -1,7 +1,7 @@
 {
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-legal-query-v1",
-  "status": "ACCEPTED_READY_FOR_PROMOTION",
+  "status": "PROMOTED",
   "owner_request": "Guarda este, porque mas adelante lo meteremos directamente en OpenBench, y pasa a la siguiente gran idea",
   "candidate_count": 1,
   "branch": "exp/points-legal-query-v1",
@@ -713,10 +713,22 @@
     "gui_kept_running_for_owner": true
   },
   "decision": {
-    "result": "PROMOTE_AFTER_THREE_AUDITED_WINS_AND_INTERFACES",
+    "result": "PROMOTED",
     "manual_adjudication": false,
     "previous_champion": "PR7 PointsHead v1",
     "panel_repeated": false,
     "next_experiment_authorized": false
+  },
+  "promoted_utc": "2026-10-29T15:04:44.281140+00:00",
+  "qualified_baseline_ref": "352cd3eed1ab9604adc1e8e4048ef8208d86f90e",
+  "champion_record": "docs/petrified/points-champion.json",
+  "released": true,
+  "release": {
+    "utc": "2026-10-29T15:04:44.281140+00:00",
+    "experiment_processes_exited": true,
+    "fairyground_kept_running_for_owner": true,
+    "T8": "Manually paused",
+    "followup": "Deleted",
+    "automation_deleted_utc": "2026-10-29T15:05:10.855057+00:00"
   }
 }

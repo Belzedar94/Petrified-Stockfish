@@ -1,4 +1,4 @@
-# Qualified winner: points-legal-query-v1
+# Promoted champion: points-legal-query-v1
 
 PR #11 accelerates boolean legal-move queries from qualified PR #7 while
 preserving rules, move order, NNUE and search. Debug/Release each passed 883,968
@@ -38,7 +38,8 @@ the visible browser profile passed. The owner requested it be left running on
 loopback for manual testing; this GUI service is separate from experiment load.
 
 All 346 panel and 83 interface-build process identities exited; the initial
-build identities were rechecked too. Qualification is complete. The canonical
+build identities were rechecked too. Promotion is complete and the experiment
+lease is released. The canonical
 baseline and final promotion are recorded in `points-champion.json` and
 `experiments/2026-10-29-points-legal-query-v1.json`. T8 remains manually paused.
 PR #9 stays retained independently for future OpenBench. No new experiment or

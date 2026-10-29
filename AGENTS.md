@@ -1,5 +1,20 @@
 # Petrified-Stockfish
 
+Current champion (2026-10-29): points-legal-query-v1 / PR #11, qualified source
+`74ea5095e84656c7d7e5783888a3a003b23c0ad9`. It won VSTC/STC/LTC at 70/70/88 games,
+all displayed LOS100.0% after pending pairs, with zero time losses. All 228 games,
+114 pairs and 48,908 independent referee plies passed audit. Native/Node/WASM,
+CJS/ESM, isolated Python, packaged artifacts and Fairyground acceptance passed.
+Use `docs/petrified/points-champion.json` for the exact qualified baseline,
+executable and unchanged PR #7 PointsHead v1 network. Bench177290 is unchanged.
+The Windows newline-check failure is preserved and resolved in the experiment;
+it did not change source, executable or network. All panel/build processes exited.
+The lease is released. The owner explicitly requested Fairyground be updated,
+opened and kept running for testing; its loopback GUI service remains active.
+No further candidate or OpenBench workload is authorized. PR #9 remains retained
+separately for future OpenBench. T8 stays manually paused; do not contact Misere.
+The entries below preserve the earlier requests and decisions.
+
 The owner retained PR #9 points-verified-null-v1 for a FUTURE OpenBench test
 on 2026-10-29. Its local extension is complete: VSTC400 (175/212/13),
 STC40 (23/12/5), LTC40 (19/19/2), all time losses0/0. This is mixed evidence,
