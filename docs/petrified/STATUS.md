@@ -5,8 +5,13 @@ losses0/0. Its raw INCONCLUSIVE_LIMIT is NEUTRAL_SCREEN for candidate selection,
 not statistical equivalence. All200 color-reversed pairs and72369 independent
 referee plies passed `.local/points-capture-lmr-v1/vstc-close-audit.json`, including
 statistics, clocks, frozen hashes and the active controller's exact identities.
-STC continues and LTC remains pending; VSTC will not be repeated. PR11 remains
-champion and the current three-WIN promotion gate cannot be met by this candidate.
+STC also closed at400 games (195/175/30),+17.39+/-32.8 Elo95%,LOS85.1%, time
+losses0/0. Its raw INCONCLUSIVE_LIMIT is likewise NEUTRAL_SCREEN, not equivalence.
+All200 STC pairs and74988 independent referee plies passed
+`.local/points-capture-lmr-v1/stc-close-audit.json`, including colors, openings,
+statistics, clocks, frozen hashes and exact active process identities.
+LTC is running; neither finished control will be repeated. PR11 remains champion
+and the current three-WIN promotion gate cannot be met by this candidate.
 
 The single successor assigns capture search depth using the immediate material
 and earned-points transaction, including the disappearing non-pawn mover and
