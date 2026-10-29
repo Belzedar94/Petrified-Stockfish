@@ -14,6 +14,9 @@ corpus uses 1,024 independently refereed games and 8,192 nodes/move, separated b
 opening family. The candidate remains experimental until validation and all three
 direct controls finish (minimum 40 / maximum 400, rounded LOS boundaries and
 completed pairs). The champion and Fairyground remain run4test + winning-mate-r2.
+The selected GPU-trained head has passed local validation. VSTC and STC closed
+with audited wins at 46 and 48 games respectively, both displayed LOS 100.0%;
+LTC is running. No promotion is made before the third control and final audit.
 T8 is still manually paused. No remote workers or OpenBench work are involved.
 
 Acceptance order: reproducible baseline; rules/state differential tests; exact

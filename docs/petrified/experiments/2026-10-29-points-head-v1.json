@@ -274,10 +274,54 @@
       "elapsed_seconds": 112.906
     },
     "STC": {
-      "status": "RUNNING"
+      "control": "STC",
+      "status": "WIN",
+      "scores": [
+        36,
+        11,
+        1
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        0,
+        0,
+        11,
+        1,
+        12
+      ],
+      "statistics": "Total: 48 W: 36 L: 11 D: 1 ELO: 200.64 +-121.9 (95%) LOS: 100.0%",
+      "completed_pairs": 24,
+      "elapsed_seconds": 441.157
     },
     "LTC": {
-      "status": "PENDING"
+      "control": "LTC",
+      "status": "RUNNING",
+      "scores": [
+        2,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "statistics": "Total: 2 W: 2 L: 0 D: 0 ",
+      "completed_pairs": 1,
+      "elapsed_seconds": 174.0
     }
   },
   "control_audits": {
@@ -305,6 +349,32 @@
       "independent_terminals": "all matched",
       "frozen_inputs": "all matched",
       "utc": "2026-10-29T06:38:26.691736+00:00"
+    },
+    "STC": {
+      "control": "STC",
+      "result": "PASS",
+      "games": 48,
+      "complete_pairs": 24,
+      "scores": [
+        36,
+        11,
+        1
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        0,
+        0,
+        11,
+        1,
+        12
+      ],
+      "independent_terminals": "all matched",
+      "independent_plies": 7455,
+      "frozen_inputs": "all matched",
+      "utc": "2026-10-29T06:46:43.647288+00:00"
     }
   }
 }
