@@ -3,7 +3,7 @@
 This branch starts at official Stockfish `ff7cee4244ec96ea488c402669e3674c0574dce6`.
 It is an implementation in progress, **not a version 1.0 release**.
 
-## Successor data experiment (2026-10-29)
+## Successor data experiment: closed as neutral (2026-10-29)
 
 The owner requested one next idea against the newly qualified champion.
 [Points-head-v2](experiments/2026-10-29-points-head-v2.json) tests whether the
@@ -21,17 +21,35 @@ state, points and native/Node interface checks; bench is 172506 twice versus
 177290 for v1. An absolute-path bug in the export test was corrected, with its
 failed attempt and accidental export preserved; no data generation or training
 was repeated. VSTC and STC both reached the 400-game cap without a LOS boundary.
-All 400 completed pairs and 140,236 independently refereed plies passed audit.
-Both are NEUTRAL_SCREEN for selection, not statistical equivalence; v2 is
-ineligible for promotion. LTC is running. Snapshot at 2026-10-29 10:45 UTC:
+The owner then adjudicated the whole experiment as neutral and stopped LTC.
+Final results from the candidate perspective:
 
 | TC | Games | W/L/D | Elo +/-95% | LOS | Time losses candidate/opponent | Status |
 |---|---:|---|---|---|---|---|
 | VSTC 2+0.02 | 400 | 204/183/13 | +18.26 +/-33.6 | 85.8% | 0/0 | NEUTRAL_SCREEN |
 | STC 10+0.1 | 400 | 193/191/16 | +1.74 +/-33.4 | 54.1% | 0/0 | NEUTRAL_SCREEN |
-| LTC 30+0.3 | 0 | 0/0/0 | -- | -- | 0/0 | RUNNING |
+| LTC 30+0.3 | 22 | 12/10/0 | +31.67 +/-155.4 | 66.6% | 0/0 | NEUTRAL_MANUAL |
 
-Fairyground remains on v1. T8 remains manually paused.
+The 822 counted games form 411 complete color-reversed pairs; all 144,807 plies
+and endings match the independent referee logs. Four interrupted LTC pairs are
+preserved and excluded, including one completed but unpaired white candidate win
+(26-25, 50-move rule; its 284 plies were also audited). LTC did not reach the
+40-game minimum or a LOS boundary: this is an explicit manual closure, not an
+automatic gate pass or statistical equivalence. V2 is rejected for promotion.
+All 37 execution inputs and 11 panel inputs match their frozen hashes; 4,576 raw
+panel files are inventoried. The controller's raw FAILED/INTERRUPTED records are
+preserved as the consequence of the requested cooperative STOP, not an engine
+crash. Panel processes exited with PID/CreationDate checks; candidate, training
+data, checkpoints, and known validation-failure evidence remain preserved.
+
+The champion and Fairyground remain on **PointsHead v1, the winner of today's
+PR #7**, with network `ab8bc1e4...` and bench 177290. This is the version that beat
+the previous run4test baseline (bench 173124), and the exact opponent tested by
+PR #8. The owner requested the next idea, then asked to wait while that identity
+was clarified. No successor was launched in this closure. T8 remains manually
+paused. PR #8 is closed, the machine lease has `released=true`, and the v2
+follow-up automation is deleted. Closure receipts are linked from the experiment
+record; no panel load remains.
 
 ## Qualified points head (2026-10-29)
 

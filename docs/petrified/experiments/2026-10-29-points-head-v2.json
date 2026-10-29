@@ -1,7 +1,7 @@
 {
   "schema": "petrified-points-head-experiment-v2",
   "experiment": "points-head-v2",
-  "status": "PANEL_RUNNING",
+  "status": "REJECTED_NEUTRAL_MANUAL",
   "promoted": false,
   "owner_authorized": "Continue with the next major idea and a panel against the new baseline; one successor candidate.",
   "authorized_utc": "2026-10-29T09:29:37.692129+01:00",
@@ -254,7 +254,7 @@
     "trained": ".local/points-head-v2/trained",
     "followup": ".local/points-head-v2-followup.json",
     "pipeline_pid": 32416,
-    "updated_utc": "2026-10-29T10:28:42.973813+01:00",
+    "updated_utc": "2026-10-29T11:09:29.671261+00:00",
     "datagen_pid": 21068,
     "supervisor_session_id": 76657,
     "automation_id": "pointshead-v2-autojuego-y-panel",
@@ -281,7 +281,14 @@
       }
     ],
     "panel_start_verification": ".local/points-head-v2/panel-start-verification.json",
-    "latest_verification": ".local/points-head-v2/STC-close-check.json"
+    "latest_verification": ".local/points-head-v2/final-process-exit.json",
+    "state": "CLOSED_NEUTRAL_MANUAL",
+    "audit": ".local/points-head-v2/manual-closure-audit.json",
+    "released": true,
+    "released_utc": "2026-10-29T11:11:32.178538+00:00",
+    "automation_state": "DELETED",
+    "pull_request_state": "CLOSED",
+    "next_candidate_started": false
   },
   "worker": "T8 stays manually paused; do not restart",
   "misere": "Paused by owner; do not message",
@@ -407,10 +414,10 @@
   "control_classification": {
     "VSTC": "NEUTRAL_SCREEN",
     "STC": "NEUTRAL_SCREEN",
-    "LTC": "RUNNING"
+    "LTC": "NEUTRAL_MANUAL"
   },
   "promotion_eligible": false,
-  "promotion_decision": "VSTC and STC reached the 400-game cap without a LOS boundary; no promotion, complete LTC as authorized.",
+  "promotion_decision": "Owner closed the whole experiment as neutral. Preserve and reject v2; keep the PR #7 winner as champion. No equivalence or automatic three-control pass.",
   "completed_control_results": {
     "VSTC": {
       "control": "VSTC",
@@ -461,6 +468,32 @@
       "statistics": "Total: 400 W: 193 L: 191 D: 16 ELO: 1.74 +-33.4 (95%) LOS: 54.1%",
       "completed_pairs": 200,
       "elapsed_seconds": 3736.438
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INTERRUPTED",
+      "scores": [
+        12,
+        10,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        0,
+        8,
+        0,
+        2
+      ],
+      "statistics": "Total: 22 W: 12 L: 10 D: 0 ELO: 31.67 +-155.4 (95%) LOS: 66.6%",
+      "completed_pairs": 11,
+      "elapsed_seconds": 714.39,
+      "error": "Panel stopped"
     }
   },
   "control_audits": {
@@ -515,6 +548,290 @@
       "independent_plies": 73113,
       "frozen_inputs": "all matched",
       "utc": "2026-10-29T10:45:41.644993+00:00"
+    },
+    "LTC": {
+      "control": "LTC",
+      "result": "PASS_MANUAL_CLOSURE",
+      "games": 22,
+      "complete_pairs": 11,
+      "scores": [
+        12,
+        10,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        1,
+        0,
+        8,
+        0,
+        2
+      ],
+      "independent_terminals": "all matched",
+      "independent_plies": 4571,
+      "complete_pair_ids": [
+        "pair-0000",
+        "pair-0001",
+        "pair-0002",
+        "pair-0003",
+        "pair-0004",
+        "pair-0005",
+        "pair-0006",
+        "pair-0007",
+        "pair-0008",
+        "pair-0010",
+        "pair-0011"
+      ],
+      "incomplete_pairs_preserved_and_excluded": [
+        {
+          "pair": "pair-0009",
+          "completed_games_excluded": [
+            {
+              "color": "white",
+              "candidate_score": 1,
+              "result": "1-0",
+              "points": [
+                26,
+                25
+              ],
+              "termination": "50-move-rule",
+              "reason": "Incomplete reversed-color pair; excluded regardless of result",
+              "independent_terminal": "MATCHED",
+              "plies": 284
+            }
+          ],
+          "referee_groups": 2,
+          "recorded_moves_in_groups": [
+            268,
+            215
+          ],
+          "raw_records": "Preserved in place with hashes"
+        },
+        {
+          "pair": "pair-0012",
+          "completed_games_excluded": [],
+          "referee_groups": 1,
+          "recorded_moves_in_groups": [
+            49
+          ],
+          "raw_records": "Preserved in place with hashes"
+        },
+        {
+          "pair": "pair-0013",
+          "completed_games_excluded": [],
+          "referee_groups": 1,
+          "recorded_moves_in_groups": [
+            10
+          ],
+          "raw_records": "Preserved in place with hashes"
+        },
+        {
+          "pair": "pair-0014",
+          "completed_games_excluded": [],
+          "referee_groups": 1,
+          "recorded_moves_in_groups": [
+            2
+          ],
+          "raw_records": "Preserved in place with hashes"
+        }
+      ],
+      "unpaired_completed_games_excluded": 1,
+      "unpaired_completed_game_plies_audited": 284,
+      "minimum_games_met": false,
+      "automatic_boundary": false,
+      "classification": "NEUTRAL_MANUAL",
+      "raw_status": "INTERRUPTED",
+      "authority": "Owner: Adjudica como neutro y pasa a la siguiente gran cosa",
+      "frozen_inputs": "all matched",
+      "utc": "2026-10-29T11:07:07.860554+00:00"
     }
+  },
+  "completed_utc": "2026-10-29T11:09:29.671261+00:00",
+  "champion_after": "run4test PointsHead v1 + winning-mate-r2",
+  "results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        204,
+        183,
+        13
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        29,
+        8,
+        117,
+        5,
+        41
+      ],
+      "statistics": "Total: 400 W: 204 L: 183 D: 13 ELO: 18.26 +-33.6 (95%) LOS: 85.8%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 841.125
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        193,
+        191,
+        16
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        31,
+        9,
+        120,
+        7,
+        33
+      ],
+      "statistics": "Total: 400 W: 193 L: 191 D: 16 ELO: 1.74 +-33.4 (95%) LOS: 54.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 3736.438
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INTERRUPTED",
+      "scores": [
+        12,
+        10,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        0,
+        8,
+        0,
+        2
+      ],
+      "statistics": "Total: 22 W: 12 L: 10 D: 0 ELO: 31.67 +-155.4 (95%) LOS: 66.6%",
+      "completed_pairs": 11,
+      "elapsed_seconds": 714.39,
+      "error": "Panel stopped"
+    }
+  },
+  "manual_adjudication": {
+    "decision": "NEUTRAL_MANUAL",
+    "authority": "Owner: Adjudica como neutro y pasa a la siguiente gran cosa",
+    "requested_utc": "2026-10-29T10:57:01.3666763Z",
+    "exception": "Owner closes the entire experiment before LTC reaches the minimum or an automatic boundary",
+    "minimum_games_met_LTC": false,
+    "automatic_boundary_LTC": false,
+    "raw_LTC_status": "INTERRUPTED",
+    "raw_pipeline_status": "FAILED",
+    "raw_status_explanation": "Expected cooperative owner STOP propagates exit 1; raw logs are preserved",
+    "incomplete_pairs_preserved": 4,
+    "completed_unpaired_games_excluded": 1,
+    "selection_is_not_statistical_equivalence": true
+  },
+  "final_audit": {
+    "schema": "points-head-v2-manual-closure-audit",
+    "utc": "2026-10-29T11:07:17.938047+00:00",
+    "result": "PASS",
+    "owner_adjudication": "NEUTRAL_MANUAL",
+    "promoted": false,
+    "champion_after": "run4test PointsHead v1 + winning-mate-r2",
+    "manifests": {
+      ".local/points-head-v2-panel-001/manifest.json": {
+        "sha256": "8d07df14328c843d76bbf5a21d54d32375547b872a121bc29e2b62d01b5bc575",
+        "verified_inputs": 11
+      },
+      ".local/points-head-v2/execution-manifest.json": {
+        "sha256": "ae18c7bd0f781c6842e3011d36e87b89abe7cd60a3a4122e4755684f1da64d4d",
+        "verified_inputs": 37
+      }
+    },
+    "prior_control_files_reverified": 1600,
+    "games_in_complete_pairs": 822,
+    "complete_pairs": 411,
+    "independent_plies": 144807,
+    "incomplete_pairs": 4,
+    "unpaired_completed_games_excluded": 1,
+    "raw_panel_files_preserved": 4576,
+    "raw_panel_inventory_sha256": "1701d12a3325fd3a66f1e41a6507945620e5c591fcb175a02425f9748c5b4e77",
+    "raw_pipeline_status": "FAILED after cooperative owner STOP; not an unrequested incident",
+    "interpretation": "Manual selection decision; no equivalence and no automatic three-control pass",
+    "process_exit": {
+      "checked_utc": "2026-10-29T11:07:06.2372502Z",
+      "owned_process_count": 16,
+      "remaining": [],
+      "related_processes": [],
+      "reused_ids_not_owned": [],
+      "worker_manual_pause_preserved": true,
+      "worker_original_processes_alive": [],
+      "pause_marker_present": true,
+      "pause_file_sha256": "48b26776a15e15e37b602def45d72b143dfd31f1bbe531874e0f6a674ecc9af5"
+    },
+    "machine_lease_released": true,
+    "worker_pause_preserved": true,
+    "pull_request_closed": true,
+    "followup_deleted": true
+  },
+  "preservation": {
+    "candidate": ".local/points-head-v2-inputs/candidate-v2.pnnue",
+    "candidate_sha256": "e6321352ff49d151cc21b3e9b5b7b8c7b92cebdd8acf6bc6e67ade4183e77c3c",
+    "training_and_data": ".local/points-head-v2",
+    "raw_panel": ".local/points-head-v2-panel-001",
+    "raw_files_inventory": ".local/points-head-v2/closed-panel-files.json",
+    "raw_pipeline_state": ".local/points-head-v2/pipeline-state.json",
+    "validation_failure": ".local/points-head-v2/validation-failure-001",
+    "source_branch_retained": "exp/points-head-v2"
+  },
+  "closure_files": {
+    ".local/points-head-v2/manual-stop-request.json": "c27bb4e79f71be52638b97bf83a0b764887ca687e532c136dc57dd20e3315cc2",
+    ".local/points-head-v2/manual-closure-audit.json": "1e084fc79a82ad4387450e02364e657e1156dd8ca060f982bf5cc6bb27618d54",
+    ".local/points-head-v2/final-process-exit.json": "37e474ab45071e1cc1653d4301f03d0ccb5abbfe43443415b84f04e5d7f7af99",
+    ".local/points-head-v2/audit-LTC-manual.json": "818bf56b0279d3328b61256626302d1bf6c3b9863e1dbeab2cea46a0fa8a06e8",
+    ".local/points-head-v2/audit-LTC-manual-files.json": "032374dabba0bf7918b263e1f14548b17c755eee6a56d34b41d3950e80053134",
+    ".local/points-head-v2/closed-panel-files.json": "1701d12a3325fd3a66f1e41a6507945620e5c591fcb175a02425f9748c5b4e77",
+    ".local/points-head-v2/followup-at-stop.json": "285f7c116f367de329e42b1766f264b94f090ee99a21894f4b85e9ed095a8440",
+    ".local/points-head-v2/experiment-at-stop.json": "8987783eed589afabe43a4f84bb529f9923a2c691b2a092b133ba9f773c5fc17",
+    ".local/points-head-v2/pipeline-state.json": "03e3cb750fc0dc1e45806a96c14f4021dfc0140431bfffef79e9d2b1022984c2",
+    ".local/points-head-v2/audit_manual_close.py": "298173311f62d45c0ba07d73a4701c39621b19db815e239fd3915685d1281152",
+    ".local/points-head-v2/pr-closure.json": "b349e6a90306c9ca2c3016c1e34de38b026d40ef8834095806ccdde27051166a",
+    ".local/points-head-v2/automation-deletion.json": "67e47cb0765592a1b26de5acfff5beb0ac824a16daa8679bc1e37b5f95d1409d",
+    ".local/points-head-v2/source-ci-closure-check.json": "46bf3264528eeebc4af6c1365d3409d032f20ee975fb5c387904beba7085d030",
+    ".local/points-head-v2/machine-lease-released.json": "ade57b719b43167f4beabba63bc3e51edd28de07a2accacb0deb08592a233c8e"
+  },
+  "closure_receipts": {
+    "pull_request": {
+      "number": 8,
+      "state": "closed",
+      "url": "https://github.com/Belzedar94/Petrified-Stockfish/pull/8",
+      "closed_at": "2026-10-29T11:10:23Z",
+      "head_sha_at_close": "3f2599a19751efbf7beafb9cac43842a5d62645c",
+      "merged": false,
+      "branch_preserved": true
+    },
+    "automation": {
+      "automationId": "pointshead-v2-autojuego-y-panel",
+      "mode": "delete",
+      "deleteStatus": "deleted",
+      "snapshot": {
+        "kind": "heartbeat",
+        "name": "PointsHead v2: autojuego y panel",
+        "rrule": "FREQ=MINUTELY;INTERVAL=5"
+      }
+    },
+    "release": ".local/points-head-v2/machine-lease-released.json"
   }
 }

@@ -58,5 +58,17 @@
       ]
     }
   },
-  "promoted_utc": "2026-10-29T07:30:40.431844+00:00"
+  "promoted_utc": "2026-10-29T07:30:40.431844+00:00",
+  "latest_candidate_evaluation": {
+    "experiment": "docs/petrified/experiments/2026-10-29-points-head-v2.json",
+    "status": "REJECTED_NEUTRAL_MANUAL",
+    "champion_unchanged": true,
+    "baseline_identity": "PointsHead v1, promoted by PR #7 on 2026-10-29",
+    "games": {
+      "VSTC": 400,
+      "STC": 400,
+      "LTC": 22
+    },
+    "completed_utc": "2026-10-29T11:09:29.671261+00:00"
+  }
 }

@@ -21,6 +21,21 @@ recipe and immutable champion are in the 2026-10-29-points-head-v2 experiment re
 Train one selected candidate on the local GPU, then all three controls with the
 same 40/400 and displayed LOS boundary gate. Do not promote from training loss or
 start a further candidate. T8 stays manually paused and Misere is not contacted.
+On 2026-10-29 the owner adjudicated the whole points-head-v2 experiment as neutral
+and closed it manually. VSTC/STC finished at 400 games each (NEUTRAL_SCREEN);
+LTC stopped at 22 games in 11 complete pairs, 12/10/0, measured LOS 66.6%
+(NEUTRAL_MANUAL, below the automatic minimum). Four incomplete pairs are preserved
+and excluded, including one completed but unpaired candidate win. All 822 paired
+games and 144,807 referee plies passed audit. This is an explicit manual exception,
+not statistical equivalence or a three-control pass. V2 is rejected for promotion.
+The baseline remains the winner of today's PR #7, PointsHead v1, bench 177290;
+the prior run4test + winning-mate-r2 baseline had bench 173124. The v2 panel used
+the exact PR #7 champion binary and network as its opponent. The owner requested
+a next idea, then asked to wait while this baseline identity was clarified. No
+successor was launched during the v2 closure. Preserve all v2 artifacts and do
+not restart its finished panel. PR #8 is closed, all panel processes exited,
+the machine lease is released, and its follow-up is deleted. T8 remains manually
+paused.
 
 The approved implementation plan and immutable inputs are in
 `docs/petrified/STATUS.md`, `baseline.json`, and `rules.md`. This repository is
