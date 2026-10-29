@@ -139,11 +139,11 @@
   "observed_results": {
     "VSTC": {
       "control": "VSTC",
-      "status": "RUNNING",
+      "status": "INCONCLUSIVE_LIMIT",
       "scores": [
-        1,
-        1,
-        0
+        181,
+        199,
+        20
       ],
       "time_losses": [
         0,
@@ -152,24 +152,40 @@
       "minimum_games": 40,
       "maximum_games": 400,
       "pentanomial": [
-        0,
-        0,
-        1,
-        0,
-        0
+        34,
+        7,
+        125,
+        11,
+        23
       ],
-      "statistics": "Total: 2 W: 1 L: 1 D: 0 ",
-      "completed_pairs": 1,
-      "elapsed_seconds": 17.156
+      "statistics": "Total: 400 W: 181 L: 199 D: 20 ELO: -15.65 +-33.3 (95%) LOS: 17.8%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 874.219
     },
     "STC": {
       "control": "STC",
-      "status": "PENDING",
+      "status": "RUNNING",
       "scores": [
-        0,
+        16,
+        10,
+        2
+      ],
+      "time_losses": [
         0,
         0
-      ]
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        0,
+        8,
+        2,
+        3
+      ],
+      "statistics": "Total: 28 W: 16 L: 10 D: 2 ELO: 75.62 +-133.7 (95%) LOS: 88.6%",
+      "completed_pairs": 14,
+      "elapsed_seconds": 292.047
     },
     "LTC": {
       "control": "LTC",
@@ -178,8 +194,30 @@
         0,
         0,
         0
+      ],
+      "time_losses": [
+        0,
+        0
       ]
     }
   },
-  "observed_utc": "2026-10-29T21:45:52.134115+00:00"
+  "observed_utc": "2026-10-29T22:05:22.841743+00:00",
+  "control_classification": {
+    "VSTC": {
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection_status": "NEUTRAL_SCREEN",
+      "equivalence_claim": false,
+      "audit": ".local\\points-capture-lmr-v1\\vstc-close-audit.json",
+      "audit_sha256": "557d4bbcd7afdf60fb4059682b577b5c5e26b5a576b5c704e751047e60dc2554",
+      "games": 400,
+      "pairs": 200,
+      "independent_plies": 72369
+    }
+  },
+  "promotion_gate": {
+    "three_WIN_possible": false,
+    "reason": "VSTC reached400 without a winning boundary",
+    "champion_unchanged": "Qualified PR11",
+    "remaining_controls": "Continue STC/LTC under the existing authorization; no retuning or replay of VSTC"
+  }
 }

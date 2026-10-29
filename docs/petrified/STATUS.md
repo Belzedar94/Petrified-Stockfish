@@ -1,5 +1,13 @@
 # Current: points-capture-lmr-v1 / PR16, from qualified PR11
 
+VSTC closed at400 games (181/199/20),-15.65+/-33.3 Elo95%,LOS17.8%, time
+losses0/0. Its raw INCONCLUSIVE_LIMIT is NEUTRAL_SCREEN for candidate selection,
+not statistical equivalence. All200 color-reversed pairs and72369 independent
+referee plies passed `.local/points-capture-lmr-v1/vstc-close-audit.json`, including
+statistics, clocks, frozen hashes and the active controller's exact identities.
+STC continues and LTC remains pending; VSTC will not be repeated. PR11 remains
+champion and the current three-WIN promotion gate cannot be met by this candidate.
+
 The single successor assigns capture search depth using the immediate material
 and earned-points transaction, including the disappearing non-pawn mover and
 surviving pawn promotions. Coefficient873/128 and all other search policies,

@@ -1,3 +1,10 @@
+PR16 VSTC is closed at400 games,181/199/20,-15.65+/-33.3 Elo95%,LOS17.8%,
+time losses0/0. Raw INCONCLUSIVE_LIMIT means NEUTRAL_SCREEN for selection,
+not equivalence. All200 pairs and72369 independent referee plies passed its
+closed-control audit. STC continues; LTC remains pending. Never rerun VSTC.
+PR11 stays champion: this candidate cannot meet the current three-WIN gate.
+Continue the authorized remaining controls without retuning or another candidate.
+
 points-capture-lmr-v1 / PR16 is frozen and running its one local panel from PR11.
 Engine source e6faae706d6217342d580714045cb37699a6cb94, candidate bench151183 twice,
 rival177290 and legacy179335 passed. Debug/Release transaction/state/NNUE checks,
