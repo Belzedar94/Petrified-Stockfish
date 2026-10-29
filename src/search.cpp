@@ -768,6 +768,7 @@ Value Search::Worker::search(
     constexpr bool PvNode   = nodeType != NonPV;
     constexpr bool rootNode = nodeType == Root;
     const bool     allNode  = !(PvNode || cutNode);
+    const bool     pointsNmp = pos.game_of_points();
 
     // Dive into quiescence search when the depth reaches zero
     if (depth <= 0)
@@ -1068,7 +1069,12 @@ Value Search::Worker::search(
     }
 
     // Step 10. Null move search with verification search
-    if (!pos.game_of_points() && cutNode
+    // Points endings can reverse the usual material/zugzwang intuition. Only
+    // try null moves away from terminal-score and rule50 boundaries, and always
+    // verify their cutoffs with a non-null search of at least two plies.
+    if (cutNode
+        && (!pointsNmp || (depth >= 4 && !nmpMinPly && !is_decisive(beta)
+                          && pos.rule50_count() + depth < 100))
         && ss->staticEval + 50 * ss->priorNMPFailHigh >= beta - 13 * depth - 47 * improving + 365
         && !excludedMove && pos.non_pawn_material(us) && ss->ply >= nmpMinPly && beta >= -2000)
     {
@@ -1078,6 +1084,8 @@ Value Search::Worker::search(
         // Odd threads reduce one ply less
         Depth R = 7 + depth / 3 + std::max((ss->staticEval - beta) / 256, 0) - int(threadIdx & 1);
         R -= seekMate * R / 2;
+        if (pointsNmp)
+            R = std::min(R, depth - 2);
         do_null_move(pos, st, ss);
 
         Value nullValue = -search<NonPV>(pos, ss + 1, -beta, -beta + 1, depth - R, false);
@@ -1087,7 +1095,7 @@ Value Search::Worker::search(
         // Do not return unproven mate or TB scores
         if (nullValue >= beta && !is_win(nullValue))
         {
-            if (nmpMinPly || depth < 16)
+            if (!pointsNmp && (nmpMinPly || depth < 16))
             {
                 ++ss->priorNMPFailHigh;
                 return nullValue;
@@ -1096,9 +1104,9 @@ Value Search::Worker::search(
             // Recursive verification is not allowed
             assert(!nmpMinPly);
 
-            // Do verification search at high depths, with null move pruning
-            // disabled until ply exceeds nmpMinPly.
-            nmpMinPly = ss->ply + 3 * (depth - R) / 4;
+            // Points verify every cutoff with null pruning disabled throughout;
+            // legacy verifies high depths until ply exceeds nmpMinPly.
+            nmpMinPly = pointsNmp ? MAX_PLY : ss->ply + 3 * (depth - R) / 4;
 
             Value v = search<NonPV>(pos, ss, beta - 1, beta, depth - R, false);
 
@@ -1107,7 +1115,8 @@ Value Search::Worker::search(
             if (v >= beta)
             {
                 ++ss->priorNMPFailHigh;
-                return nullValue;
+                // For points, the real-position verification supplies the bound.
+                return pointsNmp ? v : nullValue;
             }
         }
     }

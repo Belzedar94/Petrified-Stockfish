@@ -63,7 +63,7 @@ int main(int argc, char** argv) {
     auto cache=std::make_unique<Eval::NNUE::AccumulatorCaches>(*network);
     auto stack=std::make_unique<Eval::NNUE::AccumulatorStack>();
     std::mt19937 rng(20261028);
-    std::size_t checked=0;
+    std::size_t checked=0, nullChecked=0, nullEpChecked=0;
     for(int game=0;game<60;++game) {
         Position pos; std::deque<StateInfo> states(1);
         require(!pos.set(std::string("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
@@ -74,6 +74,44 @@ int main(int argc, char** argv) {
         for(int ply=0;ply<160;++ply) {
             require(pos.pos_is_ok(),"state invariants");
             if(argc>1) require(network->evaluate(pos,*stack,*cache)==network->evaluate_reference(pos),"incremental/reference mismatch");
+            if (!pos.checkers() && ply % 4 == 0) {
+                const auto before = pos.fen();
+                const auto beforeKey = pos.key();
+                const auto side = pos.side_to_move();
+                const int whitePoints = pos.points(WHITE), blackPoints = pos.points(BLACK);
+                const int rule50 = pos.rule50_count();
+                const auto beforeEp = pos.ep_squares();
+                StateInfo nullState;
+                pos.do_null_move(nullState);
+                require(pos.pos_is_ok() && pos.side_to_move() == ~side,"null side/state");
+                require(pos.points(WHITE) == whitePoints && pos.points(BLACK) == blackPoints,
+                        "null must preserve earned points");
+                require(pos.rule50_count() == rule50 && !pos.ep_squares(),"null counters/ep");
+                require(!pos.is_repetition(0),"null must isolate earlier repetition history");
+                Position rebuilt; StateInfo rebuiltState;
+                require(!rebuilt.set(pos.fen(),false,&rebuiltState),"null FEN roundtrip");
+                require(rebuilt.key() == pos.key(),"null incremental/rebuilt key");
+                if(argc>1) require(network->evaluate(pos,*stack,*cache)==network->evaluate_reference(pos),
+                                   "null accumulator mismatch");
+                const auto afterNull = pos.fen();
+                const auto nullLegal = MoveList<ALL>(pos);
+                if (nullLegal.size()) {
+                    const Move child = *nullLegal.begin();
+                    StateInfo childState;
+                    pos.do_move(child,childState);
+                    require(pos.pos_is_ok(),"real move below null state");
+                    if(argc>1) require(network->evaluate(pos,*stack,*cache)==network->evaluate_reference(pos),
+                                       "real move below null accumulator");
+                    pos.undo_move(child);
+                    require(pos.fen() == afterNull,"undo real move below null");
+                }
+                pos.undo_null_move();
+                require(pos.fen() == before && pos.key() == beforeKey,"undo null must restore all state");
+                if(argc>1) require(network->evaluate(pos,*stack,*cache)==network->evaluate_reference(pos),
+                                   "undo null accumulator mismatch");
+                ++nullChecked;
+                nullEpChecked += bool(beforeEp);
+            }
             const auto legal=MoveList<ALL>(pos);
             if(!legal.size()) break;
             Move m=legal.begin()[rng()%legal.size()];
@@ -94,5 +132,7 @@ int main(int argc, char** argv) {
             fens.pop_back(); keys.pop_back();
         }
     }
-    std::cout<<"State/undo checks: "<<checked<<"; NNUE: "<<(argc>1?"exact":"not requested")<<'\n';
+    require(nullChecked > 100 && nullEpChecked > 0,"null and en passant coverage");
+    std::cout<<"State/undo checks: "<<checked<<"; null: "<<nullChecked<<"; null EP: "<<nullEpChecked
+             <<"; NNUE: "<<(argc>1?"exact":"not requested")<<'\n';
 }

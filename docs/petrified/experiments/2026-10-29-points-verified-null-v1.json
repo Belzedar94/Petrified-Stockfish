@@ -1,0 +1,52 @@
+{
+  "schema": "petrified-search-experiment-v1",
+  "experiment": "points-verified-null-v1",
+  "status": "IMPLEMENTING",
+  "promoted": false,
+  "owner_authorized": "Ponte con el siguiente gran experimento pues",
+  "branch": "exp/points-verified-null-v1",
+  "baseline_ref": "5c31333762a41609a410fd2db71a190b6fd73679",
+  "champion": "run4test PointsHead v1 + winning-mate-r2, the winner of PR #7 on 2026-10-29",
+  "champion_binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "champion_points_bench": 177290,
+  "hypothesis": "The qualified points engine disables all null-move pruning. A guarded null probe followed by mandatory non-null verification may reduce wasted search enough to improve playing strength with the unchanged winning evaluation.",
+  "candidate_count": 1,
+  "policy_frozen_before_panel": {
+    "ordinary_eligibility": "Keep existing cut-node, static-evaluation, non-pawn-material and excluded-move conditions",
+    "points_extra_eligibility": "depth >= 4; no verification already active; beta outside decisive score range; rule50_count + depth < 100",
+    "reduction": "Existing dynamic reduction, capped at depth - 2 for points",
+    "verification": "Every eligible nondecisive null fail-high must pass a search from the original position, at depth - R >= 2, with null pruning disabled throughout that verification subtree",
+    "returned_bound": "Return the real-position verification value for points; preserve legacy behavior",
+    "terminal_rules": "Existing point settlements, resignation claims and mate logic remain ahead of the probe",
+    "no_result_aware_tuning": true
+  },
+  "frozen": ["PointsHead v1 weights", "accumulators and PSQT", "rules", "evaluation", "capture ordering and capture pruning", "all other search parameters"],
+  "research_basis": "https://arxiv.org/abs/0808.1125; inspiration for verification, not a claim that its orthodox-chess results transfer to Petrified",
+  "validation_plan": [
+    "Debug and Release null/do/undo state, scores, en passant, repetition isolation and NNUE/reference checks",
+    "Existing independent Chess.com points/mate regressions, including 19/20/21 deficits and winning/losing mates",
+    "Bounded deep-search best moves and PVs checked by the independent pinned Chess.com client",
+    "Native UCI/CECP lifecycle; immutable v1 interfaces retained until any promotion",
+    "Deterministic candidate bench twice; champion points bench 177290; legacy search bench unchanged",
+    "Source CI and frozen source/binary/network/referee/runner/opening hashes"
+  ],
+  "build": {"compiler": "GCC 16.1.0 MinGW", "isa": "BMI2", "lto": true, "pgo": false},
+  "panel": {
+    "path": ".local/points-verified-null-panel-001",
+    "controls": ["2+0.02", "10+0.1", "30+0.3"],
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "stopping": "Displayed LOS 100.0%/0.0%; finish pending reversed-color pairs, recheck, and resume within the same cap if the boundary is lost",
+    "all_three_required": true,
+    "at_limit": "NEUTRAL_SCREEN for candidate selection, not statistical equivalence",
+    "promotion": "Only three valid WIN controls plus final audits and interfaces; otherwise preserve/reject and retain PR #7 champion",
+    "referee": "Independent hash-pinned public Chess.com client"
+  },
+  "worker": "T8 stays manually paused",
+  "misere": "Paused by owner; do not contact",
+  "openbench": "No workload authorized"
+}
