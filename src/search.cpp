@@ -1248,6 +1248,12 @@ moves_loop:  // When in check, search starts here
                     Value futilityValue = ss->staticEval + 234 + 247 * lmrDepth
                                         + PieceValue[capturedPiece] + 134 * captHist / 1024;
 
+                    // Earned points survive petrification and contribute to the
+                    // optimistic gain, in the same units as the evaluation.
+                    if (pos.game_of_points() && pos.capture(move))
+                        futilityValue += 100 * Position::capture_points(
+                          move.type_of() == EN_PASSANT ? PAWN : type_of(capturedPiece));
+
                     if (futilityValue <= alpha)
                         continue;
                 }

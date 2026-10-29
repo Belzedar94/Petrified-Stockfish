@@ -63,6 +63,32 @@ promotion; run4test remains champion. All current panel processes exited and
 the machine was released to Misere. The heartbeat was deleted; T8 stays paused.
 See [the pilot record](experiments/2026-10-28-points-adapter-v1.json).
 
+The owner authorized two sequential local search experiments: points-aware
+capture ordering, then points-aware capture futility on the resulting champion.
+The [capture-order experiment](experiments/2026-10-28-capture-order-v1.json)
+completed against run4test with the mandatory winning-mate-r2 fix. Both frozen
+binaries use GCC 16.1, BMI2/LTO without PGO; T1/Hash512, four concurrent pairs.
+Every TC has minimum 40 and maximum 400 games with displayed LOS 100.0%/0.0%,
+pending-pair completion and recheck. All three run even if one loses; promotion
+requires three valid wins. An undecided cap rejects the candidate as neutral
+for selection, without claiming equivalence. The champion is tracked separately
+in [points-champion.json](points-champion.json); no experimental code or network
+has yet been promoted. Misere is paused by the owner and needs no coordination.
+T8 remains paused and no distributed workload is authorized by this experiment.
+Capture-order VSTC closed at its 400-game cap: 202/179/19, +20.00 +/-33.3 Elo,
+LOS 88.1%, no time losses. All 200 pairs and 400 independent referee terminal
+records were audited, with frozen hashes unchanged. This is NEUTRAL_SCREEN
+for selection, not equivalence; the candidate cannot be promoted. STC also
+closed at 400 games: 190/190/20, 0.00 +/-33.2 Elo, LOS 50.0%, no time losses.
+Its 200 pairs and 400 referee terminal records were audited with unchanged
+hashes; it is another NEUTRAL_SCREEN. LTC closed at 400 games: 184/188/28,
+-3.47 +/-32.9 Elo, LOS 41.8%, no time losses. Final audit verified all 600
+color-reversed pairs and 1,200 referee terminal records. All panel processes
+exited, and the three neutral screens reject capture-order-v1 for promotion.
+Its source, binary and evidence are preserved; run4test + winning-mate-r2
+remains champion. Points bench: candidate 175377, champion 173124, each verified
+twice. The authorized capture-futility experiment follows from that champion.
+
 The final points-profile bench uses `tests/petrified/bench-points.epd` with
 explicit synthetic scores (16 positions). Commands: select
 `UCI_Variant=petrifiedpoints`, set `EvalFile` to the frozen candidate or run4test,
