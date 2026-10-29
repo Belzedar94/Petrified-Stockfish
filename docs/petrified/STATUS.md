@@ -104,6 +104,10 @@ LOS 98.4%, no time losses. All 200 color-reversed pairs and 400 independent
 referee terminal records were audited, with frozen hashes unchanged. This is
 NEUTRAL_SCREEN for selection, not statistical equivalence. The candidate is
 ineligible for promotion; STC and LTC continue under the agreed protocol.
+STC also closed at 400 games: 187/187/26, 0.00 +/-33.0 Elo, LOS 50.0%,
+no time losses. Its 200 color-reversed pairs, opening histories and 400
+independent referee terminal records passed audit with unchanged frozen hashes.
+This is another NEUTRAL_SCREEN; LTC is running and the champion is unchanged.
 
 The final points-profile bench uses `tests/petrified/bench-points.epd` with
 explicit synthetic scores (16 positions). Commands: select
