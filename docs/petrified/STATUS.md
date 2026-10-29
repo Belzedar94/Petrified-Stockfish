@@ -3,7 +3,7 @@
 This branch starts at official Stockfish `ff7cee4244ec96ea488c402669e3674c0574dce6`.
 It is an implementation in progress, **not a version 1.0 release**.
 
-## Active points head experiment (2026-10-29)
+## Qualified points head (2026-10-29)
 
 The owner authorized [points-head-v1](experiments/2026-10-29-points-head-v1.json)
 after manually closing capture-futility-v1 as neutral. The new branch starts from
@@ -11,13 +11,31 @@ the champion `7dd7c827`; neither rejected search change is included. It trains t
 eight actual run4test dense heads with scoreboard inputs, keeping the transformer,
 PSQT, rules, search, scaling and fixed scoreboard skip unchanged. A fresh bounded
 corpus uses 1,024 independently refereed games and 8,192 nodes/move, separated by
-opening family. The candidate remains experimental until validation and all three
-direct controls finish (minimum 40 / maximum 400, rounded LOS boundaries and
-completed pairs). The champion and Fairyground remain run4test + winning-mate-r2.
-The selected GPU-trained head has passed local validation. VSTC and STC closed
-with audited wins at 46 and 48 games respectively, both displayed LOS 100.0%;
-LTC is running. No promotion is made before the third control and final audit.
-T8 is still manually paused. No remote workers or OpenBench work are involved.
+opening family. The selected GPU-trained head passed validation and all three
+direct controls against run4test + winning-mate-r2 (minimum 40 / maximum 400,
+rounded LOS boundaries and completed pairs):
+
+| TC | Games | W/L/D | Elo +/-95% | LOS | Time losses candidate/opponent | Result |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 46 | 33/12/1 | +171.25 +/-118.2 | 100.0% | 0/0 | WIN |
+| STC 10+0.1 | 48 | 36/11/1 | +200.64 +/-121.9 | 100.0% | 0/0 | WIN |
+| LTC 30+0.3 | 46 | 39/4/3 | +346.84 +/-174.7 | 100.0% | 0/0 | WIN |
+
+All 140 games / 70 pairs and 21,642 plies match the independent referee logs;
+all frozen inputs match and the panel processes have exited. Bench is 177290
+twice, versus 173124 for the previous champion. The local distribution contains
+the tested Windows BMI2/LTO binary, network, complete Node engine, Board CJS/ESM,
+isolated Python wheel, corresponding source and checksum manifest. Native/Node
+integer/lifecycle checks, both Board modules and the installed wheel pass.
+Fairyground loads the new network and its backend reproduces the winning mate
+and the losing 25-24 mate. Visual browser revalidation was unavailable this turn;
+reload the page to receive the new profile and label.
+
+Points-head-v1 is the new [points champion](points-champion.json). The prior
+champion, rejected candidates and training data are preserved. This is a local
+qualification against that named baseline, not a public v1.0 or leadership claim.
+The panel is closed and the machine lease is released. T8 remains manually
+paused. No new experiment, remote worker or OpenBench workload was started.
 
 Acceptance order: reproducible baseline; rules/state differential tests; exact
 Legacy Walls evaluation; native and packaged interfaces; the three local strength
@@ -182,9 +200,10 @@ These are targeted development checks, not the complete release acceptance.
 Windows/MSVC and Linux release/debug CI, isolated wheels, and Linux ASan/UBSan
 passed on `f2437e1660e658c72085c2f7f4d59ba11a089255` (Actions run 40700379298).
 CI state tests do not include the external real network; those checks have run
-locally on Windows. Full distribution/reproducibility checks, Linux validation
-with run4test and OpenBench integration remain outstanding. Modern NNUE/training specialization
-has not started; it is gated behind the initial benchmark.
+locally on Windows. Cross-platform distribution/reproducibility checks and Linux
+validation with the external network remain outstanding for a public release.
+The score-conditioned dense head above is locally qualified; a larger NNUE
+architecture redesign and OpenBench integration have not been performed.
 
 ## First local campaign (cancelled; LTO mismatch)
 

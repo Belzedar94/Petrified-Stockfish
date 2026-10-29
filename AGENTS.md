@@ -7,6 +7,13 @@ champion in all three controls, minimum 40 / maximum 400, displayed LOS 100.0% o
 0.0%, complete pending pairs and recheck. See the points-head experiment record.
 This authorization follows the closure of both search experiments; neither
 rejected search change belongs in the new candidate. T8 remains manually paused.
+The experiment is now complete: points-head-v1 won all three controls at
+46/48/46 games, all displayed LOS 100.0%, with 70 complete color-reversed pairs
+and independent referee audits. Local native/Node, CJS/ESM, isolated Python and
+Fairyground backend checks passed. It is the new points champion; see
+`docs/petrified/points-champion.json` for immutable binaries, weights and source.
+The previous champion and all data/candidates are preserved. No further training
+or experiment is authorized by this completed request. T8 stays manually paused.
 
 The approved implementation plan and immutable inputs are in
 `docs/petrified/STATUS.md`, `baseline.json`, and `rules.md`. This repository is

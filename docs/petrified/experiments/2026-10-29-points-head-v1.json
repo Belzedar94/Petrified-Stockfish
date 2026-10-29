@@ -1,7 +1,7 @@
 {
   "schema": "petrified-points-head-experiment-v1",
-  "status": "GATE_PASSED_PACKAGING",
-  "promoted": false,
+  "status": "COMPLETED_PROMOTED",
+  "promoted": true,
   "owner_authorized": "Train a score-conditioned run4test head with frozen accumulators and better data on GPU, then all three controls against the champion.",
   "baseline_ref": "7dd7c827b41e9460184730227fed4222929dbbaf",
   "champion": "run4test + winning-mate-r2",
@@ -181,6 +181,62 @@
     "source_ci": {
       "run_id": 40828084192,
       "result": "all five Windows/Linux Debug/Release and sanitizer jobs PASS; without external networks"
+    },
+    "board_packages": {
+      "cjs_positions": 513,
+      "esm_positions": 513,
+      "points_regressions": "PASS; real mating games, 19/20/21 thresholds, pins and lifecycle"
+    },
+    "python_wheel": {
+      "result": "PASS",
+      "installed_isolated": true,
+      "positions": 513,
+      "checks": [
+        "legal moves",
+        "all SAN",
+        "FEN",
+        "check",
+        "terminal outcomes"
+      ],
+      "module": "pyffish.pyd",
+      "points": {
+        "game_plies": 70,
+        "winning_mate_game_plies": 43,
+        "reference_cases": 23,
+        "pin_regressions": 5,
+        "oracle_walk_plies": 4976,
+        "result": "PASS",
+        "final_points": [
+          25,
+          24
+        ]
+      }
+    },
+    "fairyground": {
+      "result": "PASS",
+      "transport": "Fairyground HTTP/WebSocket/native UCI",
+      "profile": "Petrified-Stockfish + run4test PointsHead v1",
+      "binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+      "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+      "served_assets": "hash matched",
+      "winning_mate": {
+        "before": [
+          20,
+          4
+        ],
+        "move": "h2h7",
+        "uci_mate": 1
+      },
+      "losing_mate": {
+        "final": [
+          25,
+          24
+        ],
+        "result": "1-0"
+      },
+      "visual_browser_check": "Unavailable in current tool session",
+      "cleanup": "EXIT_ENGINE",
+      "utc": "2026-10-29T07:22:06.863Z"
     }
   },
   "bench": {
@@ -244,7 +300,11 @@
     ".local/points-head-v1/candidate-interfaces.json": "f26479310a497ac5db86fb82985f7424430401934b00f9b469a63fc2799a9ff6",
     ".local/points-head-v1/candidate-wasm-evaluation.json": "afec4d0958611f7125046f6f6cd05f75328cd13a9d7893ae10ef9921706e6611",
     ".local/points-head-v1/bench-candidate.json": "29c753a01d51665d6e9beeb4e7acf59c5e50a662926576cdc1a3689b0d159fb8",
-    ".local/points-head-v1-inputs/manifest.json": "0987cf525117b0d232fc0c71f2eb99118053568c4a2f251a1b8d78d5e8bc8882"
+    ".local/points-head-v1-inputs/manifest.json": "0987cf525117b0d232fc0c71f2eb99118053568c4a2f251a1b8d78d5e8bc8882",
+    ".local/points-head-v1/final-audit.json": "d89030408feaaa1a4b58114a3b9f2bbe80b86d46031c6d0cc2ecb8c40d2b1529",
+    ".local/points-head-v1/wheel-audit.json": "45fb3f2e4e6693d62b05ff32268332ca8826702bea1d600df21ee2d92c72e653",
+    ".local/points-head-v1/fairyground-backend-audit.json": "a8c33c020a03cd0eea61ff3887489ccd6888726cc4c56af5d9fe10aeb6772041",
+    ".local/points-head-v1/distribution.json": "7e2cbde032736afe5673b20f878e433576a4ce39112dd37f625169d93e738114"
   },
   "runner_commit": "e926428184ce2086f4688d5d82098c467c830ecf",
   "results": {
@@ -402,6 +462,80 @@
       "independent_plies": 6807,
       "frozen_inputs": "all matched",
       "utc": "2026-10-29T07:09:07.073649+00:00"
+    }
+  },
+  "distribution": {
+    "directory": "build/points-head-distribution",
+    "archive": "build/petrified-points-head-v1-local.zip",
+    "archive_sha256": "9b53b40a6f08c4833b6ac7ac5a6ef5e372120f0b01f00cf6ede1bace22726ce7",
+    "archive_bytes": 30244360,
+    "manifest_sha256": "a4be6e785a25df0153396b2232692b43c957bb6668f80dd193393981ab4e87a3",
+    "artifact_count": 28,
+    "verification": "all archive entries match manifest",
+    "experiment_snapshot_stage": "Three audited WINs, before champion metadata promotion; canonical final record is this repository file."
+  },
+  "final_audit": {
+    "result": "PASS",
+    "recorded_panel_processes_exited": true,
+    "panel_result_completed_utc": "2026-10-29T07:03:46.924667+00:00",
+    "reused_pids_not_owned": [
+      {
+        "ProcessId": 28960,
+        "ParentProcessId": 32648,
+        "Name": "node.exe",
+        "CreationDate": "2026-10-29T08:16:07.316898+01:00"
+      },
+      {
+        "ProcessId": 14408,
+        "ParentProcessId": 1128,
+        "Name": "TrustedInstaller.exe",
+        "CreationDate": "2026-10-29T08:26:33.5691+01:00"
+      },
+      {
+        "ProcessId": 18156,
+        "ParentProcessId": 39224,
+        "Name": "sleep.exe",
+        "CreationDate": "2026-10-29T08:27:06.637567+01:00"
+      }
+    ],
+    "reused_pid_check": "All surviving reused IDs were created after the final panel result, including the new Fairyground server. None terminated.",
+    "frozen_panel_inputs_verified": 12,
+    "experiment_inputs_verified": 9,
+    "complete_pairs": 70,
+    "games": 140,
+    "independent_plies": 21642,
+    "worker_pause_preserved": true,
+    "utc": "2026-10-29T07:28:43.809055+00:00"
+  },
+  "completed_utc": "2026-10-29T07:30:40.431844+00:00",
+  "champion_after": "run4test PointsHead v1 + winning-mate-r2",
+  "champion_after_baseline_ref": "8fb35e83201933f51073dd316f4d69c507a01c88",
+  "previous_champion_preserved": {
+    "schema": "petrified-points-champion-v1",
+    "rules": "chesscom-points-v1",
+    "name": "run4test + winning-mate-r2",
+    "source_commit": "f44f93700bbb3eca6813eee4728a675ea08447d9",
+    "baseline_branch": "fix/winning-points-mate",
+    "baseline_ref": "7dd7c827b41e9460184730227fed4222929dbbaf",
+    "binary": "src/petrified-points-mate-r2-bmi2.exe",
+    "binary_sha256": "2401d95d3481349ae5bc61cbd1ea3e444337611b2a3d60c6ba8bb3492bb5fe49",
+    "network": "petrified_run4test_e19_l085.nnue",
+    "network_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+    "compiler": "GCC 16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false,
+    "points_bench": 173124,
+    "selection": "Existing demonstrated run4test champion with the mandatory winning-mate correctness fix; no strength gain claimed for that fix. Rejected adapter-v1 is not used.",
+    "latest_selection": {
+      "date": "2026-10-29",
+      "champion_unchanged": true,
+      "capture_order_v1": "REJECTED_NEUTRAL_SCREEN; all three controls completed",
+      "capture_futility_v1": "REJECTED_NEUTRAL_MANUAL; owner closed whole experiment, LTC stopped at 112 completed games",
+      "records": [
+        "docs/petrified/experiments/2026-10-28-capture-order-v1.json",
+        "docs/petrified/experiments/2026-10-29-capture-futility-v1.json"
+      ]
     }
   }
 }
