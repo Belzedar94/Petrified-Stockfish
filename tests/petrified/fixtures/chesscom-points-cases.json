@@ -1,0 +1,327 @@
+{
+  "bundle_sha256": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b",
+  "cases": [
+    {
+      "name": "capture-p",
+      "fen": "7k/8/8/8/3p4/2B5/8/K7 w - - 0 1 points=0,0",
+      "action": {
+        "move": "c3d4"
+      },
+      "points": [
+        11,
+        10
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "Insufficient material"
+    },
+    {
+      "name": "capture-n",
+      "fen": "7k/8/8/8/3n4/2B5/8/K7 w - - 0 1 points=0,0",
+      "action": {
+        "move": "c3d4"
+      },
+      "points": [
+        13,
+        10
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "Insufficient material"
+    },
+    {
+      "name": "capture-b",
+      "fen": "7k/8/8/8/3b4/2B5/8/K7 w - - 0 1 points=0,0",
+      "action": {
+        "move": "c3d4"
+      },
+      "points": [
+        15,
+        10
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "Insufficient material"
+    },
+    {
+      "name": "capture-r",
+      "fen": "7k/8/8/8/3r4/2B5/8/K7 w - - 0 1 points=0,0",
+      "action": {
+        "move": "c3d4"
+      },
+      "points": [
+        15,
+        10
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "Insufficient material"
+    },
+    {
+      "name": "capture-q",
+      "fen": "7k/8/8/8/3q4/2B5/8/K7 w - - 0 1 points=0,0",
+      "action": {
+        "move": "c3d4"
+      },
+      "points": [
+        19,
+        10
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "Insufficient material"
+    },
+    {
+      "name": "promotion-capture",
+      "fen": "r6k/1P6/8/8/8/8/8/K7 w - - 0 1 points=0,0",
+      "action": {
+        "move": "b7a8q"
+      },
+      "points": [
+        5,
+        0
+      ],
+      "terminal": false,
+      "winner": null,
+      "termination": ""
+    },
+    {
+      "name": "en-passant",
+      "fen": "7k/8/8/3pP3/8/8/8/K7 w - d6d5 0 1 points=0,0",
+      "action": {
+        "move": "e5d6"
+      },
+      "points": [
+        1,
+        0
+      ],
+      "terminal": false,
+      "winner": null,
+      "termination": ""
+    },
+    {
+      "name": "stalemate",
+      "fen": "6r1/7k/8/8/8/8/**6/K*6 b - - 0 1 points=7,3",
+      "action": {
+        "move": "h7h8"
+      },
+      "points": [
+        17,
+        13
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "Stalemate • 1-0"
+    },
+    {
+      "name": "insufficient-kings",
+      "fen": "7k/8/8/8/8/8/8/K7 w - - 0 1 points=7,3",
+      "action": {
+        "kind": "position"
+      },
+      "points": [
+        7,
+        3
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "Insufficient material"
+    },
+    {
+      "name": "minor-no-wall",
+      "fen": "7k/8/8/8/8/8/8/KB6 w - - 0 1 points=7,3",
+      "action": {
+        "kind": "position"
+      },
+      "points": [
+        7,
+        3
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "Insufficient material"
+    },
+    {
+      "name": "minor-wall",
+      "fen": "7k/8/8/8/4*3/8/8/KB6 w - - 0 1 points=7,3",
+      "action": {
+        "move": "b1c2"
+      },
+      "points": [
+        7,
+        3
+      ],
+      "terminal": false,
+      "winner": null,
+      "termination": ""
+    },
+    {
+      "name": "fifty-moves",
+      "fen": "7k/8/8/8/8/8/8/KR6 w - - 99 1 points=7,3",
+      "action": {
+        "move": "b1c1"
+      },
+      "points": [
+        17,
+        13
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "50-move-rule"
+    },
+    {
+      "name": "resign-25,4",
+      "fen": "6rk/8/8/8/8/8/8/KR6 w - - 0 1 points=25,4",
+      "action": {
+        "kind": "resign"
+      },
+      "points": [
+        25,
+        24
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "(Black +20)"
+    },
+    {
+      "name": "resign-24,4",
+      "fen": "6rk/8/8/8/8/8/8/KR6 w - - 0 1 points=24,4",
+      "action": {
+        "kind": "resign"
+      },
+      "points": [
+        24,
+        24
+      ],
+      "terminal": true,
+      "winner": null,
+      "termination": "(Black +20)"
+    },
+    {
+      "name": "resign-23,4",
+      "fen": "6rk/8/8/8/8/8/8/KR6 w - - 0 1 points=23,4",
+      "action": {
+        "kind": "resign"
+      },
+      "points": [
+        23,
+        24
+      ],
+      "terminal": true,
+      "winner": 2,
+      "termination": "(Black +20)"
+    },
+    {
+      "name": "timeout-25,4",
+      "fen": "6rk/8/8/8/8/8/8/KR6 w - - 0 1 points=25,4",
+      "action": {
+        "kind": "timeout"
+      },
+      "points": [
+        25,
+        24
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "(Black +20)"
+    },
+    {
+      "name": "timeout-24,4",
+      "fen": "6rk/8/8/8/8/8/8/KR6 w - - 0 1 points=24,4",
+      "action": {
+        "kind": "timeout"
+      },
+      "points": [
+        24,
+        24
+      ],
+      "terminal": true,
+      "winner": null,
+      "termination": "(Black +20)"
+    },
+    {
+      "name": "timeout-23,4",
+      "fen": "6rk/8/8/8/8/8/8/KR6 w - - 0 1 points=23,4",
+      "action": {
+        "kind": "timeout"
+      },
+      "points": [
+        23,
+        24
+      ],
+      "terminal": true,
+      "winner": 2,
+      "termination": "(Black +20)"
+    },
+    {
+      "name": "agreement-25,4",
+      "fen": "6rk/8/8/8/8/8/8/KR6 w - - 0 1 points=25,4",
+      "action": {
+        "kind": "agreement"
+      },
+      "points": [
+        35,
+        14
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "Draw agreed."
+    },
+    {
+      "name": "agreement-24,4",
+      "fen": "6rk/8/8/8/8/8/8/KR6 w - - 0 1 points=24,4",
+      "action": {
+        "kind": "agreement"
+      },
+      "points": [
+        34,
+        14
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "Draw agreed."
+    },
+    {
+      "name": "agreement-23,4",
+      "fen": "6rk/8/8/8/8/8/8/KR6 w - - 0 1 points=23,4",
+      "action": {
+        "kind": "agreement"
+      },
+      "points": [
+        33,
+        14
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "Draw agreed."
+    },
+    {
+      "name": "resign-insufficient",
+      "fen": "7k/8/8/8/8/8/8/KR6 w - - 0 1 points=7,3",
+      "action": {
+        "kind": "resign"
+      },
+      "points": [
+        17,
+        13
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "(insuff. material; White +10, Black +10)"
+    },
+    {
+      "name": "timeout-insufficient",
+      "fen": "7k/8/8/8/8/8/8/KR6 w - - 0 1 points=7,3",
+      "action": {
+        "kind": "timeout"
+      },
+      "points": [
+        17,
+        13
+      ],
+      "terminal": true,
+      "winner": 0,
+      "termination": "(insuff. material; White +10, Black +10)"
+    }
+  ]
+}

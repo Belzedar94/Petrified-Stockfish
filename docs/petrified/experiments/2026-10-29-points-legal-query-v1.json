@@ -1,0 +1,734 @@
+{
+  "schema": "petrified-search-experiment-v1",
+  "experiment": "points-legal-query-v1",
+  "status": "PROMOTED",
+  "owner_request": "Guarda este, porque mas adelante lo meteremos directamente en OpenBench, y pasa a la siguiente gran idea",
+  "candidate_count": 1,
+  "branch": "exp/points-legal-query-v1",
+  "baseline_ref": "5c31333762a41609a410fd2db71a190b6fd73679",
+  "champion": "PR7 PointsHead v1 + winning-mate-r2",
+  "hypothesis": "Avoid constructing complete legal-move lists for existence and membership queries; this may recover substantial search throughput while preserving the exact generated lists, move order, rules and fixed-depth search results. Strength remains unproven until the timed panel.",
+  "scope": [
+    "One shared generator, early exit for first legal move",
+    "Only validate king safety for the requested move in membership queries",
+    "Use boolean existence queries for terminal probes",
+    "No search pruning, NNUE, score, rule or normal move-order changes"
+  ],
+  "frozen": [
+    "PR7 network and evaluation",
+    "search parameters",
+    "rule semantics",
+    "normal move generation order"
+  ],
+  "champion_binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "champion_points_bench": 177290,
+  "legacy_bench": 179335,
+  "build": {
+    "compiler": "GCC16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false
+  },
+  "validation_plan": [
+    "Compare all four generation modes and order against hash-pinned PR7 generator across seeded walks",
+    "Exhaustively test all 65536 move encodings on castling, EP, promotion, pin and mate positions",
+    "Random membership probes and every legal move over the existing 9338-position walk",
+    "Debug/Release NNUE, points, mates and native interfaces",
+    "Independent referee PV checks",
+    "Require exact champion bench nodes twice in points and legacy",
+    "Eight alternating performance bench samples, depth12; report elapsed-time ratio, not Elo",
+    "Source CI"
+  ],
+  "panel": {
+    "directory": ".local/points-legal-query-panel-001",
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%; complete pending pairs and recheck; resume within cap if boundary lost",
+    "at_cap": "NEUTRAL_SCREEN for selection, not equivalence",
+    "early_rejection": "Owner-delegated manual neutral or clear loss rejection, with measured statistics preserved",
+    "promotion": "Only three valid WIN controls plus independent audits and qualified distribution/interfaces",
+    "referee": "Independent pinned Chess.com public client",
+    "identities": {
+      "controller": {
+        "pid": 9456,
+        "creation_filetime": 134377545275343491,
+        "creation_utc": "2026-10-29T13:35:27.534349+00:00"
+      },
+      "launcher": {
+        "pid": 42028,
+        "creation_filetime": 134377545276898341,
+        "creation_utc": "2026-10-29T13:35:27.689833+00:00"
+      },
+      "panel": {
+        "pid": 44400,
+        "creation_filetime": 134377545277129270,
+        "creation_utc": "2026-10-29T13:35:27.712927+00:00"
+      }
+    },
+    "session": 20726,
+    "launch_audit": ".local\\points-legal-query-v1\\panel-launch-audit.json"
+  },
+  "constraints": {
+    "T8": "Manually paused",
+    "Misere": "Do not contact",
+    "AtomicDB_remote_workers_OpenBench": "No action",
+    "PR9": "Preserved independently for future OpenBench; not included in this candidate"
+  },
+  "research_reference": "https://raw.githubusercontent.com/official-stockfish/Stockfish/master/src/search.cpp",
+  "reference_note": "Upstream search uses legality/terminal probes; implementation here is based on the qualified Petrified generator, not ported upstream rules.",
+  "implementation_commit": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/11",
+  "candidate": {
+    "binary": ".local\\points-legal-query-v1-inputs\\petrified-points-legal-query-v1-bmi2.exe",
+    "binary_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+    "network": ".local\\points-legal-query-v1-inputs\\champion-v1.pnnue",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "bench": 177290
+  },
+  "validation": {
+    "report": ".local\\points-legal-query-v1\\validation-report.json",
+    "result": "PASS",
+    "checked_utc": "2026-10-29T13:35:27.364841+00:00",
+    "source_commit": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+    "source_archive_files_exact": 213,
+    "build_processes_exited": true,
+    "candidate_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+    "champion_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "query_comparisons_each": 883968,
+    "state_positions_each": 9338,
+    "source_CI": "5/5 PASS",
+    "speedup": 1.6219512195121952,
+    "speed_is_not_Elo": true,
+    "speed": {
+      "depth": 12,
+      "samples": 8,
+      "alternating_order": true,
+      "reported_ms": {
+        "candidate": [
+          370,
+          372,
+          369,
+          385,
+          368,
+          365,
+          369,
+          366
+        ],
+        "champion": [
+          603,
+          601,
+          597,
+          628,
+          595,
+          598,
+          599,
+          598
+        ]
+      },
+      "median_ms": {
+        "candidate": 369.0,
+        "champion": 598.5
+      },
+      "nodes": {
+        "candidate": 376705,
+        "champion": 376705
+      },
+      "speedup": 1.6219512195121952,
+      "meaning": "Local throughput estimate only; not Elo"
+    },
+    "source_ci": {
+      "source_commit": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+      "run_id": 40882525098,
+      "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40882525098",
+      "result": "PASS",
+      "checks": [
+        {
+          "name": "rules (ubuntu-latest, Debug)",
+          "id": 123477542527,
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40882525098/job/123477542527"
+        },
+        {
+          "name": "rules (windows-latest, Debug)",
+          "id": 123477542497,
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40882525098/job/123477542497"
+        },
+        {
+          "name": "rules (windows-latest, Release)",
+          "id": 123477542387,
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40882525098/job/123477542387"
+        },
+        {
+          "name": "rules (ubuntu-latest, Release)",
+          "id": 123477542378,
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40882525098/job/123477542378"
+        },
+        {
+          "name": "sanitizers",
+          "id": 123477542098,
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40882525098/job/123477542098"
+        }
+      ]
+    }
+  },
+  "execution_manifest": ".local\\points-legal-query-v1\\execution-manifest.json",
+  "frozen_inputs": 70,
+  "observed_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "WIN",
+      "scores": [
+        47,
+        21,
+        2
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        1,
+        18,
+        1,
+        14
+      ],
+      "statistics": "Total: 70 W: 47 L: 21 D: 2 ELO: 135.53 +-88.7 (95%) LOS: 100.0%",
+      "completed_pairs": 35,
+      "elapsed_seconds": 157.594
+    },
+    "STC": {
+      "control": "STC",
+      "status": "WIN",
+      "scores": [
+        48,
+        19,
+        3
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        0,
+        0,
+        19,
+        3,
+        13
+      ],
+      "statistics": "Total: 70 W: 48 L: 19 D: 3 ELO: 153.14 +-89.9 (95%) LOS: 100.0%",
+      "completed_pairs": 35,
+      "elapsed_seconds": 788.843
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "WIN",
+      "scores": [
+        59,
+        25,
+        4
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        2,
+        1,
+        20,
+        3,
+        18
+      ],
+      "statistics": "Total: 88 W: 59 L: 25 D: 4 ELO: 141.59 +-78.3 (95%) LOS: 100.0%",
+      "completed_pairs": 44,
+      "elapsed_seconds": 2755.907
+    }
+  },
+  "observed_utc": "2026-10-29T14:46:27.873046+00:00",
+  "raw_results": [
+    {
+      "control": "VSTC",
+      "status": "WIN",
+      "scores": [
+        47,
+        21,
+        2
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        1,
+        18,
+        1,
+        14
+      ],
+      "statistics": "Total: 70 W: 47 L: 21 D: 2 ELO: 135.53 +-88.7 (95%) LOS: 100.0%",
+      "completed_pairs": 35,
+      "elapsed_seconds": 157.594
+    },
+    {
+      "control": "STC",
+      "status": "WIN",
+      "scores": [
+        48,
+        19,
+        3
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        0,
+        0,
+        19,
+        3,
+        13
+      ],
+      "statistics": "Total: 70 W: 48 L: 19 D: 3 ELO: 153.14 +-89.9 (95%) LOS: 100.0%",
+      "completed_pairs": 35,
+      "elapsed_seconds": 788.843
+    },
+    {
+      "control": "LTC",
+      "status": "WIN",
+      "scores": [
+        59,
+        25,
+        4
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        2,
+        1,
+        20,
+        3,
+        18
+      ],
+      "statistics": "Total: 88 W: 59 L: 25 D: 4 ELO: 141.59 +-78.3 (95%) LOS: 100.0%",
+      "completed_pairs": 44,
+      "elapsed_seconds": 2755.907
+    }
+  ],
+  "final_panel_audit": {
+    "schema": "points-legal-query-panel-audit-v1",
+    "result": "PASS",
+    "checked_utc": "2026-10-29T14:40:03.454090+00:00",
+    "raw_results": [
+      {
+        "control": "VSTC",
+        "status": "WIN",
+        "scores": [
+          47,
+          21,
+          2
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          1,
+          1,
+          18,
+          1,
+          14
+        ],
+        "statistics": "Total: 70 W: 47 L: 21 D: 2 ELO: 135.53 +-88.7 (95%) LOS: 100.0%",
+        "completed_pairs": 35,
+        "elapsed_seconds": 157.594
+      },
+      {
+        "control": "STC",
+        "status": "WIN",
+        "scores": [
+          48,
+          19,
+          3
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          0,
+          0,
+          19,
+          3,
+          13
+        ],
+        "statistics": "Total: 70 W: 48 L: 19 D: 3 ELO: 153.14 +-89.9 (95%) LOS: 100.0%",
+        "completed_pairs": 35,
+        "elapsed_seconds": 788.843
+      },
+      {
+        "control": "LTC",
+        "status": "WIN",
+        "scores": [
+          59,
+          25,
+          4
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          2,
+          1,
+          20,
+          3,
+          18
+        ],
+        "statistics": "Total: 88 W: 59 L: 25 D: 4 ELO: 141.59 +-78.3 (95%) LOS: 100.0%",
+        "completed_pairs": 44,
+        "elapsed_seconds": 2755.907
+      }
+    ],
+    "controls": {
+      "VSTC": {
+        "result": "PASS",
+        "games": 70,
+        "complete_pairs": 35,
+        "independent_plies": 13044,
+        "scores": [
+          47,
+          21,
+          2
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "statistics": "Total: 70 W: 47 L: 21 D: 2 ELO: 135.53 +-88.7 (95%) LOS: 100.0%",
+        "raw_result_sha256": "10f1a29967b8755f2d6ea796c6f9d26e90983c1a7d606bad9fe70ed2037ba27b"
+      },
+      "STC": {
+        "result": "PASS",
+        "games": 70,
+        "complete_pairs": 35,
+        "independent_plies": 15416,
+        "scores": [
+          48,
+          19,
+          3
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "statistics": "Total: 70 W: 48 L: 19 D: 3 ELO: 153.14 +-89.9 (95%) LOS: 100.0%",
+        "raw_result_sha256": "3f03402a5d1ea338f57fa564b8152c85e7f383bda048e77d63fb6dc6653e6479"
+      },
+      "LTC": {
+        "result": "PASS",
+        "games": 88,
+        "complete_pairs": 44,
+        "independent_plies": 20448,
+        "scores": [
+          59,
+          25,
+          4
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "statistics": "Total: 88 W: 59 L: 25 D: 4 ELO: 141.59 +-78.3 (95%) LOS: 100.0%",
+        "raw_result_sha256": "5dd25e58f3b4f24f93ca7091dc6cfab8da7470f17bdc7fd0cdf0f13086c09038"
+      }
+    },
+    "games": 228,
+    "complete_pairs": 114,
+    "independent_plies": 48908,
+    "execution_hashes": 70,
+    "panel_hashes": 11,
+    "dependency_hashes": 7,
+    "raw_files_preserved": 1271,
+    "raw_inventory_sha256": "e5891ecd9427a4956c51e985b02b33a105064b45a6a49f52da3184918d32069b",
+    "owned_process_identities_exited": 346,
+    "reused_pids_not_touched": [
+      {
+        "expected": {
+          "pid": 18700,
+          "creation_filetime": 134377545291276387,
+          "creation_utc": "2026-10-29T13:35:29.127638+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:35:32.719087+00:00",
+          "last_seen_utc": "2026-10-29T13:35:47.760595+00:00"
+        },
+        "current": {
+          "pid": 18700,
+          "creation_filetime": 134377583931656764,
+          "creation_utc": "2026-10-29T14:39:53.165676+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 20996,
+          "creation_filetime": 134377545582963957,
+          "creation_utc": "2026-10-29T13:35:58.296394+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:36:02.812661+00:00",
+          "last_seen_utc": "2026-10-29T13:36:12.836165+00:00"
+        },
+        "current": {
+          "pid": 20996,
+          "creation_filetime": 134377581475872719,
+          "creation_utc": "2026-10-29T14:35:47.587273+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 9052,
+          "creation_filetime": 134377546201768570,
+          "creation_utc": "2026-10-29T13:37:00.176857+00:00",
+          "parent_pid": 44400,
+          "name": "petrified-points-legal-query-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:37:02.970311+00:00",
+          "last_seen_utc": "2026-10-29T13:37:18.008372+00:00"
+        },
+        "current": {
+          "pid": 9052,
+          "creation_filetime": 134377583944487186,
+          "creation_utc": "2026-10-29T14:39:54.448719+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 20996,
+          "creation_filetime": 134377546201821713,
+          "creation_utc": "2026-10-29T13:37:00.182171+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:37:02.970311+00:00",
+          "last_seen_utc": "2026-10-29T13:37:12.995775+00:00"
+        },
+        "current": {
+          "pid": 20996,
+          "creation_filetime": 134377581475872719,
+          "creation_utc": "2026-10-29T14:35:47.587273+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 41668,
+          "creation_filetime": 134377546503071954,
+          "creation_utc": "2026-10-29T13:37:30.307196+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:37:33.056630+00:00",
+          "last_seen_utc": "2026-10-29T13:37:43.082623+00:00"
+        },
+        "current": {
+          "pid": 41668,
+          "creation_filetime": 134377583944061210,
+          "creation_utc": "2026-10-29T14:39:54.406122+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 28396,
+          "creation_filetime": 134377549909565185,
+          "creation_utc": "2026-10-29T13:43:10.956518+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:43:13.957599+00:00",
+          "last_seen_utc": "2026-10-29T13:44:49.207073+00:00"
+        },
+        "current": {
+          "pid": 28396,
+          "creation_filetime": 134377583944540070,
+          "creation_utc": "2026-10-29T14:39:54.454006+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 14140,
+          "creation_filetime": 134377549917332147,
+          "creation_utc": "2026-10-29T13:43:11.733215+00:00",
+          "parent_pid": 44400,
+          "name": "node.exe",
+          "first_seen_utc": "2026-10-29T13:43:13.957599+00:00",
+          "last_seen_utc": "2026-10-29T13:44:49.207073+00:00"
+        },
+        "current": {
+          "pid": 14140,
+          "creation_filetime": 134377583945820162,
+          "creation_utc": "2026-10-29T14:39:54.582016+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 39476,
+          "creation_filetime": 134377553180166958,
+          "creation_utc": "2026-10-29T13:48:38.016697+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T13:48:39.793356+00:00",
+          "last_seen_utc": "2026-10-29T13:50:25.068777+00:00"
+        },
+        "current": {
+          "pid": 39476,
+          "creation_filetime": 134377583962479594,
+          "creation_utc": "2026-10-29T14:39:56.247959+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 9624,
+          "creation_filetime": 134377565639495828,
+          "creation_utc": "2026-10-29T14:09:23.949583+00:00",
+          "parent_pid": 44400,
+          "name": "champion-points-head-v1-bmi2.exe",
+          "first_seen_utc": "2026-10-29T14:09:28.063808+00:00",
+          "last_seen_utc": "2026-10-29T14:14:03.799709+00:00"
+        },
+        "current": {
+          "pid": 9624,
+          "creation_filetime": 134377583882862762,
+          "creation_utc": "2026-10-29T14:39:48.286276+00:00"
+        }
+      },
+      {
+        "expected": {
+          "pid": 12912,
+          "creation_filetime": 134377568496811163,
+          "creation_utc": "2026-10-29T14:14:09.681116+00:00",
+          "parent_pid": 44400,
+          "name": "node.exe",
+          "first_seen_utc": "2026-10-29T14:14:13.829620+00:00",
+          "last_seen_utc": "2026-10-29T14:19:19.660309+00:00"
+        },
+        "current": {
+          "pid": 12912,
+          "creation_filetime": 134377583944511677,
+          "creation_utc": "2026-10-29T14:39:54.451168+00:00"
+        }
+      }
+    ],
+    "three_control_gate_passed": true,
+    "promotion": "Pending distribution and interface acceptance"
+  },
+  "interface_acceptance": {
+    "report": ".local\\points-legal-query-v1\\interface-acceptance.json",
+    "sha256": "9c7bb63050562ceeb35518279a33c9eff96931942ca1491b2345054392df6770",
+    "result": "PASS",
+    "archive_source_files_exact": 213,
+    "native_node_integer_positions": 64,
+    "board_CJS_ESM_and_Python_positions_each": 513,
+    "owned_build_processes_exited": 83
+  },
+  "operational_issues": [
+    {
+      "issue": "Final check compared Windows CRLF checkout against LF Git archive",
+      "resolution": "Compiled sources match all 213 archive files byte for byte; Windows checkout normalized comparison matches. All eight build/test stages exited 0. No source, binary or network changed.",
+      "preserved": ".local/points-legal-query-v1/acceptance-failure-001",
+      "status": "RESOLVED"
+    },
+    {
+      "issue": "Fairyground installer initially refused an existing local server",
+      "resolution": "Verified the previous owned listener, stopped it cooperatively, then setup exited 0.",
+      "logs": [
+        ".local/points-legal-query-v1/fairyground-setup.log",
+        ".local/points-legal-query-v1/fairyground-setup-002.log"
+      ],
+      "status": "RESOLVED"
+    }
+  ],
+  "fairyground": {
+    "result": "PASS",
+    "owner_request": "Replace the champion in Fairyground and open the server for testing",
+    "backend_audit": ".local/points-legal-query-v1/fairyground-backend-audit.json",
+    "browser_audit": ".local/points-legal-query-v1/fairyground-browser-audit.json",
+    "server_identity": ".local/points-legal-query-v1/fairyground-server-identity.json",
+    "url": "http://127.0.0.1:5185/public/index.html?variant=petrified",
+    "keep_running": true,
+    "board_directory": "build/wasm-points-legal-query-v1/cjs"
+  },
+  "completed_utc": "2026-10-29T15:02:55.874947+00:00",
+  "distribution": {
+    "result": "PASS",
+    "checked_utc": "2026-10-29T15:01:49.512938+00:00",
+    "directory": "build\\points-legal-query-v1-distribution",
+    "archive": "build\\petrified-points-legal-query-v1-local.zip",
+    "archive_sha256": "d93aae9a7b1887ca293ff614c2263238fd98fd972b9a96eda04034c2d6334205",
+    "archive_bytes": 30302224,
+    "manifest_sha256": "48ef817bfd6e7d01eed4093fd3682b871ef4370c8d55f0d56cbcfd897ae281fc",
+    "artifact_count": 30,
+    "verification": "Every ZIP entry verified against the artifact manifest"
+  },
+  "closure_audit": {
+    "path": ".local\\points-legal-query-v1\\closure-audit.json",
+    "sha256": "894c3801a2f53c692285a13f04a92900e1001c5eabf00f1ea547767ebff9e5fb",
+    "result": "PASS",
+    "panel_processes_exited": 346,
+    "interface_processes_exited": 83,
+    "raw_panel_files_unchanged": 1271,
+    "gui_kept_running_for_owner": true
+  },
+  "decision": {
+    "result": "PROMOTED",
+    "manual_adjudication": false,
+    "previous_champion": "PR7 PointsHead v1",
+    "panel_repeated": false,
+    "next_experiment_authorized": false
+  },
+  "promoted_utc": "2026-10-29T15:04:44.281140+00:00",
+  "qualified_baseline_ref": "352cd3eed1ab9604adc1e8e4048ef8208d86f90e",
+  "champion_record": "docs/petrified/points-champion.json",
+  "released": true,
+  "release": {
+    "utc": "2026-10-29T15:04:44.281140+00:00",
+    "experiment_processes_exited": true,
+    "fairyground_kept_running_for_owner": true,
+    "T8": "Manually paused",
+    "followup": "Deleted",
+    "automation_deleted_utc": "2026-10-29T15:05:10.855057+00:00"
+  }
+}
