@@ -1152,10 +1152,148 @@ void Position::undo_null_move() {
 }
 
 
-// Tests if the SEE (Static Exchange Evaluation)
-// value of the move is greater or equal to the given threshold. We'll use an
-// algorithm similar to alpha-beta pruning with a null window.
+namespace {
+
+// A local exchange board, deliberately independent of Position's move/undo,
+// hashes and NNUE. Walls remain occupied but never belong to either color.
+struct PointsExchange {
+    Bitboard byType[PIECE_TYPE_NB] = {};
+    Bitboard byColor[COLOR_NB] = {};
+    Bitboard occupied;
+    Square   king[COLOR_NB];
+
+    explicit PointsExchange(const Position& pos) : occupied(pos.occupied()) {
+        for (PieceType pt = PAWN; pt <= KING; ++pt)
+            byType[pt] = pos.pieces(pt);
+        for (Color c : {WHITE, BLACK})
+        {
+            byColor[c] = pos.pieces(c);
+            king[c] = pos.square<KING>(c);
+        }
+    }
+
+    void remove(Color c, PieceType pt, Square s) {
+        byType[pt] &= ~square_bb(s);
+        byColor[c] &= ~square_bb(s);
+        occupied &= ~square_bb(s);
+    }
+
+    void put(Color c, PieceType pt, Square s) {
+        byType[pt] |= s;
+        byColor[c] |= s;
+        occupied |= s;
+    }
+
+    Bitboard attackers(Square s, Color by) const {
+        // Royal commoners cannot capture, including in an exchange sequence.
+        return byColor[by]
+             & ((attacks_bb(PAWN, s, ~by) & byType[PAWN])
+                | (attacks_bb(KNIGHT, s) & byType[KNIGHT])
+                | (attacks_bb(BISHOP, s, occupied) & (byType[BISHOP] | byType[QUEEN]))
+                | (attacks_bb(ROOK, s, occupied) & (byType[ROOK] | byType[QUEEN])));
+    }
+
+    // Captures of the occupant of 'target', with the option to decline (zero).
+    // Every non-pawn capture ends the exchange by making a wall. Only pawns
+    // recurse, so there are at most four pawn origins for a fixed target.
+    // Enumerate all attackers: least-valuable-attacker chess SEE is not valid
+    // when the capturing piece itself disappears and a wall blocks x-rays.
+    int best_capture(Color us, Square target, PieceType victim) const {
+        const int reward = PieceValue[victim] + 100 * Position::capture_points(victim);
+        int best = 0;
+        const Bitboard all = attackers(target, us);
+        for (PieceType pt : {PAWN, KNIGHT, BISHOP, ROOK, QUEEN})
+            for (Bitboard origins = all & byType[pt]; origins;)
+            {
+                const Square from = pop_lsb(origins);
+                if (pt != PAWN)
+                {
+                    const int gain = reward - PieceValue[pt];
+                    if (gain <= best)
+                        continue;
+                    PointsExchange next = *this;
+                    next.remove(us, pt, from);
+                    next.remove(~us, victim, target);
+                    next.occupied |= target; // Neutral wall, not a surviving capturer
+                    if (!next.attackers(king[us], ~us))
+                        best = gain;
+                    continue;
+                }
+
+                const bool promotion = relative_rank(us, target) == RANK_8;
+                for (PieceType result : {PAWN, KNIGHT, BISHOP, ROOK, QUEEN})
+                {
+                    if (promotion == (result == PAWN))
+                        continue;
+                    const int gain = reward + PieceValue[result] - PawnValue;
+                    if (gain <= best)
+                        continue;
+                    PointsExchange next = *this;
+                    next.remove(us, PAWN, from);
+                    next.remove(~us, victim, target);
+                    next.put(us, result, target);
+                    if (!next.attackers(king[us], ~us))
+                        best = std::max(best, gain - next.best_capture(~us, target, result));
+                }
+            }
+        return best;
+    }
+};
+
+} // namespace
+
+// Exact minimax of a restricted local exchange, not of the whole game:
+// live material plus the existing 100 units per earned point; either side may
+// decline a recapture. Mate, settlement, tempo and the positional value of a
+// wall remain the search/evaluator's responsibility. The initial move is legal.
+int Position::points_see(Move m) const {
+    assert(game_of_points());
+    const Color us = sideToMove;
+    const PieceType mover = type_of(moved_piece(m));
+    if (m.type_of() == CASTLING || mover == KING)
+        return 0;
+    const Square from = m.from_sq(), to = m.to_sq();
+    const Square captured = m.type_of() == EN_PASSANT ? to - pawn_push(us) : to;
+    const PieceType victim = type_of(piece_on(captured));
+    int gain = victim == NO_PIECE_TYPE ? 0
+               : PieceValue[victim] + 100 * capture_points(victim);
+    if (victim != NO_PIECE_TYPE && mover != PAWN)
+        return gain - PieceValue[mover]; // A wall cannot be recaptured
+
+    const PieceType result = m.type_of() == PROMOTION ? m.promotion_type() : mover;
+    gain += PieceValue[result] - PieceValue[mover];
+    PointsExchange board(*this);
+    board.remove(us, mover, from);
+    if (victim != NO_PIECE_TYPE)
+        board.remove(~us, victim, captured);
+    board.put(us, result, to);
+    int reply = board.best_capture(~us, to, result);
+
+    // A double pawn push can also lose its occupant on a different square via
+    // en passant. Follow that surviving pawn on the passed square thereafter.
+    if (mover == PAWN && int(to) - int(from) == 2 * int(pawn_push(us)))
+    {
+        const Square passed = to - pawn_push(us);
+        for (Bitboard origins = attacks_bb(PAWN, passed, us)
+                               & board.byColor[~us] & board.byType[PAWN]; origins;)
+        {
+            const Square epFrom = pop_lsb(origins);
+            PointsExchange next = board;
+            next.remove(us, PAWN, to);
+            next.remove(~us, PAWN, epFrom);
+            next.put(~us, PAWN, passed);
+            if (!next.attackers(next.king[~us], us))
+                reply = std::max(reply, PawnValue + 100
+                                       - next.best_capture(us, passed, PAWN));
+        }
+    }
+    return gain - reply;
+}
+
+// Keep the legacy Walls estimate unchanged. Points uses legal local exchanges,
+// including surviving pawns, fatal captures, x-rays, promotions and en passant.
 bool Position::see_ge(Move m, int threshold) const {
+    if (game_of_points()) return points_see(m) >= threshold;
     if (m.type_of() == CASTLING) return threshold <= 0;
     const Piece pc = moved_piece(m);
     int gain = m.type_of() == EN_PASSANT ? PieceValue[PAWN] : PieceValue[piece_on(m.to_sq())];

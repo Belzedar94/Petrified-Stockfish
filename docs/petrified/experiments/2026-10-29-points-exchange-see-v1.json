@@ -1,0 +1,106 @@
+{
+  "schema": "petrified-strength-experiment-v1",
+  "experiment": "points-exchange-see-v1",
+  "status": "IMPLEMENTATION_VALIDATION",
+  "owner_request": "Continue one next substantial idea from PR11; think bigger and deeply review Petrified-specific search assumptions",
+  "hypothesis": "Legal local-exchange minimax for points SEE: fatal captures end in a wall, pawns survive, pins and x-rays, all promotions, initial en passant and en passant responses to double pushes; same piece values and 100 units per earned point",
+  "branch": "exp/points-exchange-see-v1",
+  "qualified_base_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
+  "champion_source_commit": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+  "champion_binary_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "candidate_selection": "One structural search candidate; no tuning after strength results",
+  "unchanged": [
+    "SEE caller thresholds",
+    "move ordering weights",
+    "LMR and histories",
+    "qsearch policy",
+    "rules/state",
+    "NNUE file and implementation",
+    "legacy Walls estimate"
+  ],
+  "excluded_changes": [
+    "PR9 null pruning",
+    "PR12 incremental state",
+    "PR13 pin legality",
+    "PR14 sparse head",
+    "Uncompiled fused accumulator",
+    "Rejected NNUE weights"
+  ],
+  "compiler": {
+    "compiler": "GCC16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false
+  },
+  "review": "docs/petrified/search-specialization-review.md",
+  "model_limits": [
+    "Optional recaptures even if in check",
+    "Live material and capture points only; no settlement bonus",
+    "No other-square tactics or quiet replies",
+    "No positional wall value or tempo correction"
+  ],
+  "validation_plan": [
+    "Debug and Release full make/undo exchange reference and hand-calculated fixtures",
+    "Independent Chess.com nonterminal exchange trees; report excluded terminal settlements",
+    "State/undo and exact NNUE",
+    "Points/mate/regression and native UCI/CECP interfaces",
+    "Independent searched PVs",
+    "Reproducible new candidate points bench twice, rival177290; legacy179335 both",
+    "Five source CI jobs"
+  ],
+  "panel": {
+    "directory": ".local/points-exchange-see-panel-001",
+    "status": "NOT_STARTED",
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%; complete pending pairs and recheck; resume inside cap if lost",
+    "at_cap": "NEUTRAL_SCREEN for selection, not equivalence",
+    "early_rejection": "Owner-delegated manual neutral or clear loss; retain measured statistics",
+    "promotion": "Three audited WIN controls plus distribution/interfaces",
+    "referee": "Pinned independent Chess.com public client"
+  },
+  "constraints": {
+    "T8": "Manually paused",
+    "Misere": "Do not contact",
+    "OpenBench_AtomicDB_remote_workers": "No action",
+    "Fairyground": "Closed with authorization; PR11 profile preserved",
+    "PR9_PR12_PR13": "Retained separately; none included"
+  },
+  "development_validation": {
+    "slow_reference": {
+      "positions": 1827,
+      "moves": 56798,
+      "thresholds": 795172,
+      "result": "PASS"
+    },
+    "independent_exchange": {
+      "compared": 789,
+      "skipped_terminal_settlements": 21,
+      "skipped_terminal_histories": 0,
+      "visited_plies": 1068,
+      "recaptures": 268,
+      "promotions": 15,
+      "en_passant": 4,
+      "report": ".local/points-exchange-see-v1/development-002/independent-exchange-nonterminal.json",
+      "result": "PASS"
+    },
+    "resolved_harness_issues": [
+      "One synthetic FEN initially had the nonmoving king already in check; corrected fixture before freezing source",
+      "External referee freezes an eliminated army at terminal settlement; terminal branches are explicitly excluded from the local-objective comparison and covered by the separate points suite"
+    ],
+    "raw_evidence": [
+      ".local/points-exchange-see-v1/development-001",
+      ".local/points-exchange-see-v1/development-002"
+    ]
+  },
+  "created_utc": "2026-10-29T20:17:33.052127+00:00"
+}
