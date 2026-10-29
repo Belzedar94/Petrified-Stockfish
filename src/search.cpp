@@ -17,6 +17,7 @@
 */
 
 #include "search.h"
+#include "search_capture.h"
 
 #include <algorithm>
 #include <array>
@@ -1404,7 +1405,8 @@ moves_loop:  // When in check, search starts here
             r -= 2179;
 
         if (capture)
-            ss->statScore = 873 * int(PieceValue[pos.captured_piece()]) / 128
+            ss->statScore = 873 * capture_lmr_value(pos.game_of_points(), movedPiece,
+                                                   pos.captured_piece(), move) / 128
                           + captureHistory[movedPiece][move.to_sq()][type_of(pos.captured_piece())];
         else
             ss->statScore =

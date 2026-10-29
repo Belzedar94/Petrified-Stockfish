@@ -1,0 +1,41 @@
+{
+  "experiment": "points-capture-lmr-v1",
+  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "hypothesis": "Replace victim-only capture LMR value with the immediate live-material plus capture-points transaction, including disappearing non-pawn movers and pawn promotions. One depth-allocation policy only.",
+  "base_qualified_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+  "base_qualified_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
+  "branch": "exp/points-capture-lmr-v1",
+  "fixed_policy": {
+    "lmr_value": "victim board value + 100*earned capture points - nonpawn fatal mover cost + pawn promotion material delta",
+    "coefficient": 873,
+    "divisor": 128,
+    "other_search_coefficients": "Unchanged",
+    "history": "Unchanged",
+    "SEE": "Unchanged PR11; PR15 excluded",
+    "evaluation_network_rules_state_ordering": "Unchanged PR11",
+    "limits": "Not a SEE, terminal proof, or wall/tempo valuation; reduced searches still use actual rules and terminal outcomes."
+  },
+  "panel": {
+    "status": "NOT_STARTED",
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash": 512,
+    "concurrency": 4,
+    "decision": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; limit without boundary is NEUTRAL_SCREEN, not equivalence. Three audited wins plus interfaces required. Existing manual rejection delegation applies."
+  },
+  "constraints": {
+    "T8": "Manually paused",
+    "Misere": "Do not contact",
+    "OpenBench_AtomicDB_remote_workers": "No action",
+    "Fairyground": "Closed; PR11 preserved",
+    "PR9_PR12_PR13_PR15": "Retained separately, not included",
+    "training_tuning": "Not authorized"
+  },
+  "created_utc": "2026-10-29T21:30:09.432327+00:00"
+}
