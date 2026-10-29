@@ -1,6 +1,6 @@
 {
   "experiment": "points-capture-lmr-v1",
-  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "status": "LOCAL_VALIDATION_PASS",
   "hypothesis": "Replace victim-only capture LMR value with the immediate live-material plus capture-points transaction, including disappearing non-pawn movers and pawn promotions. One depth-allocation policy only.",
   "base_qualified_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
   "base_qualified_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
@@ -37,5 +37,56 @@
     "PR9_PR12_PR13_PR15": "Retained separately, not included",
     "training_tuning": "Not authorized"
   },
-  "created_utc": "2026-10-29T21:30:09.432327+00:00"
+  "created_utc": "2026-10-29T21:30:09.432327+00:00",
+  "source_commit": "e6faae706d6217342d580714045cb37699a6cb94",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/16",
+  "execution_manifest": ".local\\points-capture-lmr-v1\\execution-manifest.json",
+  "frozen_inputs": 163,
+  "candidate_sha256": "5bf22c655f7ec593325fc09bc7b2dd82f67ff1d83d10b8bcd999a627321c04da",
+  "champion_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "points_bench_candidate": [
+    151183,
+    151183
+  ],
+  "points_bench_champion": 177290,
+  "legacy_bench": 179335,
+  "validation": {
+    "result": "PASS",
+    "report": ".local/points-capture-lmr-v1/validation-report.json",
+    "debug_release_transactions_each": 177911,
+    "debug_release_legal_queries_each": 883968,
+    "debug_release_state_undo_each": 9338,
+    "exact_NNUE": true,
+    "independent_transactions": {
+      "compared": 403,
+      "referee_plies": 418,
+      "terminal_settlements_excluded": 15,
+      "promotions": 42,
+      "en_passant": 6,
+      "note": "Local material/capture-points objective excludes terminal liquidation. Points/mates regressions cover terminal outcomes."
+    },
+    "independent_search_positions": 32,
+    "independent_pv_plies": 248,
+    "native_interfaces": "UCI and CECP PASS",
+    "source_ci": {
+      "commit": "e6faae706d6217342d580714045cb37699a6cb94",
+      "run_id": 40958404344,
+      "jobs_passed": 5
+    },
+    "build_process_identities_exited": 28
+  },
+  "resolved_operational_failures": [
+    {
+      "path": ".local/points-capture-lmr-v1/validation-failure-001",
+      "reason": "Independent fixture converter rejected en-passant FEN",
+      "resolution": "Reconstruct the preceding double pawn push and play it with the independent client; verify all board squares, side and scores"
+    },
+    {
+      "path": ".local/points-capture-lmr-v1/validation-failure-002",
+      "reason": "New fixture check expected a dead flag; neutral walls are player4 X",
+      "resolution": "Check the independent neutral wall representation exactly"
+    }
+  ],
+  "candidate_unchanged_during_repairs": true
 }
