@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'tests/petrified'))
 from protocol import Uci
 from local_campaign import frozen_runner, TCS, sha, write_json, verify_loaded_network
+from points_network import verify_points_network
 
 
 class Referee:
@@ -67,10 +68,7 @@ def pair(index, opening, tc, args, directory, cancelled):
             if sha(networks[i]) == '345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933':
                 verify_loaded_network(engine, networks[i])
             else:
-                engine.send('position startpos'); engine.send('go depth 1')
-                lines = engine.until(lambda s:s.startswith('bestmove '))
-                expected = 'NNUE PointsAdapter v1 loaded; SHA256='+sha(networks[i])
-                if not any(expected in line for line in lines): raise RuntimeError('Unverified candidate network')
+                verify_points_network(engine, networks[i])
             engine.send(f'setoption name Hash value {args.hash}')
             engine.send('setoption name UCI_Variant value '+('petrifiedpoints' if i == 0 else args.opponent_variant))
             engine.ready()
@@ -168,7 +166,7 @@ def main():
        'minimum_games':args.min_games,'maximum_games':args.max_games,'hash':args.hash,'threads':1,'concurrency':args.concurrency,
        'opponent_variant':args.opponent_variant,
        'worker':'owner-paused; no restart', 'files':{str(p):sha(p) for p in [args.candidate,args.opponent,args.network,args.opponent_network,args.bundle,
-        Path(__file__),ROOT/'scripts/local_campaign.py',ROOT/'tests/petrified/chesscom_reference.cjs',ROOT/'tests/petrified/protocol.py',walks_path,args.out/'openings.json']}})
+        Path(__file__),ROOT/'scripts/points_network.py',ROOT/'scripts/local_campaign.py',ROOT/'tests/petrified/chesscom_reference.cjs',ROOT/'tests/petrified/protocol.py',walks_path,args.out/'openings.json']}})
     cancelled = threading.Event()
     summaries = []
     for name in args.controls:

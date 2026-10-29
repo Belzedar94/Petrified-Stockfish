@@ -1,16 +1,246 @@
 {
   "schema": "petrified-points-head-experiment-v1",
-  "status": "IMPLEMENTING",
+  "status": "VALIDATED_AWAITING_PANEL",
   "promoted": false,
   "owner_authorized": "Train a score-conditioned run4test head with frozen accumulators and better data on GPU, then all three controls against the champion.",
   "baseline_ref": "7dd7c827b41e9460184730227fed4222929dbbaf",
   "champion": "run4test + winning-mate-r2",
   "hypothesis": "Fine-tuning the actual eight run4test dense heads with score inputs can learn interactions between board geometry and points that the previous aggregate-feature residual could not represent.",
-  "frozen": ["run4test transformer biases and weights", "PSQT weights", "rules", "search", "fixed 100 * score difference skip", "legacy evaluation scale"],
-  "data_plan": {"games": 1024, "nodes_per_move": 8192, "concurrency": 4, "seed": 29102901, "random_prefix_plies": [8,12,16,20], "sample_stride": 3, "referee": "Pinned Chess.com client validates every move and terminal", "split": "opening-family hash; no shared rows or opening families across splits", "targets": "actual points outcome plus deeper searched teacher probability; no static teacher labels or invented censored draws"},
-  "training_plan": {"device": "CUDA RTX 3080", "epochs": 24, "selection": "one quantization-aware training run; checkpoint selected on validation only; test evaluated once after selection"},
-  "panel": {"controls": ["2+0.02", "10+0.1", "30+0.3"], "minimum_games": 40, "maximum_games": 400, "threads": 1, "hash_mib": 512, "concurrency": 4, "stopping": "Displayed LOS 100.0%/0.0%, complete pending color-reversed pairs and recheck", "promotion": "three valid WIN controls; otherwise preserve/reject candidate and retain champion", "at_limit": "NEUTRAL_SCREEN, not statistical equivalence"},
+  "frozen": [
+    "run4test transformer biases and weights",
+    "PSQT weights",
+    "rules",
+    "search",
+    "fixed 100 * score difference skip",
+    "legacy evaluation scale"
+  ],
+  "data_plan": {
+    "games": 1024,
+    "nodes_per_move": 8192,
+    "concurrency": 4,
+    "seed": 29102901,
+    "random_prefix_plies": [
+      8,
+      12,
+      16,
+      20
+    ],
+    "sample_stride": 3,
+    "referee": "Pinned Chess.com client validates every move and terminal",
+    "split": "opening-family hash; no shared rows or opening families across splits",
+    "targets": "actual points outcome plus deeper searched teacher probability; no static teacher labels or invented censored draws"
+  },
+  "training_plan": {
+    "device": "CUDA RTX 3080",
+    "epochs": 24,
+    "selection": "one quantization-aware training run; checkpoint selected on validation only; test evaluated once after selection"
+  },
+  "panel": {
+    "controls": [
+      "2+0.02",
+      "10+0.1",
+      "30+0.3"
+    ],
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "stopping": "Displayed LOS 100.0%/0.0%, complete pending color-reversed pairs and recheck",
+    "promotion": "three valid WIN controls; otherwise preserve/reject candidate and retain champion",
+    "at_limit": "NEUTRAL_SCREEN, not statistical equivalence",
+    "path": ".local/points-head-panel-001"
+  },
   "worker": "T8 stays manually paused",
   "misere": "Paused by owner; no messages",
-  "openbench": "No workload authorized"
+  "openbench": "No workload authorized",
+  "implementation_commit": "00a7fb11587f2120e1b5a3c7bcc97400c3b36480",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/7",
+  "data": {
+    "schema": "points-head-prepared-v1",
+    "game_count": 1024,
+    "rows": [
+      39167,
+      5197,
+      4682
+    ],
+    "games_per_split": [
+      808,
+      109,
+      104
+    ],
+    "censored_games": 0,
+    "match_opening_families_excluded": 0,
+    "cross_split_duplicates_removed": 0,
+    "within_split_duplicates_removed": 0,
+    "bucket_rows": [
+      2157,
+      8708,
+      7344,
+      6901,
+      6266,
+      6342,
+      6067,
+      5261
+    ],
+    "score_difference_range": [
+      -29,
+      25
+    ],
+    "base_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+    "exporter_sha256": "b84d4500f7944d3214babe2adca0597c39b54540d3b5c8f87b5730824ca4b806",
+    "referee": "Every source game move and terminal checked by pinned Chess.com client; log hashes checked",
+    "audited_plies": 170100,
+    "raw_games": 1024
+  },
+  "training": {
+    "schema": "points-head-training-v1",
+    "device": "NVIDIA GeForce RTX 3080",
+    "torch": "2.7.1+cu118",
+    "cuda": "11.8",
+    "seconds": 28.36,
+    "rows": [
+      39167,
+      5197,
+      4682
+    ],
+    "selected_epoch": 3,
+    "epochs": 24,
+    "validation": {
+      "candidate_blend_loss": 0.48136669397354126,
+      "baseline_blend_loss": 0.4921199083328247,
+      "candidate_result_loss": 0.43404343724250793,
+      "baseline_result_loss": 0.4614338278770447
+    },
+    "test": {
+      "candidate_blend_loss": 0.4731106758117676,
+      "baseline_blend_loss": 0.5001938343048096,
+      "candidate_result_loss": 0.4353495240211487,
+      "baseline_result_loss": 0.4924025237560272
+    },
+    "sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "frozen_base_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+    "qat_integer_mismatches": 0,
+    "trainable_parameters": 139912,
+    "dataset_manifest_sha256": "c31378703227647f588c15439255d558b31c52f04a2c7ffcef3cd2750d042b0d",
+    "promotion": "Requires three valid direct match wins; loss is not Elo"
+  },
+  "validation": {
+    "schema": "points-head-validation-v1",
+    "positions": 202,
+    "independent_numpy_transformer": "PASS",
+    "numpy_integer_vs_cpp": "PASS",
+    "zero_head_vs_champion": "EXACT",
+    "base_vs_champion": "EXACT",
+    "legacy_unchanged": "PASS",
+    "two_threads_and_multiple_instances": "PASS",
+    "save_roundtrip": "PASS",
+    "invalid_files_rejected": [
+      "truncated",
+      "trailing",
+      "version",
+      "dimensions",
+      "changed-base",
+      "checksum",
+      "bias-overflow",
+      "nonzero-padding"
+    ],
+    "candidate_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "base_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+    "state_undo_positions": 9338,
+    "debug_release": "PASS",
+    "points_regressions": "PASS: 23 oracle cases, 4976 oracle walk plies, both real games and 19/20/21 deficits",
+    "interfaces": {
+      "passed": true,
+      "uci": true,
+      "xboard": true,
+      "node_wasm": true,
+      "checks": [
+        "MultiPV",
+        "real NNUE",
+        "Threads 1/2",
+        "stop",
+        "ponderhit",
+        "terminal roots",
+        "winning mate distances/TT",
+        "points deficits 19/20/21, both colors",
+        "losing mate 25-24",
+        "invalid/missing NNUE",
+        "rules without NNUE",
+        "CECP edit/walls/fractional clocks/analysis"
+      ]
+    },
+    "wasm_integer": {
+      "positions": 34,
+      "native_vs_node_wasm_integer": "EXACT",
+      "threads": 2
+    },
+    "source_ci": {
+      "run_id": 40828084192,
+      "result": "all five Windows/Linux Debug/Release and sanitizer jobs PASS; without external networks"
+    }
+  },
+  "bench": {
+    "schema": "points-head-bench-v1",
+    "candidate": [
+      177290,
+      177290
+    ],
+    "champion": 173124,
+    "command": "bench 16 1 10 tests/petrified/bench-points.epd depth",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87"
+  },
+  "artifacts": {
+    "candidate": {
+      "path": ".local/points-head-v1-inputs/petrified-points-head-v1-bmi2.exe",
+      "sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87"
+    },
+    "opponent": {
+      "path": ".local/points-head-v1-inputs/petrified-points-mate-r2-bmi2.exe",
+      "sha256": "2401d95d3481349ae5bc61cbd1ea3e444337611b2a3d60c6ba8bb3492bb5fe49"
+    },
+    "network": {
+      "path": ".local/points-head-v1-inputs/candidate.pnnue",
+      "sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c"
+    },
+    "opponent_network": {
+      "path": ".local/points-head-v1-inputs/petrified_run4test_e19_l085.nnue",
+      "sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933"
+    },
+    "bundle": {
+      "path": ".local/points-head-v1-inputs/variants.js",
+      "sha256": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b"
+    },
+    "source_commit": "00a7fb11587f2120e1b5a3c7bcc97400c3b36480",
+    "compiler": {
+      "name": "GCC 16.1.0 MinGW",
+      "isa": "BMI2",
+      "lto": true,
+      "pgo": false
+    },
+    "bench": {
+      "schema": "points-head-bench-v1",
+      "candidate": [
+        177290,
+        177290
+      ],
+      "champion": 173124,
+      "command": "bench 16 1 10 tests/petrified/bench-points.epd depth",
+      "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+      "binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87"
+    },
+    "modules_lock_sha256": "24545295e38f03dd19541d7faf73d31c45714a8f549a9d9676e7d317ddf51beb"
+  },
+  "files": {
+    ".local/points-head-v1/data/manifest.json": "7a4e99273e470cc178fc391eb83f62b9cef46a3f5a510acb5abcf4a1aba4cf61",
+    ".local/points-head-v1/data/complete.json": "6f0717f39bd74ff677159a0966dfd2d75d901ca6d62779b906dcfda298aabd2d",
+    ".local/points-head-v1/prepared/manifest.json": "c31378703227647f588c15439255d558b31c52f04a2c7ffcef3cd2750d042b0d",
+    ".local/points-head-v1/trained/report.json": "97fb121e02bd68ef12fdbbd6252ac41010eb6809ee380b7626cbd52257954424",
+    ".local/points-head-v1/candidate-validation/report.json": "b5ec25c24f94b14a1a36d663e4edfaaefc06d1ed1ff6cec736dca81e46813d1c",
+    ".local/points-head-v1/candidate-interfaces.json": "f26479310a497ac5db86fb82985f7424430401934b00f9b469a63fc2799a9ff6",
+    ".local/points-head-v1/candidate-wasm-evaluation.json": "afec4d0958611f7125046f6f6cd05f75328cd13a9d7893ae10ef9921706e6611",
+    ".local/points-head-v1/bench-candidate.json": "29c753a01d51665d6e9beeb4e7acf59c5e50a662926576cdc1a3689b0d159fb8",
+    ".local/points-head-v1-inputs/manifest.json": "0987cf525117b0d232fc0c71f2eb99118053568c4a2f251a1b8d78d5e8bc8882"
+  }
 }
