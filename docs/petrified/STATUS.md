@@ -16,6 +16,17 @@ The four-way Hash512 panel waits for enough free memory. T8 stays paused;
 no OpenBench, AtomicDB, remote-worker or Misere action is authorized.
 See `experiments/2026-10-29-points-incremental-state-v1.json`.
 
+PR #12 source `b13df5004c57543e8e05f296ecd4dc67757dfb81` is validated and
+frozen with 80 inputs. Debug/Release each passed 72,078 full-state comparisons,
+883,968 legal queries and 9,338 state/NNUE checks; 32 searches passed the
+independent referee. Five source CI jobs passed. Points bench is 177290 twice,
+legacy 179335, both identical to PR #11. Eight alternating depth12 samples
+visited the same 376,705 nodes: median343.5ms versus374ms (1.08879x throughput,
+not Elo). All 35 recorded build process identities exited. The panel has not
+started: its preflight needs 7,583,301,632 free bytes; the latest observation was
+5,803,884,544. The follow-up will start the frozen panel once memory is sufficient.
+Fairyground and the owner's personal analysis remain open.
+
 # Promoted champion: points-legal-query-v1
 
 PR #11 accelerates boolean legal-move queries from qualified PR #7 while

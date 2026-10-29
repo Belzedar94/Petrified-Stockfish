@@ -1,8 +1,8 @@
 {
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-incremental-state-v1",
-  "status": "IMPLEMENTING",
-  "owner_request": "Ahora, continúa con la siguiente gran idea",
+  "status": "VALIDATED_WAITING_MEMORY",
+  "owner_request": "Ahora, contin\u00c3\u00baa con la siguiente gran idea",
   "candidate_count": 1,
   "branch": "exp/points-incremental-state-v1",
   "baseline_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
@@ -49,7 +49,8 @@
     "at_cap": "NEUTRAL_SCREEN for selection, not equivalence",
     "early_rejection": "Owner-delegated manual neutral or clear loss; preserve measured statistics",
     "promotion": "Three audited WIN controls plus distribution/interfaces",
-    "referee": "Pinned independent Chess.com public client"
+    "referee": "Pinned independent Chess.com public client",
+    "status": "NOT_STARTED_WAITING_MEMORY"
   },
   "constraints": {
     "T8": "Manually paused",
@@ -58,5 +59,134 @@
     "Fairyground": "Leave current PR11 server and user analysis intact",
     "PR9": "Retained, not included"
   },
-  "created_utc": "2026-10-29T15:43:55.595988+00:00"
+  "created_utc": "2026-10-29T15:43:55.595988+00:00",
+  "source_commit": "b13df5004c57543e8e05f296ecd4dc67757dfb81",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/12",
+  "candidate_binary": ".local\\points-incremental-state-v1-inputs\\petrified-points-incremental-state-v1-bmi2.exe",
+  "candidate_sha256": "9b28ba4683b6bc4c9f4dfa57fbeddd2c500359c151b50a4c7fe45c02234d246a",
+  "execution_manifest": ".local\\points-incremental-state-v1\\execution-manifest.json",
+  "execution_manifest_sha256": "359aef5d6734e88eb9e98b75054a9927c3f9f554887d5ea7dbaa57f994b97cd9",
+  "frozen_inputs": 80,
+  "updated_utc": "2026-10-29T16:02:12.698976+00:00",
+  "validation": {
+    "result": "PASS",
+    "report": ".local\\points-incremental-state-v1\\validation-report.json",
+    "debug_release_each": {
+      "state_undo_positions": 9338,
+      "legal_query_comparisons": 883968,
+      "full_state_rebuild_comparisons": 72078,
+      "promotions": 136,
+      "en_passant": 8,
+      "castling": 198,
+      "wall_captures": 1019,
+      "nnue": "exact"
+    },
+    "native_interfaces": "PASS",
+    "independent_referee_searches": 32,
+    "points_bench_candidate": [
+      177290,
+      177290
+    ],
+    "points_bench_champion": 177290,
+    "legacy_bench_candidate_champion": [
+      179335,
+      179335
+    ],
+    "build_process_identities_exited": 35,
+    "source_archive_files_verified": 214
+  },
+  "source_ci": {
+    "commit": "b13df5004c57543e8e05f296ecd4dc67757dfb81",
+    "run_id": 40905350920,
+    "jobs_passed": 5,
+    "conclusion": "success",
+    "evidence": ".local\\points-incremental-state-v1\\ci-source.json"
+  },
+  "speed": {
+    "depth": 12,
+    "samples": 8,
+    "alternating_order": true,
+    "reported_ms": {
+      "candidate": [
+        341,
+        343,
+        341,
+        347,
+        344,
+        343,
+        345,
+        348
+      ],
+      "champion": [
+        370,
+        388,
+        372,
+        381,
+        379,
+        375,
+        373,
+        369
+      ]
+    },
+    "median_ms": {
+      "candidate": 343.5,
+      "champion": 374.0
+    },
+    "nodes": {
+      "candidate": 376705,
+      "champion": 376705
+    },
+    "speedup": 1.0887918486171762,
+    "meaning": "Local throughput estimate only; not Elo"
+  },
+  "resource_preflight": {
+    "correctness": "PASS",
+    "source_ci": "PASS",
+    "checked_utc": "2026-10-29T15:59:47.538841+00:00",
+    "stage": "WAITING_MEMORY",
+    "free_bytes": 5803884544,
+    "required_bytes": 7583301632,
+    "frozen_input_count": 80,
+    "source_archive_files": 214,
+    "build_process_identities_exited": 35,
+    "reused_pids_not_touched": [],
+    "T8_pause_verified": true,
+    "Fairyground": "Untouched",
+    "panel_started": false
+  },
+  "observed_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "PENDING_MEMORY",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": null,
+      "statistics": null
+    },
+    "STC": {
+      "control": "STC",
+      "status": "PENDING_MEMORY",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": null,
+      "statistics": null
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "PENDING_MEMORY",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": null,
+      "statistics": null
+    }
+  }
 }
