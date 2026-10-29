@@ -19,7 +19,9 @@ def main():
     a = ap.parse_args(); a.out.mkdir(parents=True, exist_ok=False)
     for name, digest in EXPECTED.items():
         if hashlib.sha256((a.data/name).read_bytes()).hexdigest() != digest: raise ValueError(name)
-    source = np.load(a.data/'data.npz')
+    # Materialize once: NpzFile indexing re-reads/decompresses the whole array.
+    with np.load(a.data/'data.npz') as archive:
+        source = {key:archive[key] for key in archive.files}
     fens = (a.data/'fens.txt').read_text().splitlines()
     assert len(fens) == len(source['x']) == 73400
     raw = np.empty((len(fens), 2, 512), dtype=np.int16)
