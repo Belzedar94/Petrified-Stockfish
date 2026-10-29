@@ -1,7 +1,7 @@
 {
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-verified-null-v1",
-  "status": "READY_FOR_PANEL",
+  "status": "PANEL_RUNNING",
   "promoted": false,
   "owner_authorized": "Ponte con el siguiente gran experimento pues",
   "branch": "exp/points-verified-null-v1",
@@ -60,7 +60,75 @@
     "all_three_required": true,
     "at_limit": "NEUTRAL_SCREEN for candidate selection, not statistical equivalence",
     "promotion": "Only three valid WIN controls plus final audits and interfaces; otherwise preserve/reject and retain PR #7 champion",
-    "referee": "Independent hash-pinned public Chess.com client"
+    "referee": "Independent hash-pinned public Chess.com client",
+    "manifest": ".local/points-verified-null-panel-001/manifest.json",
+    "launched_utc": "2026-10-29T11:36:55.538516+00:00",
+    "controller": {
+      "pid": 26544,
+      "creation_filetime": 134377474154677864,
+      "creation_utc": "2026-10-29T11:36:55.467785+00:00"
+    },
+    "process": {
+      "pid": 9800,
+      "creation_filetime": 134377474156106229,
+      "creation_utc": "2026-10-29T11:36:55.610622+00:00"
+    },
+    "supervised_session_id": 60114,
+    "execution_manifest": ".local/points-verified-null-v1/execution-manifest.json",
+    "launch_audit": ".local/points-verified-null-v1/panel-launch-audit.json",
+    "raw_results_at_launch": {
+      "VSTC": {
+        "control": "VSTC",
+        "status": "RUNNING",
+        "scores": [
+          37,
+          38,
+          3
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          7,
+          1,
+          23,
+          2,
+          6
+        ],
+        "statistics": "Total: 78 W: 37 L: 38 D: 3 ELO: -4.45 +-76.7 (95%) LOS: 45.4%",
+        "completed_pairs": 39,
+        "elapsed_seconds": 181.766
+      },
+      "STC": {
+        "control": "STC",
+        "status": "PENDING",
+        "scores": [
+          0,
+          0,
+          0
+        ],
+        "time_losses": [
+          0,
+          0
+        ]
+      },
+      "LTC": {
+        "control": "LTC",
+        "status": "PENDING",
+        "scores": [
+          0,
+          0,
+          0
+        ],
+        "time_losses": [
+          0,
+          0
+        ]
+      }
+    }
   },
   "worker": "T8 stays manually paused",
   "misere": "Paused by owner; do not contact",
@@ -154,5 +222,9 @@
     },
     "source_archive_files_exact": 210,
     "build_processes_exited": true
+  },
+  "followup": {
+    "automation_id": "petrified-poda-nula-verificada",
+    "path": ".local/points-verified-null-followup.json"
   }
 }
