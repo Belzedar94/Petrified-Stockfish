@@ -3,6 +3,20 @@
 This branch starts at official Stockfish `ff7cee4244ec96ea488c402669e3674c0574dce6`.
 It is an implementation in progress, **not a version 1.0 release**.
 
+## Successor data experiment (2026-10-29)
+
+The owner requested one next idea against the newly qualified champion.
+[Points-head-v2](experiments/2026-10-29-points-head-v2.json) tests whether the
+winning head can improve from its own stronger play and four times the search
+budget per label: 1,024 fresh games at 32,768 nodes/move. It starts from the exact
+v1 head, retains 25% historical training rows, and excludes all old holdout rows
+and opening families from fresh data. The transformer, PSQT, head architecture,
+rules, search and engine binary are unchanged. The local GPU trains one selected
+network; the panel compares it directly to v1 at VSTC/STC/LTC, minimum 40,
+maximum 400, displayed LOS 100.0%/0.0%, with completed pairs and boundary recheck.
+Only three valid wins can replace v1. Training and screening are pending;
+Fairyground remains on v1. T8 remains manually paused.
+
 ## Qualified points head (2026-10-29)
 
 The owner authorized [points-head-v1](experiments/2026-10-29-points-head-v1.json)

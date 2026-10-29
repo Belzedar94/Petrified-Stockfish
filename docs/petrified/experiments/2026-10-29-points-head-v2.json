@@ -1,0 +1,141 @@
+{
+  "schema": "petrified-points-head-experiment-v2",
+  "experiment": "points-head-v2",
+  "status": "PREREGISTERED",
+  "promoted": false,
+  "owner_authorized": "Continue with the next major idea and a panel against the new baseline; one successor candidate.",
+  "authorized_utc": "2026-10-29T08:29:37.692129+00:00",
+  "baseline_ref": "5c31333762a41609a410fd2db71a190b6fd73679",
+  "champion": "run4test PointsHead v1 + winning-mate-r2",
+  "engine_source_commit": "00a7fb11587f2120e1b5a3c7bcc97400c3b36480",
+  "branch": "exp/points-head-v2",
+  "hypothesis": "The winning v1 dense head can improve from deeper self-play by its own stronger policy, with fixed replay to reduce forgetting. Data and teacher change; architecture and engine do not.",
+  "frozen": [
+    "run4test transformer and biases",
+    "PSQT",
+    "1056/16/32/1 eight-head architecture",
+    "rules",
+    "search and pruning",
+    "fixed 100 * score difference skip",
+    "evaluation scale",
+    "exact champion executable for both opponents"
+  ],
+  "inputs": {
+    ".local\\points-head-v2-inputs\\petrified-points-head-bmi2.exe": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+    ".local\\points-head-v2-inputs\\champion-v1.pnnue": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    ".local\\points-head-v2-inputs\\run4test.nnue": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+    ".local\\points-head-v2-inputs\\variants.js": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b",
+    "build\\points-head-v1\\petrified-head-export.exe": "b84d4500f7944d3214babe2adca0597c39b54540d3b5c8f87b5730824ca4b806",
+    "build\\points-head-v1\\pyffish.cp312-win_amd64.pyd": "287ddd67104e754587a38eac2b390518af7d98c90093735426f6b45920d2f7ee",
+    ".local\\points-head-v1\\prepared\\manifest.json": "c31378703227647f588c15439255d558b31c52f04a2c7ffcef3cd2750d042b0d",
+    "tests\\petrified\\fixtures\\chesscom-walks.json": "e7c52d55ec83a3ddfbd85648bc7e243a0c49ad617623d160f8e4a6c2260940ed",
+    "tests\\petrified\\bench-points.epd": "843dec81ee8e287c3475c68e95e559721cf1dd344515b3439bf7ece3ad2411ec"
+  },
+  "data_plan": {
+    "games": 1024,
+    "nodes_per_move": 32768,
+    "threads": 1,
+    "hash_mib": 64,
+    "concurrency": 4,
+    "seed": 29112901,
+    "seed_range": [
+      29112901,
+      29113924
+    ],
+    "prior_seed_range": [
+      29102901,
+      29103924
+    ],
+    "random_prefix_plies": [
+      8,
+      12,
+      16,
+      20
+    ],
+    "sample_stride": 3,
+    "referee": "Pinned independent Chess.com client validates every move and ending",
+    "split": "SHA256(first 8 opening plies) modulo 10: 0 test, 1 validation, 2..9 train; exclude fixed match opening families",
+    "historical_exclusion": "Remove all fresh positions and opening families seen in prior prepared data; prior holdouts are exclusion-only",
+    "replay": {
+      "prepared_manifest_sha256": "c31378703227647f588c15439255d558b31c52f04a2c7ffcef3cd2750d042b0d",
+      "fraction_of_final_train": 0.25,
+      "selection": "floor(fresh_train/3) old TRAIN rows, hash order of seed:key; reject if insufficient",
+      "validation_test": "Fresh games only; never use previous holdout labels"
+    },
+    "targets": "50% actual final points outcome and 50% sigmoid(searched internal evaluation/600); no fabricated censored draws"
+  },
+  "training_plan": {
+    "device": "CUDA RTX 3080",
+    "initial_head_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "epochs": 24,
+    "batch_size": 512,
+    "optimizer": "Adam",
+    "initial_lr": 0.04,
+    "schedule": "cosine decay to 15%",
+    "seed": 29112901,
+    "regularization": ".001 squared distance to initial v1 evaluation, divided by 600",
+    "selection": "One QAT run; minimum fresh validation blended loss; fresh test once after selection",
+    "trainable_parameters": 139912,
+    "require_initial_export_identity": true
+  },
+  "panel": {
+    "path": ".local/points-head-v2-panel-001",
+    "controls": [
+      "2+0.02",
+      "10+0.1",
+      "30+0.3"
+    ],
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "stopping": "Displayed LOS 100.0%/0.0%; complete pending reversed-color pairs and recheck/resume within cap",
+    "all_three_required": true,
+    "at_limit": "NEUTRAL_SCREEN for selection, not statistical equivalence",
+    "promotion": "Only three valid WIN controls, audited hashes/pairs/referee and completed interfaces; otherwise preserve and reject",
+    "opponent_binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+    "opponent_network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c"
+  },
+  "validation": {
+    "curriculum_tests": "4 PASS; historical holdout isolation, cross-split duplicates, deterministic replay, score/rule50 keys",
+    "warmstart": {
+      "initial_roundtrip_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+      "initial_head_byte_identity": "PASS",
+      "frozen_base_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+      "cuda_integer_positions": 192,
+      "cuda_integer_mismatches": 0,
+      "device": "NVIDIA GeForce RTX 3080",
+      "replay_rows_verified": 49046,
+      "replay_split_rows": [
+        39167,
+        5197,
+        4682
+      ],
+      "trainable_parameters": 139912
+    },
+    "candidate": "PENDING",
+    "bench": "PENDING",
+    "datagen_smoke": {
+      "games": 2,
+      "rows": 81,
+      "audited_plies": 274,
+      "results": {
+        "1-0": 2
+      },
+      "seconds": 10.3,
+      "excluded_from_training_and_panel": true
+    },
+    "champion_bench_verified": 177290
+  },
+  "runtime": {
+    "data": ".local/points-head-v2/data",
+    "prepared": ".local/points-head-v2/prepared",
+    "trained": ".local/points-head-v2/trained",
+    "followup": ".local/points-head-v2-followup.json"
+  },
+  "worker": "T8 stays manually paused; do not restart",
+  "misere": "Paused by owner; do not message",
+  "openbench": "No workload",
+  "champion_during_experiment": "run4test PointsHead v1 + winning-mate-r2"
+}

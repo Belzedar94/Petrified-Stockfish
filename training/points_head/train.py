@@ -16,8 +16,12 @@ def main():
     ap=argparse.ArgumentParser()
     for name in ('data','network','out'): ap.add_argument('--'+name,type=Path,required=True)
     ap.add_argument('--epochs',type=int,default=24)
+    ap.add_argument('--initial-head',type=Path)
+    ap.add_argument('--seed',type=int,default=29102901)
+    ap.add_argument('--learning-rate',type=float,default=.04)
     args=ap.parse_args(); args.out.mkdir(parents=True,exist_ok=False)
-    torch.manual_seed(29102901); np.random.seed(29102901); torch.set_num_threads(2)
+    if args.epochs < 1 or args.learning_rate <= 0: raise ValueError('Invalid training schedule')
+    torch.manual_seed(args.seed); np.random.seed(args.seed); torch.set_num_threads(2)
     torch.backends.cuda.matmul.allow_tf32=False
     if not torch.cuda.is_available(): raise RuntimeError('CUDA is required')
     prepared=json.loads((args.data/'manifest.json').read_text())
@@ -27,11 +31,17 @@ def main():
     for i in range(3):
         m=data['split']==i
         splits.append(tuple(torch.tensor(data[k][m],dtype=torch.float32,device='cuda') for k in ('x','meta','y','teacher','baseline')))
-    net=Head(read_network(args.network)).cuda()
-    export(net,args.network,args.out/'zero.pnnue')
-    # Smaller steps for inherited geometry; score channels start at zero but train
-    # with the same optimizer and exact integer forward / straight-through gradients.
-    opt=torch.optim.Adam(net.parameters(),lr=.04)
+    initial=args.initial_head or args.network
+    initial_sha=hashlib.sha256(initial.read_bytes()).hexdigest()
+    if prepared.get('baseline_network_sha256',BASE_SHA) != initial_sha:
+        raise ValueError('Dataset regularization baseline differs from initial head')
+    net=Head(read_network(initial)).cuda()
+    initial_export=export(net,args.network,args.out/'initial.pnnue')
+    if args.initial_head and initial_export != initial_sha:
+        raise ValueError('Initial head does not serialize byte-identically')
+    # All dense weights use the same optimizer and exact integer forward /
+    # straight-through gradients. A successor inherits trained score channels too.
+    opt=torch.optim.Adam(net.parameters(),lr=args.learning_rate)
     def probability_loss(pred,y,teacher):
         target=.5*y+.5*torch.sigmoid(teacher/600)
         return nn.functional.binary_cross_entropy_with_logits(pred/600,target)
@@ -47,7 +57,7 @@ def main():
     x,m,y,t,b=splits[0]
     for epoch in range(args.epochs):
         net.train()
-        rate=.04*(.15+.85*(1+math.cos(math.pi*epoch/args.epochs))/2)
+        rate=args.learning_rate*(.15+.85*(1+math.cos(math.pi*epoch/args.epochs))/2)
         for group in opt.param_groups: group['lr']=rate
         order=torch.randperm(len(x),device='cuda')
         for ids in order.split(512):
@@ -76,6 +86,8 @@ def main():
     report={'schema':'points-head-training-v1','device':torch.cuda.get_device_name(),'torch':torch.__version__,
             'cuda':torch.version.cuda,'seconds':round(time.monotonic()-started,2),'rows':prepared['rows'],
             'selected_epoch':best_epoch,'epochs':args.epochs,'validation':validation,'test':test,
+            'seed':args.seed,'initial_head_sha256':initial_sha,'initial_export_sha256':initial_export,
+            'initial_learning_rate':args.learning_rate,
             'sha256':digest,'frozen_base_sha256':BASE_SHA,'qat_integer_mismatches':mismatch,
             'trainable_parameters':sum(p.numel() for p in net.parameters()),'history':history,
             'dataset_manifest_sha256':hashlib.sha256((args.data/'manifest.json').read_bytes()).hexdigest(),

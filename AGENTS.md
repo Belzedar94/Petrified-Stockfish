@@ -12,8 +12,15 @@ The experiment is now complete: points-head-v1 won all three controls at
 and independent referee audits. Local native/Node, CJS/ESM, isolated Python and
 Fairyground backend checks passed. It is the new points champion; see
 `docs/petrified/points-champion.json` for immutable binaries, weights and source.
-The previous champion and all data/candidates are preserved. No further training
-or experiment is authorized by this completed request. T8 stays manually paused.
+The previous champion and all data/candidates are preserved. That request is closed.
+The owner then explicitly requested the next idea and a panel against the new
+baseline. The single successor is points-head-v2: continue the winning dense head
+on fresh, deeper self-play from points-head-v1, with 25% replay of prior training
+rows, frozen accumulators/PSQT and exactly the same engine binary. Its predeclared
+recipe and immutable champion are in the 2026-10-29-points-head-v2 experiment record.
+Train one selected candidate on the local GPU, then all three controls with the
+same 40/400 and displayed LOS boundary gate. Do not promote from training loss or
+start a further candidate. T8 stays manually paused and Misere is not contacted.
 
 The approved implementation plan and immutable inputs are in
 `docs/petrified/STATUS.md`, `baseline.json`, and `rules.md`. This repository is

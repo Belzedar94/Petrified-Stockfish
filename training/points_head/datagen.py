@@ -21,6 +21,7 @@ sys.path[:0] = [str(ROOT/'scripts'), str(ROOT/'tests/petrified')]
 from points_panel import Referee
 from protocol import Uci
 from local_campaign import verify_loaded_network
+from points_network import BASE_SHA, verify_points_network
 
 
 def sha(path):
@@ -35,7 +36,10 @@ def generate(index, args, rules):
     moves, samples = [], []
     with ExitStack() as stack:
         engine = stack.enter_context(Uci(args.engine, network=args.network, timeout=90))
-        verify_loaded_network(engine, args.network)
+        if args.network_sha256 == BASE_SHA:
+            verify_loaded_network(engine, args.network)
+        else:
+            verify_points_network(engine, args.network)
         engine.send('setoption name UCI_Variant value petrifiedpoints')
         engine.send('setoption name Hash value 64')
         engine.ready()
@@ -103,11 +107,13 @@ def main():
     for name in ('engine','network','module_dir','bundle','modules','out'):
         setattr(args,name,getattr(args,name).resolve())
     args.out.mkdir(parents=True,exist_ok=False)
+    args.network_sha256 = sha(args.network)
     dll=os.add_dll_directory(r'C:\msys64\mingw64\bin') if os.name=='nt' else None
     sys.path.insert(0,str(args.module_dir)); rules=importlib.import_module('pyffish')
     inputs=[args.engine,args.network,args.bundle,Path(rules.__file__),Path(__file__),
             ROOT/'tests/petrified/chesscom_reference.cjs', ROOT/'tests/petrified/protocol.py',
-            ROOT/'scripts/points_panel.py',args.modules.parent/'package-lock.json']
+            ROOT/'scripts/points_panel.py',ROOT/'scripts/points_network.py',
+            ROOT/'scripts/local_campaign.py',args.modules.parent/'package-lock.json']
     manifest={'schema':'points-head-data-manifest-v1','pid':os.getpid(),'games':args.games,'nodes':args.nodes,
               'concurrency':args.concurrency,'seed':args.seed,'sources':{str(p):sha(p) for p in inputs},
               'split':'SHA256 of first 8 opening plies modulo 10: 0 test, 1 validation, 2..9 train',

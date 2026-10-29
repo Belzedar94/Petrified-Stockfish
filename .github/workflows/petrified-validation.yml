@@ -36,6 +36,8 @@ jobs:
         run: ctest --test-dir build/native -C ${{ matrix.config }} --output-on-failure
       - name: Points panel stopping contract (synthetic outcomes)
         run: python tests/petrified/points_panel_test.py
+      - name: Points head holdout and replay isolation
+        run: python training/points_head/test_curriculum.py
       - name: Build isolated Python wheel
         if: matrix.config == 'Release'
         run: python -m pip wheel . --no-deps --wheel-dir build/wheels

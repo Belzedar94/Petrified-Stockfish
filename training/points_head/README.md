@@ -1,5 +1,33 @@
 # Frozen run4test transformer, score-conditioned dense heads
 
+## Points-head-v2: stronger teacher and deeper data
+
+The owner requested one successor after v1 passed all three controls. The new
+experiment keeps the exact v1 executable and architecture. `--initial-head`
+loads the trained v1 parameters, and its initial export must be byte-identical.
+`--network` still names the unchanged original run4test bytes used for export.
+The prepared regularization baseline must hash to that same initial head.
+
+Generate 1,024 games with v1 at 32,768 nodes/move and seed **29112901**. This
+seed range does not overlap v1's per-game seed range; changing it by only one
+would reuse almost all random openings. Other generation parameters and the
+external referee are unchanged. The full extended network is verified before
+each game. Remove fresh rows sharing any old position or opening family.
+Choose 25% of the final training rows (floor rounding) from the hash-pinned v1
+**training** split by deterministic seeded hash order. Historical validation
+and test rows are exclusion-only; they never enter training or checkpoint
+selection. New validation/test contain only fresh games, split by opening family.
+
+Use the same 24-epoch QAT/Adam recipe, lr0.04, batch512, target mixture and
+regularization, now with seed29112901 and the v1 head as initialization/baseline.
+Select one checkpoint on fresh validation, evaluate test once, verify integer
+inference and frozen base, and run the predeclared three-control panel against
+v1. This is one data/teacher hypothesis; no engine, search or architecture
+change is bundled into it. All data, networks and rejected candidates survive.
+See `docs/petrified/experiments/2026-10-29-points-head-v2.json`.
+
+## Points-head-v1 (completed)
+
 This is one bounded experiment authorized on 2026-10-29. It starts from champion
 `7dd7c827b41e9460184730227fed4222929dbbaf` (winning-mate-r2), without either
 rejected capture-order/futility experiment. It is not a new transformer or a
