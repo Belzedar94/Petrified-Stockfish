@@ -1,7 +1,7 @@
 {
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-legal-query-v1",
-  "status": "IMPLEMENTING",
+  "status": "PANEL_RUNNING",
   "owner_request": "Guarda este, porque mas adelante lo meteremos directamente en OpenBench, y pasa a la siguiente gran idea",
   "candidate_count": 1,
   "branch": "exp/points-legal-query-v1",
@@ -56,7 +56,26 @@
     "at_cap": "NEUTRAL_SCREEN for selection, not equivalence",
     "early_rejection": "Owner-delegated manual neutral or clear loss rejection, with measured statistics preserved",
     "promotion": "Only three valid WIN controls plus independent audits and qualified distribution/interfaces",
-    "referee": "Independent pinned Chess.com public client"
+    "referee": "Independent pinned Chess.com public client",
+    "identities": {
+      "controller": {
+        "pid": 9456,
+        "creation_filetime": 134377545275343491,
+        "creation_utc": "2026-10-29T13:35:27.534349+00:00"
+      },
+      "launcher": {
+        "pid": 42028,
+        "creation_filetime": 134377545276898341,
+        "creation_utc": "2026-10-29T13:35:27.689833+00:00"
+      },
+      "panel": {
+        "pid": 44400,
+        "creation_filetime": 134377545277129270,
+        "creation_utc": "2026-10-29T13:35:27.712927+00:00"
+      }
+    },
+    "session": 20726,
+    "launch_audit": ".local\\points-legal-query-v1\\panel-launch-audit.json"
   },
   "constraints": {
     "T8": "Manually paused",
@@ -65,5 +84,174 @@
     "PR9": "Preserved independently for future OpenBench; not included in this candidate"
   },
   "research_reference": "https://raw.githubusercontent.com/official-stockfish/Stockfish/master/src/search.cpp",
-  "reference_note": "Upstream search uses legality/terminal probes; implementation here is based on the qualified Petrified generator, not ported upstream rules."
+  "reference_note": "Upstream search uses legality/terminal probes; implementation here is based on the qualified Petrified generator, not ported upstream rules.",
+  "implementation_commit": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/11",
+  "candidate": {
+    "binary": ".local\\points-legal-query-v1-inputs\\petrified-points-legal-query-v1-bmi2.exe",
+    "binary_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+    "network": ".local\\points-legal-query-v1-inputs\\champion-v1.pnnue",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "bench": 177290
+  },
+  "validation": {
+    "report": ".local\\points-legal-query-v1\\validation-report.json",
+    "result": "PASS",
+    "checked_utc": "2026-10-29T13:35:27.364841+00:00",
+    "source_commit": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+    "source_archive_files_exact": 213,
+    "build_processes_exited": true,
+    "candidate_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+    "champion_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "query_comparisons_each": 883968,
+    "state_positions_each": 9338,
+    "source_CI": "5/5 PASS",
+    "speedup": 1.6219512195121952,
+    "speed_is_not_Elo": true,
+    "speed": {
+      "depth": 12,
+      "samples": 8,
+      "alternating_order": true,
+      "reported_ms": {
+        "candidate": [
+          370,
+          372,
+          369,
+          385,
+          368,
+          365,
+          369,
+          366
+        ],
+        "champion": [
+          603,
+          601,
+          597,
+          628,
+          595,
+          598,
+          599,
+          598
+        ]
+      },
+      "median_ms": {
+        "candidate": 369.0,
+        "champion": 598.5
+      },
+      "nodes": {
+        "candidate": 376705,
+        "champion": 376705
+      },
+      "speedup": 1.6219512195121952,
+      "meaning": "Local throughput estimate only; not Elo"
+    },
+    "source_ci": {
+      "source_commit": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+      "run_id": 40882525098,
+      "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40882525098",
+      "result": "PASS",
+      "checks": [
+        {
+          "name": "rules (ubuntu-latest, Debug)",
+          "id": 123477542527,
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40882525098/job/123477542527"
+        },
+        {
+          "name": "rules (windows-latest, Debug)",
+          "id": 123477542497,
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40882525098/job/123477542497"
+        },
+        {
+          "name": "rules (windows-latest, Release)",
+          "id": 123477542387,
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40882525098/job/123477542387"
+        },
+        {
+          "name": "rules (ubuntu-latest, Release)",
+          "id": 123477542378,
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40882525098/job/123477542378"
+        },
+        {
+          "name": "sanitizers",
+          "id": 123477542098,
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40882525098/job/123477542098"
+        }
+      ]
+    }
+  },
+  "execution_manifest": ".local\\points-legal-query-v1\\execution-manifest.json",
+  "frozen_inputs": 70,
+  "observed_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "WIN",
+      "scores": [
+        47,
+        21,
+        2
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        1,
+        18,
+        1,
+        14
+      ],
+      "statistics": "Total: 70 W: 47 L: 21 D: 2 ELO: 135.53 +-88.7 (95%) LOS: 100.0%",
+      "completed_pairs": 35,
+      "elapsed_seconds": 157.594
+    },
+    "STC": {
+      "control": "STC",
+      "status": "RUNNING",
+      "scores": [
+        9,
+        2,
+        1
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        0,
+        0,
+        2,
+        1,
+        3
+      ],
+      "statistics": "Total: 12 W: 9 L: 2 D: 1 ",
+      "completed_pairs": 6,
+      "elapsed_seconds": 163.906
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "PENDING",
+      "scores": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "observed_utc": "2026-10-29T13:40:52.101180+00:00"
 }

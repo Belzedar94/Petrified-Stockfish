@@ -1,9 +1,20 @@
 # Active: points-legal-query-v1
 
-One new candidate is being implemented from qualified PR #7: accelerate boolean
-legal-move queries while preserving rules, move order, NNUE and search. Exact
-parity and speed checks precede its own frozen three-control panel. PR #9 is
-retained separately for future OpenBench. See the legal-query experiment record.
+PR #11 accelerates boolean legal-move queries from qualified PR #7 while
+preserving rules, move order, NNUE and search. Debug/Release each passed 883,968
+query comparisons and 9,338 state positions; independent referee checks, native
+interfaces and all five source CI jobs passed. Points Bench177290 and legacy
+Bench179335 match the champion exactly. Eight alternating depth12 samples used
+the same 376,705 nodes: median369ms versus598.5ms (1.622x local throughput, not Elo).
+
+The frozen panel is running with T1/Hash512/concurrency4. VSTC completed 70 games
+(47/21/2), +135.53 +/-88.7 Elo95%, LOS100.0%, time losses0/0: WIN after complete
+pairs. STC is running and LTC is pending. The champion remains PR #7 until all
+three controls, final audit and distribution/interface acceptance pass.
+The execution manifest pins 70 files, with 11 panel and seven dependency hashes
+checked after launch. T8 remains manually paused. PR #9 is retained separately
+for future OpenBench; no OpenBench workload is running from this experiment.
+See `experiments/2026-10-29-points-legal-query-v1.json` for current evidence.
 
 # PR #9 retained for future OpenBench; local extension complete
 
@@ -29,9 +40,8 @@ The 57-input bundle is `.local/points-verified-null-resume-001/frozen-inputs.zip
 SHA256 `104a6f2226d193064cd4471da7739bac54d9752bf7f954609514027f2242ac49`.
 The full retention record is in the verified-null experiment JSON.
 
-The newly authorized experiment will optimize legal-move existence/membership
-queries from PR #7. It will retain move order, search, rules and evaluation,
-then verify exact parity, deterministic benches and speed before its own panel.
+The following legal-query experiment starts from PR #7 and does not include
+the retained PR #9 pruning change.
 
 # Closed: points-wall-ft-v1
 
