@@ -42,8 +42,8 @@
   "maximum_games": 400,
   "stopping": "Displayed LOS 100.0% or 0.0%, minimum 40, drain complete color-reversed pairs and recheck; resume inside cap if boundary is lost. Run every TC. No boundary at cap => NEUTRAL_SCREEN for selection, not equivalence.",
   "promotion": "All three valid controls WIN; otherwise reject and preserve.",
-  "status": "RUNNING",
-  "decision": "REJECTED_FOR_PROMOTION_VSTC_STC_NEUTRAL_PENDING_LTC",
+  "status": "COMPLETED",
+  "decision": "REJECTED_NEUTRAL_SCREEN",
   "next_step": "After closing all controls, run a separate points-aware capture-futility experiment on the resulting champion. Do not test another candidate concurrently.",
   "worker": "T8 manually paused, no restart",
   "coordination": "Owner paused Misere; no cross-chat messages.",
@@ -125,7 +125,7 @@
         "color_reversal_verified": true,
         "independent_referee_terminal_records_verified": 400,
         "hashes_verified": true,
-        "audited_utc": "2026-10-28T22:49:48.237037+00:00"
+        "audited_utc": "2026-10-29T03:06:53.839249+00:00"
       }
     },
     "STC": {
@@ -159,9 +159,77 @@
         "color_reversal_verified": true,
         "independent_referee_terminal_records_verified": 400,
         "hashes_verified": true,
-        "audited_utc": "2026-10-28T23:50:30.237482+00:00"
+        "audited_utc": "2026-10-29T03:06:53.839249+00:00"
+      }
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        184,
+        188,
+        28
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        28,
+        9,
+        127,
+        11,
+        25
+      ],
+      "statistics": "Total: 400 W: 184 L: 188 D: 28 ELO: -3.47 +-32.9 (95%) LOS: 41.8%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 11497.531,
+      "selection_status": "NEUTRAL_SCREEN",
+      "audit": {
+        "completed_pairs": 200,
+        "games": 400,
+        "color_reversal_verified": true,
+        "independent_referee_terminal_records_verified": 400,
+        "hashes_verified": true,
+        "audited_utc": "2026-10-29T03:06:53.839249+00:00"
       }
     }
   },
-  "promotion_eligible": false
+  "promotion_eligible": false,
+  "closed_utc": "2026-10-29T03:06:53.839249+00:00",
+  "owned_panel_processes_exited": true,
+  "final_audit": {
+    "audit": {
+      "VSTC": {
+        "completed_pairs": 200,
+        "games": 400,
+        "color_reversal_verified": true,
+        "independent_referee_terminal_records_verified": 400,
+        "hashes_verified": true,
+        "audited_utc": "2026-10-29T03:06:53.839249+00:00"
+      },
+      "STC": {
+        "completed_pairs": 200,
+        "games": 400,
+        "color_reversal_verified": true,
+        "independent_referee_terminal_records_verified": 400,
+        "hashes_verified": true,
+        "audited_utc": "2026-10-29T03:06:53.839249+00:00"
+      },
+      "LTC": {
+        "completed_pairs": 200,
+        "games": 400,
+        "color_reversal_verified": true,
+        "independent_referee_terminal_records_verified": 400,
+        "hashes_verified": true,
+        "audited_utc": "2026-10-29T03:06:53.839249+00:00"
+      }
+    },
+    "owned_panel_processes_exited": true,
+    "frozen_hashes_verified": true,
+    "stderr_empty": true,
+    "completed_utc": "2026-10-29T03:06:53.839249+00:00"
+  }
 }
