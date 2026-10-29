@@ -29,8 +29,11 @@ PR13. No other candidate or OpenBench workload is authorized.
 VSTC closed at its 400-game cap: 204/183/13, +18.26 +/-33.6 Elo (95%),
 LOS 85.8%, time losses 0/0. Raw INCONCLUSIVE_LIMIT is NEUTRAL_SCREEN for
 selection, not statistical equivalence. All 200 pairs and 75,469 independent
-referee plies passed the control audit. STC continues and LTC remains pending;
-PR13 cannot satisfy the current three-WIN promotion gate. PR11 remains champion.
+referee plies passed the control audit. STC also closed at 400 games:
+195/178/27, +14.77 +/-33.0 Elo (95%), LOS 81.1%, time losses 0/0, with
+raw INCONCLUSIVE_LIMIT and selection NEUTRAL_SCREEN. Its 200 pairs and 82,454
+referee plies passed audit. LTC is running. PR13 cannot satisfy the current
+three-WIN promotion gate. PR11 remains champion.
 
 # PR12 retained as potential win; local panel closed
 

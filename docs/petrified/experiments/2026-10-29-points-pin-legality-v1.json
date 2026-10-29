@@ -71,7 +71,7 @@
     "session": 73520,
     "started_utc": "2026-10-29T17:44:06.511303+00:00",
     "promotion_eligible_under_current_gate": false,
-    "continuation": "Continue STC and LTC as authorized; PR11 remains champion"
+    "continuation": "Continue LTC as authorized; PR11 remains champion"
   },
   "constraints": {
     "T8": "Manually paused",
@@ -86,7 +86,7 @@
   "execution_manifest": ".local\\points-pin-legality-v1\\execution-manifest.json",
   "execution_manifest_sha256": "0adfbb83f6e22a48e96e281c6ac1be69d72a81900d36c27924bf5ac0cbdbbb3d",
   "frozen_inputs": 78,
-  "updated_utc": "2026-10-29T18:01:09.974104+00:00",
+  "updated_utc": "2026-10-29T19:06:13.835889+00:00",
   "candidate_binary": ".local\\points-pin-legality-v1-inputs\\petrified-points-pin-legality-v1-bmi2.exe",
   "candidate_sha256": "1a19035c92daabe97b116b536609d0004090d5e404aa80ef84d7bf9d4377694e",
   "validation": {
@@ -200,11 +200,11 @@
     },
     "STC": {
       "control": "STC",
-      "status": "RUNNING",
+      "status": "INCONCLUSIVE_LIMIT",
       "scores": [
-        4,
-        4,
-        0
+        195,
+        178,
+        27
       ],
       "time_losses": [
         0,
@@ -213,19 +213,19 @@
       "minimum_games": 40,
       "maximum_games": 400,
       "pentanomial": [
-        0,
-        0,
-        4,
-        0,
-        0
+        17,
+        14,
+        132,
+        9,
+        28
       ],
-      "statistics": "Total: 8 W: 4 L: 4 D: 0 ELO: -0.00 +-295.9 (95%) LOS: 50.0%",
-      "completed_pairs": 4,
-      "elapsed_seconds": 97.734
+      "statistics": "Total: 400 W: 195 L: 178 D: 27 ELO: 14.77 +-33.0 (95%) LOS: 81.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 3954.593
     },
     "LTC": {
       "control": "LTC",
-      "status": "PENDING",
+      "status": "RUNNING",
       "scores": [
         0,
         0,
@@ -234,15 +234,23 @@
       "time_losses": [
         0,
         0
-      ]
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400
     }
   },
-  "observed_utc": "2026-10-29T18:01:09.974104+00:00",
+  "observed_utc": "2026-10-29T19:06:13.835889+00:00",
   "control_selection": {
     "VSTC": {
       "raw_status": "INCONCLUSIVE_LIMIT",
       "selection": "NEUTRAL_SCREEN",
       "audit": ".local\\points-pin-legality-v1\\vstc-close-audit.json",
+      "meaning": "Screening selection only; no statistical equivalence claim"
+    },
+    "STC": {
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection": "NEUTRAL_SCREEN",
+      "audit": ".local\\points-pin-legality-v1\\stc-close-audit.json",
       "meaning": "Screening selection only; no statistical equivalence claim"
     }
   }
