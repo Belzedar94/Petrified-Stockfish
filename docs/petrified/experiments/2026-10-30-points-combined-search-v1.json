@@ -2,7 +2,7 @@
   "schema": "petrified-combined-search-v1",
   "experiment": "points-combined-search-v1",
   "created_utc": "2026-10-30T08:23:52.354483+00:00",
-  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "status": "VALIDATED_WAITING_MEMORY",
   "authorization": "Owner requests all retained OpenBench candidates combined on one branch against PR11, then explicitly adds PR17. One combined candidate, no OpenBench workload.",
   "base_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
   "base_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
@@ -66,7 +66,7 @@
   ],
   "panel": {
     "directory": ".local/points-combined-search-panel-001",
-    "status": "NOT_STARTED",
+    "status": "WAITING_MEMORY",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -79,7 +79,20 @@
     "concurrency": 4,
     "boundary": "Displayed LOS100.0% or0.0%, finish pending pairs and recheck; continue within cap if boundary lost.",
     "selection": "At cap without boundary: NEUTRAL_SCREEN, not equivalence. Only three audited wins plus distribution/interfaces allow promotion. Delegated early manual neutral/loss rejection remains available.",
-    "referee": "Hash-pinned public Chess.com client, independent of candidate and champion"
+    "referee": "Hash-pinned public Chess.com client, independent of candidate and champion",
+    "preflight": {
+      "correctness": "PASS",
+      "source_ci": "PASS",
+      "checked_utc": "2026-10-30T08:34:39.336991+00:00",
+      "stage": "WAITING_MEMORY",
+      "free_bytes": 7316127744,
+      "required_bytes": 7583301632,
+      "frozen_input_count": 233,
+      "source_archive_files": 230,
+      "build_process_identities_exited": 54,
+      "T8_pause_verified": true,
+      "panel_started": false
+    }
   },
   "restrictions": {
     "openbench_workload": false,
@@ -90,5 +103,70 @@
     "Misere_contact": false
   },
   "individual_status": "PR9/12/13/15/16 separately retained. PR17 standalone closed neutral, not in OpenBench queue; explicitly included in this combination.",
-  "runtime_released": false
+  "runtime_released": false,
+  "source_commit": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/18",
+  "validated_utc": "2026-10-30T08:30:28.491021+00:00",
+  "candidate": {
+    "binary": ".local\\points-combined-search-v1-inputs\\petrified-points-combined-search-v1-validated-bmi2.exe",
+    "sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+    "points_bench": [
+      167330,
+      167330
+    ],
+    "legacy_bench": 179335
+  },
+  "validation_report": ".local/points-combined-search-v1/validation-report.json",
+  "ci": {
+    "source_commit": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+    "run_id": 41026202999,
+    "jobs_passed": 5,
+    "conclusion": "success"
+  },
+  "validation_failure": {
+    "path": ".local/points-combined-search-v1/validation-failure-001",
+    "cause": "Harness omitted --cases when exporting capture fixtures; independent reader failed ENOENT. Both C++ checks passed. Existing Release executable exported the missing file; remaining validation resumed without rebuilding or engine/binary changes."
+  },
+  "validation_summary": {
+    "each_build": {
+      "legal_query_comparisons": 1318563,
+      "state_undo_positions": 9338,
+      "null_positions": 2283,
+      "null_ep": 68,
+      "full_state_rebuilds": 81210,
+      "king_safety_fixture_positions": 4934,
+      "NNUE": "exact",
+      "exchange_moves": 56798,
+      "exchange_thresholds": 795172,
+      "capture_transactions": 177911,
+      "forced_search_regressions": 48
+    },
+    "independent_exchange": {
+      "compared": 789,
+      "plies": 1068,
+      "terminal_settlements_excluded": 21
+    },
+    "independent_capture": {
+      "compared": 403,
+      "plies": 418,
+      "terminal_settlements_excluded": 15
+    },
+    "independent_forced_search": {
+      "legal_lists": 588,
+      "plies": 288
+    },
+    "independent_other_search": {
+      "positions": 32,
+      "plies": 248,
+      "T1": 24,
+      "T2": 8
+    },
+    "native_interfaces": "UCI/CECP PASS"
+  },
+  "process_recording": {
+    "method": "Journal actual Popen child handles and Python startup identities; atomic files. Retained-handle exit codes plus strict PID/creation checks. No historical-PID tree sampling. Nested fast-exit Python/Node self-check passed.",
+    "build_validation_identities_exited": 54,
+    "journal": ".local/points-combined-search-v1/process-journal",
+    "old_build_instrumentation_preserved": ".local/points-combined-search-v1/instrumentation-build-sitecustomize.py"
+  }
 }

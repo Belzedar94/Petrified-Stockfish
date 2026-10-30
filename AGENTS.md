@@ -1,3 +1,18 @@
+points-combined-search-v1 / PR18 is implemented and validated, awaiting memory.
+Source fb04cbca1a7584edd7a29fd5f0a19b28d551c217; candidate SHA256
+a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e, bench167330
+twice; champion PR11 bench177290 and common network unchanged; legacy179335.
+Debug/Release full reference/state/NNUE, all six component regressions, independent
+Chess.com audits and native interfaces passed. CI41026202999 has five green jobs.
+Build-state FAILED is preserved: the launcher omitted --cases, so independent
+capture input was missing. No engine or binary change; development-validation-002
+state reached READY_FOR_PANEL_REVIEW after export and remaining checks. Do not
+repeat completed builds. All54 build/validation/journal-check identities exited.
+Use .local/points-combined-search-followup.json and its experiment record.
+Panel is NOT STARTED: preflight requires7583301632 bytes free for concurrency4.
+Keep that gate unless the owner explicitly changes concurrency. Do not close
+other applications. T8 stays paused, Fairyground closed and PR11 champion.
+
 Current authorization (2026-10-30): one points-combined-search-v1 candidate
 from qualified PR11, combining the exact engine changes of PR9,PR12,PR13,PR15,
 PR16 and PR17. The owner explicitly added PR17 after initially excluding it.

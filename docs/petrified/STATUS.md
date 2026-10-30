@@ -1,3 +1,15 @@
+## Combined candidate / PR18: validated, waiting for panel memory
+
+The six-component source `fb04cbca1a7584edd7a29fd5f0a19b28d551c217` passed all local
+Debug/Release/reference/NNUE/component and independent client checks, native
+interfaces and all five CI jobs41026202999. Candidate bench167330 reproduced
+twice; champion177290 and legacy179335 are unchanged. These are correctness
+checks, not Elo. The missing --cases harness failure is preserved; only fixture
+export and unfinished validations resumed, with no engine or binary change.
+All54 recorded build/validation identities exited. The original four-way panel
+requires7,583,301,632 bytes free; the first preflight measured7,316,127,744.
+VSTC/STC/LTC have not started. See the combined experiment and followup records.
+
 ## Authorized successor: points-combined-search-v1 (2026-10-30)
 
 The owner requests one combined branch and panel against qualified PR11, using
