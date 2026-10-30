@@ -9,7 +9,7 @@
   "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
   "panel": {
     "directory": ".local/points-fortress-panel-001",
-    "status": "NOT_STARTED",
+    "status": "RUNNING",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -38,7 +38,7 @@
   "schema": "petrified-fortress-v1",
   "experiment": "points-fortress-v1",
   "created_utc": "2026-10-30T14:51:00.074110+00:00",
-  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "status": "PANEL_RUNNING",
   "branch": "exp/points-fortress-v1",
   "authorization": "Owner requested the fortress recognizer from PR18, the same validation and VSTC/STC/LTC panel, and authorized closing Duck Fairyground.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
@@ -70,5 +70,331 @@
     "Five source CI jobs"
   ],
   "risk": "Conservative family is deliberately incomplete; graph checks may cost more than rare recognitions save. No strength-driven changes.",
-  "runtime_released": false
+  "runtime_released": false,
+  "source_commit": "07e845785e22e35d04ac06aa057c580a69cb0f80",
+  "validated_revision": "2d6b14e1096f4956c17c9ee638e714733f774cf4",
+  "pr": 21,
+  "pr_url": "https://github.com/Belzedar94/Petrified-Stockfish/pull/21",
+  "candidate_binary": ".local\\points-fortress-v1-inputs\\petrified-points-fortress-v1-validated-bmi2.exe",
+  "candidate_sha256": "adea9eb76c4e75b6788fee634d2a0ff9f8e85e2c1c772fc92277db91e1bf67fc",
+  "points_bench": [
+    167330,
+    167330
+  ],
+  "legacy_bench": [
+    179335,
+    179335
+  ],
+  "validation_report": ".local\\points-fortress-v1\\validation-report.json",
+  "validation_summary": {
+    "result": "PASS",
+    "final_state_file": "development-validation-005/state.json",
+    "source_archive": "source-003.tar",
+    "source_directory": "build/points-fortress-v1-source-003",
+    "source_commit": "07e845785e22e35d04ac06aa057c580a69cb0f80",
+    "candidate_binary": ".local\\points-fortress-v1-inputs\\petrified-points-fortress-v1-validated-bmi2.exe",
+    "candidate_sha256": "adea9eb76c4e75b6788fee634d2a0ff9f8e85e2c1c772fc92277db91e1bf67fc",
+    "champion_binary_sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "points_bench_candidate": [
+      167330,
+      167330
+    ],
+    "points_bench_champion": 167330,
+    "legacy_bench_candidate_champion": [
+      179335,
+      179335
+    ],
+    "checked_frozen_files": 165,
+    "native_interfaces": {
+      "passed": true,
+      "uci": true,
+      "xboard": true,
+      "node_wasm": false,
+      "checks": [
+        "MultiPV",
+        "real NNUE",
+        "Threads 1/2",
+        "stop",
+        "ponderhit",
+        "terminal roots",
+        "winning mate distances/TT",
+        "points deficits 19/20/21, both colors",
+        "losing mate 25-24",
+        "invalid/missing NNUE",
+        "rules without NNUE",
+        "CECP edit/walls/fractional clocks/analysis"
+      ]
+    },
+    "forced_search": {
+      "report": "independent-forced-search.json"
+    },
+    "finished_utc": "2026-10-30T15:03:48.694630+00:00",
+    "meaning": "Correctness only; no strength decision",
+    "fortress_validation": {
+      "debug": {
+        "result": "PASS",
+        "positions": 4352,
+        "certificates": 2372,
+        "policy_transitions": 101700,
+        "nnue_exact": 8752,
+        "exported": 296
+      },
+      "release": {
+        "result": "PASS",
+        "positions": 4352,
+        "certificates": 2372,
+        "policy_transitions": 101700,
+        "nnue_exact": 8752,
+        "exported": 296
+      },
+      "independent": {
+        "result": "PASS",
+        "positions": 282,
+        "certificates": 212,
+        "independent_plies": 8340,
+        "terminal_settlements": 4,
+        "referee_sha256": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b"
+      },
+      "search_debug": {
+        "result": "PASS",
+        "searches": 48
+      },
+      "search_release": {
+        "result": "PASS",
+        "searches": 48
+      },
+      "additional_native": {
+        "result": "PASS",
+        "searches": 28,
+        "candidate_sha256": "adea9eb76c4e75b6788fee634d2a0ff9f8e85e2c1c772fc92277db91e1bf67fc",
+        "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c"
+      },
+      "additional_independent": {
+        "result": "PASS",
+        "histories": 4,
+        "searches": 28,
+        "independent_plies": 964,
+        "referee_sha256": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b"
+      }
+    },
+    "inherited_independent": {
+      "independent-exchange.json": {
+        "result": "PASS",
+        "referee_sha256": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b",
+        "cases_sha256": "3372df47c5a71aa3151528dfc6811e6cee5721a12af46ee702d0191b4fb9ea83",
+        "compared": 789,
+        "skipped_terminal_settlements": 21,
+        "skipped_terminal_histories": 0,
+        "independent_exchange_plies": 1068,
+        "recaptures": 268,
+        "promotions": 15,
+        "en_passant": 4,
+        "objective": "Optional legal local recaptures; live material plus capture points only; no terminal bonuses or positional wall value"
+      },
+      "independent-capture.json": {
+        "result": "PASS",
+        "referee_sha256": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b",
+        "cases_sha256": "d6e285924ac4b856775b51e0b00dcbd26c8522c7aea2afa5c4bc0cb1ebcadb02",
+        "compared": 403,
+        "skipped_terminal_settlements": 15,
+        "skipped_terminal_histories": 0,
+        "independent_transaction_plies": 418,
+        "recaptures": 0,
+        "promotions": 42,
+        "en_passant": 6,
+        "reconstructed_en_passant_positions": 6,
+        "objective": "Immediate live material plus capture points; no replies, terminal bonuses or positional wall value"
+      },
+      "independent-forced-search.json": {
+        "result": "PASS",
+        "compared_legal_lists": 588,
+        "unique_positions": 32,
+        "imported_terminal_fixtures_checked_in_cpp": 16,
+        "reconstructed_ep": 11,
+        "independent_forced_pv_plies": 288,
+        "referee_sha256": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b"
+      },
+      "independent-search/report.json": {
+        "result": "PASS",
+        "positions": 32,
+        "independent_pv_plies": 259,
+        "engine_sha256": "adea9eb76c4e75b6788fee634d2a0ff9f8e85e2c1c772fc92277db91e1bf67fc",
+        "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+        "T1_positions": 24,
+        "T2_positions": 8,
+        "interpretation": "Correctness check, never Elo or a strength-gate result"
+      }
+    },
+    "additional_acceptance": "development-acceptance-002/state.json",
+    "source_ci": "ci-source.json",
+    "development_identities_exited": 88
+  },
+  "fortress_validation": {
+    "debug": {
+      "result": "PASS",
+      "positions": 4352,
+      "certificates": 2372,
+      "policy_transitions": 101700,
+      "nnue_exact": 8752,
+      "exported": 296
+    },
+    "release": {
+      "result": "PASS",
+      "positions": 4352,
+      "certificates": 2372,
+      "policy_transitions": 101700,
+      "nnue_exact": 8752,
+      "exported": 296
+    },
+    "independent": {
+      "result": "PASS",
+      "positions": 282,
+      "certificates": 212,
+      "independent_plies": 8340,
+      "terminal_settlements": 4,
+      "referee_sha256": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b"
+    },
+    "search_debug": {
+      "result": "PASS",
+      "searches": 48
+    },
+    "search_release": {
+      "result": "PASS",
+      "searches": 48
+    },
+    "additional_native": {
+      "result": "PASS",
+      "searches": 28,
+      "candidate_sha256": "adea9eb76c4e75b6788fee634d2a0ff9f8e85e2c1c772fc92277db91e1bf67fc",
+      "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c"
+    },
+    "additional_independent": {
+      "result": "PASS",
+      "histories": 4,
+      "searches": 28,
+      "independent_plies": 964,
+      "referee_sha256": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b"
+    }
+  },
+  "source_ci": {
+    "source_commit": "07e845785e22e35d04ac06aa057c580a69cb0f80",
+    "checked_revision": "2d6b14e1096f4956c17c9ee638e714733f774cf4",
+    "run_id": 41077078616,
+    "run_url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/41077078616",
+    "conclusion": "success",
+    "jobs_passed": 5,
+    "checks": [
+      {
+        "id": 124136010019,
+        "name": "rules (windows-latest, Debug)",
+        "head_sha": "2d6b14e1096f4956c17c9ee638e714733f774cf4",
+        "conclusion": "success",
+        "status": "completed"
+      },
+      {
+        "id": 124136010437,
+        "name": "rules (ubuntu-latest, Release)",
+        "head_sha": "2d6b14e1096f4956c17c9ee638e714733f774cf4",
+        "conclusion": "success",
+        "status": "completed"
+      },
+      {
+        "id": 124136010527,
+        "name": "sanitizers",
+        "head_sha": "2d6b14e1096f4956c17c9ee638e714733f774cf4",
+        "conclusion": "success",
+        "status": "completed"
+      },
+      {
+        "id": 124136010543,
+        "name": "rules (ubuntu-latest, Debug)",
+        "head_sha": "2d6b14e1096f4956c17c9ee638e714733f774cf4",
+        "conclusion": "success",
+        "status": "completed"
+      },
+      {
+        "id": 124136010671,
+        "name": "rules (windows-latest, Release)",
+        "head_sha": "2d6b14e1096f4956c17c9ee638e714733f774cf4",
+        "conclusion": "success",
+        "status": "completed"
+      }
+    ],
+    "meaning": "All five source CI jobs passed. Checked revision differs from frozen engine only in tests and adapter; src tree identity checked before panel."
+  },
+  "execution_manifest": ".local\\points-fortress-v1\\execution-manifest.json",
+  "execution_manifest_sha256": "1ee39f001a6901e151995b7c36fd550567d9ead8d36843e79c70c58d13209735",
+  "frozen_inputs": 355,
+  "development_identities_exited": 88,
+  "validation_failures": [
+    {
+      "directory": ".local/points-fortress-v1/validation-failure-001",
+      "cause": "Compile failed: attack helper namespace missing.",
+      "engine_impact": "No successful binary existed; fixed before source freeze."
+    },
+    {
+      "directory": ".local/points-fortress-v1/validation-failure-002",
+      "cause": "Compile failed: inherited fork helper takes a PieceType argument, not a template.",
+      "engine_impact": "No successful binary existed; frozen source07e84578 uses the correct API."
+    },
+    {
+      "directory": ".local/points-fortress-v1/validation-failure-003",
+      "cause": "Fortress test generated impossible attacker-to-move FEN with defending king already checked; original CI41075939251 failed too.",
+      "engine_impact": "Test-only filter corrected; successful engine, binary and network unchanged."
+    },
+    {
+      "directory": ".local/points-fortress-v1/validation-failure-004",
+      "cause": "Independent client represents newly petrified capturers as dead colored pieces, in addition to imported neutral walls.",
+      "engine_impact": "Reference adapter corrected; engine, binary and network unchanged."
+    },
+    {
+      "directory": ".local/points-fortress-v1/validation-failure-005",
+      "cause": "Extra native acceptance Debug launch lacked the MSYS2 runtime PATH and exited0xC0000135; cleanup also reported EINVAL.",
+      "engine_impact": "Correct environment restored; completed Release checks recovered from original logs, Debug and independent replay passed. No engine/binary/network change."
+    }
+  ],
+  "source_test_overlays": {
+    "test_revision": "2d6b14e1096f4956c17c9ee638e714733f774cf4",
+    "engine_source": "07e845785e22e35d04ac06aa057c580a69cb0f80",
+    "files": {
+      "tests/petrified/fortress.cpp": "6e44def8216a651e808eae98bf76b7322e9f74369740c7aa9f6202193f20bed3",
+      "tests/petrified/fortress_referee.cjs": "62f0e38e8c80debd03ad3e547639c889c29d9a6d29e29cf454eb9088a479d3a1"
+    }
+  },
+  "duck_shutdown": ".local/points-fortress-v1/duck-owner-shutdown.json",
+  "panel_launch_audit": ".local\\points-fortress-v1\\panel-launch-audit.json",
+  "panel_processes": {
+    "controller": {
+      "pid": 16064,
+      "creation_filetime": 134378468902057072,
+      "creation_utc": "2026-10-30T15:14:50.205708+00:00"
+    },
+    "launcher": {
+      "pid": 36304,
+      "creation_filetime": 134378468905067150,
+      "creation_utc": "2026-10-30T15:14:50.506716+00:00"
+    },
+    "panel": {
+      "pid": 30764,
+      "creation_filetime": 134378468905312940,
+      "creation_utc": "2026-10-30T15:14:50.531294+00:00"
+    }
+  },
+  "panel_session": 80275,
+  "followup_automation": "petrified-fortalezas-y-panel",
+  "panel_readiness": {
+    "correctness": "PASS",
+    "source_ci": "PASS",
+    "checked_utc": "2026-10-30T15:14:37.796883+00:00",
+    "stage": "READY_FOR_PANEL",
+    "free_bytes": 9829117952,
+    "required_bytes": 7583301632,
+    "frozen_input_count": 355,
+    "source_archive_files": 239,
+    "build_process_identities_exited": 88,
+    "T8_pause_verified": true,
+    "Fairyground": "Both closed by owner; profiles preserved",
+    "panel_started": false
+  }
 }

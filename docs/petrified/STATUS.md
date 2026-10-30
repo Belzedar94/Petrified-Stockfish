@@ -1,3 +1,50 @@
+points-fortress-v1 / PR21 is FROZEN and its sole panel is ACTIVE against PR18.
+Frozen engine07e845785e22e35d04ac06aa057c580a69cb0f80; candidate SHA256
+adea9eb76c4e75b6788fee634d2a0ff9f8e85e2c1c772fc92277db91e1bf67fc.
+Points bench167330 twice and PR18 rival167330; common network unchanged;
+legacy179335. This is a conservative constructive strict points-win certificate,
+not a universal fortress recognizer. Equal/negative bounds stay unknown.
+Rules still report ongoing until a real settlement; no false mate or claim.
+PR19/20 engine changes are excluded; no tuning, training or successor.
+
+Debug/Release full references/state/NNUE/undo/null and inherited components passed.
+New checks per build:4352 positions,2372 certificates,101700 policy transitions,
+8752 exact NNUE comparisons. Independent coordinate/Chess.com checks passed282
+positions/8340 plies/four settlements.48 fortress searches per build plus28
+extra UCI/CECP acceptances and964 independent plies cover the owner's full
+234-ply history and board/color symmetries. Native interfaces and32 other
+searches/259 independent plies passed. Five CI jobs41077078616 passed at
+2d6b14e1096f4956c17c9ee638e714733f774cf4; src equals the frozen engine.
+Five failures are preserved: initial helper namespace/signature compilation,
+impossible opposite-turn-check fixture (and CI41075939251), client dead-wall
+representation, and extra Debug launch missing runtime PATH (0xC0000135).
+The final three did not alter engine/binary/network. build-state,
+development-validation-002/003/004 and development-acceptance-001 remain FAILED.
+development-validation-005 is READY_FOR_PANEL_REVIEW; development-acceptance-002
+is PASS. Do not rebuild or repeat completed validation. All88 development
+identities exited; retained-handle/PID+CreationDate audit and fast-child test passed.
+
+Panel .local/points-fortress-panel-001; session80275. Controller16064/
+134378468902057072; launcher36304/134378468905067150; real panel30764/
+134378468905312940. Never act on PID alone or infer exit from access failure.
+Use .local/points-fortress-v1/monitor_panel.py and followup. Never duplicate,
+restart or alter active inputs.355 frozen inputs,11 panel hashes,7 dependencies.
+RAM preflight9829117952 bytes exceeded7583301632; concurrency4 remains fixed.
+Same40/400 VSTC/STC/LTC, displayed LOS boundaries, pending-pair recheck and
+full pair/color/statistics/referee/hash/exact-identity/actual-exit audits.
+Only three audited wins plus distribution/interfaces permit promotion. PR18
+stays champion. Lease remains owned until decision and proven exits.
+Report all-three-TC tables on start/closure, changed decision/failure or200
+additional games; read last_reported counters first. Follow-up:
+petrified-fortalezas-y-panel. No automatic successor.
+
+Duck closed by owned endpoint, verified handles and ports; both GUI profiles
+preserved. T8 paused. No OpenBench load, AtomicDB, remote-worker, other-app or
+Misere activity. PR9/12/13/15/16/19/20 remain separately retained for future OB;
+PR17 individual remains excluded.
+
+The entries below preserve prior stages and do not restart closed panels.
+
 The owner authorized points-fortress-v1 from champion PR18 on 2026-10-30.
 One conservative constructive fortress certificate: separated king refuge,
 single-knight evasion, pre-empted pawn captures and strictly positive worst-case
