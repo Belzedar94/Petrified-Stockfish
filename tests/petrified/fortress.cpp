@@ -140,7 +140,7 @@ int main(int argc,char**argv) {
     // Every king/knight placement in an otherwise empty 2x2 refuge.
     for(Square k:{SQ_G1,SQ_H1,SQ_G2,SQ_H2}) for(int n=0;n<64;++n) if(n!=k) {
         auto box=square_bb(SQ_G1)|SQ_H1|SQ_G2|SQ_H2;
-        require(bool(box & ~square_bb(k) & ~square_bb(Square(n)) & ~attacks_bb<KNIGHT>(Square(n))),"one knight seals refuge");
+        require(bool(box & ~square_bb(k) & ~square_bb(Square(n)) & ~attacks_bb(KNIGHT, Square(n))),"one knight seals refuge");
     }
     for(int transform=0;transform<4;++transform) {
         for(bool black:{false,true}) check(fen(board(),black,transform),1,true);

@@ -15,7 +15,7 @@ Bitboard region(Bitboard seeds, Bitboard blocked) {
     Bitboard reached = seeds & ~blocked, frontier = reached;
     while (frontier) {
         Bitboard next = 0;
-        while (frontier) next |= attacks_bb<KING>(pop_lsb(frontier));
+        while (frontier) next |= attacks_bb(KING, pop_lsb(frontier));
         frontier = next & ~blocked & ~reached;
         reached |= frontier;
     }
@@ -132,7 +132,7 @@ std::optional<Fortress> recognize(const Position& pos, Color defender) {
     // Opponent-to-move FENs with the defending king already in knight check
     // are outside the invariant (and cannot follow the defensive policy).
     if (pos.side_to_move() == attacker && otherKnight
-        && (attacks_bb<KNIGHT>(lsb(otherKnight)) & king)) return {};
+        && (attacks_bb(KNIGHT, lsb(otherKnight)) & king)) return {};
 
     return Fortress{defender, refuge, margin, defence};
 }
