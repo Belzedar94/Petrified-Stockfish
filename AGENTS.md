@@ -21,7 +21,7 @@ local ZIP includes every one of the6617 raw panel files, independent referee log
 inputs, original failures, audits and inventory; every entry was hash-verified.
 The lease is released. Branch, draft PR22 and validated source tag
 candidates/points-quiet-threats-v1-neutral are preserved. PR22 is not added to
-the OpenBench queue. Follow-up removal completes this closure; no successor,
+the OpenBench queue. The follow-up is deleted; no successor,
 replay, tuning or training is authorized. PR18's historical manual exception
 does not apply to PR22. See the experiment record for hashes and exit proofs.
 

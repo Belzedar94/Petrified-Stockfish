@@ -950,6 +950,8 @@
     "champion_pr": 18,
     "champion_unchanged": true
   },
-  "followup_status": "DELETION_PENDING",
-  "further_candidate_authorized": false
+  "followup_status": "DELETED",
+  "further_candidate_authorized": false,
+  "followup_deleted_utc": "2026-10-30T22:03:22.893124+00:00",
+  "followup_deletion_evidence": ".local\\points-quiet-threats-v1\\automation-deletion-tool-result.json"
 }
