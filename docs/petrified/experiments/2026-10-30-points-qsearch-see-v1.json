@@ -1,0 +1,83 @@
+{
+  "schema": "petrified-qsearch-see-v1",
+  "experiment": "points-qsearch-see-v1",
+  "created_utc": "2026-10-30T11:06:50.307220+00:00",
+  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "authorization": "Owner requested one next substantial Petrified-specific search candidate from PR18, with the same validations and VSTC/STC/LTC panel; Wakwak documentation and public OB are inspiration only.",
+  "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+  "base_ref": "2a380a8b9a33eee0344cf2fcdb4909ee31ed4b62",
+  "branch": "exp/points-qsearch-see-v1",
+  "hypothesis": "Use the existing exact legal local material-plus-earned-points SEE to omit strictly negative voluntary captures in points quiescence. Protect check evasions, checks, promotions, unique legal moves, loss-valued nodes, and after the real move any terminal settlement, useful resignation claim, bare-king ending or unique legal reply.",
+  "threshold": 0,
+  "threshold_meaning": "Break-even in the inherited material plus 100 per earned point scale; fixed before compilation and strength results.",
+  "risk": "SEE omits positional wall value and multi-square/quiet tactics. This is a selective-search hypothesis, never a proven upper bound. Guards preserve immediate settlement and forcing exceptions; only the strength panel can select it.",
+  "unchanged": [
+    "All other PR18 search policies and coefficients",
+    "Move ordering and histories",
+    "Rules and scoring",
+    "State and undo",
+    "NNUE and network bytes",
+    "Legacy petrified behavior"
+  ],
+  "champion": {
+    "pr": 18,
+    "selection": "PROMOTED_MANUAL_OWNER; not three statistical wins",
+    "binary_sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+    "bench": 167330
+  },
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
+  "validation_required": [
+    "Debug/Release full legality/state/undo/null/NNUE references from PR18",
+    "Full make/undo exchange minimax and threshold parity",
+    "Capture transaction and unique legal query references",
+    "New hand fixtures and full-reference pruning guard checks in both colors",
+    "Independent Chess.com parent/child legal moves, settlement, bare-king and resignation guards",
+    "Independent local exchange audit, with terminal exclusions explicitly separate from terminal guard audit",
+    "Forced terminal PVs, points/mates, independent T1/T2 PVs, native UCI/CECP",
+    "Candidate points bench twice; champion167330 and legacy179335",
+    "All five source CI jobs"
+  ],
+  "research": {
+    "wakwak_source": "a5b3ee8038429ba6d88f82a35173a0f39e8794af",
+    "urls": [
+      "https://github.com/Silverrzz/wakwak/blob/main/docs/README.md",
+      "https://github.com/Silverrzz/wakwak/blob/main/docs/duck-tech/null-move-reductions.md",
+      "https://github.com/Silverrzz/wakwak/blob/main/docs/duck-tech/king-safety.md",
+      "https://github.com/Silverrzz/wakwak/blob/main/docs/duck-tech/duck-refutations.md",
+      "https://openbench.nocturn9x.space/"
+    ],
+    "finding": "Variant-specific pruning must respect obstacle geometry and terminal tactics. Duck placement/refutation rules are not applicable literally to permanent Petrified walls. Wakwak reports failed null pruning and a reduction alternative; PR18 already has verified null pruning, which remains unchanged.",
+    "public_ob": "Read-only HTTP200. Test9102 (silly-see-idea) finished at882 games271/331/280 with LLR-1.20; tests9063/9064 finished without passing at the observed snapshot. Strength-option comparisons are not evidence for a Petrified search gain.",
+    "implementation": "Independent implementation from Petrified rules and existing local SEE; no Wakwak source code copied."
+  },
+  "panel": {
+    "directory": ".local/points-qsearch-see-panel-001",
+    "status": "NOT_STARTED",
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "threads": 1,
+    "hash_mb": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0% or0.0%, drain pending pairs and recheck; continue within400 if boundary lost.",
+    "selection": "All three controls unless delegated early manual neutral/loss rejection. Cap without boundary means NEUTRAL_SCREEN, not equivalence. Only three audited wins plus distribution/interfaces allow automatic promotion; PR18 manual exception is not inherited.",
+    "referee": "Hash-pinned public Chess.com client, independent of both engines"
+  },
+  "restrictions": {
+    "training": false,
+    "post_result_tuning": false,
+    "further_candidate": false,
+    "openbench_workload": false,
+    "T8": "manually paused",
+    "Fairyground": "Keep owner PR18 GUI running; never stop it for experiment cleanup or memory",
+    "AtomicDB": false,
+    "remote_workers": false,
+    "Misere_contact": false
+  },
+  "runtime_released": false
+}

@@ -18,6 +18,7 @@
 
 #include "search.h"
 #include "search_capture.h"
+#include "search_qsearch.h"
 
 #include <algorithm>
 #include <array>
@@ -1920,8 +1921,17 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
                 continue;
         }
 
+        const bool pointsSeeCandidate =
+          qsearch_see_candidate(pos, move, forcedMove != Move::none(), givesCheck, bestValue);
+
         // Step 7. Make and search the move
         do_move(pos, move, st, givesCheck, capture, ss);
+
+        if (pointsSeeCandidate && qsearch_see_prunable_child(pos, ss->ply + 1))
+        {
+            undo_move(pos, move);
+            continue;
+        }
 
         value = -qsearch<nodeType>(pos, ss + 1, -beta, -alpha);
         undo_move(pos, move);

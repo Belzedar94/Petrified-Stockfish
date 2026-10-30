@@ -1,3 +1,21 @@
+One successor is authorized on2026-10-30 from the qualified PR18 champion:
+points-qsearch-see-v1. Use existing points SEE at a fixed zero threshold to prune
+voluntary losing captures in quiescence, protecting check/evasions, promotions,
+unique moves, loss-valued nodes, actual child settlements/claims, bare kings and
+forced replies. Keep all other PR18 search, coefficients, rules, state and NNUE.
+See docs/petrified/experiments/2026-10-30-points-qsearch-see-v1.json for the frozen
+recipe. Validate Debug/Release, full references, state/NNUE/undo, independent
+Chess.com guards/PVs, native interfaces, points bench twice, legacy179335 and
+all five exact-source CI jobs before one40/400 VSTC/STC/LTC panel against PR18.
+No tuning, training, other candidate or OpenBench workload. Public Wakwak docs
+and OB were read only as inspiration; no third-party engine code was copied.
+Only three audited wins plus interfaces allow automatic promotion. PR18's manual
+promotion remains a separate historical owner exception. T8 stays paused;
+Fairyground PR18 stays open for its owner and is excluded from experiment cleanup.
+Do not touch AtomicDB, remote workers, other applications or contact Misere.
+
+The entries below preserve prior decisions and do not cancel this successor.
+
 ## PR18: champion by owner adjudication; Fairyground open
 
 PR18 points-combined-search-v1 is the current champion by explicit owner
