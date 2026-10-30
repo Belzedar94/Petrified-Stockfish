@@ -1,3 +1,40 @@
+points-qsearch-checks-v1 / PR20 is FROZEN and its sole panel is ACTIVE vs PR18.
+Engine source33e40a960d609bd7a7f9fab6c11ca8312020a595, candidate SHA256
+ aed9c2c72f97b0576e476e4c808762db68349dc8cc0c2b2d69d33c697946338d,
+points bench169319 twice; PR18 rival167330; common network unchanged; legacy179335.
+Full Debug/Release state/NNUE/undo and all inherited component/reference tests
+passed. Each build checked49268 picker comparisons/432012 actual child checks
+at15226 positions. Independent Chess.com matched386 positions/9167 quiet plies,
+including9 quiet mates spanning win/draw/loss,6 castles and16 underpromotions.
+Eight depth-one quiet-mate searches per build and16 independent PV plies passed;
+inherited forced searches, other PVs and UCI/CECP passed. All five CI jobs of
+41060107211 passed atdbb34b9ea88106a5a844480e79db60a1ce7e313d; src is identical
+to frozen33e40a96. dbb34b9e fixes only a const iterator type in a test. Two
+failures are preserved: stale test-target name in the supervisor and that test
+compilation error (also original CI41059563955). Engine/binary/network never
+changed. build-state and development-validation-002/state remain FAILED;
+development-validation-003/state is READY_FOR_PANEL_REVIEW. Do not rebuild or
+repeat completed validation. All80 development/build identities exited.
+
+Panel .local/points-qsearch-checks-panel-001; session94028. Controller32304/
+creation_filetime134378393201318448; launcher44052/134378393203416784; real
+panel40980/134378393203655081. Verify PID+CreationDate, never PID alone or access
+failure as exit. Use .local/points-qsearch-checks-v1/monitor_panel.py and followup.
+Never duplicate, restart or modify active inputs.179 frozen inputs,11 panel
+hashes and7 dependencies passed; journal exact identities and fast-exit test
+passed. Preflight10514345984 bytes free exceeded7583301632 required, concurrency4.
+Keep the same40/400 VSTC/STC/LTC, displayed LOS boundaries, pending-pair recheck,
+and full final pair/color/statistics/referee/hash/exact-identity/exit audits.
+Only three audited wins plus distribution/interfaces allow automatic promotion.
+PR18 stays champion. Lease remains owned until final decision and proven exits.
+Notify all-three-TC tables on start/closure, changed decision/failure or200 games
+since last table; read counters first. Future OpenBench PR19 remains separately
+retained. T8 paused; Fairyground PR18 closed, profile preserved. No other
+candidate, tuning, training, OB workload, AtomicDB, remote-worker, other-app or
+Misere activity. No automatic successor.
+
+The entries below preserve prior stages and do not restart closed panels.
+
 The owner authorized points-qsearch-checks-v1 from PR18 on2026-10-30 after
 retaining PR19 separately for future OpenBench. Add one fixed explicit layer of
 quiet checks at entry to points quiescence; recursive calls add none. Preserve

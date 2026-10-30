@@ -1,3 +1,40 @@
+points-qsearch-checks-v1 / PR20 is FROZEN and its sole panel is ACTIVE vs PR18.
+Engine source33e40a960d609bd7a7f9fab6c11ca8312020a595, candidate SHA256
+ aed9c2c72f97b0576e476e4c808762db68349dc8cc0c2b2d69d33c697946338d,
+points bench169319 twice; PR18 rival167330; common network unchanged; legacy179335.
+Full Debug/Release state/NNUE/undo and all inherited component/reference tests
+passed. Each build checked49268 picker comparisons/432012 actual child checks
+at15226 positions. Independent Chess.com matched386 positions/9167 quiet plies,
+including9 quiet mates spanning win/draw/loss,6 castles and16 underpromotions.
+Eight depth-one quiet-mate searches per build and16 independent PV plies passed;
+inherited forced searches, other PVs and UCI/CECP passed. All five CI jobs of
+41060107211 passed atdbb34b9ea88106a5a844480e79db60a1ce7e313d; src is identical
+to frozen33e40a96. dbb34b9e fixes only a const iterator type in a test. Two
+failures are preserved: stale test-target name in the supervisor and that test
+compilation error (also original CI41059563955). Engine/binary/network never
+changed. build-state and development-validation-002/state remain FAILED;
+development-validation-003/state is READY_FOR_PANEL_REVIEW. Do not rebuild or
+repeat completed validation. All80 development/build identities exited.
+
+Panel .local/points-qsearch-checks-panel-001; session94028. Controller32304/
+creation_filetime134378393201318448; launcher44052/134378393203416784; real
+panel40980/134378393203655081. Verify PID+CreationDate, never PID alone or access
+failure as exit. Use .local/points-qsearch-checks-v1/monitor_panel.py and followup.
+Never duplicate, restart or modify active inputs.179 frozen inputs,11 panel
+hashes and7 dependencies passed; journal exact identities and fast-exit test
+passed. Preflight10514345984 bytes free exceeded7583301632 required, concurrency4.
+Keep the same40/400 VSTC/STC/LTC, displayed LOS boundaries, pending-pair recheck,
+and full final pair/color/statistics/referee/hash/exact-identity/exit audits.
+Only three audited wins plus distribution/interfaces allow automatic promotion.
+PR18 stays champion. Lease remains owned until final decision and proven exits.
+Notify all-three-TC tables on start/closure, changed decision/failure or200 games
+since last table; read counters first. Future OpenBench PR19 remains separately
+retained. T8 paused; Fairyground PR18 closed, profile preserved. No other
+candidate, tuning, training, OB workload, AtomicDB, remote-worker, other-app or
+Misere activity. No automatic successor.
+
+The entries below preserve prior stages and do not restart closed panels.
+
 The owner authorized points-qsearch-checks-v1 from PR18 on2026-10-30 after
 retaining PR19 separately for future OpenBench. Add one fixed explicit layer of
 quiet checks at entry to points quiescence; recursive calls add none. Preserve
@@ -915,11 +952,11 @@ The four-game concurrency preflight failed with 5.73 GiB free against a 6.58 GiB
 requirement, and T8 was restored. The next campaign fixed concurrency at three;
 its preflight passed. Threads=1 and Hash=512 are unchanged for both players.
 
-| Control | Games | W/L/D | Elo ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses (candidate/Walls) | Status |
+| Control | Games | W/L/D | Elo ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses (candidate/Walls) | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 106 | 85/2/19 | +365.89 ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 81.9 | 100.0% | 0/0 | Passed after pending pairs |
-| STC 10+0.1 | 106 | 70/2/34 | +264.31 ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 59.3 | 100.0% | 0/0 | Passed after pending pairs |
-| LTC 30+0.3 | 16 | 9/0/7 | +221.14 ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 135.8 | 100.0% | 0/0 | Cancelled by owner |
+| VSTC 2+0.02 | 106 | 85/2/19 | +365.89 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 81.9 | 100.0% | 0/0 | Passed after pending pairs |
+| STC 10+0.1 | 106 | 70/2/34 | +264.31 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 59.3 | 100.0% | 0/0 | Passed after pending pairs |
+| LTC 30+0.3 | 16 | 9/0/7 | +221.14 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 135.8 | 100.0% | 0/0 | Cancelled by owner |
 
 Local raw records are under `.local/campaign-002/` with separate engine streams,
 every move and clock, referee results, full pairs, manifests and the worker lease.
@@ -933,11 +970,11 @@ GCC 16.1.0, `-O3 -flto -flto-partition=one`, BMI2/AVX2, no PGO. The Walls binary
 SHA-256 is `757fe43a33624648f22fe99fc55976192fe86140080e333de27e422e51672da7`.
 Both players used run4test, Threads=1, Hash=512 and concurrency three.
 
-| Control | Games | W/L/D | Elo ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses | Status |
+| Control | Games | W/L/D | Elo ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 44 | 30/2/12 | +261.29 ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 104.4 | 100.0% | 0/0 | Passed, pending pairs completed |
-| STC 10+0.1 | 44 | 23/0/21 | +201.54 ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 72.3 | 100.0% | 0/0 | Passed, pending pairs completed |
-| LTC 30+0.3 | 16 | 8/0/8 | +190.85 ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 121.5 | 100.0% | 0/0 | Owner accepted; stopped early |
+| VSTC 2+0.02 | 44 | 30/2/12 | +261.29 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 104.4 | 100.0% | 0/0 | Passed, pending pairs completed |
+| STC 10+0.1 | 44 | 23/0/21 | +201.54 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 72.3 | 100.0% | 0/0 | Passed, pending pairs completed |
+| LTC 30+0.3 | 16 | 8/0/8 | +190.85 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 121.5 | 100.0% | 0/0 | Owner accepted; stopped early |
 
 The exact owner instruction was: "Puedes adjudicarlo como win. Empieza el panel
 vs fsf dev". LTC did not reach 40 games. Its original result remains INTERRUPTED;
@@ -954,11 +991,11 @@ including all 7,939 openings, against the pinned Walls referee. Both players
 positively identified their respective NNUE before the match.
 Records: `.local/campaign-004-fsf-dev/`.
 
-| Control | Games | W/L/D | Elo ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses | Status |
+| Control | Games | W/L/D | Elo ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 46 | 42/0/4 | +536.97 ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 302.2 | 100.0% | 0/0 | Passed, pending pairs completed |
-| STC 10+0.1 | 44 | 33/0/11 | +338.04 ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 110.7 | 100.0% | 0/0 | Passed, pending pairs completed |
-| LTC 30+0.3 | 44 | 31/1/12 | +289.24 ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 105.4 | 100.0% | 0/0 | Passed, pending pairs completed |
+| VSTC 2+0.02 | 46 | 42/0/4 | +536.97 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 302.2 | 100.0% | 0/0 | Passed, pending pairs completed |
+| STC 10+0.1 | 44 | 33/0/11 | +338.04 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 110.7 | 100.0% | 0/0 | Passed, pending pairs completed |
+| LTC 30+0.3 | 44 | 31/1/12 | +289.24 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 105.4 | 100.0% | 0/0 | Passed, pending pairs completed |
 
 All controls used Threads=1, Hash=512 and concurrency three; no clock losses or
 measured wall-clock overruns occurred. Public results and hashes are in

@@ -2,7 +2,7 @@
   "schema": "petrified-qsearch-checks-v1",
   "experiment": "points-qsearch-checks-v1",
   "created_utc": "2026-10-30T12:55:33.321188+00:00",
-  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "status": "PANEL_RUNNING",
   "branch": "exp/points-qsearch-checks-v1",
   "authorization": "Owner retained PR19 for future OpenBench and requested one next substantial idea from current champion PR18 with the same correctness and VSTC/STC/LTC gates.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
@@ -46,7 +46,7 @@
   ],
   "panel": {
     "directory": ".local/points-qsearch-checks-panel-001",
-    "status": "NOT_STARTED",
+    "status": "RUNNING",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -72,5 +72,486 @@
     "remote_workers": false,
     "Misere_contact": false
   },
-  "runtime_released": false
+  "runtime_released": false,
+  "source_commit": "33e40a960d609bd7a7f9fab6c11ca8312020a595",
+  "validated_revision": "dbb34b9ea88106a5a844480e79db60a1ce7e313d",
+  "pr": 20,
+  "pr_url": "https://github.com/Belzedar94/Petrified-Stockfish/pull/20",
+  "candidate_binary": ".local\\points-qsearch-checks-v1-inputs\\petrified-points-qsearch-checks-v1-validated-bmi2.exe",
+  "candidate_sha256": "aed9c2c72f97b0576e476e4c808762db68349dc8cc0c2b2d69d33c697946338d",
+  "validation_report": ".local\\points-qsearch-checks-v1\\validation-report.json",
+  "validation_summary": {
+    "result": "PASS",
+    "final_state_file": "development-validation-003/state.json",
+    "source_commit": "33e40a960d609bd7a7f9fab6c11ca8312020a595",
+    "candidate_binary": ".local\\points-qsearch-checks-v1-inputs\\petrified-points-qsearch-checks-v1-validated-bmi2.exe",
+    "candidate_sha256": "aed9c2c72f97b0576e476e4c808762db68349dc8cc0c2b2d69d33c697946338d",
+    "champion_binary_sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "points_bench_candidate": [
+      169319,
+      169319
+    ],
+    "points_bench_champion": 167330,
+    "legacy_bench_candidate_champion": [
+      179335,
+      179335
+    ],
+    "checked_frozen_files": 162,
+    "native_interfaces": {
+      "passed": true,
+      "uci": true,
+      "xboard": true,
+      "node_wasm": false,
+      "checks": [
+        "MultiPV",
+        "real NNUE",
+        "Threads 1/2",
+        "stop",
+        "ponderhit",
+        "terminal roots",
+        "winning mate distances/TT",
+        "points deficits 19/20/21, both colors",
+        "losing mate 25-24",
+        "invalid/missing NNUE",
+        "rules without NNUE",
+        "CECP edit/walls/fractional clocks/analysis"
+      ]
+    },
+    "independent_search": {
+      "result": "PASS",
+      "positions": 32,
+      "independent_pv_plies": 245,
+      "engine_sha256": "aed9c2c72f97b0576e476e4c808762db68349dc8cc0c2b2d69d33c697946338d",
+      "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+      "T1_positions": 24,
+      "T2_positions": 8,
+      "cases": [
+        {
+          "case": 0,
+          "history_plies": 24,
+          "threads": 1,
+          "last_info": "info depth 11 seldepth 19 multipv 1 score cp -207 upperbound nodes 32805 nps 1058225 hashfull 3 tbhits 0 time 31 pv e3d4 h6c1",
+          "pv_plies": 2,
+          "referee_result": "*"
+        },
+        {
+          "case": 1,
+          "history_plies": 39,
+          "threads": 1,
+          "last_info": "info depth 16 seldepth 19 multipv 1 score cp 931 nodes 32811 nps 994272 hashfull 2 tbhits 0 time 33 pv g4f3 a3b4 a5b4 e2e4 b4a4 b3a2 h7h5 d1e1 e8f7 e1e2 b6b5 e2e1",
+          "pv_plies": 12,
+          "referee_result": "*"
+        },
+        {
+          "case": 2,
+          "history_plies": 58,
+          "threads": 1,
+          "last_info": "info depth 17 seldepth 19 multipv 1 score cp -962 nodes 32769 nps 963794 hashfull 3 tbhits 0 time 34 pv g3g4 h5g4 c1d2 g6g5 d2e1 a4b4 h2h3 b4a3 b2a3 a6c5 b1c3 g5f5",
+          "pv_plies": 12,
+          "referee_result": "*"
+        },
+        {
+          "case": 3,
+          "history_plies": 73,
+          "threads": 1,
+          "last_info": "info depth 14 seldepth 17 multipv 1 score cp 1153 nodes 32897 nps 996878 hashfull 4 tbhits 0 time 33 pv a4a3 b1c3 h7h6 d1e1 a6b4 c1f4",
+          "pv_plies": 6,
+          "referee_result": "*"
+        },
+        {
+          "case": 4,
+          "history_plies": 24,
+          "threads": 1,
+          "last_info": "info depth 13 seldepth 19 multipv 1 score cp -169 nodes 32824 nps 994666 hashfull 2 tbhits 0 time 33 pv c4b5 c8b7 d2d3 h6g4 e2f2 d6e6 g3f3 e6e1 d1c2 e1d1 c2b2",
+          "pv_plies": 11,
+          "referee_result": "*"
+        },
+        {
+          "case": 5,
+          "history_plies": 39,
+          "threads": 1,
+          "last_info": "info depth 14 seldepth 19 multipv 1 score cp 403 nodes 32774 nps 1024187 hashfull 2 tbhits 0 time 32 pv e4e8 h4f5 a7b7 a4b5 a8a1 b5b6 d6e7 h2h4 d7d6 b6c7 b8d7",
+          "pv_plies": 11,
+          "referee_result": "*"
+        },
+        {
+          "case": 6,
+          "history_plies": 58,
+          "threads": 1,
+          "last_info": "info depth 15 seldepth 22 multipv 1 score cp -199 nodes 32808 nps 1093600 hashfull 4 tbhits 0 time 30 pv a5b7 b4b3 f2f4 e5f6 e2e4 b3b2 h2b2 f6g6 a4a5 f8e7 b1a3 d6e6",
+          "pv_plies": 12,
+          "referee_result": "*"
+        },
+        {
+          "case": 7,
+          "history_plies": 73,
+          "threads": 1,
+          "last_info": "info depth 11 seldepth 17 multipv 1 score cp -199 upperbound nodes 32771 nps 1057129 hashfull 5 tbhits 0 time 31 pv g6f5 c3d5",
+          "pv_plies": 2,
+          "referee_result": "*"
+        },
+        {
+          "case": 8,
+          "history_plies": 24,
+          "threads": 1,
+          "last_info": "info depth 17 seldepth 20 multipv 1 score cp 895 nodes 32807 nps 911305 hashfull 4 tbhits 0 time 36 pv d2h6 a4a5 c3b4 c5b4 e5d5 a5b5 d5c6 b7c6 c2c4 d8d4 e1g1 d4e4",
+          "pv_plies": 12,
+          "referee_result": "*"
+        },
+        {
+          "case": 9,
+          "history_plies": 39,
+          "threads": 1,
+          "last_info": "info depth 15 seldepth 19 multipv 1 score cp -1271 nodes 32823 nps 1025718 hashfull 3 tbhits 0 time 32 pv f7e6 d3e3 h4h3 b5c6 e6d6 f2f4 e8d7 f4f5 d5c5 e3e4 e7f7 e4e5",
+          "pv_plies": 12,
+          "referee_result": "*"
+        },
+        {
+          "case": 10,
+          "history_plies": 58,
+          "threads": 1,
+          "last_info": "info depth 13 seldepth 22 multipv 1 score mate 7 nodes 32821 nps 1094033 hashfull 3 tbhits 0 time 30 pv e4g6 e8d8 e6d7 f4e4 f3e2 e7f7 a4a5 b7b6 a5a8 d8e7 d7d8q e7e6 a8d5",
+          "pv_plies": 13,
+          "referee_result": "1-0"
+        },
+        {
+          "case": 11,
+          "history_plies": 73,
+          "threads": 1,
+          "last_info": "info depth 15 seldepth 22 multipv 1 score cp -298 nodes 32785 nps 1024531 hashfull 3 tbhits 0 time 32 pv b4a3 c2b3 c3c2 f4g3 c2d2 f2f4 e4f3 e2f3 b6c4 f3f4 c4d6",
+          "pv_plies": 11,
+          "referee_result": "*"
+        },
+        {
+          "case": 12,
+          "history_plies": 24,
+          "threads": 1,
+          "last_info": "info depth 13 seldepth 16 multipv 1 score cp -274 upperbound nodes 32826 nps 994727 hashfull 3 tbhits 0 time 33 pv h2h3 g4f3",
+          "pv_plies": 2,
+          "referee_result": "*"
+        },
+        {
+          "case": 13,
+          "history_plies": 39,
+          "threads": 1,
+          "last_info": "info depth 15 seldepth 20 multipv 1 score cp 491 nodes 32785 nps 964264 hashfull 3 tbhits 0 time 34 pv d3d2 e1d2 g5h4 h2h3 g4e6 g1f3 h4g4 h1g1 g6g7 f1e2",
+          "pv_plies": 10,
+          "referee_result": "*"
+        },
+        {
+          "case": 14,
+          "history_plies": 58,
+          "threads": 1,
+          "last_info": "info depth 13 seldepth 21 multipv 1 score cp 552 nodes 32800 nps 1025000 hashfull 3 tbhits 0 time 32 pv g3e1 b4d4 g1f3 d4d5 h2h4 b5b4 a3c4",
+          "pv_plies": 7,
+          "referee_result": "*"
+        },
+        {
+          "case": 15,
+          "history_plies": 73,
+          "threads": 1,
+          "last_info": "info depth 13 seldepth 19 multipv 1 score cp -305 upperbound nodes 32821 nps 1131758 hashfull 2 tbhits 0 time 29 pv a4b3 a2b3",
+          "pv_plies": 2,
+          "referee_result": "*"
+        },
+        {
+          "case": 16,
+          "history_plies": 24,
+          "threads": 1,
+          "last_info": "info depth 14 seldepth 19 multipv 1 score cp 292 upperbound nodes 32776 nps 993212 hashfull 3 tbhits 0 time 33 pv g4f5 e5d4",
+          "pv_plies": 2,
+          "referee_result": "*"
+        },
+        {
+          "case": 17,
+          "history_plies": 39,
+          "threads": 1,
+          "last_info": "info depth 14 seldepth 18 multipv 1 score cp -665 nodes 32925 nps 997727 hashfull 2 tbhits 0 time 33 pv c5d4 b5a7 e5e4 a2a3 b4e7 d3e4 f5e4 a7c8 e4e3",
+          "pv_plies": 9,
+          "referee_result": "*"
+        },
+        {
+          "case": 18,
+          "history_plies": 58,
+          "threads": 1,
+          "last_info": "info depth 13 seldepth 15 multipv 1 score cp -231 lowerbound nodes 32794 nps 1093133 hashfull 2 tbhits 0 time 30 pv e4d6 g8f6",
+          "pv_plies": 2,
+          "referee_result": "*"
+        },
+        {
+          "case": 19,
+          "history_plies": 73,
+          "threads": 1,
+          "last_info": "info depth 15 seldepth 23 multipv 1 score cp 452 nodes 32787 nps 1057645 hashfull 2 tbhits 0 time 31 pv g4e3 d1e1 a5a3 f6h7 f3f2 e1e2 c8f5 d5e4 f5e4 h2g2 e7f8",
+          "pv_plies": 11,
+          "referee_result": "*"
+        },
+        {
+          "case": 20,
+          "history_plies": 24,
+          "threads": 1,
+          "last_info": "info depth 15 seldepth 16 multipv 1 score cp 773 nodes 32799 nps 993909 hashfull 3 tbhits 0 time 33 pv h2g3 c6d5 e4d5 g4d7 h4e4 e7e6 d5e6 f7e6 d2d4 a7a5",
+          "pv_plies": 10,
+          "referee_result": "*"
+        },
+        {
+          "case": 21,
+          "history_plies": 39,
+          "threads": 1,
+          "last_info": "info depth 12 seldepth 19 multipv 1 score cp 195 upperbound nodes 32769 nps 963794 hashfull 4 tbhits 0 time 34 pv d6b8 f5d7",
+          "pv_plies": 2,
+          "referee_result": "*"
+        },
+        {
+          "case": 22,
+          "history_plies": 58,
+          "threads": 1,
+          "last_info": "info depth 14 seldepth 22 multipv 1 score cp -118 lowerbound nodes 32791 nps 1093033 hashfull 3 tbhits 0 time 30 pv b5d6 c8c7",
+          "pv_plies": 2,
+          "referee_result": "*"
+        },
+        {
+          "case": 23,
+          "history_plies": 73,
+          "threads": 1,
+          "last_info": "info depth 16 seldepth 17 multipv 1 score cp 1687 nodes 32794 nps 1057870 hashfull 3 tbhits 0 time 31 pv h5g4 g5h6 g7h6 h3g4 h6g6 e2g3 c8e7 e3g1 c6c5 c2d2",
+          "pv_plies": 10,
+          "referee_result": "*"
+        },
+        {
+          "case": 24,
+          "history_plies": 24,
+          "threads": 2,
+          "last_info": "info depth 12 seldepth 16 multipv 1 score cp 414 nodes 32789 nps 1928764 hashfull 3 tbhits 0 time 17 pv f2e3 f5g4 d2c4 d6f8 e3e4 e8f7 g2g3",
+          "pv_plies": 7,
+          "referee_result": "*"
+        },
+        {
+          "case": 25,
+          "history_plies": 39,
+          "threads": 2,
+          "last_info": "info depth 11 seldepth 19 multipv 1 score cp 269 lowerbound nodes 32821 nps 1823388 hashfull 3 tbhits 0 time 18 pv f5g4 a3c4",
+          "pv_plies": 2,
+          "referee_result": "*"
+        },
+        {
+          "case": 26,
+          "history_plies": 58,
+          "threads": 2,
+          "last_info": "info depth 15 seldepth 19 multipv 1 score cp 586 nodes 32779 nps 2185266 hashfull 2 tbhits 0 time 15 pv g2f3 h5h4 g4f5 c7b7 g3e4 h7g7 a1g1 c5d5 e4f2 g8f7 d6e6 d7e6 f5e6 f8e6",
+          "pv_plies": 14,
+          "referee_result": "*"
+        },
+        {
+          "case": 27,
+          "history_plies": 73,
+          "threads": 2,
+          "last_info": "info depth 12 seldepth 18 multipv 1 score cp 710 nodes 32828 nps 2051750 hashfull 3 tbhits 0 time 16 pv d5e4 f3f4 h6g5 f4g5 b7h7 g5g6 f8g6 a1g1 e2c4 e6f6",
+          "pv_plies": 10,
+          "referee_result": "*"
+        },
+        {
+          "case": 28,
+          "history_plies": 24,
+          "threads": 2,
+          "last_info": "info depth 14 seldepth 17 multipv 1 score cp -1015 nodes 32814 nps 2050875 hashfull 3 tbhits 0 time 16 pv h5h3 d5e4 e3f2 e4d3 e2d3 d7d6 e5d7 c8d7 h3e3 f5e5",
+          "pv_plies": 10,
+          "referee_result": "*"
+        },
+        {
+          "case": 29,
+          "history_plies": 39,
+          "threads": 2,
+          "last_info": "info depth 17 seldepth 20 multipv 1 score cp 2092 nodes 32794 nps 2049625 hashfull 3 tbhits 0 time 16 pv d4e3 d3e4 d6c7 b4a5 b7c6 a5a6 c5c4 a6b6 c7b7 b6a6 b7c7 a6b6 c7b7",
+          "pv_plies": 13,
+          "referee_result": "*"
+        },
+        {
+          "case": 30,
+          "history_plies": 58,
+          "threads": 2,
+          "last_info": "info depth 14 seldepth 10 multipv 1 score cp -67 upperbound nodes 32848 nps 2053000 hashfull 2 tbhits 0 time 16 pv d3e4 d5c6",
+          "pv_plies": 2,
+          "referee_result": "*"
+        },
+        {
+          "case": 31,
+          "history_plies": 73,
+          "threads": 2,
+          "last_info": "info depth 13 seldepth 17 multipv 1 score cp 761 upperbound nodes 32797 nps 1929235 hashfull 2 tbhits 0 time 17 pv b6c5 d3e4",
+          "pv_plies": 2,
+          "referee_result": "*"
+        }
+      ],
+      "interpretation": "Correctness check, never Elo or a strength-gate result"
+    },
+    "forced_search": {
+      "report": "independent-forced-search.json"
+    },
+    "finished_utc": "2026-10-30T13:06:21.064960+00:00",
+    "meaning": "Correctness only; no strength decision"
+  },
+  "quiet_check_validation": {
+    "debug": {
+      "positions": 15226,
+      "picker_comparisons": 49268,
+      "full_child_checks": 432012,
+      "quiet_checks": 10318,
+      "underpromotion_checks": 250,
+      "castling_checks": 8,
+      "exported_quiet_mates": 9
+    },
+    "release": {
+      "positions": 15226,
+      "picker_comparisons": 49268,
+      "full_child_checks": 432012,
+      "quiet_checks": 10318,
+      "underpromotion_checks": 250,
+      "castling_checks": 8,
+      "exported_quiet_mates": 9
+    },
+    "independent": {
+      "result": "PASS",
+      "positions": 386,
+      "independent_quiet_plies": 9167,
+      "quiet_mates": 9,
+      "mate_results": [
+        "1-0",
+        "0-1",
+        "1/2-1/2"
+      ],
+      "terminal_children": 15,
+      "castling_checks": 6,
+      "underpromotion_checks": 16,
+      "independent_search_plies": 16,
+      "reconstructed_ep": 8,
+      "referee_sha256": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b"
+    }
+  },
+  "source_ci": {
+    "source_commit": "33e40a960d609bd7a7f9fab6c11ca8312020a595",
+    "checked_revision": "dbb34b9ea88106a5a844480e79db60a1ce7e313d",
+    "conclusion": "success",
+    "run_id": 41060107211,
+    "jobs_passed": 5,
+    "checks": [
+      {
+        "id": 124077402193,
+        "name": "rules (ubuntu-latest, Debug)",
+        "head_sha": "dbb34b9ea88106a5a844480e79db60a1ce7e313d",
+        "conclusion": "success"
+      },
+      {
+        "id": 124077402403,
+        "name": "rules (ubuntu-latest, Release)",
+        "head_sha": "dbb34b9ea88106a5a844480e79db60a1ce7e313d",
+        "conclusion": "success"
+      },
+      {
+        "id": 124077402576,
+        "name": "rules (windows-latest, Release)",
+        "head_sha": "dbb34b9ea88106a5a844480e79db60a1ce7e313d",
+        "conclusion": "success"
+      },
+      {
+        "id": 124077402715,
+        "name": "sanitizers",
+        "head_sha": "dbb34b9ea88106a5a844480e79db60a1ce7e313d",
+        "conclusion": "success"
+      },
+      {
+        "id": 124077402740,
+        "name": "rules (windows-latest, Debug)",
+        "head_sha": "dbb34b9ea88106a5a844480e79db60a1ce7e313d",
+        "conclusion": "success"
+      }
+    ],
+    "engine_source_tree_identical": true
+  },
+  "execution_manifest": ".local\\points-qsearch-checks-v1\\execution-manifest.json",
+  "execution_manifest_sha256": "3295c26bde76add483bce76f3c72dc9dcd9a73d856ffa87d50e35064be60c88d",
+  "frozen_inputs": 179,
+  "development_identities_exited": 80,
+  "validation_failures": [
+    {
+      "directory": ".local\\points-qsearch-checks-v1\\validation-failure-001",
+      "kind": "SUPERVISOR_TARGET_NAME",
+      "error": "ninja unknown target petrified-qsearch-see-test",
+      "engine_changed": false,
+      "source_commit": "33e40a960d609bd7a7f9fab6c11ca8312020a595",
+      "candidate_sha256": "aed9c2c72f97b0576e476e4c808762db68349dc8cc0c2b2d69d33c697946338d",
+      "controller_session": 2732,
+      "controller_exit_code": 1,
+      "identities_exited": 16
+    },
+    {
+      "directory": ".local\\points-qsearch-checks-v1\\validation-failure-002",
+      "kind": "TEST_COMPILATION",
+      "error": "vector iterator types Move* and const Move* differ",
+      "engine_changed": false,
+      "source_commit": "33e40a960d609bd7a7f9fab6c11ca8312020a595",
+      "ci_run": 41059563955,
+      "all_five_ci_jobs": "failed building this test",
+      "controller_session": 90418,
+      "controller_exit_code": 1,
+      "candidate_sha256": "aed9c2c72f97b0576e476e4c808762db68349dc8cc0c2b2d69d33c697946338d",
+      "identities_exited": 18
+    }
+  ],
+  "source_test_overlays": {
+    "engine_source": "33e40a960d609bd7a7f9fab6c11ca8312020a595",
+    "test_revision": "dbb34b9ea88106a5a844480e79db60a1ce7e313d",
+    "files": {
+      "tests/petrified/qsearch_checks.cpp": "0cf4cd209cbe85e7ea0697a3c87ff5b2fcea2f9e109f4517cfc45bb66d120454"
+    },
+    "reason": "Test iterator const type; original archive and failed test preserved; engine code and match executable unchanged"
+  },
+  "panel_launch_audit": ".local\\points-qsearch-checks-v1\\panel-launch-audit.json",
+  "panel_runtime": {
+    "session_id": 94028,
+    "identities": {
+      "controller": {
+        "pid": 32304,
+        "creation_filetime": 134378393201318448,
+        "creation_utc": "2026-10-30T13:08:40.131845+00:00"
+      },
+      "launcher": {
+        "pid": 44052,
+        "creation_filetime": 134378393203416784,
+        "creation_utc": "2026-10-30T13:08:40.341679+00:00"
+      },
+      "panel": {
+        "pid": 40980,
+        "creation_filetime": 134378393203655081,
+        "creation_utc": "2026-10-30T13:08:40.365509+00:00"
+      }
+    },
+    "preflight": {
+      "correctness": "PASS",
+      "source_ci": "PASS",
+      "checked_utc": "2026-10-30T13:08:18.532415+00:00",
+      "stage": "READY_FOR_PANEL",
+      "free_bytes": 10514345984,
+      "required_bytes": 7583301632,
+      "frozen_input_count": 179,
+      "source_archive_files": 235,
+      "test_overlays": {
+        "engine_source": "33e40a960d609bd7a7f9fab6c11ca8312020a595",
+        "test_revision": "dbb34b9ea88106a5a844480e79db60a1ce7e313d",
+        "files": {
+          "tests/petrified/qsearch_checks.cpp": "0cf4cd209cbe85e7ea0697a3c87ff5b2fcea2f9e109f4517cfc45bb66d120454"
+        },
+        "reason": "Test iterator const type; original archive and failed test preserved; engine code and match executable unchanged"
+      },
+      "build_process_identities_exited": 80,
+      "T8_pause_verified": true,
+      "Fairyground": "PR18 closed by owner; profile preserved; no restart",
+      "panel_started": false
+    },
+    "launch_audit": ".local/points-qsearch-checks-v1/panel-launch-audit.json",
+    "frozen_inputs": 179,
+    "panel_hashes": 11,
+    "dependency_hashes": 7
+  }
 }
