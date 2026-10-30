@@ -36,11 +36,6 @@ jobs:
         run: ctest --test-dir build/native -C ${{ matrix.config }} --output-on-failure
       - name: Points panel stopping contract (synthetic outcomes)
         run: python tests/petrified/points_panel_test.py
-      - name: Forced quiet continuations at depth one
-        shell: bash
-        run: |
-          if [ "$RUNNER_OS" = Windows ]; then ENGINE=build/native/${{ matrix.config }}/petrified-stockfish.exe; else ENGINE=build/native/petrified-stockfish; fi
-          python tests/petrified/forced_qsearch.py --engine "$ENGINE" --out build/forced-search
       - name: Build isolated Python wheel
         if: matrix.config == 'Release'
         run: python -m pip wheel . --no-deps --wheel-dir build/wheels

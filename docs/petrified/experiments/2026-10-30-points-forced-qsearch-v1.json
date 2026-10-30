@@ -2,12 +2,12 @@
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-forced-qsearch-v1",
   "date": "2026-10-30",
-  "status": "DEVELOPMENT",
+  "status": "CORRECTNESS_REPAIR_BEFORE_STRENGTH",
   "branch": "exp/points-forced-qsearch-v1",
   "owner_authorization": "One next substantial Petrified-specific search idea from PR11 with the same validations and three-control panel. PR16 retained separately for future OpenBench.",
   "qualified_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
   "baseline_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
-  "hypothesis": "At non-check points quiescence nodes with exactly one legal move, suppress stand-pat and search that move, including quiet moves. Continue until branching, terminal settlement, or the existing maximum ply. Query stops after a second legal move.",
+  "hypothesis": "At non-check points quiescence nodes with exactly one legal move, suppress stand-pat and search that move, including quiet moves. Continue until branching, terminal settlement, or the existing maximum ply. Query stops after a second legal move. Required interface correction: do not pass points settlement scores/PVs through orthodox Syzygy draw rewriting.",
   "unchanged": [
     "main search and coefficients",
     "move ordering and complete generated order",
@@ -67,5 +67,26 @@
     "Unique-move queries add work at nonterminal qnodes",
     "Forced lines can be long; existing repetition, rule50 and MAX_PLY remain the bounds",
     "The effect may be rare; tactical correctness is not strength evidence"
+  ],
+  "source_commit": "4769fb8669966839bd9a24480d04036039e6f402",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/17",
+  "known_failures": [
+    {
+      "id": "validation-failure-001",
+      "kind": "CI harness",
+      "run_id": 41017528888,
+      "source": "4769fb8669966839bd9a24480d04036039e6f402",
+      "reason": "Weighted search step attempted in CI without required external network; C++ state/query and sanitizers passed",
+      "resolution": "Keep weight-dependent search regression local with the exact champion network; restore existing five-job source CI."
+    },
+    {
+      "id": "validation-failure-002",
+      "kind": "Inherited UCI score reporting defect exposed by forced PV",
+      "source": "4769fb8669966839bd9a24480d04036039e6f402",
+      "candidate_sha256": "3ab9f4c8c117d50fd958b05da6fe3c3664e7798b78d037ed1d037e6b47606abd",
+      "reason": "Syzygy PV formatter treated a forced points repetition win as a draw; depth1 correctly reached the 8-ply repetition but reported cp0",
+      "resolution": "Skip Syzygy PV rewriting for points outcomes; preserve actual search score and PV. Rebuild and repeat correctness before strength.",
+      "artifacts": ".local/points-forced-qsearch-v1/validation-failure-002"
+    }
   ]
 }

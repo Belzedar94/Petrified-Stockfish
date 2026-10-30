@@ -170,3 +170,11 @@ The query costs time and forced positions may be rare. Exact tactical examples
 are not evidence of Elo. Freeze one candidate for the existing three-control
 40/400 screen and do not tune after results. Only three audited wins plus final
 distribution and interface acceptance can replace PR11.
+
+The new depth-one regression exposed an inherited reporting defect before any
+strength game: Syzygy PV rewriting changed a points repetition win into a
+displayed draw. The candidate also bypasses this orthodox display rewrite for
+points scores; actual settlement rules and search values are unchanged. The
+failed binary and original output are retained. CI initially attempted a search
+without external weights; weighted searches remain local and source CI retains
+its five original jobs, now including capped-query C++ tests.

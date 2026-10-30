@@ -15,7 +15,7 @@ def main():
     ap = argparse.ArgumentParser()
     for name in ('engine', 'out'):
         ap.add_argument('--' + name, type=Path, required=True)
-    ap.add_argument('--network', type=Path)
+    ap.add_argument('--network', type=Path, required=True)
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=False)
     cases = []

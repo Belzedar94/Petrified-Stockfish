@@ -2388,7 +2388,9 @@ void SearchManager::output_pv(Search::Worker&           worker,
 
         // Potentially correct and extend the PV, and in exceptional cases v.
         // Previous PVs have already been extended. Inexact flags indicate an unreliable PV.
-        if (is_decisive(v) && !is_mate_or_mated(v) && !usePreviousScore
+        // Points settlements use decisive scores too, but they are not Syzygy
+        // results. Repetition/rule50 can settle a points win or loss, not a draw.
+        if (!pos.game_of_points() && is_decisive(v) && !is_mate_or_mated(v) && !usePreviousScore
             && (!rootMoves[i].is_inexact() || isTBScore))
             syzygy_extend_pv(worker.options, worker.limits, pos, rootMoves[i], v, multiPV);
 

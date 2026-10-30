@@ -2,8 +2,10 @@
 
 One candidate from qualified PR11 tests forced-move quiescence in points. It
 suppresses stand-pat when exactly one legal move exists, including quiet moves.
-Correctness, native interfaces, source CI and the frozen40/400 VSTC/STC/LTC gate
-remain pending. PR11 stays champion. PR16 is retained separately as an open
+An inherited Syzygy display rewrite incorrectly labelled a points repetition
+win as a draw; the initial failure is preserved. Points now bypass that display
+rewrite. A CI step without external weights is also preserved and corrected.
+Correctness, native interfaces, source CI and the frozen40/400 gate remain pending. PR11 stays champion. PR16 is retained separately as an open
 draft for future OpenBench; its neutral selection and all artifacts are preserved.
 No OpenBench workload, training, T8 restart or other-worker action is authorized.
 See `experiments/2026-10-30-points-forced-qsearch-v1.json`.
