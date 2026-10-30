@@ -623,5 +623,81 @@
     "preflight_script": "preflight_panel_002.py",
     "test_line_endings_evidence": "source-test-ci-line-endings.json"
   },
-  "followup_automation": "petrified-amenazas-rentables-y-panel"
+  "followup_automation": "petrified-amenazas-rentables-y-panel",
+  "panel_progress": {
+    "checked_utc": "2026-10-30T17:35:09.674405+00:00",
+    "results": {
+      "VSTC": {
+        "control": "VSTC",
+        "status": "INCONCLUSIVE_LIMIT",
+        "scores": [
+          181,
+          198,
+          21
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          35,
+          9,
+          119,
+          12,
+          25
+        ],
+        "statistics": "Total: 400 W: 181 L: 198 D: 21 ELO: -14.77 +-33.2 (95%) LOS: 19.1%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 907.515
+      },
+      "STC": {
+        "control": "STC",
+        "status": "RUNNING",
+        "scores": [
+          5,
+          3,
+          0
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          0,
+          0,
+          3,
+          0,
+          1
+        ],
+        "statistics": "Total: 8 W: 5 L: 3 D: 0 ELO: 88.74 +-353.8 (95%) LOS: 76.7%",
+        "completed_pairs": 4,
+        "elapsed_seconds": 102.266
+      },
+      "LTC": {
+        "control": "LTC",
+        "status": "PENDING",
+        "scores": [
+          0,
+          0,
+          0
+        ],
+        "time_losses": [
+          0,
+          0
+        ]
+      }
+    },
+    "selection_by_control": {
+      "VSTC": "NEUTRAL_SCREEN",
+      "STC": "RUNNING",
+      "LTC": "PENDING"
+    },
+    "automatic_promotion_eligible": false,
+    "reason": "VSTC reached400 games without a displayed LOS boundary; not equivalence or statistical LOSS. Continue the same panel. Final full audits and process exits remain pending."
+  },
+  "automatic_promotion_eligible": false
 }

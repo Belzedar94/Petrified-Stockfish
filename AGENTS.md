@@ -1,3 +1,13 @@
+VSTC for points-quiet-threats-v1 / PR22 closed at400 games:181/198/21,
+-14.77+/-33.2 Elo95%,LOS19.1%,time0/0,200 complete reversed-color pairs.
+Raw INCONCLUSIVE_LIMIT; selection NEUTRAL_SCREEN, never equivalence or
+statistical LOSS. Automatic promotion is ineligible; PR18 stays champion.
+STC is active and LTC pending in the SAME frozen panel. Continue without
+changing inputs or relaunching. Full final audits and proven process exits
+remain required; the lease is not released. All identities below still apply.
+
+The entries below preserve prior stages and cannot restart closed panels.
+
 points-quiet-threats-v1 / PR22 is FROZEN and its sole panel is ACTIVE vs PR18.
 Source93f0535d9248a7e2aa34fbdc3d5799214f65c87d; candidate SHA256
 756c851da56dd405a10fcbed6eaf631809c1541e46c85b6492c31fcb1ba42700.
