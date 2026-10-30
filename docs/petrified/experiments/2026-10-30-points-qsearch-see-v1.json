@@ -2,7 +2,7 @@
   "schema": "petrified-qsearch-see-v1",
   "experiment": "points-qsearch-see-v1",
   "created_utc": "2026-10-30T11:06:50.307220+00:00",
-  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "status": "CORRECTING_TEST_FIXTURE",
   "authorization": "Owner requested one next substantial Petrified-specific search candidate from PR18, with the same validations and VSTC/STC/LTC panel; Wakwak documentation and public OB are inspiration only.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
   "base_ref": "2a380a8b9a33eee0344cf2fcdb4909ee31ed4b62",
@@ -79,5 +79,20 @@
     "remote_workers": false,
     "Misere_contact": false
   },
-  "runtime_released": false
+  "runtime_released": false,
+  "source_commit": "d7cd27e0a0497a93b1632e69a890a561d7b79d18",
+  "pr": "https://github.com/Belzedar94/Petrified-Stockfish/pull/19",
+  "candidate_sha256": "ae265f5f2dc65097735b62418470efb9515793421e7d8b32d67027d94ad26a9b",
+  "development_failures": [
+    {
+      "stage": "DEBUG_QSEARCH_SEE",
+      "error": "fixture FEN rejected; original queen d4 attacks black king h8 before White turn",
+      "ci_run": 41045914086,
+      "source_commit": "d7cd27e0a0497a93b1632e69a890a561d7b79d18",
+      "controller_session": 8036,
+      "controller_actual_exit_code": 1,
+      "engine_and_binary_unchanged": true,
+      "correction": "Move the fixture black king to h7 and its rook to h8; test data only. Preserve and do not repeat completed engine builds/reference validations."
+    }
+  ]
 }

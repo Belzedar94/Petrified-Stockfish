@@ -114,10 +114,10 @@ int main(int argc, char** argv) {
     if (argc == 2) { cases.open(argv[1]); require(bool(cases), "cannot open cases"); }
     struct Fixture { const char* board; const char* move; int prune; const char* scores; };
     for (const auto& f : {
-        Fixture{"7k/7r/8/3p4/3Q4/8/8/K2R4", "d4d5", 1, "0,0"},
+        Fixture{"7r/7k/8/3p4/3Q4/8/8/K2R4", "d4d5", 1, "0,0"},
         Fixture{"8/7k/8/3p4/3Q4/8/8/K7", "d4d5", 0, "0,0"},
-        Fixture{"7k/7r/8/3p4/3Q4/8/8/K7", "d4d5", 0, "0,0"},
-        Fixture{"7k/7r/8/3p4/3Q4/8/8/K2R4", "d4d5", 0, "0,22"},
+        Fixture{"7r/7k/8/3p4/3Q4/8/8/K7", "d4d5", 0, "0,0"},
+        Fixture{"7r/7k/8/3p4/3Q4/8/8/K2R4", "d4d5", 0, "0,22"},
         Fixture{"***r***k/*******1/********/********/**p*****/**Q*****/********/K*******", "c3c4", 0, "0,0"},
         Fixture{"***r***k/*******1/********/********/**p*****/**Q*****/11******/K**R****", "c3c4", 0, "0,0"},
         Fixture{"***r***k/******p*/*****Q**/********/********/********/1*******/K**R****", "f6g7", 0, "1,0"},
@@ -128,7 +128,7 @@ int main(int argc, char** argv) {
         Fixture{"r3k2r/8/8/8/8/8/8/R3K2R", "a1a2", 0, "0,0"}
     }) {
         Position pos; StateInfo state;
-        require(!pos.set(std::string(f.board) + " w - - 0 1 points=" + f.scores, false, &state), "fixture FEN");
+        require(!pos.set(std::string(f.board) + " w - - 0 1 points=" + f.scores, false, &state), std::string("fixture FEN: ") + f.board);
         for (int flip = 0; flip < 2; ++flip) {
             auto uci = std::string(f.move);
             if (flip) { require(!pos.flip(), "flip"); uci[1] = char('1'+'8'-uci[1]); uci[3] = char('1'+'8'-uci[3]); }
@@ -138,7 +138,7 @@ int main(int argc, char** argv) {
         }
     }
     Position legacy; StateInfo legacyState;
-    require(!legacy.set("7k/7r/8/3p4/3Q4/8/8/K2R4 w - - 0 1", false, &legacyState), "legacy FEN");
+    require(!legacy.set("7r/7k/8/3p4/3Q4/8/8/K2R4 w - - 0 1", false, &legacyState), "legacy FEN");
     check(legacy, UCI::to_move(legacy, "d4d5"), 0);
     std::mt19937 rng(20261030);
     for (int game = 0; game < 64; ++game) {
