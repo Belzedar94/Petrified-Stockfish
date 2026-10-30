@@ -36,6 +36,7 @@ enum Stages : i8 {
     BAD_MOVES,
 
     QSEARCH,
+    QSEARCH_CHECKS,
 
     EVASION,
 
@@ -147,7 +148,8 @@ MovePicker::MovePicker(const Position&              p,
                        const CapturePieceToHistory* cph,
                        const PieceToHistory**       ch,
                        const SharedHistories*       sh,
-                       int                          pl) :
+                       int                          pl,
+                       bool                         checks) :
     pos(p),
     mainHistory(mh),
     lowPlyHistory(lph),
@@ -156,7 +158,8 @@ MovePicker::MovePicker(const Position&              p,
     sharedHistory(sh),
     ttMove(ttm),
     depth(d),
-    ply(pl) {
+    ply(pl),
+    qsearchChecks(checks && p.game_of_points() && d <= DEPTH_QS && !p.checkers()) {
 
     if (pos.checkers())
         first_stage = EVASION;
@@ -337,8 +340,26 @@ dispatch:
         [[fallthrough]];
 
     case BAD_MOVES :
-    case QSEARCH :
     case EVASION :
+        return select([]() { return true; });
+
+    case QSEARCH :
+        if (Move capture = select([]() { return true; }))
+            return capture;
+        if (!qsearchChecks)
+            return Move::none();
+
+        // Preserve the inherited TT/capture order. Only the entry points qnode
+        // adds quiet checks, in generator order, after its captures. Do not use
+        // main-search quiet scoring: qsearch supplies only one history entry.
+        cur = endCur = moves;
+        for (Move quiet : MoveList<QUIETS>(pos))
+            if (pos.gives_check(quiet))
+                *endCur++ = quiet;
+        stage = QSEARCH_CHECKS;
+        [[fallthrough]];
+
+    case QSEARCH_CHECKS :
         return select([]() { return true; });
 
     case PROBCUT :

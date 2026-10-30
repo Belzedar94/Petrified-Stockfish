@@ -53,6 +53,10 @@ struct StateInfo {
     int    rule50;
     int    pliesFromNull;
     Square epSquare;
+    Bitboard epSquares;
+    // Chess.com scoring is history-dependent, even with identical live pieces.
+    bool pointsMode;
+    int  points[COLOR_NB];
 
     // Not copied when making a move (will be recomputed anyhow)
     Key        key;
@@ -64,6 +68,8 @@ struct StateInfo {
     Bitboard   threats[PIECE_TYPE_NB];
     Piece      capturedPiece;
     int        repetition;
+    Piece      movedPiece;
+    bool       petrified;
 };
 
 
@@ -97,7 +103,11 @@ class Position {
     std::string                     fen() const;
 
     // Position representation
-    Bitboard pieces() const;  // All pieces
+    Bitboard pieces() const;  // Live pieces only
+    Bitboard occupied() const { return pieces() | wallBB; }
+    Bitboard walls() const { return wallBB; }
+    bool safe_after(Move m) const;
+    bool attacked_after(Square s, Color by, Move m) const;
     template<typename... PieceTypes>
     Bitboard pieces(PieceTypes... pts) const;
     Bitboard pieces(Color c) const;
@@ -106,6 +116,7 @@ class Position {
     Piece                               piece_on(Square s) const;
     const std::array<Piece, SQUARE_NB>& piece_array() const;
     Square                              ep_square() const;
+    Bitboard ep_squares() const { return st->epSquares; }
     bool                                empty(Square s) const;
     template<PieceType Pt>
     int count(Color c) const;
@@ -121,6 +132,14 @@ class Position {
 
     // Checking
     Bitboard checkers() const;
+    // Walls' public pseudo-royal check includes adjacent commoners, although
+    // commoners cannot capture and adjacency does not make a move illegal.
+    bool reported_check() const;
+    Value no_moves_value(int ply = 0) const;
+    bool game_of_points() const { return st->pointsMode; }
+    int points(Color c) const { return st->points[c]; }
+    static int capture_points(PieceType pt);
+    Value points_value(int whiteBonus, int blackBonus, int ply = 0) const;
     Bitboard blockers_for_king(Color c) const;
     Bitboard check_squares(PieceType pt) const;
     Bitboard pinners(Color c) const;
@@ -153,6 +172,7 @@ class Position {
 
     // Static Exchange Evaluation
     bool see_ge(Move m, int threshold = 0) const;
+    int  points_see(Move m) const;
 
     // Accessing hash keys
     Key key() const;
@@ -218,6 +238,7 @@ class Position {
     std::array<Bitboard, PIECE_TYPE_NB> byTypeBB;
     std::array<Bitboard, COLOR_NB>      byColorBB;
 
+    Bitboard   wallBB;
     int        pieceCount[PIECE_NB];
     int        castlingRightsMask[SQUARE_NB];
     Square     castlingRookSquare[CASTLING_RIGHT_NB];
@@ -240,7 +261,7 @@ inline Piece Position::piece_on(Square s) const {
 
 inline const std::array<Piece, SQUARE_NB>& Position::piece_array() const { return board; }
 
-inline bool Position::empty(Square s) const { return piece_on(s) == NO_PIECE; }
+inline bool Position::empty(Square s) const { return !(occupied() & s); }
 
 inline Piece Position::moved_piece(Move m) const { return piece_on(m.from_sq()); }
 
@@ -280,7 +301,7 @@ inline bool Position::can_castle(CastlingRights cr) const { return st->castlingR
 
 inline bool Position::castling_impeded(CastlingRights cr) const {
     assert(cr == WHITE_OO || cr == WHITE_OOO || cr == BLACK_OO || cr == BLACK_OOO);
-    return pieces() & castlingPath[cr];
+    return occupied() & castlingPath[cr];
 }
 
 inline Square Position::castling_rook_square(CastlingRights cr) const {
@@ -288,11 +309,13 @@ inline Square Position::castling_rook_square(CastlingRights cr) const {
     return castlingRookSquare[cr];
 }
 
-inline Bitboard Position::attackers_to(Square s) const { return attackers_to(s, pieces()); }
+inline Bitboard Position::attackers_to(Square s) const { return attackers_to(s, occupied()); }
 
 // includes X-ray attacks through the king of color ~c
 inline Bitboard Position::xattacks_by(PieceType pt, Color c, Bitboard occupied) const {
 
+    if (pt == KING)
+        return 0;
     if (pt == PAWN)
         return c == WHITE ? pawn_attacks_bb<WHITE>(pieces(WHITE, PAWN))
                           : pawn_attacks_bb<BLACK>(pieces(BLACK, PAWN));

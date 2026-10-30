@@ -1,0 +1,295 @@
+{
+  "schema": "petrified-strength-experiment-v1",
+  "experiment": "points-sparse-head-v1",
+  "status": "REJECTED_PERFORMANCE_SCREEN",
+  "owner_request": "Otro que tienes que guardar para openbench, continua con la siguiente gran idea",
+  "hypothesis": "Repack the frozen NNUE first layer into four-input blocks across sixteen outputs; skip zero blocks and avoid per-output horizontal reductions. Exact integer evaluation and unchanged network bytes.",
+  "branch": "exp/points-sparse-head-v1",
+  "qualified_base_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
+  "champion_source_commit": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+  "champion_binary_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "candidate_selection": "One structural candidate; no tuning after strength results",
+  "excluded_changes": [
+    "PR9 null-move pruning",
+    "PR12 incremental state",
+    "PR13 pin legality",
+    "Rejected NNUE weights"
+  ],
+  "compiler": {
+    "compiler": "GCC16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false
+  },
+  "validation_plan": [
+    "Synthetic scalar int64 versus packed dot products: zero/singleton/dense/random inputs, -128/127 weights and bounded extreme biases",
+    "All eight buckets, both perspectives, score boundaries and rule50: exact scalar parity",
+    "Debug/Release random walks and undo with exact NNUE",
+    "Reload, native legacy/points evaluations versus PR11, byte-identical export and invalid file rejection",
+    "Independent Chess.com referee, native UCI/CECP interfaces, identical points/legacy deterministic benches",
+    "Eight alternating depth12 throughput samples, identical nodes; speed is not Elo",
+    "Five source CI jobs before the one frozen panel"
+  ],
+  "panel": {
+    "directory": ".local/points-sparse-head-panel-001",
+    "status": "NOT_RUN_PERFORMANCE_SCREEN",
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%; complete pending pairs and recheck; resume inside cap if lost",
+    "at_cap": "NEUTRAL_SCREEN for selection, not equivalence",
+    "early_rejection": "Owner-delegated manual neutral or clear loss; retain measured statistics",
+    "promotion": "Three audited WIN controls plus distribution/interfaces",
+    "referee": "Pinned independent Chess.com public client"
+  },
+  "constraints": {
+    "T8": "Manually paused",
+    "Misere": "Do not contact",
+    "OpenBench_AtomicDB_remote_workers": "No action",
+    "Fairyground": "Closed with authorization; PR11 profile preserved",
+    "PR9_PR12_PR13": "Retained separately; none included"
+  },
+  "created_utc": "2026-10-29T19:30:32.831491+00:00",
+  "source_commit": "a7f4837065be91c1abf1c9c89aa70c4e61a750a5",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/14",
+  "execution_manifest": ".local\\points-sparse-head-v1\\execution-manifest.json",
+  "frozen_initial_inputs": 35,
+  "completed_utc": "2026-10-29T19:46:50.497763+00:00",
+  "candidate_binary": ".local\\points-sparse-head-v1-inputs\\petrified-points-sparse-head-v1-bmi2.exe",
+  "candidate_sha256": "7632fd35cf50a3b80a703b5274b6aaf3baf8c28dba55488fea4a6aec9444d8e6",
+  "execution_manifest_sha256": "9c1f26bd5342953c124a8ae155dfc5988b8d8a00cf849888919fbf676b3f85f4",
+  "frozen_inputs": 139,
+  "correctness": "PASS",
+  "source_ci": {
+    "commit": "a7f4837065be91c1abf1c9c89aa70c4e61a750a5",
+    "run_id": 40940935494,
+    "jobs_passed": 5,
+    "conclusion": "success",
+    "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40940935494"
+  },
+  "validation": {
+    "report": ".local\\points-sparse-head-v1\\validation-report.json",
+    "report_sha256": "b5bcf87269773d1302df2877aa97ae2ac3fbb75070c25a16b2e63e97de54b8ab",
+    "debug_release_each": {
+      "legal_query_comparisons": 883968,
+      "sparse_output_comparisons": 61632,
+      "bucket_score_clock_comparisons": 1116,
+      "state_undo_positions": 9338
+    },
+    "native_interfaces": "PASS",
+    "independent_referee_positions": 32,
+    "independent_pv_plies": 244,
+    "points_bench_candidate": [
+      177290,
+      177290
+    ],
+    "points_bench_champion": 177290,
+    "legacy_bench_candidate_champion": [
+      179335,
+      179335
+    ]
+  },
+  "head_runtime": {
+    "result": "PASS",
+    "candidate_binary_sha256": "7632fd35cf50a3b80a703b5274b6aaf3baf8c28dba55488fea4a6aec9444d8e6",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "points_positions_vs_pr11": 192,
+    "raw_and_final_values": "EXACT",
+    "two_threads": "EXACT",
+    "legacy_positions_vs_pr11": 32,
+    "reload_both_head_types": "PASS",
+    "export_roundtrip": "BYTE_IDENTICAL",
+    "invalid_files_rejected": [
+      "truncated",
+      "trailing",
+      "version",
+      "dimensions",
+      "changed-base",
+      "checksum",
+      "bias-overflow",
+      "nonzero-padding"
+    ]
+  },
+  "head_reload": {
+    "result": "PASS",
+    "checked_utc": "2026-10-29T19:39:09.254117+00:00",
+    "same_process_head_reload_comparisons": 32,
+    "both_variants": true,
+    "same_files_and_exact_pr11_evaluation": true,
+    "engine_identities_exited": [
+      {
+        "pid": 10492,
+        "creation_filetime": 134377763425608731,
+        "creation_utc": "2026-10-29T19:39:02.560873+00:00"
+      },
+      {
+        "pid": 18756,
+        "creation_filetime": 134377763433406330,
+        "creation_utc": "2026-10-29T19:39:03.340633+00:00"
+      }
+    ],
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  "resolved_failures": [
+    {
+      "stage": "HEAD_RUNTIME",
+      "exit_code": 1,
+      "incident": ".local\\points-sparse-head-v1\\validation-failure-001\\incident.json",
+      "incident_sha256": "d1953ad818bf4d398d695f44444d2bcb07bb0dd186d2ae02d3cec2050966d360",
+      "recovery_stage": "HEAD_RUNTIME_RETRY",
+      "engine_unchanged": true
+    },
+    {
+      "stage": "HEAD_RELOAD",
+      "exit_code": 1,
+      "incident": ".local\\points-sparse-head-v1\\validation-failure-002\\incident.json",
+      "incident_sha256": "98c98007113c18eb17a4ad26911a54619e5634c896da770d4a6eaf884aef3240",
+      "recovery_stage": "HEAD_RELOAD_RETRY",
+      "engine_unchanged": true
+    }
+  ],
+  "speed": {
+    "depth": 12,
+    "samples": 8,
+    "alternating_order": true,
+    "reported_ms": {
+      "candidate": [
+        406,
+        406,
+        411,
+        427,
+        426,
+        413,
+        408,
+        406
+      ],
+      "champion": [
+        374,
+        373,
+        373,
+        388,
+        381,
+        383,
+        376,
+        377
+      ]
+    },
+    "median_ms": {
+      "candidate": 409.5,
+      "champion": 376.5
+    },
+    "nodes": {
+      "candidate": 376705,
+      "champion": 376705
+    },
+    "speedup": 0.9194139194139194,
+    "meaning": "Local throughput estimate only; not Elo"
+  },
+  "decision": {
+    "classification": "REJECTED_PERFORMANCE_SCREEN",
+    "reason": "The structural speed hypothesis regressed in all eight alternating samples with identical nodes; no retuning or strength panel follows.",
+    "candidate_median_ms": 409.5,
+    "champion_median_ms": 376.5,
+    "throughput_ratio": 0.9194139194139194,
+    "throughput_change_percent": -8.058608058608064,
+    "elapsed_time_change_percent": 8.764940239043838,
+    "meaning": "Engineering performance rejection, not an Elo loss, neutral result or statistical equivalence",
+    "champion": "PR11 unchanged",
+    "promotion": false
+  },
+  "preservation": {
+    "result": "PASS",
+    "created_utc": "2026-10-29T19:46:50.438694+00:00",
+    "source_commit": "a7f4837065be91c1abf1c9c89aa70c4e61a750a5",
+    "source_tag": "candidates/points-sparse-head-v1-rejected-performance",
+    "bundle": ".local\\points-sparse-head-v1\\frozen-inputs.zip",
+    "bundle_sha256": "d1f10e8574bf01bef9ddc94eb61306fc12d52c3a6c459137d04a47aa5927eaba",
+    "bundle_bytes": 70429079,
+    "frozen_input_count": 139,
+    "every_archived_entry_verified": true,
+    "execution_manifest": ".local\\points-sparse-head-v1\\execution-manifest.json",
+    "execution_manifest_sha256": "9c1f26bd5342953c124a8ae155dfc5988b8d8a00cf849888919fbf676b3f85f4",
+    "raw_generated_network_fixtures": "Retained locally with hashes in the bundled preclosure inventory",
+    "performance_closure_audit": ".local\\points-sparse-head-v1\\performance-closure-audit.json",
+    "performance_closure_audit_sha256": "22d145b1f11f6967b45ef026ea1a8629254fa107c1b625b92c69acbb14d1afe9"
+  },
+  "closure": {
+    "audit": ".local\\points-sparse-head-v1\\performance-closure-audit.json",
+    "audit_sha256": "22d145b1f11f6967b45ef026ea1a8629254fa107c1b625b92c69acbb14d1afe9",
+    "process_identities_exited": 43,
+    "source_archive_files_verified": 217,
+    "raw_file_count": 118,
+    "raw_inventory": ".local\\points-sparse-head-v1\\preclosure-raw-inventory.json",
+    "raw_inventory_sha256": "28b606f828e537f917db0d03cefa86e5485e2afc42a646a0510d92986d900a4d",
+    "T8_pause_unchanged": true,
+    "panel_started": false,
+    "followup_automation": "NOT_CREATED",
+    "released": true,
+    "released_utc": "2026-10-29T19:46:50.505764+00:00",
+    "release_record": ".local\\points-sparse-head-v1\\machine-lease-released.json"
+  },
+  "observed_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "games": 0,
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "elo": null,
+      "elo_95_percent": null,
+      "los": null,
+      "time_losses": [
+        0,
+        0
+      ],
+      "status": "NOT_RUN_PERFORMANCE_SCREEN"
+    },
+    "STC": {
+      "control": "STC",
+      "games": 0,
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "elo": null,
+      "elo_95_percent": null,
+      "los": null,
+      "time_losses": [
+        0,
+        0
+      ],
+      "status": "NOT_RUN_PERFORMANCE_SCREEN"
+    },
+    "LTC": {
+      "control": "LTC",
+      "games": 0,
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "elo": null,
+      "elo_95_percent": null,
+      "los": null,
+      "time_losses": [
+        0,
+        0
+      ],
+      "status": "NOT_RUN_PERFORMANCE_SCREEN"
+    }
+  }
+}
