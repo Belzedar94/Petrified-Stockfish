@@ -238,7 +238,7 @@
     "status": "ACTIVE",
     "notification_policy": "Silent while waiting memory or unchanged; report meaningful panel events"
   },
-  "updated_utc": "2026-10-30T11:45:46.405898+00:00",
+  "updated_utc": "2026-10-30T12:04:37.460805+00:00",
   "fairyground_shutdown": {
     "result": "PASS",
     "checked_utc": "2026-10-30T11:34:22.425630+00:00",
@@ -335,5 +335,80 @@
       }
     },
     "launch_audit": ".local/points-qsearch-see-v1/panel-launch-audit.json"
+  },
+  "control_selections": {
+    "VSTC": {
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection": "NEUTRAL_SCREEN",
+      "statistical_equivalence": false,
+      "promotion_eligible": false,
+      "reason": "Reached the declared400-game cap without displayed LOS100.0% or0.0%; continue STC/LTC under the same frozen policy."
+    }
+  },
+  "automatic_promotion_eligible": false,
+  "latest_progress": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        197,
+        183,
+        20
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        29,
+        6,
+        119,
+        14,
+        32
+      ],
+      "statistics": "Total: 400 W: 197 L: 183 D: 20 ELO: 12.17 +-33.3 (95%) LOS: 76.4%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 896.188
+    },
+    "STC": {
+      "control": "STC",
+      "status": "RUNNING",
+      "scores": [
+        9,
+        13,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        2,
+        0,
+        9,
+        0,
+        0
+      ],
+      "statistics": "Total: 22 W: 9 L: 13 D: 0 ELO: -63.88 +-158.7 (95%) LOS: 19.3%",
+      "completed_pairs": 11,
+      "elapsed_seconds": 254.406
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "PENDING",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ]
+    }
   }
 }

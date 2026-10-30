@@ -1,4 +1,10 @@
 points-qsearch-see-v1 / PR19 is FROZEN and its one panel is ACTIVE against PR18.
+VSTC closed400 games197/183/20,+12.17+/-33.3 Elo95%,LOS76.4%,time0/0,
+200 complete reversed-color pairs. Raw INCONCLUSIVE_LIMIT; selection
+NEUTRAL_SCREEN, never statistical equivalence. Automatic promotion is ineligible;
+PR18 remains champion. STC is active and LTC pending; continue the same panel.
+Final full audit and process exits remain required; no lease release yet.
+
 Engine source d7cd27e0a0497a93b1632e69a890a561d7b79d18; candidate SHA256
  ae265f5f2dc65097735b62418470efb9515793421e7d8b32d67027d94ad26a9b,
 bench148558 twice; PR18 rival167330, common network unchanged, legacy179335.
