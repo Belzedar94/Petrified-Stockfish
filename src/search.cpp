@@ -17,6 +17,7 @@
 */
 
 #include "search.h"
+#include "search_capture.h"
 
 #include <algorithm>
 #include <array>
@@ -42,6 +43,7 @@
 #include "nnue/network.h"
 #include "nnue/nnue_accumulator.h"
 #include "position.h"
+#include "api/petrified_outcome.h"
 #include "syzygy/tbprobe.h"
 #include "thread.h"
 #include "timeman.h"
@@ -103,9 +105,9 @@ int correction_value(const Worker& w, const Position& pos, const Stack* const ss
     const int   cntcv =
       m.is_ok()
           ? 7885
-              * ((*(ss - 2)->continuationCorrectionHistory)[pos.piece_on(m.to_sq())][m.to_sq()]
-                 + (*(ss - 4)->continuationCorrectionHistory)[pos.piece_on(m.to_sq())][m.to_sq()])
-            + 6307 * (*(ss - 6)->continuationCorrectionHistory)[pos.piece_on(m.to_sq())][m.to_sq()]
+              * ((*(ss - 2)->continuationCorrectionHistory)[(ss - 1)->movedPiece][m.to_sq()]
+                 + (*(ss - 4)->continuationCorrectionHistory)[(ss - 1)->movedPiece][m.to_sq()])
+            + 6307 * (*(ss - 6)->continuationCorrectionHistory)[(ss - 1)->movedPiece][m.to_sq()]
           : 80695;
 
     return 13806 * pcv + 9512 * micv + 11615 * (wnpcv + bnpcv) + cntcv;
@@ -135,7 +137,7 @@ void update_correction_history(const Position& pos,
     if (m.is_ok())
     {
         const Square to = m.to_sq();
-        const Piece  pc = pos.piece_on(to);
+        const Piece  pc = (ss - 1)->movedPiece;
         (*(ss - 2)->continuationCorrectionHistory)[pc][to] << bonus * 130 / 128;
         (*(ss - 4)->continuationCorrectionHistory)[pc][to] << bonus * 70 / 128;
         (*(ss - 6)->continuationCorrectionHistory)[pc][to] << bonus * 35 / 128;
@@ -145,7 +147,7 @@ void update_correction_history(const Position& pos,
 // Add a small random component to draw evaluations to avoid 3-fold blindness
 Value value_draw(usize nodes) { return VALUE_DRAW - 1 + Value(nodes & 0x2); }
 Value value_to_tt(Value v, int ply);
-Value value_from_tt(Value v, int ply, int r50c);
+Value value_from_tt(Value v, int ply, int r50c, bool points = false);
 void  update_continuation_histories(Stack* ss, Piece pc, Square to, int bonus);
 void  update_quiet_histories(
    const Position& pos, Stack* ss, Search::Worker& workerThread, Move move, int bonus);
@@ -216,10 +218,23 @@ void Search::Worker::start_searching() {
     tt.new_search();
     main_manager()->updates.onStart();
 
+    if (rootPos.game_of_points())
+    {
+        const auto end = Petrified::outcome(rootPos, true);
+        const Value claim = Petrified::resignation_value(rootPos);
+        if (end.terminal() || claim > 0)
+        {
+            sync_cout << "info string points " << Petrified::points_status(rootPos) << sync_endl;
+            if (!end.terminal()) sync_cout << "info string points action claim-win" << sync_endl;
+            main_manager()->updates.onUpdateNoMoves({0, {end.terminal() ? end.value : claim, rootPos}});
+            main_manager()->updates.onBestmove("0000", "");
+            return;
+        }
+    }
     if (rootMoves.empty())
     {
         main_manager()->updates.onUpdateNoMoves(
-          {0, {rootPos.checkers() ? -VALUE_MATE : VALUE_DRAW, rootPos}});
+          {0, {rootPos.no_moves_value(), rootPos}});
         main_manager()->updates.onBestmove(UCIEngine::move(Move::none()), "");
         return;
     }
@@ -272,6 +287,13 @@ void Search::Worker::start_searching() {
     if (bestThread->rootMoves[0].pv.size() > 1)
         ponder = UCIEngine::move(bestThread->rootMoves[0].pv[1], rootPos.is_chess960());
 
+    if (rootPos.game_of_points() && Petrified::resignation_value(rootPos) == VALUE_DRAW
+        && bestThread->rootMoves[0].score < VALUE_DRAW)
+    {
+        sync_cout << "info string points action claim-draw" << sync_endl;
+        main_manager()->updates.onBestmove("0000", "");
+        return;
+    }
     auto bestmove = UCIEngine::move(bestThread->rootMoves[0].pv[0], rootPos.is_chess960());
     main_manager()->updates.onBestmove(bestmove, ponder);
 }
@@ -688,6 +710,7 @@ void Search::Worker::do_move(Position&    pos,
     {
         auto& dirtyPiece = dirties.dirtyPiece;
         ss->currentMove  = move;
+        ss->movedPiece = dirtyPiece.pc;
         ss->continuationHistory =
           &continuationHistory[ss->inCheck][capture][dirtyPiece.pc][move.to_sq()];
         ss->continuationCorrectionHistory =
@@ -698,6 +721,7 @@ void Search::Worker::do_move(Position&    pos,
 void Search::Worker::do_null_move(Position& pos, StateInfo& st, Stack* const ss) {
     pos.do_null_move(st);
     ss->currentMove                   = Move::null();
+    ss->movedPiece = NO_PIECE;
     ss->continuationHistory           = &continuationHistory[0][0][NO_PIECE][0];
     ss->continuationCorrectionHistory = &continuationCorrectionHistory[NO_PIECE][0];
 }
@@ -750,6 +774,16 @@ Value Search::Worker::search(
     if (depth <= 0)
         return qsearch<PvNode ? PV : NonPV>(pos, ss, alpha, beta);
 
+    const Value pointsClaim = Petrified::resignation_value(pos, ss->ply);
+    if (!rootNode && pos.game_of_points())
+    {
+        if (PvNode && ss->pv) ss->pv->clear();
+        const auto end = Petrified::outcome(pos, true, ss->ply);
+        if (end.terminal()) return end.value;
+        if (pointsClaim >= beta || is_win(pointsClaim)) return pointsClaim;
+        alpha = std::max(alpha, pointsClaim);
+    }
+
     // Limit the depth if extensions made it too large
     depth = std::min(depth, MAX_PLY - 1);
 
@@ -786,7 +820,7 @@ Value Search::Worker::search(
     priorCapture  = pos.captured_piece();
     Color us      = pos.side_to_move();
     ss->moveCount = 0;
-    bestValue     = -VALUE_INFINITE;
+    bestValue     = rootNode ? -VALUE_INFINITE : pointsClaim;
     maxValue      = VALUE_INFINITE;
 
     ss->followPV = rootNode
@@ -805,7 +839,7 @@ Value Search::Worker::search(
     if (!rootNode)
     {
         // Step 2. Check for aborted search or immediate draw
-        if (threads.stop.load(std::memory_order_relaxed) || pos.is_draw(ss->ply)
+        if (threads.stop.load(std::memory_order_relaxed) || (!pos.game_of_points() && pos.is_draw(ss->ply))
             || ss->ply >= MAX_PLY)
             return (ss->ply >= MAX_PLY && !ss->inCheck) ? evaluate(pos) : value_draw(nodes);
 
@@ -839,7 +873,7 @@ Value Search::Worker::search(
 
     ss->ttHit    = ttHit;
     ttData.move  = rootNode ? rootMoves[pvIdx].pv[0] : ttHit ? ttData.move : Move::none();
-    ttData.value = ttHit ? value_from_tt(ttData.value, ss->ply, pos.rule50_count()) : VALUE_NONE;
+    ttData.value = ttHit ? value_from_tt(ttData.value, ss->ply, pos.rule50_count(), pos.game_of_points()) : VALUE_NONE;
     ss->ttPv     = excludedMove ? ss->ttPv : PvNode || (ttHit && ttData.is_pv);
     ttCapture    = ttData.move && pos.capture_stage(ttData.move);
 
@@ -908,7 +942,7 @@ Value Search::Worker::search(
 
                 // Extra penalty for early quiet moves of the previous ply
                 if (prevSq != SQ_NONE && (ss - 1)->moveCount < 5 && !priorCapture)
-                    update_continuation_histories(ss - 1, pos.piece_on(prevSq), prevSq, -2210);
+                    update_continuation_histories(ss - 1, (ss - 1)->movedPiece, prevSq, -2210);
             }
 
             // Partial workaround for the graph history interaction problem.
@@ -1007,9 +1041,9 @@ Value Search::Worker::search(
     {
         int evalDiff = std::clamp(-int((ss - 1)->staticEval + ss->staticEval), -189, 194) + 60;
         mainHistory[~us][((ss - 1)->currentMove).raw()] << evalDiff * 11;
-        if (!ttHit && type_of(pos.piece_on(prevSq)) != PAWN
+        if (!ttHit && type_of((ss - 1)->movedPiece) != PAWN
             && ((ss - 1)->currentMove).type_of() != PROMOTION)
-            sharedHistory.pawn_entry(pos)[pos.piece_on(prevSq)][prevSq] << evalDiff * 13;
+            sharedHistory.pawn_entry(pos)[(ss - 1)->movedPiece][prevSq] << evalDiff * 13;
     }
 
 
@@ -1035,7 +1069,7 @@ Value Search::Worker::search(
     }
 
     // Step 10. Null move search with verification search
-    if (cutNode
+    if (!pos.game_of_points() && cutNode
         && ss->staticEval + 50 * ss->priorNMPFailHigh >= beta - 13 * depth - 47 * improving + 365
         && !excludedMove && pos.non_pawn_material(us) && ss->ply >= nmpMinPly && beta >= -2000)
     {
@@ -1371,7 +1405,8 @@ moves_loop:  // When in check, search starts here
             r -= 2179;
 
         if (capture)
-            ss->statScore = 873 * int(PieceValue[pos.captured_piece()]) / 128
+            ss->statScore = 873 * capture_lmr_value(pos.game_of_points(), movedPiece,
+                                                   pos.captured_piece(), move) / 128
                           + captureHistory[movedPiece][move.to_sq()][type_of(pos.captured_piece())];
         else
             ss->statScore =
@@ -1588,7 +1623,7 @@ moves_loop:  // When in check, search starts here
 
     // Step 23. Check for mate and stalemate, otherwise update bestmove/countermove stats
 
-    assert(moveCount || !ss->inCheck || excludedMove || !MoveList<ALL>(pos).size());
+    assert(moveCount || !ss->inCheck || excludedMove || !has_legal_move(pos));
 
     // Adjust best value for fail high cases
     if (bestValue >= beta && !is_decisive(bestValue) && !is_decisive(alpha))
@@ -1598,7 +1633,7 @@ moves_loop:  // When in check, search starts here
     // must be a mate or a stalemate (just a fail low score if we are in a
     // singular extension search).
     if (!moveCount)
-        bestValue = excludedMove ? alpha : ss->inCheck ? mated_in(ss->ply) : VALUE_DRAW;
+        bestValue = excludedMove ? alpha : pos.no_moves_value(ss->ply);
 
     // If there is a move that produces search value greater than alpha,
     // we update the stats of searched moves.
@@ -1626,13 +1661,13 @@ moves_loop:  // When in check, search starts here
         // multipliers larger than 900
         const int scaledBonus = std::min(150 * depth - 85, 1337) * bonusScale;
 
-        update_continuation_histories(ss - 1, pos.piece_on(prevSq), prevSq,
+        update_continuation_histories(ss - 1, (ss - 1)->movedPiece, prevSq,
                                       scaledBonus * 263 / 16384);
 
         mainHistory[~us][((ss - 1)->currentMove).raw()] << scaledBonus * 215 / 32768;
 
-        if (type_of(pos.piece_on(prevSq)) != PAWN && ((ss - 1)->currentMove).type_of() != PROMOTION)
-            sharedHistory.pawn_entry(pos)[pos.piece_on(prevSq)][prevSq] << scaledBonus * 324 / 8192;
+        if (type_of((ss - 1)->movedPiece) != PAWN && ((ss - 1)->currentMove).type_of() != PROMOTION)
+            sharedHistory.pawn_entry(pos)[(ss - 1)->movedPiece][prevSq] << scaledBonus * 324 / 8192;
     }
 
     // Bonus for prior capture countermove that caused the fail low
@@ -1642,7 +1677,7 @@ moves_loop:  // When in check, search starts here
 
         Piece capturedPiece = pos.captured_piece();
         assert(capturedPiece != NO_PIECE);
-        captureHistory[pos.piece_on(prevSq)][prevSq][type_of(capturedPiece)] << 892;
+        captureHistory[(ss - 1)->movedPiece][prevSq][type_of(capturedPiece)] << 892;
     }
 
     if (PvNode)
@@ -1728,18 +1763,31 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         selDepth = ss->ply + 1;
 
     // Step 2. Check for an immediate draw or maximum ply reached
-    if (pos.is_draw(ss->ply) || ss->ply >= MAX_PLY)
+    const Value pointsClaim = Petrified::resignation_value(pos, ss->ply);
+    if (pos.game_of_points())
+    {
+        const auto end = Petrified::outcome(pos, true, ss->ply);
+        if (end.terminal()) return end.value;
+        if (pointsClaim >= beta || is_win(pointsClaim)) return pointsClaim;
+        alpha = std::max(alpha, pointsClaim);
+    }
+    if ((!pos.game_of_points() && pos.is_draw(ss->ply)) || ss->ply >= MAX_PLY)
         return (ss->ply >= MAX_PLY && !ss->inCheck) ? evaluate(pos) : VALUE_DRAW;
 
     assert(0 <= ss->ply && ss->ply < MAX_PLY);
 
     // Step 3. Transposition table lookup
+    // Quiet walls can leave no legal moves without a capture or a conventional
+    // check. Stand-pat must not turn such a terminal into an NNUE estimate.
+    if (!has_legal_move(pos))
+        return pos.no_moves_value(ss->ply);
+
     posKey                         = pos.key();
     auto [ttHit, ttData, ttWriter] = tt.probe(posKey);
 
     ss->ttHit    = ttHit;
     ttData.move  = ttHit ? ttData.move : Move::none();
-    ttData.value = ttHit ? value_from_tt(ttData.value, ss->ply, pos.rule50_count()) : VALUE_NONE;
+    ttData.value = ttHit ? value_from_tt(ttData.value, ss->ply, pos.rule50_count(), pos.game_of_points()) : VALUE_NONE;
     pvHit        = ttHit && ttData.is_pv;
 
     // At non-PV nodes we check for an early TT cutoff
@@ -1796,6 +1844,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         futilityBase = ss->staticEval + 306;
     }
 
+    bestValue = std::max(bestValue, pointsClaim);
     const PieceToHistory* contHist[] = {(ss - 1)->continuationHistory};
 
     Square prevSq = ((ss - 1)->currentMove).is_ok() ? ((ss - 1)->currentMove).to_sq() : SQ_NONE;
@@ -1818,7 +1867,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         moveCount++;
 
         // Step 6. Pruning
-        if (!is_loss(bestValue))
+        if (!pos.game_of_points() && !is_loss(bestValue))
         {
             // Futility pruning and moveCount pruning
             if (!givesCheck && move.to_sq() != prevSq && !is_loss(futilityBase)
@@ -1890,7 +1939,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
     {
         if (ss->inCheck)  // Checkmate!
         {
-            assert(!MoveList<ALL>(pos).size());
+            assert(!has_legal_move(pos));
             return mated_in(ss->ply);  // Plies to mate from the root
         }
 
@@ -1898,7 +1947,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         Color us = pos.side_to_move();
         if (!(pawn_single_push_bb(us, pos.pieces(us, PAWN)) & ~pos.pieces())
             && !pos.non_pawn_material(us) && type_of(pos.captured_piece()) >= KNIGHT
-            && !MoveList<ALL>(pos).size())
+            && !has_legal_move(pos))
             bestValue = VALUE_DRAW;
     }
 
@@ -1950,7 +1999,7 @@ Value value_to_tt(Value v, int ply) { return is_win(v) ? v + ply : is_loss(v) ? 
 // "plies to mate/be mated (TB win/loss) from the root". However, to avoid
 // potentially false mate or TB scores related to the 50 moves rule and the
 // graph history interaction, we return the highest non-TB score instead.
-Value value_from_tt(Value v, int ply, int r50c) {
+Value value_from_tt(Value v, int ply, int r50c, bool points) {
 
     if (!is_valid(v))
         return VALUE_NONE;
@@ -1959,11 +2008,11 @@ Value value_from_tt(Value v, int ply, int r50c) {
     if (is_win(v))
     {
         // Downgrade a potentially false mate score
-        if (is_mate(v) && VALUE_MATE - v > 100 - r50c)
+        if (!points && is_mate(v) && VALUE_MATE - v > 100 - r50c)
             return VALUE_TB_WIN_IN_MAX_PLY - 1;
 
         // Downgrade a potentially false TB score
-        if (VALUE_TB - v > 100 - r50c)
+        if (!points && VALUE_TB - v > 100 - r50c)
             return VALUE_TB_WIN_IN_MAX_PLY - 1;
 
         return v - ply;
@@ -1973,11 +2022,11 @@ Value value_from_tt(Value v, int ply, int r50c) {
     if (is_loss(v))
     {
         // Downgrade a potentially false mate score
-        if (is_mated(v) && VALUE_MATE + v > 100 - r50c)
+        if (!points && is_mated(v) && VALUE_MATE + v > 100 - r50c)
             return VALUE_TB_LOSS_IN_MAX_PLY + 1;
 
         // Downgrade a potentially false TB score
-        if (VALUE_TB + v > 100 - r50c)
+        if (!points && VALUE_TB + v > 100 - r50c)
             return VALUE_TB_LOSS_IN_MAX_PLY + 1;
 
         return v + ply;
@@ -2034,7 +2083,7 @@ void update_all_stats(const Position& pos,
     // Extra penalty for a quiet early move that was not a TT move in
     // previous ply when it gets refuted.
     if (prevSq != SQ_NONE && ((ss - 1)->moveCount == 1 + (ss - 1)->ttHit) && !pos.captured_piece())
-        update_continuation_histories(ss - 1, pos.piece_on(prevSq), prevSq, -malus * 713 / 1024);
+        update_continuation_histories(ss - 1, (ss - 1)->movedPiece, prevSq, -malus * 713 / 1024);
 
     // Decrease stats for all non-best capture moves
     for (Move move : capturesSearched)
@@ -2345,7 +2394,7 @@ void SearchManager::output_pv(Search::Worker&           worker,
         if (!pv.empty())
             pv.pop_back();
 
-        auto wdl = worker.options["UCI_ShowWDL"] ? UCIEngine::wdl(v, pos) : "";
+        const std::string wdl;
 
         // Scores cannot be both exact and inexact
         assert(!(rootMoves[i].inexactLower && rootMoves[i].inexactUpper));
