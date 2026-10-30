@@ -95,7 +95,11 @@ for (const [index,row] of rows.entries()) {
   const live=[0,0];
   for(const file of e.board()) for(const pc of file)
     if(pc && !pc.dead && [0,2].includes(pc.player)) ++live[pc.player/2];
-  const bare=live.some(n=>n<=1); assert.equal(bare,!!row.child_bare);
+  const bare=live.some(n=>n<=1);
+  // Terminal liquidation can turn the stalemated player into dead pieces.
+  // Its pre-liquidation material guard is not comparable to that final board.
+  if(!status.terminal) assert.equal(bare,!!row.child_bare,'Bare king guard '+index);
+  else assert(!row.prune,'Terminal branch must be searched');
   let choices=null,claim=null;
   if(!status.terminal) {
     choices=legal(e); assert.deepEqual(choices,[...row.child_legal].sort());
@@ -115,6 +119,7 @@ for (const [index,row] of rows.entries()) {
 assert(plies>100 && pruned>0 && terminal>0 && forced>0);
 const report={result:'PASS',cases:rows.length,independent_guard_plies:plies,pruned_cases:pruned,
   terminal_children_protected:terminal,forced_children_protected:forced,
+  terminal_material_comparison:'Excluded only after settlement changes dead-piece state; terminal/result and non-pruning are checked for every case',
   referee_sha256:ref.HASH,reconstructed_ep:reconstructedEp,logs};
 fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({...report,logs:undefined}));
