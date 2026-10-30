@@ -1,3 +1,27 @@
+PR20 points-qsearch-checks-v1 is RETAINED_FOR_FUTURE_OPENBENCH by the owner.
+The panel stopped cooperatively: VSTC400 (188/193/19), STC10 (4/6/0), LTC not run.
+Time losses candidate/rival0/0 in both controls. Raw VSTC INCONCLUSIVE_LIMIT
+and STC INTERRUPTED are preserved; STC was stopped below its40-game minimum.
+Retention is not a statistical win, equivalence or promotion. PR18 stays champion.
+The separate manual audit passed410 games/205 reversed-color pairs/74948
+independent plies. Four incomplete pairs with three completed unpaired games
+are preserved and excluded. All711 development/panel identities exited;627
+pair process instances have exact CreationDates. The original automatic auditor
+STOP rejection remains preserved, with its script and179 frozen inputs intact.
+The preservation bundle and2311-file raw inventory are recorded in the experiment.
+Tag candidates/points-qsearch-checks-v1-openbench targets validated dbb34b9e,
+whose src tree equals frozen33e40a96. PR20 stays an open draft. No OB workload.
+The lease is released. Remove the follow-up after remote retention is saved.
+Fairyground is running with champion PR18 and its unchanged profile, Threads1/
+Hash128, at http://127.0.0.1:5185/public/index.html?variant=petrified . HTTP,
+WebSocket/native UCI, served asset hashes and mate/points checks passed. Server
+44936/creation_filetime134378405799420560 is handed to the owner and must remain
+running, together with its GUI children. See .local/fairyground-pr18-reopen-
+20261030-1325/handoff.json. No next experiment is authorized. T8 remains paused;
+do not touch AtomicDB, remote workers, other applications or Misere.
+
+The entries below preserve prior stages and do not restart closed panels.
+
 points-qsearch-checks-v1 / PR20 is FROZEN and its sole panel is ACTIVE vs PR18.
 Engine source33e40a960d609bd7a7f9fab6c11ca8312020a595, candidate SHA256
  aed9c2c72f97b0576e476e4c808762db68349dc8cc0c2b2d69d33c697946338d,

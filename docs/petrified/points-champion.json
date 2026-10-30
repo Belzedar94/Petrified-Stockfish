@@ -522,6 +522,18 @@
       },
       "completed_utc": "2026-10-30T12:44:49.906505+00:00",
       "source_tag": "candidates/points-qsearch-see-v1-openbench"
+    },
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-30-points-qsearch-checks-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 10,
+        "LTC": 0
+      },
+      "completed_utc": "2026-10-30T13:29:01.021092+00:00",
+      "source_tag": "candidates/points-qsearch-checks-v1-openbench"
     }
   ],
   "distribution": {
@@ -540,6 +552,15 @@
     "url": "http://127.0.0.1:5185/public/index.html?variant=petrified",
     "owner_requested_keep_running": true,
     "threads": 1,
-    "hash_mb": 128
+    "hash_mb": 128,
+    "status": "RUNNING_FOR_OWNER",
+    "last_restart_utc": "2026-10-30T13:29:39.944639+00:00",
+    "server_identity": {
+      "pid": 44936,
+      "creation_filetime": 134378405799420560,
+      "creation_utc": "2026-10-30T13:29:39.942057+00:00"
+    },
+    "runtime_evidence": ".local\\fairyground-pr18-reopen-20261030-1325\\handoff.json",
+    "profile_sha256": "42009608caf870df9deb6180717dd3bfa491727c8e18918c855823d41d81b30e"
   }
 }

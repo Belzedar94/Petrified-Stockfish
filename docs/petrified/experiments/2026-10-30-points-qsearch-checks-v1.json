@@ -2,7 +2,7 @@
   "schema": "petrified-qsearch-checks-v1",
   "experiment": "points-qsearch-checks-v1",
   "created_utc": "2026-10-30T12:55:33.321188+00:00",
-  "status": "PANEL_RUNNING",
+  "status": "RETAINED_FOR_FUTURE_OPENBENCH",
   "branch": "exp/points-qsearch-checks-v1",
   "authorization": "Owner retained PR19 for future OpenBench and requested one next substantial idea from current champion PR18 with the same correctness and VSTC/STC/LTC gates.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
@@ -46,7 +46,7 @@
   ],
   "panel": {
     "directory": ".local/points-qsearch-checks-panel-001",
-    "status": "RUNNING",
+    "status": "MANUALLY_CLOSED_AUDITED",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -72,7 +72,7 @@
     "remote_workers": false,
     "Misere_contact": false
   },
-  "runtime_released": false,
+  "runtime_released": true,
   "source_commit": "33e40a960d609bd7a7f9fab6c11ca8312020a595",
   "validated_revision": "dbb34b9ea88106a5a844480e79db60a1ce7e313d",
   "pr": 20,
@@ -553,5 +553,210 @@
     "frozen_inputs": 179,
     "panel_hashes": 11,
     "dependency_hashes": 7
+  },
+  "raw_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        188,
+        193,
+        19
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        28,
+        8,
+        129,
+        11,
+        24
+      ],
+      "statistics": "Total: 400 W: 188 L: 193 D: 19 ELO: -4.34 +-33.3 (95%) LOS: 39.9%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 874.094
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INTERRUPTED",
+      "scores": [
+        4,
+        6,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        0,
+        4,
+        0,
+        0
+      ],
+      "statistics": "Total: 10 W: 4 L: 6 D: 0 ELO: -70.44 +-268.9 (95%) LOS: 25.9%",
+      "completed_pairs": 5,
+      "elapsed_seconds": 130.39,
+      "error": "Panel stopped"
+    }
+  },
+  "latest_progress": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        188,
+        193,
+        19
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        28,
+        8,
+        129,
+        11,
+        24
+      ],
+      "statistics": "Total: 400 W: 188 L: 193 D: 19 ELO: -4.34 +-33.3 (95%) LOS: 39.9%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 874.094,
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection_status": "NEUTRAL_SCREEN"
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INTERRUPTED",
+      "scores": [
+        4,
+        6,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        0,
+        4,
+        0,
+        0
+      ],
+      "statistics": "Total: 10 W: 4 L: 6 D: 0 ELO: -70.44 +-268.9 (95%) LOS: 25.9%",
+      "completed_pairs": 5,
+      "elapsed_seconds": 130.39,
+      "error": "Panel stopped",
+      "raw_status": "INTERRUPTED",
+      "selection_status": "RETAINED_MANUAL_OWNER"
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "NOT_RUN",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "selection_status": "NOT_RUN"
+    }
+  },
+  "closure": {
+    "result": "RETAINED_FOR_FUTURE_OPENBENCH",
+    "decided_utc": "2026-10-30T13:29:01.021092+00:00",
+    "basis": "Owner requested retention and Fairyground PR18 restart; panel stopped cooperatively",
+    "statistical_equivalence": false,
+    "statistical_win": false,
+    "promotion": false,
+    "champion": "PR18",
+    "controller_session": 94028,
+    "controller_exit_code": 0,
+    "panel_exit_code": 1,
+    "games": 410,
+    "complete_pairs": 205,
+    "independent_plies": 74948,
+    "incomplete_pairs_preserved": 4,
+    "unpaired_completed_games_excluded": 3,
+    "all_process_identities_exited": 711,
+    "pair_process_instances_with_exact_identity": 627,
+    "audit": ".local/points-qsearch-checks-v1/manual-closure-audit.json",
+    "audit_sha256": "fa242047892c762d877b37061f51a6fbcad91e01f08ca902d61e9166c63ed868",
+    "original_auditor_expected_failure": ".local/points-qsearch-checks-v1/panel-audit-failure-001",
+    "strict_exit_audit": ".local/points-qsearch-checks-v1/strict-process-exit-audit.json",
+    "strict_exit_sha256": "46708974cf4f7e40454e152f285d96dbc91a6dc079734b2d82adfea63ca5663e",
+    "preservation_manifest": ".local\\points-qsearch-checks-v1\\preservation-manifest.json",
+    "preservation_sha256": "4b94dee5706397904a109c4c8264290ff3a8ecf0c05c38194f38fa45f86f4471",
+    "bundle": {
+      "bundle": ".local\\points-qsearch-checks-v1\\frozen-inputs-and-closure.zip",
+      "sha256": "560d27d864ff41856462498da44a82241a18f7b216711148aed562b92f0e21e3",
+      "bytes": 33171143,
+      "entries": 1697
+    },
+    "source_tag": "candidates/points-qsearch-checks-v1-openbench",
+    "tag_commit": "dbb34b9ea88106a5a844480e79db60a1ce7e313d",
+    "tag_note": "Validated test revision; src tree identical to frozen 33e40a96 engine source",
+    "openbench_workload_authorized": false,
+    "one_successor_authorized": false,
+    "fairyground_restart_authorized": true,
+    "released": true,
+    "released_utc": "2026-10-30T13:29:01.021092+00:00",
+    "preservation_process_exit": {
+      "result": "PASS",
+      "actual_exec_exit_code": 0,
+      "evidence": ".local\\points-qsearch-checks-v1\\preservation-process-exit.json"
+    }
+  },
+  "updated_utc": "2026-10-30T13:29:01.021092+00:00",
+  "control_selections": {
+    "VSTC": {
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection": "NEUTRAL_SCREEN",
+      "statistical_equivalence": false
+    },
+    "STC": {
+      "raw_status": "INTERRUPTED",
+      "selection": "RETAINED_MANUAL_OWNER",
+      "statistical_equivalence": false
+    },
+    "LTC": {
+      "raw_status": "NOT_RUN",
+      "selection": "NOT_RUN",
+      "statistical_equivalence": false
+    }
+  },
+  "fairyground_restore": {
+    "status": "RUNNING_PR18_FOR_OWNER",
+    "checked_utc": "2026-10-30T13:31:43.086518+00:00",
+    "profile": "Petrified-Stockfish + run4test PointsHead v1 + Combined Search v1 (PR #18)",
+    "profile_preserved": true,
+    "url": "http://127.0.0.1:5185/public/index.html?variant=petrified",
+    "threads": 1,
+    "hash_mb": 128,
+    "server_identity": {
+      "pid": 44936,
+      "creation_filetime": 134378405799420560,
+      "creation_utc": "2026-10-30T13:29:39.942057+00:00"
+    },
+    "backend_validation": "PASS HTTP/WebSocket/native UCI, served asset hashes and mate/points cases",
+    "evidence": ".local\\fairyground-pr18-reopen-20261030-1325\\handoff.json",
+    "evidence_sha256": "6c9da1d0e97dd222d726ae4c5487655575320c9bdd16ec318f97253aafd4abf0",
+    "owner_requested_keep_running": true
   }
 }
