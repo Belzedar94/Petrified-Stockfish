@@ -2,7 +2,7 @@
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-forced-qsearch-v1",
   "date": "2026-10-30",
-  "status": "PANEL_RUNNING_WITH_RECORDER_RECOVERY",
+  "status": "REJECTED_NEUTRAL_MANUAL",
   "branch": "exp/points-forced-qsearch-v1",
   "owner_authorization": "One next substantial Petrified-specific search idea from PR11 with the same validations and three-control panel. PR16 retained separately for future OpenBench.",
   "qualified_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
@@ -530,7 +530,7 @@
   },
   "panel": {
     "path": ".local/points-forced-qsearch-panel-001",
-    "status": "RUNNING_WITH_RECORDER_RECOVERY",
+    "status": "STOPPED_MANUAL_AND_AUDITED",
     "identities": {
       "controller": {
         "pid": 28908,
@@ -571,7 +571,11 @@
       ".local\\points-forced-qsearch-v1\\recovery-001\\supervise_existing_panel.py": "323bb07fe0999e38e7a03fa37eef27df8ae17b385b208711a59f3a4aa9850808",
       ".local\\points-forced-qsearch-v1\\recovery-001\\monitor_existing_panel.py": "360ae0c1496f8e7096630eb58d91ab544aa593b3b8ec500015f6b9691832ab03",
       ".local\\points-forced-qsearch-v1\\recovery-001\\observer-manifest.json": "0ad8b0c5f10a7343718c172fa116f634c75b38ec4b2202f1cafa71b8600cf7c9"
-    }
+    },
+    "recovery_observer_exit_code": 1,
+    "launcher_exit_code": 1,
+    "real_panel_exit_code": 1,
+    "exit_interpretation": "Expected cooperative owner STOP; prior recorder WinError5 remains a separate preserved failure."
   },
   "build_processes_exited": 51,
   "observed_results": {
@@ -644,7 +648,7 @@
     ".local/points-forced-qsearch-v1/build-state.json",
     ".local/points-forced-qsearch-v1/development-validation-002/state.json"
   ],
-  "runtime_released": false,
+  "runtime_released": true,
   "panel_readiness": {
     "correctness": "PASS",
     "source_ci": "PASS",
@@ -679,5 +683,196 @@
     ],
     "meaning": "Owner neutral selection; continue STC. Not equivalence or statistical loss."
   },
-  "promotion_eligibility": "NOT_ELIGIBLE: VSTC selected neutral; keep PR11 champion"
+  "promotion_eligibility": "NOT_ELIGIBLE: VSTC selected neutral; keep PR11 champion",
+  "closed_utc": "2026-10-30T08:11:47.936104+00:00",
+  "decision": {
+    "experiment": "points-forced-qsearch-v1",
+    "decision": "REJECTED_NEUTRAL_MANUAL",
+    "owner_request": "Nada, este lo puedes parar como neutro, pero este no lo pongas a la cola de OB, desc\u00e1rtalo",
+    "recorded_utc": "2026-10-30T08:11:47.936104+00:00",
+    "retain_for_openbench": false,
+    "promoted": false,
+    "champion": "PR11",
+    "audit": ".local/points-forced-qsearch-v1/manual-closure-audit.json",
+    "all_recorded_identities_exited": 661,
+    "additional_pair_instances_proven_exited_by_bounds": 280,
+    "next_authorization": "Combine retained PR9/12/13/15/16 from PR11 in one branch and one validated VSTC/STC/LTC panel; exclude PR17."
+  },
+  "raw_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        195,
+        185,
+        20
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        27,
+        10,
+        121,
+        10,
+        32
+      ],
+      "statistics": "Total: 400 W: 195 L: 185 D: 20 ELO: 8.69 +-33.2 (95%) LOS: 69.6%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 870.5
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INTERRUPTED",
+      "scores": [
+        86,
+        82,
+        14
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        15,
+        4,
+        49,
+        8,
+        15
+      ],
+      "statistics": "Total: 182 W: 86 L: 82 D: 14 ELO: 7.64 +-48.8 (95%) LOS: 62.1%",
+      "completed_pairs": 91,
+      "elapsed_seconds": 1795.735,
+      "error": "Panel stopped"
+    }
+  },
+  "results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "NEUTRAL_SCREEN",
+      "scores": [
+        195,
+        185,
+        20
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        27,
+        10,
+        121,
+        10,
+        32
+      ],
+      "statistics": "Total: 400 W: 195 L: 185 D: 20 ELO: 8.69 +-33.2 (95%) LOS: 69.6%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 870.5,
+      "raw_status": "INCONCLUSIVE_LIMIT"
+    },
+    "STC": {
+      "control": "STC",
+      "status": "NEUTRAL_MANUAL",
+      "scores": [
+        86,
+        82,
+        14
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        15,
+        4,
+        49,
+        8,
+        15
+      ],
+      "statistics": "Total: 182 W: 86 L: 82 D: 14 ELO: 7.64 +-48.8 (95%) LOS: 62.1%",
+      "completed_pairs": 91,
+      "elapsed_seconds": 1795.735,
+      "error": "Panel stopped",
+      "raw_status": "INTERRUPTED"
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "NOT_RUN_MANUAL",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "completed_pairs": 0
+    }
+  },
+  "closure_audit": {
+    "schema": "points-forced-qsearch-manual-recovery-closure-v1",
+    "result": "PASS",
+    "checked_utc": "2026-10-30T08:09:15.916079+00:00",
+    "games": 582,
+    "complete_pairs": 291,
+    "independent_plies": 109355,
+    "incomplete_pairs_preserved": 4,
+    "unpaired_completed_games_excluded": 3,
+    "execution_hashes": 437,
+    "panel_hashes": 11,
+    "dependency_hashes": 7,
+    "raw_files_preserved": 3257,
+    "raw_inventory_sha256": "a91bd5c37c0555c0cef3b16364f0e2b77e7a9d68b8e316a6ed67c71112b30e91",
+    "owned_panel_process_identities_exited": 610,
+    "build_process_identities_exited": 51,
+    "all_process_identities_exited": 661,
+    "remaining_owned": [],
+    "T8_pause_verified": true,
+    "controller_status_interpretation": "Original recorder FAILED on WinError5; recovery observer and original panel exited1 after owner STOP. Both are preserved.",
+    "pair_process_reconciliation": {
+      "path": ".local/points-forced-qsearch-v1/pair-process-exit-reconciliation.json",
+      "sha256": "968d754de9d5f8e07287f29422ef451de1e53573fb05996950fa59f911ab4813",
+      "exact_recorded_instances": 605,
+      "bounded_instances_without_exact_creation": 280
+    },
+    "original_audit_expected_failure": ".local/points-forced-qsearch-v1/panel-audit-failure-001",
+    "promotion_eligible": false,
+    "champion_unchanged": "Qualified PR11, Bench177290",
+    "interpretation": "Owner discards PR17 as neutral, explicitly excluding future OpenBench retention. Raw statistics are preserved; no equivalence or statistical loss is claimed."
+  },
+  "retain_for_openbench": false,
+  "openbench_queue": false,
+  "preservation_bundle": {
+    "path": ".local\\points-forced-qsearch-v1\\frozen-inputs-and-closure.zip",
+    "sha256": "9d103e7f9fd0a8b181bd0dbb0308c5e9c44b8425719f848dbd5786f9813b7f90",
+    "entries": 535,
+    "bytes": 157271304,
+    "raw_panel_inventory": ".local/points-forced-qsearch-v1/closed-panel-files.json",
+    "purpose": "Rejected-candidate audit preservation, not OpenBench queue"
+  },
+  "subsequent_combination_authorization": {
+    "owner_request": "De hecho, mete este pr17 tambi\u00e9n en el conglomerado de ahora",
+    "components": [
+      9,
+      12,
+      13,
+      15,
+      16,
+      17
+    ],
+    "base": "qualified PR11",
+    "individual_openbench_retention": false,
+    "meaning": "Later instruction includes PR17 in one new combined candidate; individual neutral rejection and raw evidence remain unchanged. This supersedes the exclusion recorded when closure began."
+  }
 }

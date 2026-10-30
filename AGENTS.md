@@ -1,3 +1,34 @@
+Current authorization (2026-10-30): one points-combined-search-v1 candidate
+from qualified PR11, combining the exact engine changes of PR9,PR12,PR13,PR15,
+PR16 and PR17. The owner explicitly added PR17 after initially excluding it.
+Resolve integration conflicts without tuning the six component policies. Keep
+the PR11/PR7 network, rules and scoring fixed. Validate the combined engine with
+all applicable component references, Debug/Release, state/NNUE/undo, independent
+Chess.com checks, native interfaces, reproducible points bench, legacy179335
+and source CI before one frozen40/400 VSTC/STC/LTC panel against PR11. No further
+candidate or OpenBench workload is authorized. T8 stays paused; Fairyground
+closed. Do not contact Misere or touch AtomicDB or remote workers.
+
+PR17 individual panel is closed as REJECTED_NEUTRAL_MANUAL and is not retained
+in the standalone OpenBench queue. PR11 stays champion. VSTC400:195/185/20,
++8.69+/-33.2 Elo95%,LOS69.6%; STC182:86/82/14,+7.64+/-48.8,LOS62.1%; LTC not run.
+Time losses0/0. Raw VSTC INCONCLUSIVE_LIMIT and STC INTERRUPTED are preserved;
+neutral selection is not statistical equivalence or a statistical loss.
+The separate manual recovery audit passed582 games/291 complete reversed-color
+pairs and109355 independent plies. Four incomplete pairs, including three
+completed unpaired games, are preserved and excluded. All661 recorded identities
+(610 panel/observer and51 development/build) exited. Pair journals reconcile885
+process instances:605 exact recorded identities and280 explicitly bounded exit
+proofs without historical CreationDates. No access error counted as exit and no
+unrelated process was touched. The original recorder WinError5, original auditor
+FAILED-controller rejection, and panel/observer exits1 from cooperative owner
+STOP are preserved. The437 frozen inputs stayed unchanged. The535-entry closure
+bundle and3257-file raw inventory are in the experiment record. Lease released;
+follow-up removed on closure. PR17 may participate only in the newly authorized
+six-component combination; its individual panel must never be replayed.
+
+The entries below are historical and do not authorize restarting PR17.
+
 points-forced-qsearch-v1 / PR17 is frozen; the same panel continues in STC.
 The owner adjudicated VSTC as neutral and requested STC. VSTC400:195/185/20,
 +8.69+/-33.2 Elo95%,LOS69.6%,time0/0. Raw INCONCLUSIVE_LIMIT is retained;

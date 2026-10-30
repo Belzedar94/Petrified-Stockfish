@@ -1,4 +1,39 @@
-## Active panel: points-forced-qsearch-v1 / PR17 (2026-10-30)
+## Authorized successor: points-combined-search-v1 (2026-10-30)
+
+The owner requests one combined branch and panel against qualified PR11, using
+PR9/12/13/15/16 and subsequently adding PR17 explicitly. Integrate their exact
+engine policies, retain the common winning network and complete all applicable
+correctness/interface/source-CI gates before one frozen40/400 three-TC panel.
+No component tuning or further candidate is authorized. PR11 stays champion.
+PR9/12/13/15/16 remain separately retained; PR17 is excluded from the standalone
+OpenBench queue. No OpenBench workload is authorized.
+
+## PR17 individual closure: REJECTED_NEUTRAL_MANUAL
+
+The owner stopped and discarded the individual candidate as neutral. Its later
+inclusion in the combined candidate does not change its measured results:
+
+| Control | Games | W/L/D | Elo95% | LOS | Time losses C/O | Selection |
+|---|---:|---|---|---|---|---|
+| VSTC | 400 | 195/185/20 | +8.69 +/-33.2 | 69.6% | 0/0 | NEUTRAL_SCREEN |
+| STC | 182 | 86/82/14 | +7.64 +/-48.8 | 62.1% | 0/0 | NEUTRAL_MANUAL |
+| LTC | 0 | 0/0/0 | n/a | n/a | 0/0 | NOT_RUN_MANUAL |
+
+The recovery/manual audit passed582 games/291 color-reversed pairs and109355
+independent plies. Four incomplete pairs and three completed unpaired games are
+preserved and excluded. All661 recorded identities exited. All885 pair process
+instances were reconciled:605 had exact recorded identities;280 use separately
+labelled absence/later-creation proofs bounded by pair journal timestamps.
+These bounds are not invented historical CreationDates. No access error was
+treated as exit. The original recorder failure and original auditor rejection
+remain preserved; panel/launcher/observer exited1 after cooperative owner STOP.
+The437 inputs,11 panel hashes and7 dependencies stayed unchanged. The535-entry
+bundle is `.local/points-forced-qsearch-v1/frozen-inputs-and-closure.zip`, SHA256
+`9d103e7f9fd0a8b181bd0dbb0308c5e9c44b8425719f848dbd5786f9813b7f90`.
+All3257 raw panel files are hash inventoried. The lease is released and the old
+follow-up is removed on closure. T8 remains paused and Fairyground closed.
+
+## Historical active panel: points-forced-qsearch-v1 / PR17 (2026-10-30)
 
 The owner adjudicated VSTC as neutral and requested STC, which is running.
 VSTC closed at400 games:195/185/20,+8.69+/-33.2 Elo95%,LOS69.6%,time0/0.
