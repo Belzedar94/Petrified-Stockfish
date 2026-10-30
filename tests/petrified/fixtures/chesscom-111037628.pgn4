@@ -1,0 +1,47 @@
+[GameNr "111037628"]
+[TimeControl "5+3"]
+[Variant "FFA"]
+[RuleVariants "Deadwall EnPassant FatalCapture Sideways"]
+[StartFen4 "2PC"]
+[White "letsplaysomechessplease"]
+[Black "TwoPotionsOneMate"]
+[Result "1-0"]
+[Termination "Checkmate • 1-0"]
+[Site "https://www.chess.com/variants/petrified/game/111037628"]
+[Date "2026.10.28"]
+
+1. k5-k6 .. g10-g8
+2. d5-d6 .. h10-h8
+3. g5-g6 .. d10-d8
+4. h5-h7 .. g8-g7
+5. g6-h6 .. f10-f8
+6. Bi4-e8+ .. Bf11-g10
+7. Be8xBg10 .. e10-e8
+8. h6xg7 .. f8xg7
+9. Nj4-i6 .. j10-j8
+10. O-O .. d8-d7
+11. Ri4-h4 .. k10-k8
+12. Ne4-g5 .. Qg11-e9
+13. Ng5-i4 .. j8-j7
+14. Ni6-k7 .. j7-j6
+15. i5xj6 .. g7-g6+
+16. j5-i5 .. g6xf5
+17. Qg4-i6 .. Ne11-f9
+18. Bf4-h6 .. e8-f8
+19. Nk7-i8 .. Nj11-i9
+20. Rd4-f4 .. i10-h10
+21. Bh6-j8 .. h10-h9
+22. Ni8-h6 .. Nf9-g7
+23. Qi6-j5 .. Ng7-i6+
+24. Kj4-k4 .. f8-g8
+25. h7xg8 .. h9xg8
+26. Bj8xNi9 .. h8-h7
+27. Rh4-h5 .. Ni6-h4
+28. Rh5xNh4 .. k8-j8
+29. Nh6xf5 .. g8-g7
+30. Ni4-g5 .. h7-h6
+31. Qj5-h7+ .. Qe9-h9
+32. Qh7xQh9 .. h6xi5
+33. Kk4-j5 .. g7-h7
+34. Ng5xh7 .. i5-i4=Q+
+35. Kj5-k5 .. Qi4-j4+#
