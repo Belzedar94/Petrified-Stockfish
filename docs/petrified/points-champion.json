@@ -1,0 +1,545 @@
+{
+  "schema": "petrified-points-champion-v1",
+  "rules": "chesscom-points-v1",
+  "name": "run4test PointsHead v1 + combined-search-v1 (PR18) + winning-mate-r2",
+  "source_commit": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+  "baseline_branch": "exp/points-combined-search-v1",
+  "baseline_ref": "d011dc2d24b72f8b9eb67d6140c4d3909846d3fb",
+  "binary": ".local/points-combined-search-v1-inputs/petrified-points-combined-search-v1-validated-bmi2.exe",
+  "binary_sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+  "network": ".local/points-combined-search-v1-inputs/champion-v1.pnnue",
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "compiler": "GCC 16.1.0 MinGW",
+  "isa": "BMI2",
+  "lto": true,
+  "pgo": false,
+  "points_bench": 167330,
+  "selection": "Explicit owner-adjudicated WIN and promotion of PR18 after manual closure audit and completed native/WASM/Python/Fairyground acceptance. Raw VSTC INCONCLUSIVE_LIMIT and LTC INTERRUPTED remain unchanged; only STC passed its statistical boundary.",
+  "latest_selection": {
+    "date": "2026-10-30",
+    "experiment": "docs/petrified/experiments/2026-10-30-points-combined-search-v1.json",
+    "status": "PROMOTED_MANUAL_OWNER",
+    "manual_adjudication": true,
+    "three_control_gate_passed": false,
+    "games": {
+      "VSTC": 400,
+      "STC": 132,
+      "LTC": 32
+    },
+    "raw_results": {
+      "VSTC": {
+        "control": "VSTC",
+        "status": "INCONCLUSIVE_LIMIT",
+        "scores": [
+          219,
+          170,
+          11
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          19,
+          4,
+          128,
+          7,
+          42
+        ],
+        "statistics": "Total: 400 W: 219 L: 170 D: 11 ELO: 42.78 +-33.9 (95%) LOS: 99.4%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 868.359
+      },
+      "STC": {
+        "control": "STC",
+        "status": "WIN",
+        "scores": [
+          78,
+          43,
+          11
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          5,
+          4,
+          30,
+          5,
+          22
+        ],
+        "statistics": "Total: 132 W: 78 L: 43 D: 11 ELO: 94.38 +-59.3 (95%) LOS: 100.0%",
+        "completed_pairs": 66,
+        "elapsed_seconds": 1393.593
+      },
+      "LTC": {
+        "control": "LTC",
+        "status": "INTERRUPTED",
+        "scores": [
+          17,
+          13,
+          2
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          1,
+          2,
+          9,
+          0,
+          4
+        ],
+        "statistics": "Total: 32 W: 17 L: 13 D: 2 ELO: 43.66 +-122.3 (95%) LOS: 76.9%",
+        "completed_pairs": 16,
+        "elapsed_seconds": 988.203,
+        "error": "Panel stopped"
+      }
+    },
+    "previous_champion": "PR11 run4test PointsHead v1 + legal-query-v1 + winning-mate-r2",
+    "previous_baseline_ref": "352cd3eed1ab9604adc1e8e4048ef8208d86f90e",
+    "panel_opponent_qualified_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
+    "local_qualification_only": true,
+    "owner_request": "Adjudica como win, puedes proclamar pr18 como nueva campeona! Luego actualiza fairyground a esta nueva version y abre el server para que pueda probarla"
+  },
+  "network_base_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+  "board_directory": "build/wasm-points-combined-search-v1/cjs",
+  "previous_champion": {
+    "schema": "petrified-points-champion-v1",
+    "rules": "chesscom-points-v1",
+    "name": "run4test PointsHead v1 + legal-query-v1 + winning-mate-r2",
+    "source_commit": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+    "baseline_branch": "exp/points-legal-query-v1",
+    "baseline_ref": "352cd3eed1ab9604adc1e8e4048ef8208d86f90e",
+    "binary": ".local/points-legal-query-v1-inputs/petrified-points-legal-query-v1-bmi2.exe",
+    "binary_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+    "network": ".local/points-legal-query-v1-inputs/champion-v1.pnnue",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "compiler": "GCC 16.1.0 MinGW",
+    "isa": "BMI2",
+    "lto": true,
+    "pgo": false,
+    "points_bench": 177290,
+    "selection": "Three valid WIN controls versus qualified PR7 PointsHead v1, complete color-reversed pairs, independent referee audit, frozen hashes, native/WASM/Python distribution and Fairyground verified.",
+    "latest_selection": {
+      "date": "2026-10-29",
+      "experiment": "docs/petrified/experiments/2026-10-29-points-legal-query-v1.json",
+      "status": "PROMOTED",
+      "games": {
+        "VSTC": 70,
+        "STC": 70,
+        "LTC": 88
+      },
+      "previous_champion": "run4test PointsHead v1 + winning-mate-r2",
+      "previous_baseline_ref": "8fb35e83201933f51073dd316f4d69c507a01c88",
+      "panel_opponent_qualified_ref": "5c31333762a41609a410fd2db71a190b6fd73679",
+      "local_qualification_only": true,
+      "manual_adjudication": false
+    },
+    "network_base_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+    "board_directory": "build/wasm-points-legal-query-v1/cjs",
+    "previous_champion": {
+      "schema": "petrified-points-champion-v1",
+      "rules": "chesscom-points-v1",
+      "name": "run4test PointsHead v1 + winning-mate-r2",
+      "source_commit": "00a7fb11587f2120e1b5a3c7bcc97400c3b36480",
+      "baseline_branch": "exp/points-head-v1",
+      "baseline_ref": "8fb35e83201933f51073dd316f4d69c507a01c88",
+      "binary": ".local/points-head-v1-inputs/petrified-points-head-v1-bmi2.exe",
+      "binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+      "network": ".local/points-head-v1-inputs/candidate.pnnue",
+      "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+      "compiler": "GCC 16.1.0 MinGW",
+      "isa": "BMI2",
+      "lto": true,
+      "pgo": false,
+      "points_bench": 177290,
+      "selection": "Three valid WIN controls against run4test + winning-mate-r2; complete color-reversed pairs, independent referee audit, frozen hashes and packaged interfaces verified.",
+      "latest_selection": {
+        "date": "2026-10-29",
+        "experiment": "docs/petrified/experiments/2026-10-29-points-head-v1.json",
+        "status": "PROMOTED",
+        "games": {
+          "VSTC": 46,
+          "STC": 48,
+          "LTC": 46
+        },
+        "previous_champion": "run4test + winning-mate-r2",
+        "previous_baseline_ref": "7dd7c827b41e9460184730227fed4222929dbbaf",
+        "local_qualification_only": true
+      },
+      "network_base_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+      "board_directory": "build/wasm-points-head-v1/cjs",
+      "previous_champion": {
+        "schema": "petrified-points-champion-v1",
+        "rules": "chesscom-points-v1",
+        "name": "run4test + winning-mate-r2",
+        "source_commit": "f44f93700bbb3eca6813eee4728a675ea08447d9",
+        "baseline_branch": "fix/winning-points-mate",
+        "baseline_ref": "7dd7c827b41e9460184730227fed4222929dbbaf",
+        "binary": "src/petrified-points-mate-r2-bmi2.exe",
+        "binary_sha256": "2401d95d3481349ae5bc61cbd1ea3e444337611b2a3d60c6ba8bb3492bb5fe49",
+        "network": "petrified_run4test_e19_l085.nnue",
+        "network_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+        "compiler": "GCC 16.1.0 MinGW",
+        "isa": "BMI2",
+        "lto": true,
+        "pgo": false,
+        "points_bench": 173124,
+        "selection": "Existing demonstrated run4test champion with the mandatory winning-mate correctness fix; no strength gain claimed for that fix. Rejected adapter-v1 is not used.",
+        "latest_selection": {
+          "date": "2026-10-29",
+          "champion_unchanged": true,
+          "capture_order_v1": "REJECTED_NEUTRAL_SCREEN; all three controls completed",
+          "capture_futility_v1": "REJECTED_NEUTRAL_MANUAL; owner closed whole experiment, LTC stopped at 112 completed games",
+          "records": [
+            "docs/petrified/experiments/2026-10-28-capture-order-v1.json",
+            "docs/petrified/experiments/2026-10-29-capture-futility-v1.json"
+          ]
+        }
+      },
+      "promoted_utc": "2026-10-29T07:30:40.431844+00:00",
+      "latest_candidate_evaluation": {
+        "experiment": "docs\\petrified\\experiments\\2026-10-29-points-verified-null-v1.json",
+        "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+        "champion_unchanged": true,
+        "games": {
+          "VSTC": 400,
+          "STC": 40,
+          "LTC": 40
+        },
+        "completed_utc": "2026-10-29T13:19:08.438536+00:00",
+        "source_tag": "candidates/points-verified-null-v1-openbench"
+      },
+      "candidate_evaluation_history": [
+        {
+          "experiment": "docs\\petrified\\experiments\\2026-10-29-points-verified-null-v1.json",
+          "status": "REJECTED_LOSS_MANUAL",
+          "champion_unchanged": true,
+          "games": {
+            "VSTC": 400,
+            "STC": 14,
+            "LTC": 0
+          },
+          "completed_utc": "2026-10-29T12:01:28.061079+00:00"
+        },
+        {
+          "experiment": "docs/petrified/experiments/2026-10-29-points-wall-ft-v1.json",
+          "status": "REJECTED_NEUTRAL_MANUAL",
+          "champion_unchanged": true,
+          "games": {
+            "VSTC": 100,
+            "STC": 0,
+            "LTC": 0
+          },
+          "completed_utc": "2026-10-29T12:32:34.285969+00:00"
+        }
+      ]
+    },
+    "promoted_utc": "2026-10-29T15:04:44.281140+00:00",
+    "latest_candidate_evaluation": {
+      "experiment": "docs/petrified/experiments/2026-10-30-points-forced-qsearch-v1.json",
+      "status": "REJECTED_NEUTRAL_MANUAL",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 182,
+        "LTC": 0
+      },
+      "standalone_openbench_retention": false,
+      "subsequent_combination": "PR17 explicitly included with PR9/12/13/15/16 in PR18; standalone result unchanged"
+    },
+    "candidate_evaluation_history": [
+      {
+        "experiment": "docs\\petrified\\experiments\\2026-10-29-points-verified-null-v1.json",
+        "status": "REJECTED_LOSS_MANUAL",
+        "champion_unchanged": true,
+        "games": {
+          "VSTC": 400,
+          "STC": 14,
+          "LTC": 0
+        },
+        "completed_utc": "2026-10-29T12:01:28.061079+00:00"
+      },
+      {
+        "experiment": "docs/petrified/experiments/2026-10-29-points-wall-ft-v1.json",
+        "status": "REJECTED_NEUTRAL_MANUAL",
+        "champion_unchanged": true,
+        "games": {
+          "VSTC": 100,
+          "STC": 0,
+          "LTC": 0
+        },
+        "completed_utc": "2026-10-29T12:32:34.285969+00:00"
+      },
+      {
+        "experiment": "docs\\petrified\\experiments\\2026-10-29-points-pin-legality-v1.json",
+        "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+        "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
+        "champion_unchanged": true,
+        "games": {
+          "VSTC": 400,
+          "STC": 400,
+          "LTC": 32
+        },
+        "completed_utc": "2026-10-29T19:25:09.944744+00:00",
+        "source_tag": "candidates/points-pin-legality-v1-openbench"
+      },
+      {
+        "experiment": "docs/petrified/experiments/2026-10-29-points-capture-lmr-v1.json",
+        "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+        "champion_unchanged": true,
+        "games": {
+          "VSTC": 400,
+          "STC": 400,
+          "LTC": 400
+        },
+        "completed_utc": "2026-10-30T06:42:59.284175+00:00",
+        "source_tag": "candidates/points-capture-lmr-v1-openbench"
+      }
+    ],
+    "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/11",
+    "retained_candidates": [
+      {
+        "experiment": "docs\\petrified\\experiments\\2026-10-29-points-verified-null-v1.json",
+        "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+        "champion_unchanged": true,
+        "games": {
+          "VSTC": 400,
+          "STC": 40,
+          "LTC": 40
+        },
+        "completed_utc": "2026-10-29T13:19:08.438536+00:00",
+        "source_tag": "candidates/points-verified-null-v1-openbench"
+      },
+      {
+        "experiment": "docs\\petrified\\experiments\\2026-10-29-points-incremental-state-v1.json",
+        "status": "RETAINED_POTENTIAL_WIN_FOR_FUTURE_OPENBENCH",
+        "manual_classification": "POTENTIAL_WIN",
+        "champion_unchanged": true,
+        "games": {
+          "VSTC": 400,
+          "STC": 398,
+          "LTC": 0
+        },
+        "completed_utc": "2026-10-29T17:33:03.206881+00:00",
+        "source_tag": "candidates/points-incremental-state-v1-openbench"
+      },
+      {
+        "experiment": "docs\\petrified\\experiments\\2026-10-29-points-pin-legality-v1.json",
+        "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+        "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
+        "champion_unchanged": true,
+        "games": {
+          "VSTC": 400,
+          "STC": 400,
+          "LTC": 32
+        },
+        "completed_utc": "2026-10-29T19:25:09.944744+00:00",
+        "source_tag": "candidates/points-pin-legality-v1-openbench"
+      },
+      {
+        "experiment": "docs\\petrified\\experiments\\2026-10-29-points-exchange-see-v1.json",
+        "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+        "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
+        "champion_unchanged": true,
+        "games": {
+          "VSTC": 400,
+          "STC": 288,
+          "LTC": 0
+        },
+        "completed_utc": "2026-10-29T21:26:17.434743+00:00",
+        "source_tag": "candidates/points-exchange-see-v1-openbench"
+      },
+      {
+        "experiment": "docs/petrified/experiments/2026-10-29-points-capture-lmr-v1.json",
+        "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+        "champion_unchanged": true,
+        "games": {
+          "VSTC": 400,
+          "STC": 400,
+          "LTC": 400
+        },
+        "completed_utc": "2026-10-30T06:42:59.284175+00:00",
+        "source_tag": "candidates/points-capture-lmr-v1-openbench"
+      }
+    ],
+    "distribution": {
+      "result": "PASS",
+      "checked_utc": "2026-10-29T15:01:49.512938+00:00",
+      "directory": "build\\points-legal-query-v1-distribution",
+      "archive": "build\\petrified-points-legal-query-v1-local.zip",
+      "archive_sha256": "d93aae9a7b1887ca293ff614c2263238fd98fd972b9a96eda04034c2d6334205",
+      "archive_bytes": 30302224,
+      "manifest_sha256": "48ef817bfd6e7d01eed4093fd3682b871ef4370c8d55f0d56cbcfd897ae281fc",
+      "artifact_count": 30,
+      "verification": "Every ZIP entry verified against the artifact manifest"
+    }
+  },
+  "promoted_utc": "2026-10-30T09:59:35.975685+00:00",
+  "latest_candidate_evaluation": {
+    "experiment": "docs/petrified/experiments/2026-10-30-points-combined-search-v1.json",
+    "status": "PROMOTED_MANUAL_OWNER",
+    "champion_unchanged": false,
+    "games": {
+      "VSTC": 400,
+      "STC": 132,
+      "LTC": 32
+    },
+    "manual_adjudication": true,
+    "statistical_three_win_gate_passed": false
+  },
+  "candidate_evaluation_history": [
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-29-points-verified-null-v1.json",
+      "status": "REJECTED_LOSS_MANUAL",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 14,
+        "LTC": 0
+      },
+      "completed_utc": "2026-10-29T12:01:28.061079+00:00"
+    },
+    {
+      "experiment": "docs/petrified/experiments/2026-10-29-points-wall-ft-v1.json",
+      "status": "REJECTED_NEUTRAL_MANUAL",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 100,
+        "STC": 0,
+        "LTC": 0
+      },
+      "completed_utc": "2026-10-29T12:32:34.285969+00:00"
+    },
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-29-points-pin-legality-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 400,
+        "LTC": 32
+      },
+      "completed_utc": "2026-10-29T19:25:09.944744+00:00",
+      "source_tag": "candidates/points-pin-legality-v1-openbench"
+    },
+    {
+      "experiment": "docs/petrified/experiments/2026-10-29-points-capture-lmr-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 400,
+        "LTC": 400
+      },
+      "completed_utc": "2026-10-30T06:42:59.284175+00:00",
+      "source_tag": "candidates/points-capture-lmr-v1-openbench"
+    }
+  ],
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/18",
+  "retained_candidates": [
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-29-points-verified-null-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 40,
+        "LTC": 40
+      },
+      "completed_utc": "2026-10-29T13:19:08.438536+00:00",
+      "source_tag": "candidates/points-verified-null-v1-openbench"
+    },
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-29-points-incremental-state-v1.json",
+      "status": "RETAINED_POTENTIAL_WIN_FOR_FUTURE_OPENBENCH",
+      "manual_classification": "POTENTIAL_WIN",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 398,
+        "LTC": 0
+      },
+      "completed_utc": "2026-10-29T17:33:03.206881+00:00",
+      "source_tag": "candidates/points-incremental-state-v1-openbench"
+    },
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-29-points-pin-legality-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 400,
+        "LTC": 32
+      },
+      "completed_utc": "2026-10-29T19:25:09.944744+00:00",
+      "source_tag": "candidates/points-pin-legality-v1-openbench"
+    },
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-29-points-exchange-see-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 288,
+        "LTC": 0
+      },
+      "completed_utc": "2026-10-29T21:26:17.434743+00:00",
+      "source_tag": "candidates/points-exchange-see-v1-openbench"
+    },
+    {
+      "experiment": "docs/petrified/experiments/2026-10-29-points-capture-lmr-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 400,
+        "LTC": 400
+      },
+      "completed_utc": "2026-10-30T06:42:59.284175+00:00",
+      "source_tag": "candidates/points-capture-lmr-v1-openbench"
+    },
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-30-points-qsearch-see-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 250,
+        "LTC": 0
+      },
+      "completed_utc": "2026-10-30T12:44:49.906505+00:00",
+      "source_tag": "candidates/points-qsearch-see-v1-openbench"
+    }
+  ],
+  "distribution": {
+    "result": "PASS",
+    "checked_utc": "2026-10-30T09:54:32.650069+00:00",
+    "directory": "build\\points-combined-search-v1-distribution",
+    "archive": "build\\petrified-points-combined-search-v1-local.zip",
+    "archive_sha256": "686a82d815258e30c0b711e6e133bd00928733b846cd32ed9257f8e7084a4d80",
+    "archive_bytes": 30565732,
+    "manifest_sha256": "0d5353d529425f0dfa250c1738b7de6487b8b72b2717703185be1c393b0dba0d",
+    "artifact_count": 42,
+    "verification": "Every ZIP entry verified against the artifact manifest"
+  },
+  "fairyground": {
+    "profile": "Petrified-Stockfish + run4test PointsHead v1 + Combined Search v1 (PR #18)",
+    "url": "http://127.0.0.1:5185/public/index.html?variant=petrified",
+    "owner_requested_keep_running": true,
+    "threads": 1,
+    "hash_mb": 128
+  }
+}
