@@ -154,7 +154,12 @@ int main(int argc,char**argv) {
             Board b=board();b[SQ_A3]='.';b[SQ_H1]='.';
             if(b[n]!='.' || n==k)continue;
             b[n]='n';b[k]='K';
-            for(bool black:{false,true})check(fen(b,black,transform),-1,n%13==0);
+            for(bool black:{false,true}) {
+                // A player cannot finish its turn leaving its king in check.
+                // Position::set correctly rejects that opposite-turn FEN.
+                if(black && (attacks_bb(KNIGHT,Square(n)) & k)) continue;
+                check(fen(b,black,transform),-1,n%13==0);
+            }
         }
         // Near misses: an actual breach, a second invader, an unsupported own
         // piece, double pushes, an unsafe capture, promotion and insufficient lead.
