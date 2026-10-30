@@ -1,11 +1,12 @@
-VSTC for points-fortress-v1 / PR21 has closed at400 games188/186/26,
-+1.74+/-33.0 Elo95%,LOS54.1%,time0/0,200 complete reversed-color pairs.
-Raw INCONCLUSIVE_LIMIT is NEUTRAL_SCREEN for selection, never equivalence.
-Automatic promotion is ineligible; PR18 remains champion. STC is active and
-LTC pending in the SAME frozen panel. Continue without changing or relaunching
-inputs. Full final audits and proven process exits are still required; the
-lease is not released. All runtime identities and validation evidence below
-remain applicable.
+VSTC and STC for points-fortress-v1 / PR21 have closed at400 games each:
+VSTC188/186/26,+1.74+/-33.0 Elo95%,LOS54.1%,time0/0;
+STC172/200/28,-24.36+/-33.0 Elo95%,LOS7.3%,time1/0.
+Each has200 complete reversed-color pairs. Both raw INCONCLUSIVE_LIMIT
+results are NEUTRAL_SCREEN for selection, never equivalence or statistical loss.
+Automatic promotion is ineligible; PR18 remains champion. LTC is active in
+the SAME frozen panel. Continue without changing or relaunching inputs.
+Full final audits and proven process exits are still required; the lease is
+not released. All runtime identities and validation evidence below apply.
 
 points-fortress-v1 / PR21 is FROZEN and its sole panel is ACTIVE against PR18.
 Frozen engine07e845785e22e35d04ac06aa057c580a69cb0f80; candidate SHA256

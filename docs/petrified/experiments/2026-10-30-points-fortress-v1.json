@@ -426,9 +426,38 @@
       },
       "selection": "NEUTRAL_SCREEN",
       "audit": "Final panel audit pending"
+    },
+    "STC": {
+      "raw": {
+        "control": "STC",
+        "status": "INCONCLUSIVE_LIMIT",
+        "scores": [
+          172,
+          200,
+          28
+        ],
+        "time_losses": [
+          1,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          32,
+          13,
+          127,
+          7,
+          21
+        ],
+        "statistics": "Total: 400 W: 172 L: 200 D: 28 ELO: -24.36 +-33.0 (95%) LOS: 7.3%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 3903.906
+      },
+      "selection": "NEUTRAL_SCREEN",
+      "audit": "Final panel audit pending"
     }
   },
   "promotion_eligible": false,
-  "promotion_ineligibility_reason": "VSTC capped without displayed LOS boundary; no three-control WIN possible",
-  "last_panel_decision_utc": "2026-10-30T15:33:27.737699+00:00"
+  "promotion_ineligibility_reason": "VSTC and STC closed INCONCLUSIVE_LIMIT / NEUTRAL_SCREEN; three audited WIN results cannot be achieved. PR18 remains champion.",
+  "last_panel_decision_utc": "2026-10-30T16:37:03.235011+00:00"
 }
