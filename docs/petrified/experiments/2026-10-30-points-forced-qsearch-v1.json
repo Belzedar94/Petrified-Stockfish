@@ -2,7 +2,7 @@
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-forced-qsearch-v1",
   "date": "2026-10-30",
-  "status": "PANEL_RUNNING",
+  "status": "PANEL_RUNNING_WITH_RECORDER_RECOVERY",
   "branch": "exp/points-forced-qsearch-v1",
   "owner_authorization": "One next substantial Petrified-specific search idea from PR11 with the same validations and three-control panel. PR16 retained separately for future OpenBench.",
   "qualified_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
@@ -417,6 +417,14 @@
       "reason": "Client accepts duplicate castle aliases; EP fields include destination plus passed square; raw 4X fixture walls differ from canonical X repetition keys",
       "resolution": "Canonicalize castle aliases, identify the passed EP square and import the client own makeFen output before seeding repetition. No engine, binary, or network changes. Preserve failed probes and original adapter.",
       "artifacts": ".local\\points-forced-qsearch-v1\\validation-failure-003"
+    },
+    {
+      "id": "validation-failure-004",
+      "kind": "Runtime process recorder",
+      "reason": "Original recorder raised WinError5 while querying a historical PID and exited1; original match panel continued.",
+      "artifacts": ".local/points-forced-qsearch-v1/validation-failure-004",
+      "resolution": "Separate observer attached verified handles to the existing launcher and panel without restarting any match or changing437 frozen inputs.",
+      "remaining_gate": "Reconcile the explicit identity journal gap at final closure; preserve original audit failure and separately prove all owned exits."
     }
   ],
   "validation_state": ".local/points-forced-qsearch-v1/development-validation-003/state.json",
@@ -522,7 +530,7 @@
   },
   "panel": {
     "path": ".local/points-forced-qsearch-panel-001",
-    "status": "RUNNING",
+    "status": "RUNNING_WITH_RECORDER_RECOVERY",
     "identities": {
       "controller": {
         "pid": 28908,
@@ -544,17 +552,36 @@
     "session": 1002,
     "automation_id": "petrified-quiescencia-forzada-y-panel",
     "controller_state": ".local/points-forced-qsearch-v1/panel-controller-state.json",
-    "process_identities": ".local/points-forced-qsearch-v1/owned-process-identities.json"
+    "process_identities": ".local/points-forced-qsearch-v1/owned-process-identities.json",
+    "original_controller_exit_code": 1,
+    "recovery_session": 59820,
+    "recovery_observer": {
+      "pid": 43744,
+      "creation_filetime": 134378192134523954,
+      "creation_utc": "2026-10-30T07:33:33.452394+00:00"
+    },
+    "recovery_state": ".local/points-forced-qsearch-v1/recovery-001/state.json",
+    "monitor_script": ".local/points-forced-qsearch-v1/recovery-001/monitor_existing_panel.py",
+    "recording_interruption": {
+      "last_original_snapshot_utc": "2026-10-30T07:26:30.758606+00:00",
+      "resumed_utc": "2026-10-30T07:33:33.544265+00:00",
+      "limitation": "Processes that started and exited during the gap may lack exact creation identities; preserve and disclose the gap."
+    },
+    "recovery_files_sha256": {
+      ".local\\points-forced-qsearch-v1\\recovery-001\\supervise_existing_panel.py": "323bb07fe0999e38e7a03fa37eef27df8ae17b385b208711a59f3a4aa9850808",
+      ".local\\points-forced-qsearch-v1\\recovery-001\\monitor_existing_panel.py": "360ae0c1496f8e7096630eb58d91ab544aa593b3b8ec500015f6b9691832ab03",
+      ".local\\points-forced-qsearch-v1\\recovery-001\\observer-manifest.json": "0ad8b0c5f10a7343718c172fa116f634c75b38ec4b2202f1cafa71b8600cf7c9"
+    }
   },
   "build_processes_exited": 51,
   "observed_results": {
     "VSTC": {
       "control": "VSTC",
-      "status": "RUNNING",
+      "status": "INCONCLUSIVE_LIMIT",
       "scores": [
-        76,
-        64,
-        8
+        195,
+        185,
+        20
       ],
       "time_losses": [
         0,
@@ -563,28 +590,40 @@
       "minimum_games": 40,
       "maximum_games": 400,
       "pentanomial": [
+        27,
         10,
-        3,
-        41,
-        5,
-        15
+        121,
+        10,
+        32
       ],
-      "statistics": "Total: 148 W: 76 L: 64 D: 8 ELO: 28.23 +-55.0 (95%) LOS: 84.6%",
-      "completed_pairs": 74,
-      "elapsed_seconds": 325.312
+      "statistics": "Total: 400 W: 195 L: 185 D: 20 ELO: 8.69 +-33.2 (95%) LOS: 69.6%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 870.5
     },
     "STC": {
       "control": "STC",
-      "status": "PENDING",
+      "status": "RUNNING",
       "scores": [
-        0,
-        0,
-        0
+        19,
+        21,
+        4
       ],
       "time_losses": [
         0,
         0
-      ]
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        4,
+        2,
+        11,
+        2,
+        3
+      ],
+      "statistics": "Total: 44 W: 19 L: 21 D: 4 ELO: -15.80 +-100.6 (95%) LOS: 37.6%",
+      "completed_pairs": 22,
+      "elapsed_seconds": 476.547
     },
     "LTC": {
       "control": "LTC",
@@ -600,7 +639,7 @@
       ]
     }
   },
-  "observed_utc": "2026-10-30T07:24:52.254163+00:00",
+  "observed_utc": "2026-10-30T07:42:01.683589+00:00",
   "historical_failed_states": [
     ".local/points-forced-qsearch-v1/build-state.json",
     ".local/points-forced-qsearch-v1/development-validation-002/state.json"
@@ -621,5 +660,24 @@
     "panel_started": false,
     "path": ".local/points-forced-qsearch-v1/panel-readiness.json"
   },
-  "updated_utc": "2026-10-30T07:27:14.256345+00:00"
+  "updated_utc": "2026-10-30T07:42:00.728961+00:00",
+  "owner_adjudication": {
+    "control": "VSTC",
+    "selection": "NEUTRAL_SCREEN",
+    "raw_status": "INCONCLUSIVE_LIMIT",
+    "request": "Adjudica vstc como neutro y pasa a stc",
+    "recorded_utc": "2026-10-30T07:42:00.728961+00:00",
+    "scores": [
+      195,
+      185,
+      20
+    ],
+    "statistics": "Total: 400 W: 195 L: 185 D: 20 ELO: 8.69 +-33.2 (95%) LOS: 69.6%",
+    "time_losses": [
+      0,
+      0
+    ],
+    "meaning": "Owner neutral selection; continue STC. Not equivalence or statistical loss."
+  },
+  "promotion_eligibility": "NOT_ELIGIBLE: VSTC selected neutral; keep PR11 champion"
 }

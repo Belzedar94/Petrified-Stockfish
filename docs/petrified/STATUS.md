@@ -1,5 +1,23 @@
 ## Active panel: points-forced-qsearch-v1 / PR17 (2026-10-30)
 
+The owner adjudicated VSTC as neutral and requested STC, which is running.
+VSTC closed at400 games:195/185/20,+8.69+/-33.2 Elo95%,LOS69.6%,time0/0.
+The raw result remains INCONCLUSIVE_LIMIT; selection is NEUTRAL_SCREEN,
+not statistical equivalence. LTC remains pending and PR11 remains champion.
+
+The original process recorder exited1 after WinError5 at07:26:35UTC. The match
+panel continued without restart. Failure004, the original FAILED state and the
+last original identity journal are preserved. Recovery observer43744 in
+session59820 now holds verified handles to the same launcher40908 and panel35812.
+Use `.local/points-forced-qsearch-v1/recovery-001/monitor_existing_panel.py`.
+All437 original inputs,11 panel hashes and7 dependencies still match.
+The identity journal gap07:26:30.758606Z--07:33:33.544265Z must be reconciled at
+closure from pair process journals and strict exit evidence; processes entirely
+within it may lack exact CreationDate records. Do not claim that gap is audited.
+Original scripts stay unchanged. The final recovery audit must preserve the
+original auditor's FAILED-controller rejection while independently retaining
+all pair/statistics/referee/hash checks and proving all owned processes exited.
+
 One candidate from qualified PR11 tests forced-move quiescence in points. It
 suppresses stand-pat when exactly one legal move exists, including quiet moves.
 An inherited Syzygy display rewrite incorrectly labelled a points repetition
@@ -19,12 +37,12 @@ including the independent fixture representation correction. Historical FAILED
 states remain intact; development-validation-003 finished READY_FOR_PANEL_REVIEW.
 
 The one frozen40/400 VSTC/STC/LTC panel is RUNNING at
-`.local/points-forced-qsearch-panel-001`, session1002, with T1/Hash512/concurrency4.
+`.local/points-forced-qsearch-panel-001`, with T1/Hash512/concurrency4.
 Launch verified437 frozen inputs,11 panel hashes and7 dependencies. All51 prior
 development/build identities exited; memory preflight had9307918336 bytes free
 against7583301632 required. Follow-up and PID+CreationDate identities are in
 `.local/points-forced-qsearch-followup.json`; monitor with the candidate's
-`monitor_panel.py`. Never duplicate active processes or edit frozen inputs.
+recovery monitor above. Never duplicate active processes or edit frozen inputs.
 Final pair/referee/hash/process audits and conditional distribution/WASM/Python/
 Fairyground acceptance remain pending. PR11 stays champion. PR16 is retained
 separately as an open draft for future OpenBench; its neutral selection and all

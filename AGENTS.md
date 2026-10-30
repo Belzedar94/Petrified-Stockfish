@@ -1,4 +1,24 @@
-points-forced-qsearch-v1 / PR17 is frozen and its one local panel is RUNNING.
+points-forced-qsearch-v1 / PR17 is frozen; the same panel continues in STC.
+The owner adjudicated VSTC as neutral and requested STC. VSTC400:195/185/20,
++8.69+/-33.2 Elo95%,LOS69.6%,time0/0. Raw INCONCLUSIVE_LIMIT is retained;
+selection is NEUTRAL_SCREEN, not equivalence. PR11 remains champion.
+
+The original recorder failed with WinError5 at07:26:35UTC and exited1; its
+FAILED state and validation-failure-004 are preserved. The panel never stopped
+or restarted. Recovery observer43744/creation_filetime134378192134523954 is
+ACTIVE in session59820. Use recovery-001/monitor_existing_panel.py under
+.local/points-forced-qsearch-v1; read recovery-001/state.json and the followup.
+The observer holds verified handles to the original launcher and real panel.
+The journal gap07:26:30.758606Z--07:33:33.544265Z is explicit: processes entirely
+within it may lack exact creation identities. Reconcile pair processes.json
+records at closure without inventing CreationDates or accepting access errors.
+Keep original scripts and437 inputs unchanged. Final audit must preserve the
+original auditor's expected FAILED-controller rejection and add a separate
+recovery audit with all original pair/statistics/referee/hash checks, actual
+panel/launcher/observer exits and strict recorded-identity exit checks. Any
+bounded proof for unrecorded gap PIDs must be labelled separately. Do not release
+the lease while any owned process exit remains unproven.
+
 Engine source da87947ac2d5dd04fe39a9cbfa31cf70668ee6cd passed Debug/Release:
 22859 query positions,883968 legal queries,9338 exact state/undo positions and
 48 forced-search regressions per build. The independent client matched588 legal
@@ -12,11 +32,12 @@ is development-validation-003/state.json, READY_FOR_PANEL_REVIEW. Do not repeat
 completed builds or validations.
 
 Use .local/points-forced-qsearch-followup.json and this experiment record for
-the live state. Panel .local/points-forced-qsearch-panel-001, session1002:
-controller28908/creation_filetime134378183588639289,
+the live state. Panel .local/points-forced-qsearch-panel-001, original session1002
+exited1. Original controller28908/creation_filetime134378183588639289 exited;
 launcher40908/134378183593250977, real panel35812/134378183593495824.
 Never identify a process by PID alone or treat access errors as exit. Monitor
-with .local/points-forced-qsearch-v1/monitor_panel.py; do not duplicate or relaunch.
+with the recovery monitor above; do not duplicate or relaunch. The original
+monitor_panel.py remains intact and rejects the historical FAILED controller.
 The437-input execution manifest,11 panel hashes and7 dependencies are frozen.
 Preflight verified51 development/build identities exited and9307918336 bytes
 free against7583301632 required. The heartbeat is
