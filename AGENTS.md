@@ -1,17 +1,28 @@
-points-combined-search-v1 / PR18 is implemented and validated, awaiting memory.
-Source fb04cbca1a7584edd7a29fd5f0a19b28d551c217; candidate SHA256
+points-combined-search-v1 / PR18 is FROZEN and its one panel is ACTIVE.
+Source fb04cbca1a7584edd7a29fd5f0a19b28d551c217, candidate SHA256
 a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e, bench167330
-twice; champion PR11 bench177290 and common network unchanged; legacy179335.
-Debug/Release full reference/state/NNUE, all six component regressions, independent
-Chess.com audits and native interfaces passed. CI41026202999 has five green jobs.
-Build-state FAILED is preserved: the launcher omitted --cases, so independent
-capture input was missing. No engine or binary change; development-validation-002
-state reached READY_FOR_PANEL_REVIEW after export and remaining checks. Do not
-repeat completed builds. All54 build/validation/journal-check identities exited.
-Use .local/points-combined-search-followup.json and its experiment record.
-Panel is NOT STARTED: preflight requires7583301632 bytes free for concurrency4.
-Keep that gate unless the owner explicitly changes concurrency. Do not close
-other applications. T8 stays paused, Fairyground closed and PR11 champion.
+twice; PR11 rival177290, common network unchanged, legacy179335. Full combined
+Debug/Release/reference/NNUE/undo, component/independent referee checks and
+native interfaces passed. All five source CI jobs41026202999 passed. The missing
+--cases export failure is preserved; no rebuild or engine change followed it.
+build-state is FAILED historical; development-validation-002 is READY_FOR_PANEL_REVIEW.
+Do not repeat completed builds or validations.
+
+Panel .local/points-combined-search-panel-001, session30989. Controller30544
+creation_filetime134378231080708355, launcher7512/134378231082923894, real panel
+7472/134378231083163527. Never act on PID alone or treat access errors as exit.
+Use .local/points-combined-search-v1/monitor_panel.py and the followup. Do not
+duplicate, relaunch or edit active inputs. The execution manifest freezes235
+inputs; launch verified11 panel hashes and7 dependencies. Atomic process journal
+records actual Popen-handle identities and Python startup; short-lived nested
+child tests passed. Final audit requires audit_panel.py, audit_processes.py and
+exact pair_identity_audit.py reconciliation, all real exits, all original game/
+color/statistics/referee/hash checks. No release while an owned exit is unproven.
+The owner kept concurrency4 and freed memory:7670722560 bytes passed the
+7583301632-byte gate;54 build/validation identities exited. Same40/400, displayed
+LOS boundaries and pending-pair recheck; only three audited wins plus interfaces
+permit promotion. Read last_reported_counts/statuses before all-three-TC tables
+on closure, changed decision/failure or200 new games. PR11 stays champion.
 
 Current authorization (2026-10-30): one points-combined-search-v1 candidate
 from qualified PR11, combining the exact engine changes of PR9,PR12,PR13,PR15,

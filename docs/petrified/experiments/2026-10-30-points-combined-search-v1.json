@@ -2,7 +2,7 @@
   "schema": "petrified-combined-search-v1",
   "experiment": "points-combined-search-v1",
   "created_utc": "2026-10-30T08:23:52.354483+00:00",
-  "status": "VALIDATED_WAITING_MEMORY",
+  "status": "PANEL_RUNNING",
   "authorization": "Owner requests all retained OpenBench candidates combined on one branch against PR11, then explicitly adds PR17. One combined candidate, no OpenBench workload.",
   "base_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
   "base_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
@@ -66,7 +66,7 @@
   ],
   "panel": {
     "directory": ".local/points-combined-search-panel-001",
-    "status": "WAITING_MEMORY",
+    "status": "PANEL_RUNNING",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -83,16 +83,35 @@
     "preflight": {
       "correctness": "PASS",
       "source_ci": "PASS",
-      "checked_utc": "2026-10-30T08:34:39.336991+00:00",
-      "stage": "WAITING_MEMORY",
-      "free_bytes": 7316127744,
+      "checked_utc": "2026-10-30T08:38:02.058504+00:00",
+      "stage": "READY_FOR_PANEL",
+      "free_bytes": 7670722560,
       "required_bytes": 7583301632,
       "frozen_input_count": 233,
       "source_archive_files": 230,
       "build_process_identities_exited": 54,
       "T8_pause_verified": true,
       "panel_started": false
-    }
+    },
+    "identities": {
+      "controller": {
+        "pid": 30544,
+        "creation_filetime": 134378231080708355,
+        "creation_utc": "2026-10-30T08:38:28.070835+00:00"
+      },
+      "launcher": {
+        "pid": 7512,
+        "creation_filetime": 134378231082923894,
+        "creation_utc": "2026-10-30T08:38:28.292389+00:00"
+      },
+      "panel": {
+        "pid": 7472,
+        "creation_filetime": 134378231083163527,
+        "creation_utc": "2026-10-30T08:38:28.316353+00:00"
+      }
+    },
+    "session_id": 30989,
+    "launch_audit": ".local\\points-combined-search-v1\\panel-launch-audit.json"
   },
   "restrictions": {
     "openbench_workload": false,
@@ -168,5 +187,15 @@
     "build_validation_identities_exited": 54,
     "journal": ".local/points-combined-search-v1/process-journal",
     "old_build_instrumentation_preserved": ".local/points-combined-search-v1/instrumentation-build-sitecustomize.py"
+  },
+  "execution_manifest": {
+    "path": ".local\\points-combined-search-v1\\execution-manifest.json",
+    "sha256": "d117536c0b542186c8a77771a713981bc8e01bd2e32cca70ae87b4f5f607f132",
+    "frozen_inputs": 235
+  },
+  "followup": {
+    "path": ".local\\points-combined-search-followup.json",
+    "automation_id": "petrified-conglomerado-y-panel",
+    "status": "ACTIVE"
   }
 }
