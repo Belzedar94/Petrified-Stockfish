@@ -91,7 +91,10 @@ for(const row of fs.readFileSync(casesFile,'utf8').trim().split('\n').map(JSON.p
       for(let s=0;s<64;s++){
         const [x,y]=oracle.sq2ij(toChess(square(s))),actual=oracle.board()[x][y],wanted=board[s];
         if(wanted==='.')assert(!actual,'empty square');
-        else if(wanted==='*')assert(actual&&actual.player===4&&actual.piece==='X','wall');
+        // Imported walls are neutral X; a newly petrified capturer remains
+        // represented by its original piece/color with dead=true in the client.
+        else if(wanted==='*')assert(actual&&((actual.player===4&&actual.piece==='X')
+          || (actual.dead&&[0,2].includes(actual.player)&&'NBRQ'.includes(actual.piece))),'wall');
         else assert(actual&&!actual.dead&&actual.player===(owner(wanted)===0?0:2)&&actual.piece===wanted.toUpperCase(),'live piece');
       }
     }
