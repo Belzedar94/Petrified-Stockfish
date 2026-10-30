@@ -1,26 +1,25 @@
-PR16 VSTC is closed at400 games,181/199/20,-15.65+/-33.3 Elo95%,LOS17.8%,
-time losses0/0. Raw INCONCLUSIVE_LIMIT means NEUTRAL_SCREEN for selection,
-not equivalence. All200 pairs and72369 independent referee plies passed its
-closed-control audit. STC also closed at400 games,195/175/30,+17.39+/-32.8
-Elo95%,LOS85.1%, time losses0/0: raw INCONCLUSIVE_LIMIT, selection NEUTRAL_SCREEN.
-Its200 pairs and74988 independent referee plies passed the closed-control audit.
-LTC is running. Never rerun VSTC or STC; neither neutral result proves equivalence.
-PR11 stays champion: this candidate cannot meet the current three-WIN gate.
-Continue the authorized LTC control without retuning or another candidate.
+points-capture-lmr-v1 / PR16 is complete as REJECTED_NEUTRAL_SCREEN.
+VSTC400:181/199/20,-15.65+/-33.3 Elo95%,LOS17.8%; STC400:195/175/30,
++17.39+/-32.8,LOS85.1%; LTC400:189/181/30,+6.95+/-32.8,LOS66.1%.
+All time losses are0/0. Each raw INCONCLUSIVE_LIMIT is NEUTRAL_SCREEN for
+selection, not statistical equivalence or a statistical loss. PR11 stays champion.
+All1200 games/600 color-reversed pairs and232064 independent referee plies
+passed the final audit. The controller exited0 and all1832 recorded identities
+(1804 panel plus28 development/build) exited. An initial strict exit audit failed
+on access errors from reused protected PIDs; the failure is preserved. Successful
+Win32_Process CreationDate reads proved the remaining inaccessible identities
+were later unrelated processes. No access error was treated as exit, and no
+unrelated process was touched. Original audit scripts and201 frozen inputs stayed
+unchanged. The212-entry preservation bundle and6617-file raw panel inventory are
+recorded in docs/petrified/experiments/2026-10-29-points-capture-lmr-v1.json.
+Source e6faae706d6217342d580714045cb37699a6cb94, candidate151183, champion177290,
+legacy179335, validation evidence and both earlier adapter failures are preserved.
+The lease is released and the follow-up is deleted. Do not replay, train, tune or start another
+candidate automatically. No OpenBench workload is authorized. PR9/12/13/15 remain
+retained separately. T8 stays manually paused; Fairyground stays closed with its
+PR11 profile preserved. Do not contact Misere or touch AtomicDB or remote workers.
 
-points-capture-lmr-v1 / PR16 is frozen and running its one local panel from PR11.
-Engine source e6faae706d6217342d580714045cb37699a6cb94, candidate bench151183 twice,
-rival177290 and legacy179335 passed. Debug/Release transaction/state/NNUE checks,
-independent transaction and PV audits, native interfaces and all five source CI
-jobs40958404344 passed. Two preserved adapter failures were fixed without any
-engine, binary or network change; correction a541bfe9360c4ae34726b2f1501a2100c3bab8b1
-also passed five CI jobs40959917423. Original build-state FAILED is historical;
-development-validation-002/state.json records the successful continuation.
-All28 recorded build/validation identities exited before launch. The201-input
-manifest and .local/points-capture-lmr-followup.json fix exact hashes and real
-process identities. Use monitor_panel.py in that experiment folder; never alter,
-duplicate or relaunch active inputs. PR11 stays champion. No other candidate,
-training, tuning or OpenBench workload is authorized. No automatic next experiment.
+Earlier entries below are historical and do not authorize another experiment.
 
 The sole current successor is points-capture-lmr-v1, from qualified PR11 only.
 Replace the victim-only material term in capture LMR depth allocation with the

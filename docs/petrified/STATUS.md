@@ -1,17 +1,34 @@
-# Current: points-capture-lmr-v1 / PR16, from qualified PR11
+# PR16 complete: rejected by neutral screening; PR11 remains champion
 
-VSTC closed at400 games (181/199/20),-15.65+/-33.3 Elo95%,LOS17.8%, time
-losses0/0. Its raw INCONCLUSIVE_LIMIT is NEUTRAL_SCREEN for candidate selection,
-not statistical equivalence. All200 color-reversed pairs and72369 independent
-referee plies passed `.local/points-capture-lmr-v1/vstc-close-audit.json`, including
-statistics, clocks, frozen hashes and the active controller's exact identities.
-STC also closed at400 games (195/175/30),+17.39+/-32.8 Elo95%,LOS85.1%, time
-losses0/0. Its raw INCONCLUSIVE_LIMIT is likewise NEUTRAL_SCREEN, not equivalence.
-All200 STC pairs and74988 independent referee plies passed
-`.local/points-capture-lmr-v1/stc-close-audit.json`, including colors, openings,
-statistics, clocks, frozen hashes and exact active process identities.
-LTC is running; neither finished control will be repeated. PR11 remains champion
-and the current three-WIN promotion gate cannot be met by this candidate.
+points-capture-lmr-v1 completed its one frozen panel against qualified PR11.
+All three controls reached the declared cap without a displayed LOS boundary.
+The decision is REJECTED_NEUTRAL_SCREEN, not statistical equivalence or a
+statistical loss. No control will be replayed and no next candidate is authorized.
+
+| Control | Games | W/L/D | Elo 95% | LOS | Time losses C/O | Selection status |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 400 | 181/199/20 | -15.65 +/-33.3 | 17.8% | 0/0 | NEUTRAL_SCREEN |
+| STC 10+0.1 | 400 | 195/175/30 | +17.39 +/-32.8 | 85.1% | 0/0 | NEUTRAL_SCREEN |
+| LTC 30+0.3 | 400 | 189/181/30 | +6.95 +/-32.8 | 66.1% | 0/0 | NEUTRAL_SCREEN |
+
+Raw status is INCONCLUSIVE_LIMIT for each control. The final audit passed all
+1200 games/600 color-reversed pairs,232064 independent referee plies, colors,
+openings, clocks, statistics and201+11+7 frozen hashes. All6617 panel files are
+preserved with a hash inventory. The controller exited0; all1832 recorded process
+identities (1804 panel and28 development/build) exited. The initial strict exit
+audit failed on access errors for reused protected PIDs. That failure is preserved;
+successful Win32_Process CreationDate queries proved later unrelated identities.
+Access errors alone never counted as exit. The original auditor and all frozen
+inputs remain unchanged; the recovery wrapper and its negative identity checks
+are recorded in the experiment. No unrelated process was touched.
+
+The212-entry frozen-input and closure bundle is
+`.local/points-capture-lmr-v1/frozen-inputs-and-closure.zip`, SHA256
+`32000a61c7c9ecccb2638e3522c7bdffc90a1f52c69e5df8ec9ed2e782101139`.
+The lease is released and the follow-up automation is deleted. PR16 is closed
+unmerged. PR11 remains champion; distribution/WASM/Fairyground
+acceptance was not attempted for this rejected candidate. T8 remains manually
+paused and Fairyground closed with its PR11 profile preserved.
 
 The single successor assigns capture search depth using the immediate material
 and earned-points transaction, including the disappearing non-pawn mover and
@@ -33,14 +50,14 @@ replaying the preceding double push, and fixture walls are checked as neutral
 X pieces. Engine source, executable and network never changed. All28 recorded
 build/validation identities exited. The original source CI passed five jobs;
 the adapter correction is a separate commit a541bfe9360c4ae34726b2f1501a2100c3bab8b1,
-also green in all five jobs40959917423. The panel is active in
+also green in all five jobs40959917423. The completed panel is preserved in
 `.local/points-capture-lmr-panel-001`;201 frozen inputs,11 panel hashes and7
 dependencies passed launch audit. Memory preflight found9548095488 free bytes
 against7583301632 required. The experiment record and local followup contain
-the current panel state and exact PID+CreationDate identities.
-PR11 remains champion. One min40/max400 VSTC/STC/LTC panel only; promotion needs
-three audited wins and complete distribution/interface acceptance. T8 remains
-paused, Fairyground closed, no OpenBench/AtomicDB/remote-worker or Misere action.
+the final panel state and exact PID+CreationDate identities.
+PR11 remains champion. The one min40/max400 VSTC/STC/LTC panel is complete;
+it did not satisfy the three-WIN promotion gate. T8 remains paused, Fairyground
+closed, and no OpenBench/AtomicDB/remote-worker or Misere action is authorized.
 
 # PR15 retained for future OpenBench
 
@@ -48,7 +65,7 @@ PR15 points-exchange-see-v1 retained for future OpenBench by owner request.
 Local panel closed at VSTC400/STC288/LTC0; all688 paired games and133648 referee
 plies audited. Exact157-input bundle and source tag are recorded in its experiment.
 All1076 owned process identities exited; lease released. PR11 remains champion.
-One next search-specific successor from PR11 is authorized. No OpenBench load.
+Its one authorized successor was PR16, now complete above. No OpenBench load.
 
 # Historical setup: points-exchange-see-v1, one search hypothesis from PR11
 

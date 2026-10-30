@@ -114,7 +114,7 @@ An improved SEE could still lose strength through cost, unsuitable inherited
 thresholds or missing positional effects. Faster depth completion, fewer nodes
 or good tactical examples alone will not be treated as a strength result.
 
-## Next isolated hypothesis: points-capture-lmr-v1
+## Completed isolated hypothesis: points-capture-lmr-v1
 
 After the owner retained PR15 for future OpenBench, the next candidate starts
 again at PR11. It changes only capture depth allocation: the capture statScore
@@ -129,4 +129,15 @@ earned points after both live rooks disappear. The existing reduction/research
 logic decides depth from that value. Immediate terminal outcomes are still
 resolved on entering the child, regardless of its reduced depth. Future wall
 sacrifices can be undervalued; correctness of the transaction is not evidence
-of a strength improvement. One frozen candidate will test this hypothesis.
+of a strength improvement. One frozen candidate tested this hypothesis.
+
+The panel completed on2026-10-30 with400 games per control: VSTC181/199/20
+(-15.65+/-33.3 Elo95%,LOS17.8%), STC195/175/30 (+17.39+/-32.8,LOS85.1%) and
+LTC189/181/30 (+6.95+/-32.8,LOS66.1%), all time losses0/0. All three raw results
+are INCONCLUSIVE_LIMIT, classified NEUTRAL_SCREEN for selection. This rejects
+promotion without claiming equivalence or a statistical loss. All1200 games,
+600 complete pairs and232064 independent referee plies passed final audit;
+all1832 recorded development/build/panel identities exited. PR11 remains champion.
+The experiment record preserves the source, binary, network, audits, raw results,
+212-entry bundle and the resolved process-inspection failure. No retuning,
+replayed panel, automatic next candidate or OpenBench workload is authorized.

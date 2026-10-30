@@ -1,6 +1,6 @@
 {
   "experiment": "points-capture-lmr-v1",
-  "status": "PANEL_RUNNING",
+  "status": "REJECTED_NEUTRAL_SCREEN",
   "hypothesis": "Replace victim-only capture LMR value with the immediate live-material plus capture-points transaction, including disappearing non-pawn movers and pawn promotions. One depth-allocation policy only.",
   "base_qualified_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
   "base_qualified_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
@@ -16,7 +16,7 @@
     "limits": "Not a SEE, terminal proof, or wall/tempo valuation; reduced searches still use actual rules and terminal outcomes."
   },
   "panel": {
-    "status": "PANEL_RUNNING",
+    "status": "COMPLETED_AUDITED",
     "controls": {
       "VSTC": "2+0.02",
       "STC": "10+0.1",
@@ -131,6 +131,13 @@
       "path": ".local/points-capture-lmr-v1/validation-failure-002",
       "reason": "New fixture check expected a dead flag; neutral walls are player4 X",
       "resolution": "Check the independent neutral wall representation exactly"
+    },
+    {
+      "path": ".local/points-capture-lmr-v1/panel-audit-failure-001",
+      "reason": "Strict process exit audit failed with WinError5 on eight old identities reused by protected unrelated processes",
+      "resolution": "Seven remaining inaccessible identities proved reused by successful later Win32_Process CreationDate reads; one initial failed identity was subsequently absent. No access error was treated as exit.",
+      "recovery_script": ".local/points-capture-lmr-v1/audit_panel_cim_recovery.py",
+      "original_audit_scripts_and_frozen_inputs": "Unchanged"
     }
   ],
   "candidate_unchanged_during_repairs": true,
@@ -189,11 +196,11 @@
     },
     "LTC": {
       "control": "LTC",
-      "status": "RUNNING",
+      "status": "INCONCLUSIVE_LIMIT",
       "scores": [
-        3,
-        4,
-        1
+        189,
+        181,
+        30
       ],
       "time_losses": [
         0,
@@ -202,25 +209,25 @@
       "minimum_games": 40,
       "maximum_games": 400,
       "pentanomial": [
-        1,
-        1,
-        1,
-        0,
-        1
+        25,
+        15,
+        117,
+        13,
+        30
       ],
-      "statistics": "Total: 8 W: 3 L: 4 D: 1 ELO: -43.66 +-275.0 (95%) LOS: 35.1%",
-      "completed_pairs": 4,
-      "elapsed_seconds": 344.875
+      "statistics": "Total: 400 W: 189 L: 181 D: 30 ELO: 6.95 +-32.8 (95%) LOS: 66.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 11613.734
     }
   },
-  "observed_utc": "2026-10-29T23:08:26.747628+00:00",
+  "observed_utc": "2026-10-30T02:21:00.532830+00:00",
   "control_classification": {
     "VSTC": {
       "raw_status": "INCONCLUSIVE_LIMIT",
       "selection_status": "NEUTRAL_SCREEN",
       "equivalence_claim": false,
-      "audit": ".local\\points-capture-lmr-v1\\vstc-close-audit.json",
-      "audit_sha256": "557d4bbcd7afdf60fb4059682b577b5c5e26b5a576b5c704e751047e60dc2554",
+      "audit": ".local\\points-capture-lmr-v1\\panel-audit.json",
+      "audit_sha256": "8f37be1803e7971046168e4899c2df1e666cd452a72d6333ff2b3d95afa77e1e",
       "games": 400,
       "pairs": 200,
       "independent_plies": 72369
@@ -229,17 +236,155 @@
       "raw_status": "INCONCLUSIVE_LIMIT",
       "selection_status": "NEUTRAL_SCREEN",
       "equivalence_claim": false,
-      "audit": ".local\\points-capture-lmr-v1\\stc-close-audit.json",
-      "audit_sha256": "3c732c4ceb5d64f28718d03342813abd633fd90944b5f86d23ee37a605cb10ba",
+      "audit": ".local\\points-capture-lmr-v1\\panel-audit.json",
+      "audit_sha256": "8f37be1803e7971046168e4899c2df1e666cd452a72d6333ff2b3d95afa77e1e",
       "games": 400,
       "pairs": 200,
       "independent_plies": 74988
+    },
+    "LTC": {
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection_status": "NEUTRAL_SCREEN",
+      "equivalence_claim": false,
+      "audit": ".local\\points-capture-lmr-v1\\panel-audit.json",
+      "audit_sha256": "8f37be1803e7971046168e4899c2df1e666cd452a72d6333ff2b3d95afa77e1e",
+      "games": 400,
+      "pairs": 200,
+      "independent_plies": 84707
     }
   },
   "promotion_gate": {
     "three_WIN_possible": false,
-    "reason": "VSTC reached400 without a winning boundary",
+    "reason": "All three controls reached400 without a winning boundary",
     "champion_unchanged": "Qualified PR11",
-    "remaining_controls": "Continue LTC under the existing authorization; no retuning or replay of VSTC/STC"
+    "remaining_controls": "None; all three controls are complete and must not be replayed",
+    "decision": "REJECTED_NEUTRAL_SCREEN",
+    "distribution_acceptance": "NOT_RUN_SCREEN_REJECTED"
+  },
+  "raw_results": [
+    {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        181,
+        199,
+        20
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        34,
+        7,
+        125,
+        11,
+        23
+      ],
+      "statistics": "Total: 400 W: 181 L: 199 D: 20 ELO: -15.65 +-33.3 (95%) LOS: 17.8%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 874.219
+    },
+    {
+      "control": "STC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        195,
+        175,
+        30
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        21,
+        10,
+        126,
+        14,
+        29
+      ],
+      "statistics": "Total: 400 W: 195 L: 175 D: 30 ELO: 17.39 +-32.8 (95%) LOS: 85.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 3747.906
+    },
+    {
+      "control": "LTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        189,
+        181,
+        30
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        25,
+        15,
+        117,
+        13,
+        30
+      ],
+      "statistics": "Total: 400 W: 189 L: 181 D: 30 ELO: 6.95 +-32.8 (95%) LOS: 66.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 11613.734
+    }
+  ],
+  "closure": {
+    "result": "REJECTED_NEUTRAL_SCREEN",
+    "decided_utc": "2026-10-30T02:23:45.777929+00:00",
+    "basis": "All three controls reached the predeclared400-game cap without a displayed LOS boundary",
+    "statistical_equivalence": false,
+    "statistical_loss": false,
+    "promotion": "REJECTED",
+    "champion": "Qualified PR11 remains unchanged",
+    "distribution_acceptance": "NOT_RUN_SCREEN_REJECTED",
+    "controller_session": 5638,
+    "controller_session_exit_code": 0,
+    "audit_session": 11367,
+    "audit_session_exit_code": 0,
+    "panel_audit": ".local\\points-capture-lmr-v1\\panel-audit.json",
+    "panel_audit_sha256": "8f37be1803e7971046168e4899c2df1e666cd452a72d6333ff2b3d95afa77e1e",
+    "process_exit_audit": ".local\\points-capture-lmr-v1\\all-owned-process-exit-audit.json",
+    "process_exit_audit_sha256": "71749e06079fa86967f6515421b78f7e1673a8339a319e7aa88c4fa4e291c0d7",
+    "process_identities_exited": 1832,
+    "panel_identities_exited": 1804,
+    "build_validation_identities_exited": 28,
+    "access_failure_preserved": ".local/points-capture-lmr-v1/panel-audit-failure-001",
+    "access_failure_resolution": "Seven remaining inaccessible identities proved reused by successful later Win32_Process CreationDate reads; one initial failed identity was subsequently absent. No access error was treated as exit.",
+    "process_cim_recovery": ".local\\points-capture-lmr-v1\\process-cim-recovery.json",
+    "process_cim_recovery_sha256": "eee5e0579354fda5ba6e9fe7c19539d36eb7cc8da8117a173bc9655d3e980c33",
+    "games": 1200,
+    "complete_pairs": 600,
+    "independent_plies": 232064,
+    "incomplete_pairs": 0,
+    "preservation_manifest": ".local\\points-capture-lmr-v1\\preservation-manifest.json",
+    "preservation_manifest_sha256": "e925cd6633915471958bba27c0a3a9317a6ea797d838c195a8b5b079db968c80",
+    "bundle": {
+      "bundle": ".local\\points-capture-lmr-v1\\frozen-inputs-and-closure.zip",
+      "sha256": "32000a61c7c9ecccb2638e3522c7bdffc90a1f52c69e5df8ec9ed2e782101139",
+      "bytes": 63066221,
+      "entries": 212
+    },
+    "T8_pause_verified": true,
+    "Fairyground": "Closed; PR11 profile preserved",
+    "next_experiment_authorized": false,
+    "OpenBench_authorized": false,
+    "released": true,
+    "released_utc": "2026-10-30T02:23:45.777929+00:00",
+    "followup_deletion": "DELETED",
+    "followup_deleted_utc": "2026-10-30T02:27:01.310519+00:00",
+    "pull_request_state": "CLOSED_UNMERGED",
+    "pull_request_closed_utc": "2026-10-30T02:26:10Z",
+    "remote_receipt": ".local\\points-capture-lmr-v1\\remote-closure-receipt.json",
+    "remote_receipt_sha256": "11aaa322fcb4cae2e6fbf9e31ea07d1f7d9094778f8cfec759c7e883a313e583"
   }
 }
