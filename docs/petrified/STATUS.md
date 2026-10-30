@@ -1,3 +1,50 @@
+points-quiet-threats-v1 / PR22 is FROZEN and its sole panel is ACTIVE vs PR18.
+Source93f0535d9248a7e2aa34fbdc3d5799214f65c87d; candidate SHA256
+756c851da56dd405a10fcbed6eaf631809c1541e46c85b6492c31fcb1ba42700.
+Points bench173623 twice; PR18 rival167330; common NNUE unchanged; legacy179335.
+Only quiet-move threat ordering changes: positive immediate capture economics,
+fixed existing weight20. Victim P/N/B/R/Q uses P/PNB/PNBR/PNBR/PNBRQ attackers.
+These are pseudo-attack hints, not legal exchange proofs. No rules/state/network,
+capture ordering, other coefficients or PR19/20/21 engine changes; no tuning/training.
+
+Full Debug/Release state/NNUE/undo/null and inherited references passed:1318563
+legal queries,9338 undo states,2283 nulls,81210 reconstructions per build.
+New tests per build:3870 positions,686046 maps,100235 quiet moves,110471 children.
+Independent Chess.com passed158 positions/948 maps and50 capture transactions.
+Inherited exchange/capture/forced PVs, native UCI/CECP and32 ordinary searches/238
+independent plies passed. Five CI jobs41096983829 passed at2bdee5752e0349743dbc2d7d498847220c6cd76f,
+src identical to frozen source. Validation failures001/002 preserve an expected
+bishop-point-table error and overlay path normalization rejected before child launch.
+Original CI41096512220 and build-state remain FAILED. development-validation-002
+is FAILED; development-validation-003 is READY_FOR_PANEL_REVIEW. The preflight
+raw Git/test byte check also rejected CRLF/LF-only differences; its original script
+and failure remain preserved. preflight_panel_002.py checks exact local hashes and
+explicitly proves only newline conversion against the CI test blob. Engine/binary
+never changed.59 development identities exited with retained handles and strict
+PID+CreationDate checks. Do not rebuild or repeat completed validation.
+
+Panel .local/points-quiet-threats-panel-001; session38404. Controller17588/
+creation_filetime134378542902883804; launcher420/134378542905244334; real panel
+15824/134378542905473165. Verify PID+CreationDate, never PID alone or access failure
+as exit. Use .local/points-quiet-threats-v1/monitor_panel.py and followup; never
+duplicate/restart or alter active inputs.268 frozen inputs,11 panel hashes and7
+dependencies passed. RAM9954795520 bytes exceeded7583301632; concurrency4 fixed.
+Atomic Popen-handle/Python-start journal and fast-child test passed. Full exact
+pair identity reconciliation and real exits are required at closure.
+
+Same40/400 VSTC2+0.02/STC10+0.1/LTC30+0.3, T1/Hash512. Displayed LOS100.0%/0.0%
+boundaries require draining pairs and rechecking. Cap without boundary is
+NEUTRAL_SCREEN for selection, never equivalence. Only three audited wins plus
+distribution/interfaces permit automatic promotion. PR18 remains champion.
+Lease stays owned until final decision and proven exits. Report all-three-TC
+tables on start/closure, changed decision/failure or200 new games; read counters.
+Follow-up petrified-amenazas-rentables-y-panel. No automatic further candidate.
+Both Fairyground profiles closed/preserved; T8 paused. No OpenBench workload,
+AtomicDB, remote workers, other applications or Misere activity. PR21 parked
+outside OB queue; PR9/12/13/15/16/19/20 retained separately; PR17 excluded.
+
+The entries below preserve prior stages and cannot restart closed panels.
+
 The owner authorized points-quiet-threats-v1 from champion PR18 on 2026-10-30,
 after parking PR21. Replace only quiet ordering threat sets with strictly positive
 immediate Petrified capture transactions. Existing coefficient20 and victim values
