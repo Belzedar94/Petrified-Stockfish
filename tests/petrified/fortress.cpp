@@ -16,6 +16,7 @@
 #include <random>
 #include <sstream>
 using namespace Stockfish;
+using Attacks::attacks_bb;
 static unsigned checked=0, accepted=0, transitions=0, nnue=0, emitted=0;
 static std::ofstream output;
 static std::unique_ptr<Eval::NNUE::Network> network;

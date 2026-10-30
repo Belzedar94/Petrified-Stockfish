@@ -6,6 +6,7 @@
 #include "position.h"
 
 namespace Stockfish::Petrified {
+using Attacks::attacks_bb;
 namespace {
 
 // Eight-neighbour reachability deliberately overestimates every king/slider.
