@@ -1,12 +1,34 @@
-## Active request: points-forced-qsearch-v1 (2026-10-30)
+## Active panel: points-forced-qsearch-v1 / PR17 (2026-10-30)
 
 One candidate from qualified PR11 tests forced-move quiescence in points. It
 suppresses stand-pat when exactly one legal move exists, including quiet moves.
 An inherited Syzygy display rewrite incorrectly labelled a points repetition
 win as a draw; the initial failure is preserved. Points now bypass that display
 rewrite. A CI step without external weights is also preserved and corrected.
-Correctness, native interfaces, source CI and the frozen40/400 gate remain pending. PR11 stays champion. PR16 is retained separately as an open
-draft for future OpenBench; its neutral selection and all artifacts are preserved.
+Correctness, native UCI/CECP and all five source CI jobs passed. Each Debug/Release
+build checked22859 query positions,883968 legal queries,9338 state/undo positions
+with exact NNUE and48 forced-search regressions. The independent client matched
+588 legal lists and288 forced terminal PV plies;32 other searched positions
+passed with263 independent plies. Points bench177290 reproduced twice and both
+legacy benches remain179335. These are correctness checks, not Elo evidence.
+
+Engine source is da87947ac2d5dd04fe39a9cbfa31cf70668ee6cd; adapter-only correction
+9926e0f137179582fea8e9c9fb715c6dbe683598 also passed five CI jobs and leaves the
+engine/binary/network unchanged. Three development failures are preserved,
+including the independent fixture representation correction. Historical FAILED
+states remain intact; development-validation-003 finished READY_FOR_PANEL_REVIEW.
+
+The one frozen40/400 VSTC/STC/LTC panel is RUNNING at
+`.local/points-forced-qsearch-panel-001`, session1002, with T1/Hash512/concurrency4.
+Launch verified437 frozen inputs,11 panel hashes and7 dependencies. All51 prior
+development/build identities exited; memory preflight had9307918336 bytes free
+against7583301632 required. Follow-up and PID+CreationDate identities are in
+`.local/points-forced-qsearch-followup.json`; monitor with the candidate's
+`monitor_panel.py`. Never duplicate active processes or edit frozen inputs.
+Final pair/referee/hash/process audits and conditional distribution/WASM/Python/
+Fairyground acceptance remain pending. PR11 stays champion. PR16 is retained
+separately as an open draft for future OpenBench; its neutral selection and all
+artifacts are preserved.
 No OpenBench workload, training, T8 restart or other-worker action is authorized.
 See `experiments/2026-10-30-points-forced-qsearch-v1.json`.
 

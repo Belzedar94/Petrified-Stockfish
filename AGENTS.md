@@ -1,3 +1,34 @@
+points-forced-qsearch-v1 / PR17 is frozen and its one local panel is RUNNING.
+Engine source da87947ac2d5dd04fe39a9cbfa31cf70668ee6cd passed Debug/Release:
+22859 query positions,883968 legal queries,9338 exact state/undo positions and
+48 forced-search regressions per build. The independent client matched588 legal
+lists and288 forced terminal PV plies; native UCI/CECP and32 other searches with
+263 independent plies passed. Points bench177290 reproduced twice; legacy179335.
+All five source CI jobs41018222520 and five adapter CI jobs41018896165 passed.
+Adapter-only commit9926e0f137179582fea8e9c9fb715c6dbe683598 did not change the
+engine, binary or network. Three development failures are preserved; build-state
+and development-validation-002/state remain FAILED historical. Final validation
+is development-validation-003/state.json, READY_FOR_PANEL_REVIEW. Do not repeat
+completed builds or validations.
+
+Use .local/points-forced-qsearch-followup.json and this experiment record for
+the live state. Panel .local/points-forced-qsearch-panel-001, session1002:
+controller28908/creation_filetime134378183588639289,
+launcher40908/134378183593250977, real panel35812/134378183593495824.
+Never identify a process by PID alone or treat access errors as exit. Monitor
+with .local/points-forced-qsearch-v1/monitor_panel.py; do not duplicate or relaunch.
+The437-input execution manifest,11 panel hashes and7 dependencies are frozen.
+Preflight verified51 development/build identities exited and9307918336 bytes
+free against7583301632 required. The heartbeat is
+petrified-quiescencia-forzada-y-panel. Read last_reported_counts/statuses before
+reporting all three TCs on closure, decision/failure or200 additional games.
+Keep the40/400 displayed-LOS/pending-pair gates. Final closure requires the
+actual controller exit, this candidate's audit_panel.py and strict identity
+audit. Only three audited wins plus distribution/interfaces allow promotion.
+PR11 stays champion. T8 stays paused; Fairyground remains closed with PR11
+preserved. No training, tuning, OpenBench workload, other worker, AtomicDB or
+Misere action. No automatic successor after this one candidate.
+
 The sole current successor authorized on 2026-10-30 is points-forced-qsearch-v1.
 From qualified PR11 only, suppress quiescence stand-pat when the points player
 has exactly one legal move and search that move, including quiet continuations.
