@@ -1,3 +1,17 @@
+On2026-10-30 the owner retained PR16 points-capture-lmr-v1 for future OpenBench.
+Keep it open as a draft, preserving its neutral selection result, all1200 games,
+600 pairs,232064 independent plies,212-entry bundle and1832 exited identities.
+The source tag is candidates/points-capture-lmr-v1-openbench. This is retention,
+not a statistical win or promotion. No OpenBench workload is authorized.
+
+The same owner request authorizes one next substantial Petrified-specific search
+experiment from qualified PR11 only, retaining the validation and40/400 three-TC
+gates. Do not include retained PR9/12/13/15/16 or rejected PR14 engine changes.
+No training or post-result tuning; T8 stays paused and Fairyground closed.
+Do not contact Misere or touch AtomicDB, OpenBench or remote workers.
+
+The entries below preserve the preceding closure and earlier authorizations.
+
 points-capture-lmr-v1 / PR16 is complete as REJECTED_NEUTRAL_SCREEN.
 VSTC400:181/199/20,-15.65+/-33.3 Elo95%,LOS17.8%; STC400:195/175/30,
 +17.39+/-32.8,LOS85.1%; LTC400:189/181/30,+6.95+/-32.8,LOS66.1%.

@@ -1,6 +1,6 @@
 {
   "experiment": "points-capture-lmr-v1",
-  "status": "REJECTED_NEUTRAL_SCREEN",
+  "status": "RETAINED_FOR_FUTURE_OPENBENCH",
   "hypothesis": "Replace victim-only capture LMR value with the immediate live-material plus capture-points transaction, including disappearing non-pawn movers and pawn promotions. One depth-allocation policy only.",
   "base_qualified_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
   "base_qualified_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
@@ -386,5 +386,25 @@
     "pull_request_closed_utc": "2026-10-30T02:26:10Z",
     "remote_receipt": ".local\\points-capture-lmr-v1\\remote-closure-receipt.json",
     "remote_receipt_sha256": "11aaa322fcb4cae2e6fbf9e31ea07d1f7d9094778f8cfec759c7e883a313e583"
+  },
+  "retention": {
+    "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+    "requested_by": "owner",
+    "requested_utc": "2026-10-30T06:42:59.284175+00:00",
+    "raw_selection_result": "REJECTED_NEUTRAL_SCREEN",
+    "promotion": false,
+    "statistical_equivalence": false,
+    "source_commit": "e6faae706d6217342d580714045cb37699a6cb94",
+    "source_tag": "candidates/points-capture-lmr-v1-openbench",
+    "harness_correction_commit": "a541bfe9360c4ae34726b2f1501a2100c3bab8b1",
+    "bundle": {
+      "bundle": ".local\\points-capture-lmr-v1\\frozen-inputs-and-closure.zip",
+      "sha256": "32000a61c7c9ecccb2638e3522c7bdffc90a1f52c69e5df8ec9ed2e782101139",
+      "bytes": 63066221,
+      "entries": 212
+    },
+    "all_process_identities_exited": 1832,
+    "openbench_workload_authorized": false,
+    "pull_request_policy": "Keep PR16 open as draft; preserve candidate independently from the next PR11-based experiment"
   }
 }

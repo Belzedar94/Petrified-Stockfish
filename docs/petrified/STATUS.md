@@ -1,3 +1,14 @@
+# PR16 retained for future OpenBench; one new PR11-based search idea authorized
+
+On2026-10-30 the owner retained PR16 as an open draft for future OpenBench.
+Its raw three-control results and REJECTED_NEUTRAL_SCREEN selection are preserved
+below; retention is not a statistical win or promotion. The212-entry bundle and
+source tag `candidates/points-capture-lmr-v1-openbench` identify the exact candidate.
+All1832 owned identities exited; the lease remains released and follow-up deleted.
+The owner authorized one new search-specific candidate from qualified PR11 only.
+No retained experiment code or rejected PR14 changes are included. No OpenBench
+workload is authorized; T8 stays paused and Fairyground closed.
+
 # PR16 complete: rejected by neutral screening; PR11 remains champion
 
 points-capture-lmr-v1 completed its one frozen panel against qualified PR11.

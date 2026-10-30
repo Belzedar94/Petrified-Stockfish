@@ -132,17 +132,16 @@
   },
   "promoted_utc": "2026-10-29T15:04:44.281140+00:00",
   "latest_candidate_evaluation": {
-    "experiment": "docs\\petrified\\experiments\\2026-10-29-points-exchange-see-v1.json",
+    "experiment": "docs/petrified/experiments/2026-10-29-points-capture-lmr-v1.json",
     "status": "RETAINED_FOR_FUTURE_OPENBENCH",
-    "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
     "champion_unchanged": true,
     "games": {
       "VSTC": 400,
-      "STC": 288,
-      "LTC": 0
+      "STC": 400,
+      "LTC": 400
     },
-    "completed_utc": "2026-10-29T21:26:17.434743+00:00",
-    "source_tag": "candidates/points-exchange-see-v1-openbench"
+    "completed_utc": "2026-10-30T06:42:59.284175+00:00",
+    "source_tag": "candidates/points-capture-lmr-v1-openbench"
   },
   "candidate_evaluation_history": [
     {
@@ -233,6 +232,18 @@
       },
       "completed_utc": "2026-10-29T21:26:17.434743+00:00",
       "source_tag": "candidates/points-exchange-see-v1-openbench"
+    },
+    {
+      "experiment": "docs/petrified/experiments/2026-10-29-points-capture-lmr-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 400,
+        "LTC": 400
+      },
+      "completed_utc": "2026-10-30T06:42:59.284175+00:00",
+      "source_tag": "candidates/points-capture-lmr-v1-openbench"
     }
   ],
   "distribution": {
