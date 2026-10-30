@@ -1,0 +1,521 @@
+{
+  "schema": "petrified-qsearch-see-v1",
+  "experiment": "points-qsearch-see-v1",
+  "created_utc": "2026-10-30T11:06:50.307220+00:00",
+  "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+  "authorization": "Owner requested one next substantial Petrified-specific search candidate from PR18, with the same validations and VSTC/STC/LTC panel; Wakwak documentation and public OB are inspiration only.",
+  "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+  "base_ref": "2a380a8b9a33eee0344cf2fcdb4909ee31ed4b62",
+  "branch": "exp/points-qsearch-see-v1",
+  "hypothesis": "Use the existing exact legal local material-plus-earned-points SEE to omit strictly negative voluntary captures in points quiescence. Protect check evasions, checks, promotions, unique legal moves, loss-valued nodes, and after the real move any terminal settlement, useful resignation claim, bare-king ending or unique legal reply.",
+  "threshold": 0,
+  "threshold_meaning": "Break-even in the inherited material plus 100 per earned point scale; fixed before compilation and strength results.",
+  "risk": "SEE omits positional wall value and multi-square/quiet tactics. This is a selective-search hypothesis, never a proven upper bound. Guards preserve immediate settlement and forcing exceptions; only the strength panel can select it.",
+  "unchanged": [
+    "All other PR18 search policies and coefficients",
+    "Move ordering and histories",
+    "Rules and scoring",
+    "State and undo",
+    "NNUE and network bytes",
+    "Legacy petrified behavior"
+  ],
+  "champion": {
+    "pr": 18,
+    "selection": "PROMOTED_MANUAL_OWNER; not three statistical wins",
+    "binary_sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+    "bench": 167330
+  },
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
+  "validation_required": [
+    "Debug/Release full legality/state/undo/null/NNUE references from PR18",
+    "Full make/undo exchange minimax and threshold parity",
+    "Capture transaction and unique legal query references",
+    "New hand fixtures and full-reference pruning guard checks in both colors",
+    "Independent Chess.com parent/child legal moves, settlement, bare-king and resignation guards",
+    "Independent local exchange audit, with terminal exclusions explicitly separate from terminal guard audit",
+    "Forced terminal PVs, points/mates, independent T1/T2 PVs, native UCI/CECP",
+    "Candidate points bench twice; champion167330 and legacy179335",
+    "All five source CI jobs"
+  ],
+  "research": {
+    "wakwak_source": "a5b3ee8038429ba6d88f82a35173a0f39e8794af",
+    "urls": [
+      "https://github.com/Silverrzz/wakwak/blob/main/docs/README.md",
+      "https://github.com/Silverrzz/wakwak/blob/main/docs/duck-tech/null-move-reductions.md",
+      "https://github.com/Silverrzz/wakwak/blob/main/docs/duck-tech/king-safety.md",
+      "https://github.com/Silverrzz/wakwak/blob/main/docs/duck-tech/duck-refutations.md",
+      "https://openbench.nocturn9x.space/"
+    ],
+    "finding": "Variant-specific pruning must respect obstacle geometry and terminal tactics. Duck placement/refutation rules are not applicable literally to permanent Petrified walls. Wakwak reports failed null pruning and a reduction alternative; PR18 already has verified null pruning, which remains unchanged.",
+    "public_ob": "Read-only HTTP200. Test9102 (silly-see-idea) finished at882 games271/331/280 with LLR-1.20; tests9063/9064 finished without passing at the observed snapshot. Strength-option comparisons are not evidence for a Petrified search gain.",
+    "implementation": "Independent implementation from Petrified rules and existing local SEE; no Wakwak source code copied."
+  },
+  "panel": {
+    "directory": ".local/points-qsearch-see-panel-001",
+    "status": "MANUALLY_CLOSED_AUDITED",
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "threads": 1,
+    "hash_mb": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0% or0.0%, drain pending pairs and recheck; continue within400 if boundary lost.",
+    "selection": "All three controls unless delegated early manual neutral/loss rejection. Cap without boundary means NEUTRAL_SCREEN, not equivalence. Only three audited wins plus distribution/interfaces allow automatic promotion; PR18 manual exception is not inherited.",
+    "referee": "Hash-pinned public Chess.com client, independent of both engines"
+  },
+  "restrictions": {
+    "training": false,
+    "post_result_tuning": false,
+    "further_candidate": false,
+    "openbench_workload": false,
+    "T8": "manually paused",
+    "Fairyground": "Owner authorized shutdown on2026-10-30 to free RAM; server and console exited0, PR18 profile preserved",
+    "AtomicDB": false,
+    "remote_workers": false,
+    "Misere_contact": false
+  },
+  "runtime_released": true,
+  "source_commit": "d7cd27e0a0497a93b1632e69a890a561d7b79d18",
+  "pr": "https://github.com/Belzedar94/Petrified-Stockfish/pull/19",
+  "candidate_sha256": "ae265f5f2dc65097735b62418470efb9515793421e7d8b32d67027d94ad26a9b",
+  "development_failures": [
+    {
+      "stage": "DEBUG_QSEARCH_SEE",
+      "error": "fixture FEN rejected; original queen d4 attacks black king h8 before White turn",
+      "ci_run": 41045914086,
+      "source_commit": "d7cd27e0a0497a93b1632e69a890a561d7b79d18",
+      "controller_session": 8036,
+      "controller_actual_exit_code": 1,
+      "engine_and_binary_unchanged": true,
+      "correction": "Move the fixture black king to h7 and its rook to h8; test data only. Preserve and do not repeat completed engine builds/reference validations."
+    },
+    {
+      "stage": "DEBUG_QSEARCH_SEE_V002",
+      "error": "Discovered-check fixture used a queen on the checking file, already checking the opposing king",
+      "correction": "Use a knight vacating a rook ray with a negative capture instead; fixture only",
+      "actual_controller_exit_code": 1,
+      "engine_unchanged": true
+    },
+    {
+      "stage": "INDEPENDENT_QSEARCH_GUARDS",
+      "case": 12,
+      "error": "Client stalemate settlement marks stalemated pieces dead, unlike local pre-liquidation board; bare-king comparison is inapplicable after terminal settlement",
+      "correction": "Always compare terminal status/result and require terminal branches protected. Compare bare kings/legal replies/resignation only on nonterminal child states. Keep terminal cases in guard coverage.",
+      "cpp_checks_per_build": 8960,
+      "engine_unchanged": true,
+      "actual_controller_exit_code": 1
+    },
+    {
+      "stage": "INDEPENDENT_CAPTURE",
+      "error": "Inherited launcher omitted --cases; C++ tests passed but no export existed, independent reader rejected ENOENT",
+      "correction": "Run missing export with --cases using existing Release test binary, then resume pending independent/interface/bench checks only",
+      "engine_unchanged": true,
+      "actual_controller_exit_code": 1
+    }
+  ],
+  "validation_revision": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+  "validation_report": ".local\\points-qsearch-see-v1\\validation-report.json",
+  "ci": {
+    "source_commit": "d7cd27e0a0497a93b1632e69a890a561d7b79d18",
+    "checked_revision": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+    "run_id": 41047109107,
+    "conclusion": "success",
+    "jobs_passed": 5,
+    "checks": [
+      {
+        "id": 124033776606,
+        "name": "rules (windows-latest, Release)",
+        "head_sha": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/41047109107/job/124033776606"
+      },
+      {
+        "id": 124033776899,
+        "name": "rules (ubuntu-latest, Release)",
+        "head_sha": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/41047109107/job/124033776899"
+      },
+      {
+        "id": 124033776985,
+        "name": "sanitizers",
+        "head_sha": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/41047109107/job/124033776985"
+      },
+      {
+        "id": 124033776999,
+        "name": "rules (ubuntu-latest, Debug)",
+        "head_sha": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/41047109107/job/124033776999"
+      },
+      {
+        "id": 124033778135,
+        "name": "rules (windows-latest, Debug)",
+        "head_sha": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/41047109107/job/124033778135"
+      }
+    ],
+    "qualification": "All five jobs pass on corrected test/adapter revision; src tree identical to frozen engine source. Initial CI failures are preserved."
+  },
+  "candidate_bench": [
+    148558,
+    148558
+  ],
+  "legacy_bench": [
+    179335,
+    179335
+  ],
+  "frozen_execution_manifest": {
+    "path": ".local\\points-qsearch-see-v1\\execution-manifest.json",
+    "sha256": "7945cb25147350d167f56046ba0c51896650fca8d932153efcac1ca076892cb2",
+    "files": 263
+  },
+  "preflight": {
+    "correctness": "PASS",
+    "source_ci": "PASS",
+    "checked_utc": "2026-10-30T11:44:39.706041+00:00",
+    "stage": "READY_FOR_PANEL",
+    "free_bytes": 8100438016,
+    "required_bytes": 7583301632,
+    "frozen_input_count": 263,
+    "source_archive_files": 234,
+    "build_process_identities_exited": 79,
+    "T8_pause_verified": true,
+    "Fairyground": "PR18 owner service excluded from experiment cleanup",
+    "panel_started": false
+  },
+  "validation_summary": {
+    "each_build": {
+      "legal_queries": 1318563,
+      "state_undo": 9338,
+      "null": 2283,
+      "full_rebuilds": 81210,
+      "NNUE": "exact",
+      "SEE_exchanges": 56798,
+      "SEE_thresholds": 795172,
+      "capture_transactions": 177911,
+      "new_guard_comparisons": 8960,
+      "new_guard_negative_candidates": 3664,
+      "new_guard_pruned": 3648,
+      "new_guard_protected": 16,
+      "forced_searches": 48
+    },
+    "independent": {
+      "new_guard_cases": 536,
+      "new_exchange_cases": 530,
+      "new_exchange_plies": 753,
+      "new_exchange_terminal_exclusions": 6,
+      "terminal_guards": "All six terminal cases checked; no pruning",
+      "existing_exchange_cases": 789,
+      "existing_exchange_terminal_exclusions": 21,
+      "capture_cases": 403,
+      "capture_terminal_exclusions": 15,
+      "legal_lists": 588,
+      "forced_pv_plies": 288,
+      "other_searches": 32,
+      "other_pv_plies": 291
+    },
+    "native_interfaces": "PASS",
+    "final_state": "development-validation-005/state.json",
+    "original_build_state": "FAILED historical",
+    "all_development_identities_exited": 75
+  },
+  "followup": {
+    "automation_id": "petrified-poda-see-y-panel",
+    "status": "ACTIVE",
+    "notification_policy": "Silent while waiting memory or unchanged; report meaningful panel events"
+  },
+  "updated_utc": "2026-10-30T12:44:49.906505+00:00",
+  "fairyground_shutdown": {
+    "result": "PASS",
+    "checked_utc": "2026-10-30T11:34:22.425630+00:00",
+    "authorization": "Owner: Puedes cerrar fairyground si quieres",
+    "method": "Owned authenticated shutdown endpoint; exact PID+CreationDate and retained handles; successful listener enumeration empty",
+    "identities_exited": 2,
+    "processes": [
+      {
+        "pid": 552,
+        "creation_filetime": 134378273891190626,
+        "creation_utc": "2026-10-30T09:49:49.119062+00:00",
+        "exit_proof": "RETAINED_HANDLE_SIGNALED",
+        "exit_code": 0
+      },
+      {
+        "pid": 34128,
+        "creation_filetime": 134378273891240126,
+        "creation_utc": "2026-10-30T09:49:49.124012+00:00",
+        "parent_pid": 552,
+        "name": "conhost.exe",
+        "exit_proof": "RETAINED_HANDLE_SIGNALED",
+        "exit_code": 0
+      }
+    ],
+    "strict_exit_recheck": [
+      {
+        "expected": {
+          "pid": 552,
+          "creation_filetime": 134378273891190626,
+          "creation_utc": "2026-10-30T09:49:49.119062+00:00",
+          "exit_proof": "RETAINED_HANDLE_SIGNALED",
+          "exit_code": 0
+        },
+        "status": "EXITED_ABSENT"
+      },
+      {
+        "expected": {
+          "pid": 34128,
+          "creation_filetime": 134378273891240126,
+          "creation_utc": "2026-10-30T09:49:49.124012+00:00",
+          "parent_pid": 552,
+          "name": "conhost.exe",
+          "exit_proof": "RETAINED_HANDLE_SIGNALED",
+          "exit_code": 0
+        },
+        "status": "EXITED_ABSENT"
+      }
+    ],
+    "profile_sha256": "42009608caf870df9deb6180717dd3bfa491727c8e18918c855823d41d81b30e",
+    "profile_preserved": true,
+    "ports_closed": [
+      5185,
+      5186
+    ],
+    "initial_check_preserved": ".local\\points-qsearch-see-v1\\fairyground-owner-stop-001.json",
+    "initial_check_sha256": "79eb6f8d39ff8454348814bd1edd3a41d1f75f096facc659b3d088f86e4a13bc",
+    "initial_check_limit": "Socket connect_ex returned10035 after real exits; it was not accepted as proof of closed ports. Successful Get-NetTCPConnection enumeration subsequently proved no listeners.",
+    "browser_tabs": "Two Fairyground in-app tabs remain; browser tool returned browser.user is unavailable. No other app closed."
+  },
+  "panel_launch_rejections": [
+    {
+      "attempt": 1,
+      "state": "REJECTED_BEFORE_PANEL_CREATION",
+      "controller_exit_code": 1,
+      "panel_process_exit_code": 1,
+      "games_started": 0,
+      "evidence": ".local/points-qsearch-see-v1/panel-launch-failure-001/rejection.json",
+      "evidence_sha256": "cd57657ce5dba7263c8871685ec6fc70896205a50594c1cd4b924db06c178d8e",
+      "all_recorded_identities_exited": 79,
+      "development_identities_exited": 75,
+      "rejected_startup_identities_exited": 4,
+      "canonical_mutable_state": "Failed state and log moved into preserved failure directory only after verified exits; frozen inputs unchanged; no existing panel was replayed."
+    }
+  ],
+  "launch_transient_headroom_bytes": 268435456,
+  "panel_launch_audit": ".local\\points-qsearch-see-v1\\panel-launch-audit.json",
+  "panel_runtime": {
+    "session_id": 99991,
+    "identities": {
+      "controller": {
+        "pid": 9780,
+        "creation_filetime": 134378342797972222,
+        "creation_utc": "2026-10-30T11:44:39.797222+00:00"
+      },
+      "launcher": {
+        "pid": 40984,
+        "creation_filetime": 134378342800815357,
+        "creation_utc": "2026-10-30T11:44:40.081535+00:00"
+      },
+      "panel": {
+        "pid": 13016,
+        "creation_filetime": 134378342801070905,
+        "creation_utc": "2026-10-30T11:44:40.107092+00:00"
+      }
+    },
+    "launch_audit": ".local/points-qsearch-see-v1/panel-launch-audit.json"
+  },
+  "control_selections": {
+    "VSTC": {
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection": "NEUTRAL_SCREEN",
+      "statistical_equivalence": false,
+      "promotion_eligible": false,
+      "reason": "Reached the declared400-game cap without displayed LOS100.0% or0.0%; continue STC/LTC under the same frozen policy."
+    },
+    "STC": {
+      "raw_status": "INTERRUPTED",
+      "selection": "RETAINED_MANUAL_OWNER",
+      "statistical_equivalence": false
+    },
+    "LTC": {
+      "raw_status": "NOT_RUN",
+      "selection": "NOT_RUN"
+    }
+  },
+  "automatic_promotion_eligible": false,
+  "latest_progress": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        197,
+        183,
+        20
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        29,
+        6,
+        119,
+        14,
+        32
+      ],
+      "statistics": "Total: 400 W: 197 L: 183 D: 20 ELO: 12.17 +-33.3 (95%) LOS: 76.4%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 896.188,
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection_status": "NEUTRAL_SCREEN"
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INTERRUPTED",
+      "scores": [
+        121,
+        118,
+        11
+      ],
+      "time_losses": [
+        0,
+        1
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        15,
+        5,
+        83,
+        6,
+        16
+      ],
+      "statistics": "Total: 250 W: 121 L: 118 D: 11 ELO: 4.17 +-42.3 (95%) LOS: 57.7%",
+      "completed_pairs": 125,
+      "elapsed_seconds": 2494.265,
+      "error": "Panel stopped",
+      "raw_status": "INTERRUPTED",
+      "selection_status": "RETAINED_MANUAL_OWNER"
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "NOT_RUN",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "selection_status": "NOT_RUN"
+    }
+  },
+  "raw_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        197,
+        183,
+        20
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        29,
+        6,
+        119,
+        14,
+        32
+      ],
+      "statistics": "Total: 400 W: 197 L: 183 D: 20 ELO: 12.17 +-33.3 (95%) LOS: 76.4%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 896.188
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INTERRUPTED",
+      "scores": [
+        121,
+        118,
+        11
+      ],
+      "time_losses": [
+        0,
+        1
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        15,
+        5,
+        83,
+        6,
+        16
+      ],
+      "statistics": "Total: 250 W: 121 L: 118 D: 11 ELO: 4.17 +-42.3 (95%) LOS: 57.7%",
+      "completed_pairs": 125,
+      "elapsed_seconds": 2494.265,
+      "error": "Panel stopped"
+    }
+  },
+  "closure": {
+    "result": "RETAINED_FOR_FUTURE_OPENBENCH",
+    "decided_utc": "2026-10-30T12:44:49.906505+00:00",
+    "basis": "Owner requested retention and one successor from PR18; panel stopped cooperatively",
+    "statistical_equivalence": false,
+    "statistical_win": false,
+    "promotion": false,
+    "champion": "PR18",
+    "controller_session": 99991,
+    "controller_exit_code": 0,
+    "panel_exit_code": 1,
+    "games": 650,
+    "complete_pairs": 325,
+    "independent_plies": 129548,
+    "incomplete_pairs_preserved": 4,
+    "unpaired_completed_games_excluded": 2,
+    "all_process_identities_exited": 1070,
+    "pair_process_instances_with_exact_identity": 987,
+    "audit": ".local/points-qsearch-see-v1/manual-closure-audit.json",
+    "audit_sha256": "d2d2e22d4754eee6adec6ddf68959accf57cc9ef29167cf5adeba6c316d6bd5b",
+    "original_auditor_expected_failure": ".local/points-qsearch-see-v1/panel-audit-failure-001",
+    "strict_exit_audit": ".local/points-qsearch-see-v1/strict-process-exit-audit.json",
+    "strict_exit_sha256": "6ccdf3a4687a57bf131cc02df625831c82830f4dceae2f631980633af2fc8924",
+    "preservation_manifest": ".local\\points-qsearch-see-v1\\preservation-manifest.json",
+    "preservation_sha256": "88ba66123f880ef0952c13f1db7b107e7c078d1b1d445b8197c61eab0744b894",
+    "bundle": {
+      "bundle": ".local\\points-qsearch-see-v1\\frozen-inputs-and-closure.zip",
+      "sha256": "f9cc47457b47e403ea50facba2dc1ef54df9d8a990c14419e28596bae2271501",
+      "bytes": 33364789,
+      "entries": 2440
+    },
+    "source_tag": "candidates/points-qsearch-see-v1-openbench",
+    "tag_commit": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+    "tag_note": "Validated test revision; src tree identical to frozen d7cd27e engine source",
+    "openbench_workload_authorized": false,
+    "one_successor_authorized": true,
+    "released": true,
+    "released_utc": "2026-10-30T12:44:49.906505+00:00"
+  }
+}

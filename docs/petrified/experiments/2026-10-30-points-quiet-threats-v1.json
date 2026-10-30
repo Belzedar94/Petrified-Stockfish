@@ -1,0 +1,80 @@
+{
+  "champion": {
+    "pr": 18,
+    "selection": "PROMOTED_MANUAL_OWNER; not three statistical wins",
+    "binary_sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+    "bench": 167330
+  },
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
+  "panel": {
+    "directory": ".local/points-quiet-threats-panel-001",
+    "status": "NOT_STARTED",
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "threads": 1,
+    "hash_mb": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; continue within400 if boundary lost",
+    "selection": "All three unless delegated manual early neutral/loss rejection; cap without boundary NEUTRAL_SCREEN, never equivalence. Only three audited wins plus distribution/interfaces permit automatic promotion.",
+    "referee": "Hash-pinned independent Chess.com client"
+  },
+  "restrictions": {
+    "training": false,
+    "post_result_tuning": false,
+    "further_candidate": false,
+    "openbench_workload": false,
+    "T8": "manually paused",
+    "Fairyground": "Both Petrified and Duck closed by owner; profiles preserved; no automatic restart",
+    "AtomicDB": false,
+    "remote_workers": false,
+    "Misere_contact": false
+  },
+  "schema": "petrified-quiet-threats-v1",
+  "experiment": "points-quiet-threats-v1",
+  "created_utc": "2026-10-30T17:09:55.603375+00:00",
+  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "branch": "exp/points-quiet-threats-v1",
+  "authorization": "Owner parked PR21 and requested one next substantial idea with the same validation and panel from PR18.",
+  "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+  "base_ref": "d011dc2d24b72f8b9eb67d6140c4d3909846d3fb",
+  "hypothesis": "Order quiet escapes and arrivals by Petrified capture profitability rather than conventional lesser-piece attacks.",
+  "fixed_policy": {
+    "documentation": "docs/petrified/quiet-threats-v1.md",
+    "transaction": "victim live value +100*capture points - fatal non-pawn attacker value >0",
+    "victim_sets": {
+      "P": "P",
+      "N": "PNB",
+      "B": "PNB",
+      "R": "PNBR",
+      "Q": "PNBRQ",
+      "K": ""
+    },
+    "weight": "existing 20*PieceValue[victim]",
+    "geometry": "existing pseudo-attack maps, king x-rays, wall blockers",
+    "royal_commoners": "no capture; no heuristic"
+  },
+  "unchanged": [
+    "Rules/scoring/state/undo",
+    "NNUE/network bytes",
+    "Capture ordering, checks bonus, TT, histories, pruning and reductions",
+    "All other PR18 coefficients",
+    "Legacy behavior; PR19/20/21 engine changes excluded"
+  ],
+  "validation_required": [
+    "Debug/Release full legality/state/undo/null/NNUE references",
+    "Inherited exchange/capture/unique-move references",
+    "Independent coordinate maps, all legal child maps and exact undo/cache restoration",
+    "Independent Chess.com capture matrix and board geometry",
+    "Native UCI/CECP, forced and ordinary PVs",
+    "Candidate bench twice, champion167330, legacy179335",
+    "Five source CI jobs"
+  ],
+  "risk": "Geometric ordering is not a legal threat proof or SEE; extra attack maps and overcautious quiet ordering may cost strength. No strength-driven changes.",
+  "runtime_released": false
+}
