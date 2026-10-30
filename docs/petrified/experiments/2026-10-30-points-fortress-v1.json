@@ -396,5 +396,39 @@
     "T8_pause_verified": true,
     "Fairyground": "Both closed by owner; profiles preserved",
     "panel_started": false
-  }
+  },
+  "completed_controls": {
+    "VSTC": {
+      "raw": {
+        "control": "VSTC",
+        "status": "INCONCLUSIVE_LIMIT",
+        "scores": [
+          188,
+          186,
+          26
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          29,
+          14,
+          115,
+          10,
+          32
+        ],
+        "statistics": "Total: 400 W: 188 L: 186 D: 26 ELO: 1.74 +-33.0 (95%) LOS: 54.1%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 892.297
+      },
+      "selection": "NEUTRAL_SCREEN",
+      "audit": "Final panel audit pending"
+    }
+  },
+  "promotion_eligible": false,
+  "promotion_ineligibility_reason": "VSTC capped without displayed LOS boundary; no three-control WIN possible",
+  "last_panel_decision_utc": "2026-10-30T15:33:27.737699+00:00"
 }
