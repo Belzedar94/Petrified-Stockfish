@@ -758,5 +758,15 @@
     "evidence": ".local\\fairyground-pr18-reopen-20261030-1325\\handoff.json",
     "evidence_sha256": "6c9da1d0e97dd222d726ae4c5487655575320c9bdd16ec318f97253aafd4abf0",
     "owner_requested_keep_running": true
+  },
+  "followup_closure": {
+    "automation_id": "petrified-jaques-tranquilos-y-panel",
+    "deleted": true,
+    "deleted_utc": "2026-10-30T13:34:15.051301+00:00",
+    "remote_retention_receipt": ".local\\points-qsearch-checks-v1\\remote-retention-receipt.json",
+    "receipt_sha256": "35dae66b80c5e87ffa8a90fe18a9c5c4b7e151f65ff40ded06956e8bce992c17",
+    "pr_state": "open",
+    "pr_draft": true,
+    "no_successor_authorized": true
   }
 }

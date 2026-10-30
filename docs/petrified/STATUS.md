@@ -11,7 +11,7 @@ STOP rejection remains preserved, with its script and179 frozen inputs intact.
 The preservation bundle and2311-file raw inventory are recorded in the experiment.
 Tag candidates/points-qsearch-checks-v1-openbench targets validated dbb34b9e,
 whose src tree equals frozen33e40a96. PR20 stays an open draft. No OB workload.
-The lease is released. Remove the follow-up after remote retention is saved.
+The lease is released; branch and tag are saved remotely. The follow-up is deleted.
 Fairyground is running with champion PR18 and its unchanged profile, Threads1/
 Hash128, at http://127.0.0.1:5185/public/index.html?variant=petrified . HTTP,
 WebSocket/native UCI, served asset hashes and mate/points checks passed. Server
