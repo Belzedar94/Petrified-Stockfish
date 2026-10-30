@@ -85,7 +85,7 @@ endif
 
 ### Source and object files
 SRCS = attacks.cpp benchmark.cpp bitboard.cpp evaluate.cpp main.cpp \
-	misc.cpp movegen.cpp movepick.cpp position.cpp \
+	misc.cpp movegen.cpp movepick.cpp position.cpp petrified_fortress.cpp \
 	search.cpp thread.cpp timeman.cpp tt.cpp uci.cpp ucioption.cpp tune.cpp syzygy/tbprobe.cpp \
 	nnue/network.cpp \
 	engine.cpp score.cpp memory.cpp uci_move.cpp petrified_init.cpp xboard.cpp \

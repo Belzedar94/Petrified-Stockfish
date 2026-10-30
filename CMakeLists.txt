@@ -14,7 +14,7 @@ set(CORE_SOURCES
   src/benchmark.cpp src/evaluate.cpp src/movepick.cpp src/search.cpp
   src/thread.cpp src/timeman.cpp src/tt.cpp src/uci.cpp src/ucioption.cpp
   src/tune.cpp src/syzygy/tbprobe.cpp src/nnue/network.cpp src/engine.cpp
-  src/score.cpp src/xboard.cpp)
+  src/score.cpp src/xboard.cpp src/petrified_fortress.cpp)
 add_library(petrified_rules STATIC ${RULES_SOURCES})
 set_target_properties(petrified_rules PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_include_directories(petrified_rules PUBLIC src)
@@ -57,8 +57,11 @@ target_link_libraries(petrified-exchange-test PRIVATE petrified_rules)
 add_executable(petrified-capture-lmr-test tests/petrified/capture_lmr.cpp)
 target_link_libraries(petrified-capture-lmr-test PRIVATE petrified_rules)
 add_executable(petrified-head-export training/points_head/export.cpp)
+add_executable(petrified-fortress-test tests/petrified/fortress.cpp)
+target_link_libraries(petrified-fortress-test PRIVATE petrified_core)
 target_link_libraries(petrified-head-export PRIVATE petrified_core)
 enable_testing()
+add_test(NAME fortress COMMAND petrified-fortress-test)
 add_test(NAME state COMMAND petrified-state-test)
 add_test(NAME forced-qsearch COMMAND petrified-forced-qsearch-test)
 add_test(NAME exchange COMMAND petrified-exchange-test)

@@ -32,6 +32,7 @@
 #include <list>
 #include <ratio>
 #include <string>
+#include <thread>
 #include <utility>
 
 #include "bitboard.h"
@@ -44,6 +45,7 @@
 #include "nnue/nnue_accumulator.h"
 #include "position.h"
 #include "api/petrified_outcome.h"
+#include "petrified_fortress.h"
 #include "syzygy/tbprobe.h"
 #include "thread.h"
 #include "timeman.h"
@@ -236,6 +238,29 @@ void Search::Worker::start_searching() {
         main_manager()->updates.onUpdateNoMoves(
           {0, {rootPos.no_moves_value(), rootPos}});
         main_manager()->updates.onBestmove(UCIEngine::move(Move::none()), "");
+        return;
+    }
+
+    // A constructive fortress win still requires a real defensive move. Keep
+    // the rule/claim path above unchanged, and respect restricted searchmoves.
+    if (auto proof = Petrified::fortress(rootPos);
+        proof && proof->defender == rootPos.side_to_move()
+        && std::any_of(rootMoves.begin(), rootMoves.end(), [&](const RootMove& rm) {
+               return rm.pv[0] == proof->defence;
+           }))
+    {
+        const std::string move = UCIEngine::move(proof->defence, rootPos.is_chess960());
+        InfoFull info{};
+        info.depth = 0;
+        info.multiPV = 1;
+        info.score = {proof->value(rootPos.side_to_move(), 0), rootPos};
+        info.pv = move;
+        main_manager()->updates.onUpdateFull(info);
+        sync_cout << "info string points fortress certified; minimum margin "
+                  << proof->pointMargin << "; defensive move " << move << sync_endl;
+        while (!threads.stop && (main_manager()->ponder || limits.infinite))
+            std::this_thread::yield();
+        main_manager()->updates.onBestmove(move, "");
         return;
     }
 
@@ -783,6 +808,12 @@ Value Search::Worker::search(
         if (end.terminal()) return end.value;
         if (pointsClaim >= beta || is_win(pointsClaim)) return pointsClaim;
         alpha = std::max(alpha, pointsClaim);
+        if (!ss->excludedMove)
+            if (auto proof = Petrified::fortress(pos)) {
+                if (PvNode && ss->pv && proof->defence != Move::none())
+                    ss->pv->push_back(proof->defence);
+                return proof->value(pos.side_to_move(), ss->ply);
+            }
     }
 
     // Limit the depth if extensions made it too large
@@ -1782,6 +1813,12 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
     }
     if ((!pos.game_of_points() && pos.is_draw(ss->ply)) || ss->ply >= MAX_PLY)
         return (ss->ply >= MAX_PLY && !ss->inCheck) ? evaluate(pos) : VALUE_DRAW;
+
+    if (!ss->excludedMove)
+        if (auto proof = Petrified::fortress(pos)) {
+            if (PvNode && proof->defence != Move::none()) ss->pv->push_back(proof->defence);
+            return proof->value(pos.side_to_move(), ss->ply);
+        }
 
     assert(0 <= ss->ply && ss->ply < MAX_PLY);
 
