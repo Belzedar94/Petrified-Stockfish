@@ -1,3 +1,113 @@
+The owner authorized points-qsearch-checks-v1 from PR18 on2026-10-30 after
+retaining PR19 separately for future OpenBench. Add one fixed explicit layer of
+quiet checks at entry to points quiescence; recursive calls add none. Preserve
+TT/capture order, unique quiet continuations and all other PR18 policies. Separate
+TT depths so captures-only recursive bounds cannot hide the richer entry search.
+PR19 pruning is excluded. No rules/state/NNUE change, tuning or training.
+Validate Debug/Release, full references and exact state/NNUE/undo, independent
+Chess.com quiet checks and mate win/draw/loss settlements, native interfaces,
+reproducible points/legacy benches and five source CI jobs before one40/400
+VSTC/STC/LTC panel against PR18, T1/Hash512/concurrency4. Keep4 and wait for RAM.
+Only three audited wins plus distribution/interfaces allow automatic promotion.
+PR18 remains champion; its manual exception is not inherited. T8 stays paused;
+Fairyground PR18 stays closed with profile preserved. No OpenBench workload,
+AtomicDB, remote-worker, other-app or Misere action; no further candidate.
+Read .local/points-qsearch-checks-followup.json and the experiment for live state.
+
+The entries below preserve prior decisions and do not restart closed panels.
+
+PR19 points-qsearch-see-v1 is RETAINED_FOR_FUTURE_OPENBENCH by the owner.
+The local panel closed cooperatively: VSTC400 (197/183/20), STC250 (121/118/11),
+LTC not run. Time losses candidate/rival0/0 and0/1. Raw VSTC INCONCLUSIVE_LIMIT
+and STC INTERRUPTED remain unchanged; retention is not a statistical win,
+equivalence or promotion. PR18 remains champion. The manual audit passed650
+games/325 reversed-color pairs and129548 independent plies. Four incomplete
+pairs with two completed unpaired games are preserved and excluded. All1070
+registered development/startup/panel identities exited;987 pair process instances
+have exact CreationDates. The original automatic-auditor STOP rejection is
+preserved and its script and263 frozen inputs remain unchanged. The closure
+bundle and3630-file raw inventory are recorded in the experiment. The source
+tag is candidates/points-qsearch-see-v1-openbench at validated revision2b18bb02,
+whose src tree equals frozen d7cd27e0. PR19 remains an open draft. No OB workload.
+The lease is released; the follow-up is removed after remote retention is saved.
+
+The same owner request authorizes one next substantial Petrified-specific search
+candidate from PR18, with existing Debug/Release, independent-reference, exact
+state/NNUE/undo, native interfaces, reproducible benches, source CI and one
+40/400 VSTC/STC/LTC panel. Do not include PR19 engine changes. No training,
+post-result tuning or further automatic candidate. T8 stays manually paused;
+Fairyground PR18 stays closed with its profile preserved. Do not touch AtomicDB,
+remote workers, other applications or Misere.
+
+The entries below preserve historical states and do not restart closed panels.
+
+points-qsearch-see-v1 / PR19 is FROZEN and its one panel is ACTIVE against PR18.
+VSTC closed400 games197/183/20,+12.17+/-33.3 Elo95%,LOS76.4%,time0/0,
+200 complete reversed-color pairs. Raw INCONCLUSIVE_LIMIT; selection
+NEUTRAL_SCREEN, never statistical equivalence. Automatic promotion is ineligible;
+PR18 remains champion. STC is active and LTC pending; continue the same panel.
+Final full audit and process exits remain required; no lease release yet.
+
+Engine source d7cd27e0a0497a93b1632e69a890a561d7b79d18; candidate SHA256
+ ae265f5f2dc65097735b62418470efb9515793421e7d8b32d67027d94ad26a9b,
+bench148558 twice; PR18 rival167330, common network unchanged, legacy179335.
+Full Debug/Release/references/state/NNUE/undo, all component tests,8960 new
+pruning guards per build,536 independent guards,530 independent local exchanges,
+forced PVs and native interfaces passed. Five CI jobs41047109107 passed on
+2b18bb02a1a5ab6b20a8f6095298ef35546d5a51, with src identical to frozen source.
+Four test/adapter/export failures are preserved; no engine policy or binary
+changed. build-state and development-validation-002/003/004 remain FAILED;
+development-validation-005/state.json is READY_FOR_PANEL_REVIEW. Do not rebuild
+or repeat successful validation. The75 development identities exited.
+
+Panel .local/points-qsearch-see-panel-001, session99991. Controller9780
+creation_filetime134378342797972222; launcher40984/134378342800815357;
+real panel13016/134378342801070905. Verify PID+CreationDate, never PID alone.
+Use .local/points-qsearch-see-v1/monitor_panel.py and the followup. Do not launch,
+duplicate, restart or change active inputs. Frozen263 inputs,11 panel hashes,
+7 dependency hashes and exact journal identities passed launch audit.
+Preflight8100438016 bytes free passed7583301632 required with concurrency4.
+Keep40/400 VSTC/STC/LTC, displayed LOS boundaries, pending pairs and final full
+pair/color/statistics/referee/hash/strict-exit audits. Read reporting counters
+before all-three-TC tables on meaningful changes or200 additional games.
+
+The first controller attempt failed its inner memory gate BEFORE panel mkdir,
+engine launch or games. Controller29576/134378339367024018 and launcher38352/
+134378339369775996 exited1; all79 then-recorded identities (75 development and
+4 startup) exited. Its FAILED state/log and exact exit proofs are preserved in
+.local/points-qsearch-see-v1/panel-launch-failure-001. Original inactive markers
+were archived only after verified exits; no game or existing panel was replayed.
+The successful launch above is the only real strength panel.
+
+Fairyground PR18 is closed by owner authorization; server552/134378273891190626
+and console34128/134378273891240126 exited0 through the owned endpoint. Handles
+and strict recheck proved both exits; ports5185/5186 have no listeners and the
+PR18 profile is preserved. See fairyground-owner-shutdown.json in this task.
+The socket-probe10035 failure is preserved, never used as exit proof. Two GUI
+tabs remain because browser.user was unavailable. Do not close other apps.
+Follow-up petrified-poda-see-y-panel stays active. PR18 remains champion.
+T8 stays paused. No other candidate, OpenBench, AtomicDB, remote-worker or Misere
+activity is authorized. Only three audited wins plus distribution/interfaces
+permit automatic promotion; PR18's manual exception is not inherited.
+
+One successor is authorized on2026-10-30 from the qualified PR18 champion:
+points-qsearch-see-v1. Use existing points SEE at a fixed zero threshold to prune
+voluntary losing captures in quiescence, protecting check/evasions, promotions,
+unique moves, loss-valued nodes, actual child settlements/claims, bare kings and
+forced replies. Keep all other PR18 search, coefficients, rules, state and NNUE.
+See docs/petrified/experiments/2026-10-30-points-qsearch-see-v1.json for the frozen
+recipe. Validate Debug/Release, full references, state/NNUE/undo, independent
+Chess.com guards/PVs, native interfaces, points bench twice, legacy179335 and
+all five exact-source CI jobs before one40/400 VSTC/STC/LTC panel against PR18.
+No tuning, training, other candidate or OpenBench workload. Public Wakwak docs
+and OB were read only as inspiration; no third-party engine code was copied.
+Only three audited wins plus interfaces allow automatic promotion. PR18's manual
+promotion remains a separate historical owner exception. T8 stays paused;
+Fairyground PR18 is now closed by owner authorization; preserve its profile.
+Do not touch AtomicDB, remote workers, other applications or contact Misere.
+
+The entries below preserve prior decisions and do not cancel this successor.
+
 PR18 points-combined-search-v1 is the current champion by explicit owner
 adjudication on 2026-10-30, after completed correctness, manual closure and
 native/Node/WASM/Python/Fairyground acceptance. This is PROMOTED_MANUAL_OWNER,

@@ -178,3 +178,25 @@ points scores; actual settlement rules and search values are unchanged. The
 failed binary and original output are retained. CI initially attempted a search
 without external weights; weighted searches remain local and source CI retains
 its five original jobs, now including capped-query C++ tests.
+
+
+## 2026-10-30: points-qsearch-see-v1 from PR18
+
+Use the existing exact legal local material-plus-earned-points SEE to omit strictly negative voluntary captures in points quiescence. Protect check evasions, checks, promotions, unique legal moves, loss-valued nodes, and after the real move any terminal settlement, useful resignation claim, bare-king ending or unique legal reply.
+
+SEE omits positional wall value and multi-square/quiet tactics. This is a selective-search hypothesis, never a proven upper bound. Guards preserve immediate settlement and forcing exceptions; only the strength panel can select it.
+
+Variant-specific pruning must respect obstacle geometry and terminal tactics. Duck placement/refutation rules are not applicable literally to permanent Petrified walls. Wakwak reports failed null pruning and a reduction alternative; PR18 already has verified null pruning, which remains unchanged. Independent implementation from Petrified rules and existing local SEE; no Wakwak source code copied.
+
+Read-only HTTP200. Test9102 (silly-see-idea) finished at882 games271/331/280 with LLR-1.20; tests9063/9064 finished without passing at the observed snapshot. Strength-option comparisons are not evidence for a Petrified search gain.
+
+Sources: https://github.com/Silverrzz/wakwak/blob/main/docs/README.md, https://github.com/Silverrzz/wakwak/blob/main/docs/duck-tech/null-move-reductions.md, https://github.com/Silverrzz/wakwak/blob/main/docs/duck-tech/king-safety.md, https://github.com/Silverrzz/wakwak/blob/main/docs/duck-tech/duck-refutations.md, https://openbench.nocturn9x.space/
+
+
+## 2026-10-30: points-qsearch-checks-v1 from PR18
+
+Add all legal non-capture-stage checking moves after inherited TT/captures at the first points qsearch ply. Unlike fatal non-pawn captures, quiet checks retain the attacker and may expose checks and mates beyond the capture horizon.
+
+Extra branches may cost more than tactical gains. One explicit layer is fixed before build/results; no strength-driven tuning. Mate is settled by existing earned points, so mating may win, draw or lose.
+
+PR19 remains separately retained. Explicit quiet-check budget is one entry ply; inherited TT continuations and sole-legal-move searches remain unchanged. Recursive captures-only TT entries cannot hide the richer entry search. No borrowed engine code.

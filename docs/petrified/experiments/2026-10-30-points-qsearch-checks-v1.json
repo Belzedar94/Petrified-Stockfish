@@ -1,0 +1,76 @@
+{
+  "schema": "petrified-qsearch-checks-v1",
+  "experiment": "points-qsearch-checks-v1",
+  "created_utc": "2026-10-30T12:55:33.321188+00:00",
+  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "branch": "exp/points-qsearch-checks-v1",
+  "authorization": "Owner retained PR19 for future OpenBench and requested one next substantial idea from current champion PR18 with the same correctness and VSTC/STC/LTC gates.",
+  "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+  "base_ref": "2a380a8b9a33eee0344cf2fcdb4909ee31ed4b62",
+  "hypothesis": "Add all legal non-capture-stage checking moves after inherited TT/captures at the first points qsearch ply. Unlike fatal non-pawn captures, quiet checks retain the attacker and may expose checks and mates beyond the capture horizon.",
+  "fixed_policy": {
+    "explicit_quiet_check_plies": 1,
+    "recursive_qsearch_allowance": false,
+    "in_check": "Existing full evasions unchanged",
+    "forced_unique_move": "Existing PR18 full continuation unchanged",
+    "ordering": "Existing TT/capture order preserved; added checks in legal generator order; no duplicate TT move",
+    "promotion": "Existing capture-stage queen promotions retained; quiet checking underpromotions are eligible",
+    "tt_depth": "Points entry0; recursive-1; shallow bounds cannot cut off or replace the static value of the richer entry search; legacy0 unchanged",
+    "tt_move": "Inherited legal TT move remains first, including quiet moves; the new explicit generation allowance does not remove inherited TT continuations"
+  },
+  "risk": "Extra branches may cost more than tactical gains. One explicit layer is fixed before build/results; no strength-driven tuning. Mate is settled by existing earned points, so mating may win, draw or lose.",
+  "unchanged": [
+    "All other PR18 search coefficients/policies",
+    "Capture ordering and histories",
+    "SEE including all captures; PR19 pruning excluded",
+    "Rules/scoring/state/undo",
+    "NNUE/network bytes",
+    "Legacy behavior"
+  ],
+  "champion": {
+    "pr": 18,
+    "selection": "PROMOTED_MANUAL_OWNER; not three statistical wins",
+    "binary_sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+    "bench": 167330
+  },
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
+  "validation_required": [
+    "Debug/Release full legality/state/undo/null/NNUE references",
+    "Inherited exchange/capture/unique-move references",
+    "Actual picker versus slow full legality and child checks, both colors, castles/promotions/walls, TT priority/no duplicates and exact undo",
+    "Independent Chess.com quiet-check lists and all quiet-mate settlements including ties/losses",
+    "Depth-one quiet-mate PVs T1/T2 repeated TT; inherited forced PVs, points/mates, independent search, UCI/CECP",
+    "Candidate points bench twice; champion167330; legacy179335",
+    "Five exact-source CI jobs"
+  ],
+  "panel": {
+    "directory": ".local/points-qsearch-checks-panel-001",
+    "status": "NOT_STARTED",
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "threads": 1,
+    "hash_mb": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; continue within400 if boundary lost",
+    "selection": "All three unless delegated manual early neutral/loss rejection; cap without boundary NEUTRAL_SCREEN, never equivalence. Only three audited wins plus distribution/interfaces permit automatic promotion.",
+    "referee": "Hash-pinned independent Chess.com client"
+  },
+  "restrictions": {
+    "training": false,
+    "post_result_tuning": false,
+    "further_candidate": false,
+    "openbench_workload": false,
+    "T8": "manually paused",
+    "Fairyground": "PR18 closed by owner; preserve profile; no automatic restart",
+    "AtomicDB": false,
+    "remote_workers": false,
+    "Misere_contact": false
+  },
+  "runtime_released": false
+}

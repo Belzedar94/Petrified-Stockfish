@@ -1731,10 +1731,15 @@ moves_loop:  // When in check, search starts here
 // See https://www.chessprogramming.org/Horizon_Effect
 // and https://www.chessprogramming.org/Quiescence_Search
 template<NodeType nodeType>
-Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta) {
+Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta,
+                             bool allowQuietChecks) {
 
     static_assert(nodeType != Root);
     constexpr bool PvNode = nodeType == PV;
+
+    // Distinguish captures-only points entries from the richer entry qnode.
+    // Otherwise a recursive qsearch TT bound could hide a newly eligible check.
+    const Depth qDepth = pos.game_of_points() && !allowQuietChecks ? DEPTH_QS - 1 : DEPTH_QS;
 
     assert(alpha >= -VALUE_INFINITE && alpha < beta && beta <= VALUE_INFINITE);
     assert(PvNode || (alpha == beta - 1));
@@ -1803,7 +1808,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
     pvHit        = ttHit && ttData.is_pv;
 
     // At non-PV nodes we check for an early TT cutoff
-    if (!PvNode && ttData.depth >= DEPTH_QS && is_valid(ttData.value)
+    if (!PvNode && ttData.depth >= qDepth && is_valid(ttData.value)
         && (ttData.bound & (ttData.value >= beta ? BOUND_LOWER : BOUND_UPPER)))
         return ttData.value;
 
@@ -1827,7 +1832,8 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
               to_corrected_static_eval(unadjustedStaticEval, correctionValue);
 
             // ttValue can be used as a better position evaluation
-            if (is_valid(ttData.value) && !is_decisive(ttData.value)
+            if ((!pos.game_of_points() || ttData.depth >= qDepth)
+                && is_valid(ttData.value) && !is_decisive(ttData.value)
                 && (ttData.bound & (ttData.value > bestValue ? BOUND_LOWER : BOUND_UPPER)))
                 bestValue = ttData.value;
         }
@@ -1865,10 +1871,11 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
 
     // Initialize a MovePicker object for the current position, and prepare
     // to search the moves. We presently use two stages of move generator in
-    // quiescence search: captures, or evasions only when in check. A unique
-    // points move bypasses the picker, including when it is quiet.
+    // quiescence search: captures, or evasions only when in check. The entry
+    // points qnode also appends quiet checks. A unique points move still
+    // bypasses the picker, including when it is quiet.
     MovePicker mp(pos, ttData.move, DEPTH_QS, &mainHistory, &lowPlyHistory, &captureHistory,
-                  contHist, &sharedHistory, ss->ply);
+                  contHist, &sharedHistory, ss->ply, allowQuietChecks);
 
     // Step 5. Loop through all legal moves until no moves remain
     // or a beta cutoff occurs.
@@ -1923,7 +1930,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         // Step 7. Make and search the move
         do_move(pos, move, st, givesCheck, capture, ss);
 
-        value = -qsearch<nodeType>(pos, ss + 1, -beta, -alpha);
+        value = -qsearch<nodeType>(pos, ss + 1, -beta, -alpha, false);
         undo_move(pos, move);
 
         assert(value > -VALUE_INFINITE && value < VALUE_INFINITE);
@@ -1974,7 +1981,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
     // Step 10. Save gathered info in transposition table. The static evaluation
     // is saved as it was before adjustment by correction history.
     ttWriter.write(posKey, value_to_tt(bestValue, ss->ply), pvHit,
-                   bestValue >= beta ? BOUND_LOWER : BOUND_UPPER, DEPTH_QS, bestMove,
+                   bestValue >= beta ? BOUND_LOWER : BOUND_UPPER, qDepth, bestMove,
                    unadjustedStaticEval, tt.generation());
 
     // The search is now complete

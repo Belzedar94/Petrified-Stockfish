@@ -360,7 +360,8 @@ class Worker {
 
     // Quiescence search function, which is called by the main search
     template<NodeType nodeType>
-    Value qsearch(Position& pos, Stack* ss, Value alpha, Value beta);
+    Value qsearch(Position& pos, Stack* ss, Value alpha, Value beta,
+                  bool allowQuietChecks = true);
 
     int reduction(bool i, Depth d, int mn) const;
 
