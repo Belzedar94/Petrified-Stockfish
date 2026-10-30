@@ -24,19 +24,28 @@ namespace Stockfish {
 using namespace Attacks;
 
 namespace {
-template<GenType Type, bool FirstOnly>
+template<GenType Type, unsigned Limit>
 Move* generate_impl(const Position& pos, Move* out, Move wanted = Move::none()) {
+    Move* const begin = out;
     const Color us = pos.side_to_move();
     const Bitboard enemies = pos.pieces(~us) & ~pos.pieces(KING);
     const Bitboard empty = ~pos.occupied();
+    // A generated non-king move leaves its destination occupied by the mover
+    // or a new wall. Outside check, only vacating a king blocker can expose an
+    // attack. En passant removes a second square and always needs the full test.
+    const Bitboard safetyOrigins = pos.checkers() ? ~Bitboard(0)
+        : pos.blockers_for_king(us) | pos.pieces(us, KING);
     auto emit = [&](Move m) {
-        if constexpr (FirstOnly)
+        if constexpr (Limit == 1)
             if (wanted != Move::none() && m != wanted) return false;
         const bool stage = pos.capture_stage(m);
         if ((Type == CAPTURES && !stage) || (Type == QUIETS && stage)) return false;
-        if (!pos.safe_after(m)) return false;
+        if (((safetyOrigins & m.from_sq()) || m.type_of() == EN_PASSANT)
+            && !pos.safe_after(m)) return false;
         *out++ = m;
-        return FirstOnly;
+        if constexpr (Limit)
+            return out - begin == Limit;
+        return false;
     };
     auto pawn = [&](Square from, Square to) {
         if (relative_rank(us, to) == RANK_8) {
@@ -90,17 +99,22 @@ Move* generate_impl(const Position& pos, Move* out, Move wanted = Move::none()) 
 
 template<GenType Type>
 Move* generate(const Position& pos, Move* out) {
-    return generate_impl<Type, false>(pos, out);
+    return generate_impl<Type, 0>(pos, out);
 }
 
 bool has_legal_move(const Position& pos) {
     Move first;
-    return generate_impl<ALL, true>(pos, &first) != &first;
+    return generate_impl<ALL, 1>(pos, &first) != &first;
 }
 
 bool contains_legal_move(const Position& pos, Move move) {
     Move first;
-    return move.is_ok() && generate_impl<ALL, true>(pos, &first, move) != &first;
+    return move.is_ok() && generate_impl<ALL, 1>(pos, &first, move) != &first;
+}
+
+Move unique_legal_move(const Position& pos) {
+    Move first[2];
+    return generate_impl<ALL, 2>(pos, first) == first + 1 ? first[0] : Move::none();
 }
 template Move* generate<CAPTURES>(const Position&, Move*);
 template Move* generate<QUIETS>(const Position&, Move*);

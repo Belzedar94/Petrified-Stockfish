@@ -172,6 +172,7 @@ class Position {
 
     // Static Exchange Evaluation
     bool see_ge(Move m, int threshold = 0) const;
+    int  points_see(Move m) const;
 
     // Accessing hash keys
     Key key() const;

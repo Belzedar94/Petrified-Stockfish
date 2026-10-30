@@ -17,6 +17,7 @@
 */
 
 #include "search.h"
+#include "search_capture.h"
 
 #include <algorithm>
 #include <array>
@@ -768,6 +769,7 @@ Value Search::Worker::search(
     constexpr bool PvNode   = nodeType != NonPV;
     constexpr bool rootNode = nodeType == Root;
     const bool     allNode  = !(PvNode || cutNode);
+    const bool     pointsNmp = pos.game_of_points();
 
     // Dive into quiescence search when the depth reaches zero
     if (depth <= 0)
@@ -1068,7 +1070,12 @@ Value Search::Worker::search(
     }
 
     // Step 10. Null move search with verification search
-    if (!pos.game_of_points() && cutNode
+    // Points endings can reverse the usual material/zugzwang intuition. Only
+    // try null moves away from terminal-score and rule50 boundaries, and always
+    // verify their cutoffs with a non-null search of at least two plies.
+    if (cutNode
+        && (!pointsNmp || (depth >= 4 && !nmpMinPly && !is_decisive(beta)
+                          && pos.rule50_count() + depth < 100))
         && ss->staticEval + 50 * ss->priorNMPFailHigh >= beta - 13 * depth - 47 * improving + 365
         && !excludedMove && pos.non_pawn_material(us) && ss->ply >= nmpMinPly && beta >= -2000)
     {
@@ -1078,6 +1085,8 @@ Value Search::Worker::search(
         // Odd threads reduce one ply less
         Depth R = 7 + depth / 3 + std::max((ss->staticEval - beta) / 256, 0) - int(threadIdx & 1);
         R -= seekMate * R / 2;
+        if (pointsNmp)
+            R = std::min(R, depth - 2);
         do_null_move(pos, st, ss);
 
         Value nullValue = -search<NonPV>(pos, ss + 1, -beta, -beta + 1, depth - R, false);
@@ -1087,7 +1096,7 @@ Value Search::Worker::search(
         // Do not return unproven mate or TB scores
         if (nullValue >= beta && !is_win(nullValue))
         {
-            if (nmpMinPly || depth < 16)
+            if (!pointsNmp && (nmpMinPly || depth < 16))
             {
                 ++ss->priorNMPFailHigh;
                 return nullValue;
@@ -1096,9 +1105,9 @@ Value Search::Worker::search(
             // Recursive verification is not allowed
             assert(!nmpMinPly);
 
-            // Do verification search at high depths, with null move pruning
-            // disabled until ply exceeds nmpMinPly.
-            nmpMinPly = ss->ply + 3 * (depth - R) / 4;
+            // Points verify every cutoff with null pruning disabled throughout;
+            // legacy verifies high depths until ply exceeds nmpMinPly.
+            nmpMinPly = pointsNmp ? MAX_PLY : ss->ply + 3 * (depth - R) / 4;
 
             Value v = search<NonPV>(pos, ss, beta - 1, beta, depth - R, false);
 
@@ -1107,7 +1116,8 @@ Value Search::Worker::search(
             if (v >= beta)
             {
                 ++ss->priorNMPFailHigh;
-                return nullValue;
+                // For points, the real-position verification supplies the bound.
+                return pointsNmp ? v : nullValue;
             }
         }
     }
@@ -1404,7 +1414,8 @@ moves_loop:  // When in check, search starts here
             r -= 2179;
 
         if (capture)
-            ss->statScore = 873 * int(PieceValue[pos.captured_piece()]) / 128
+            ss->statScore = 873 * capture_lmr_value(pos.game_of_points(), movedPiece,
+                                                   pos.captured_piece(), move) / 128
                           + captureHistory[movedPiece][move.to_sq()][type_of(pos.captured_piece())];
         else
             ss->statScore =
@@ -1775,9 +1786,12 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
     assert(0 <= ss->ply && ss->ply < MAX_PLY);
 
     // Step 3. Transposition table lookup
-    // Quiet walls can leave no legal moves without a capture or a conventional
-    // check. Stand-pat must not turn such a terminal into an NNUE estimate.
-    if (!has_legal_move(pos))
+    // Points terminal positions were resolved above. Walls can force a quiet
+    // continuation: in that case there is no stand-pat option. Stop the legal
+    // query at two moves rather than constructing a full list at every qnode.
+    const Move forcedMove = pos.game_of_points() && !ss->inCheck
+                          ? unique_legal_move(pos) : Move::none();
+    if ((!pos.game_of_points() || ss->inCheck) && !has_legal_move(pos))
         return pos.no_moves_value(ss->ply);
 
     posKey                         = pos.key();
@@ -1825,7 +1839,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         }
 
         // Stand pat. Return immediately if static value is at least beta
-        if (bestValue >= beta)
+        if (forcedMove == Move::none() && bestValue >= beta)
         {
             assert(!is_decisive(bestValue));
             bestValue = (441 * bestValue + 583 * beta) / 1024;
@@ -1836,10 +1850,12 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
             return bestValue;
         }
 
-        if (bestValue > alpha)
+        if (forcedMove == Move::none() && bestValue > alpha)
             alpha = bestValue;
 
         futilityBase = ss->staticEval + 306;
+        if (forcedMove != Move::none())
+            bestValue = -VALUE_INFINITE;
     }
 
     bestValue = std::max(bestValue, pointsClaim);
@@ -1849,13 +1865,16 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
 
     // Initialize a MovePicker object for the current position, and prepare
     // to search the moves. We presently use two stages of move generator in
-    // quiescence search: captures, or evasions only when in check.
+    // quiescence search: captures, or evasions only when in check. A unique
+    // points move bypasses the picker, including when it is quiet.
     MovePicker mp(pos, ttData.move, DEPTH_QS, &mainHistory, &lowPlyHistory, &captureHistory,
                   contHist, &sharedHistory, ss->ply);
 
     // Step 5. Loop through all legal moves until no moves remain
     // or a beta cutoff occurs.
-    while ((move = mp.next_move()) != Move::none())
+    for (move = forcedMove != Move::none() ? forcedMove : mp.next_move();
+         move != Move::none();
+         move = forcedMove != Move::none() ? Move::none() : mp.next_move())
     {
         assert(move.is_ok());
 
@@ -2380,7 +2399,9 @@ void SearchManager::output_pv(Search::Worker&           worker,
 
         // Potentially correct and extend the PV, and in exceptional cases v.
         // Previous PVs have already been extended. Inexact flags indicate an unreliable PV.
-        if (is_decisive(v) && !is_mate_or_mated(v) && !usePreviousScore
+        // Points settlements use decisive scores too, but they are not Syzygy
+        // results. Repetition/rule50 can settle a points win or loss, not a draw.
+        if (!pos.game_of_points() && is_decisive(v) && !is_mate_or_mated(v) && !usePreviousScore
             && (!rootMoves[i].is_inexact() || isTBScore))
             syzygy_extend_pv(worker.options, worker.limits, pos, rootMoves[i], v, multiPV);
 

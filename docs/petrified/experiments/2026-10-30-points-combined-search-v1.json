@@ -1,0 +1,94 @@
+{
+  "schema": "petrified-combined-search-v1",
+  "experiment": "points-combined-search-v1",
+  "created_utc": "2026-10-30T08:23:52.354483+00:00",
+  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "authorization": "Owner requests all retained OpenBench candidates combined on one branch against PR11, then explicitly adds PR17. One combined candidate, no OpenBench workload.",
+  "base_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+  "base_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
+  "branch": "exp/points-combined-search-v1",
+  "components": [
+    {
+      "pr": 9,
+      "policy": "verified null pruning",
+      "source": "182255847accc7e4301df97a3546d11a4e5d2c0f"
+    },
+    {
+      "pr": 12,
+      "policy": "incremental state",
+      "source": "b13df5004c57543e8e05f296ecd4dc67757dfb81"
+    },
+    {
+      "pr": 13,
+      "policy": "pin legality",
+      "source": "8f27dd7356c18aa9d63530c1d87fbde09ebb8327"
+    },
+    {
+      "pr": 15,
+      "policy": "legal exchange SEE",
+      "source": "08cfc88f74f770dad86d86cf1662aa26a0c561ab"
+    },
+    {
+      "pr": 16,
+      "policy": "capture LMR transaction",
+      "source": "e6faae706d6217342d580714045cb37699a6cb94"
+    },
+    {
+      "pr": 17,
+      "policy": "forced quiescence and points PV reporting",
+      "source": "da87947ac2d5dd04fe39a9cbfa31cf70668ee6cd"
+    }
+  ],
+  "integration": "All engine patches applied cleanly by three-way merge. Test and CMake conflicts preserve the union. Null-child state/key/legal references and full-safety SEE reference cover interactions. No component coefficient tuning.",
+  "excluded": [
+    "PR14 sparse head",
+    "new training",
+    "post-result tuning",
+    "any further candidate"
+  ],
+  "champion": {
+    "pr": 11,
+    "binary_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+    "bench": 177290
+  },
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "compiler": "GCC 16.1.0 MinGW BMI2 LTO, no PGO",
+  "validation_required": [
+    "Debug/Release full reference move lists/order and capped queries",
+    "all derived keys, state/undo and exact NNUE including real/null children",
+    "SEE full make/undo reference and independent client",
+    "capture material/points and independent client",
+    "forced quiet/capture search and independent terminal PVs",
+    "points/mates, native UCI/CECP",
+    "independent T1/T2 search PVs",
+    "reproducible points bench and unchanged legacy179335",
+    "all five source CI jobs"
+  ],
+  "panel": {
+    "directory": ".local/points-combined-search-panel-001",
+    "status": "NOT_STARTED",
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "threads": 1,
+    "hash_mb": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0% or0.0%, finish pending pairs and recheck; continue within cap if boundary lost.",
+    "selection": "At cap without boundary: NEUTRAL_SCREEN, not equivalence. Only three audited wins plus distribution/interfaces allow promotion. Delegated early manual neutral/loss rejection remains available.",
+    "referee": "Hash-pinned public Chess.com client, independent of candidate and champion"
+  },
+  "restrictions": {
+    "openbench_workload": false,
+    "T8": "manually paused",
+    "Fairyground": "closed, PR11 preserved",
+    "other_workers": false,
+    "AtomicDB": false,
+    "Misere_contact": false
+  },
+  "individual_status": "PR9/12/13/15/16 separately retained. PR17 standalone closed neutral, not in OpenBench queue; explicitly included in this combination.",
+  "runtime_released": false
+}

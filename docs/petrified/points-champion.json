@@ -132,15 +132,16 @@
   },
   "promoted_utc": "2026-10-29T15:04:44.281140+00:00",
   "latest_candidate_evaluation": {
-    "experiment": "docs/petrified/experiments/2026-10-29-points-legal-query-v1.json",
-    "status": "PROMOTED",
-    "champion_unchanged": false,
+    "experiment": "docs/petrified/experiments/2026-10-29-points-capture-lmr-v1.json",
+    "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+    "champion_unchanged": true,
     "games": {
-      "VSTC": 70,
-      "STC": 70,
-      "LTC": 88
+      "VSTC": 400,
+      "STC": 400,
+      "LTC": 400
     },
-    "completed_utc": "2026-10-29T15:04:44.281140+00:00"
+    "completed_utc": "2026-10-30T06:42:59.284175+00:00",
+    "source_tag": "candidates/points-capture-lmr-v1-openbench"
   },
   "candidate_evaluation_history": [
     {
@@ -164,6 +165,19 @@
         "LTC": 0
       },
       "completed_utc": "2026-10-29T12:32:34.285969+00:00"
+    },
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-29-points-pin-legality-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 400,
+        "LTC": 32
+      },
+      "completed_utc": "2026-10-29T19:25:09.944744+00:00",
+      "source_tag": "candidates/points-pin-legality-v1-openbench"
     }
   ],
   "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/11",
@@ -179,6 +193,57 @@
       },
       "completed_utc": "2026-10-29T13:19:08.438536+00:00",
       "source_tag": "candidates/points-verified-null-v1-openbench"
+    },
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-29-points-incremental-state-v1.json",
+      "status": "RETAINED_POTENTIAL_WIN_FOR_FUTURE_OPENBENCH",
+      "manual_classification": "POTENTIAL_WIN",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 398,
+        "LTC": 0
+      },
+      "completed_utc": "2026-10-29T17:33:03.206881+00:00",
+      "source_tag": "candidates/points-incremental-state-v1-openbench"
+    },
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-29-points-pin-legality-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 400,
+        "LTC": 32
+      },
+      "completed_utc": "2026-10-29T19:25:09.944744+00:00",
+      "source_tag": "candidates/points-pin-legality-v1-openbench"
+    },
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-29-points-exchange-see-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "manual_classification": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 288,
+        "LTC": 0
+      },
+      "completed_utc": "2026-10-29T21:26:17.434743+00:00",
+      "source_tag": "candidates/points-exchange-see-v1-openbench"
+    },
+    {
+      "experiment": "docs/petrified/experiments/2026-10-29-points-capture-lmr-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 400,
+        "LTC": 400
+      },
+      "completed_utc": "2026-10-30T06:42:59.284175+00:00",
+      "source_tag": "candidates/points-capture-lmr-v1-openbench"
     }
   ],
   "distribution": {

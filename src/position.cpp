@@ -798,6 +798,9 @@ void Position::do_move(Move m, StateInfo& newSt, bool, Dirties& dirties,
     std::memcpy(&newSt, st, offsetof(StateInfo, key));
     newSt.previous = st;
     st = &newSt;
+    st->key = st->previous->key ^ Zobrist::side;
+    for (Bitboard b = st->epSquares; b;)
+        st->key ^= make_key(0x455000 + pop_lsb(b));
     ++gamePly;
     ++st->rule50;
     ++st->pliesFromNull;
@@ -818,26 +821,71 @@ void Position::do_move(Move m, StateInfo& newSt, bool, Dirties& dirties,
     dirties.dirtyPawnPairs.before[WHITE] = pieces(WHITE, PAWN);
     dirties.dirtyPawnPairs.before[BLACK] = pieces(BLACK, PAWN);
     st->castlingRights &= ~(castlingRightsMask[from] | castlingRightsMask[to]);
+    st->key ^= Zobrist::castling[st->previous->castlingRights]
+             ^ Zobrist::castling[st->castlingRights];
+
+    // Keep set_state() as the full initialization path. A move changes only a
+    // few piece-square terms; walls and scores also enter all correction keys.
+    auto xor_piece = [&](Piece piece, Square square) {
+        const Key delta = Zobrist::psq[piece][square];
+        st->key ^= delta;
+        if (type_of(piece) == PAWN)
+            st->pawnKey ^= delta;
+        else
+        {
+            st->nonPawnKey[color_of(piece)] ^= delta;
+            if (type_of(piece) <= BISHOP)
+                st->minorPieceKey ^= delta;
+        }
+    };
+    auto xor_shared = [&](Key delta) {
+        st->key ^= delta;
+        st->pawnKey ^= delta;
+        st->minorPieceKey ^= delta;
+        st->nonPawnKey[WHITE] ^= delta;
+        st->nonPawnKey[BLACK] ^= delta;
+    };
+    // Called after removal, so pieceCount already identifies the removed term.
+    auto remove_material = [&](Piece piece) {
+        st->materialKey ^= Zobrist::psq[piece][8 + pieceCount[piece]];
+        if (type_of(piece) != PAWN && type_of(piece) != KING)
+            st->nonPawnMaterial[color_of(piece)] -= PieceValue[piece];
+    };
     if (m.type_of() == CASTLING)
     {
         Square rfrom, rto;
         do_castling<true>(us, from, to, rfrom, rto, nullptr, &dp);
+        xor_piece(pc, from);
+        xor_piece(pc, to);
+        xor_piece(make_piece(us, ROOK), rfrom);
+        xor_piece(make_piece(us, ROOK), rto);
     }
     else
     {
+        xor_piece(pc, from);
         if (st->capturedPiece)
         {
-            if (game_of_points()) st->points[us] += capture_points(type_of(st->capturedPiece));
+            if (game_of_points())
+            {
+                const Key scoreBase = us == WHITE ? 0x100000000ULL : 0x200000000ULL;
+                const Key before = make_key(scoreBase + st->points[us]);
+                st->points[us] += capture_points(type_of(st->capturedPiece));
+                xor_shared(before ^ make_key(scoreBase + st->points[us]));
+            }
             const Square cs = m.type_of() == EN_PASSANT ? to - pawn_push(us) : to;
             dp.remove_pc = st->capturedPiece;
             dp.remove_sq = cs;
             remove_piece(cs);
+            xor_piece(st->capturedPiece, cs);
+            remove_material(st->capturedPiece);
             st->rule50 = 0;
         }
         if (st->capturedPiece && type_of(pc) != PAWN)
         {
             remove_piece(from);
+            remove_material(pc);
             wallBB |= to;
+            xor_shared(Zobrist::walls[to]);
             st->petrified = true;
             dp.to = SQ_NONE;
         }
@@ -850,7 +898,11 @@ void Position::do_move(Move m, StateInfo& newSt, bool, Dirties& dirties,
                 dp.to = SQ_NONE;
                 dp.add_sq = to;
                 dp.add_pc = piece_on(to);
+                remove_material(pc);
+                st->materialKey ^= Zobrist::psq[dp.add_pc][8 + pieceCount[dp.add_pc] - 1];
+                st->nonPawnMaterial[us] += PieceValue[dp.add_pc];
             }
+            xor_piece(piece_on(to), to);
         }
         if (type_of(pc) == PAWN)
         {
@@ -864,7 +916,10 @@ void Position::do_move(Move m, StateInfo& newSt, bool, Dirties& dirties,
         }
     }
     sideToMove = ~sideToMove;
-    set_state();
+    for (Bitboard b = st->epSquares; b;)
+        st->key ^= make_key(0x455000 + pop_lsb(b));
+    st->checkersBB = attackers_to(square<KING>(sideToMove)) & pieces(~sideToMove);
+    set_extra_bitboards();
     const int end = std::min(st->rule50, st->pliesFromNull);
     StateInfo* prior = st;
     for (int i = 2; i <= end; i += 2)
@@ -1152,10 +1207,148 @@ void Position::undo_null_move() {
 }
 
 
-// Tests if the SEE (Static Exchange Evaluation)
-// value of the move is greater or equal to the given threshold. We'll use an
-// algorithm similar to alpha-beta pruning with a null window.
+namespace {
+
+// A local exchange board, deliberately independent of Position's move/undo,
+// hashes and NNUE. Walls remain occupied but never belong to either color.
+struct PointsExchange {
+    Bitboard byType[PIECE_TYPE_NB] = {};
+    Bitboard byColor[COLOR_NB] = {};
+    Bitboard occupied;
+    Square   king[COLOR_NB];
+
+    explicit PointsExchange(const Position& pos) : occupied(pos.occupied()) {
+        for (PieceType pt = PAWN; pt <= KING; ++pt)
+            byType[pt] = pos.pieces(pt);
+        for (Color c : {WHITE, BLACK})
+        {
+            byColor[c] = pos.pieces(c);
+            king[c] = pos.square<KING>(c);
+        }
+    }
+
+    void remove(Color c, PieceType pt, Square s) {
+        byType[pt] &= ~square_bb(s);
+        byColor[c] &= ~square_bb(s);
+        occupied &= ~square_bb(s);
+    }
+
+    void put(Color c, PieceType pt, Square s) {
+        byType[pt] |= s;
+        byColor[c] |= s;
+        occupied |= s;
+    }
+
+    Bitboard attackers(Square s, Color by) const {
+        // Royal commoners cannot capture, including in an exchange sequence.
+        return byColor[by]
+             & ((attacks_bb(PAWN, s, ~by) & byType[PAWN])
+                | (attacks_bb(KNIGHT, s) & byType[KNIGHT])
+                | (attacks_bb(BISHOP, s, occupied) & (byType[BISHOP] | byType[QUEEN]))
+                | (attacks_bb(ROOK, s, occupied) & (byType[ROOK] | byType[QUEEN])));
+    }
+
+    // Captures of the occupant of 'target', with the option to decline (zero).
+    // Every non-pawn capture ends the exchange by making a wall. Only pawns
+    // recurse, so there are at most four pawn origins for a fixed target.
+    // Enumerate all attackers: least-valuable-attacker chess SEE is not valid
+    // when the capturing piece itself disappears and a wall blocks x-rays.
+    int best_capture(Color us, Square target, PieceType victim) const {
+        const int reward = PieceValue[victim] + 100 * Position::capture_points(victim);
+        int best = 0;
+        const Bitboard all = attackers(target, us);
+        for (PieceType pt : {PAWN, KNIGHT, BISHOP, ROOK, QUEEN})
+            for (Bitboard origins = all & byType[pt]; origins;)
+            {
+                const Square from = pop_lsb(origins);
+                if (pt != PAWN)
+                {
+                    const int gain = reward - PieceValue[pt];
+                    if (gain <= best)
+                        continue;
+                    PointsExchange next = *this;
+                    next.remove(us, pt, from);
+                    next.remove(~us, victim, target);
+                    next.occupied |= target; // Neutral wall, not a surviving capturer
+                    if (!next.attackers(king[us], ~us))
+                        best = gain;
+                    continue;
+                }
+
+                const bool promotion = relative_rank(us, target) == RANK_8;
+                for (PieceType result : {PAWN, KNIGHT, BISHOP, ROOK, QUEEN})
+                {
+                    if (promotion == (result == PAWN))
+                        continue;
+                    const int gain = reward + PieceValue[result] - PawnValue;
+                    if (gain <= best)
+                        continue;
+                    PointsExchange next = *this;
+                    next.remove(us, PAWN, from);
+                    next.remove(~us, victim, target);
+                    next.put(us, result, target);
+                    if (!next.attackers(king[us], ~us))
+                        best = std::max(best, gain - next.best_capture(~us, target, result));
+                }
+            }
+        return best;
+    }
+};
+
+} // namespace
+
+// Exact minimax of a restricted local exchange, not of the whole game:
+// live material plus the existing 100 units per earned point; either side may
+// decline a recapture. Mate, settlement, tempo and the positional value of a
+// wall remain the search/evaluator's responsibility. The initial move is legal.
+int Position::points_see(Move m) const {
+    assert(game_of_points());
+    const Color us = sideToMove;
+    const PieceType mover = type_of(moved_piece(m));
+    if (m.type_of() == CASTLING || mover == KING)
+        return 0;
+    const Square from = m.from_sq(), to = m.to_sq();
+    const Square captured = m.type_of() == EN_PASSANT ? to - pawn_push(us) : to;
+    const PieceType victim = type_of(piece_on(captured));
+    int gain = victim == NO_PIECE_TYPE ? 0
+               : PieceValue[victim] + 100 * capture_points(victim);
+    if (victim != NO_PIECE_TYPE && mover != PAWN)
+        return gain - PieceValue[mover]; // A wall cannot be recaptured
+
+    const PieceType result = m.type_of() == PROMOTION ? m.promotion_type() : mover;
+    gain += PieceValue[result] - PieceValue[mover];
+    PointsExchange board(*this);
+    board.remove(us, mover, from);
+    if (victim != NO_PIECE_TYPE)
+        board.remove(~us, victim, captured);
+    board.put(us, result, to);
+    int reply = board.best_capture(~us, to, result);
+
+    // A double pawn push can also lose its occupant on a different square via
+    // en passant. Follow that surviving pawn on the passed square thereafter.
+    if (mover == PAWN && int(to) - int(from) == 2 * int(pawn_push(us)))
+    {
+        const Square passed = to - pawn_push(us);
+        for (Bitboard origins = attacks_bb(PAWN, passed, us)
+                               & board.byColor[~us] & board.byType[PAWN]; origins;)
+        {
+            const Square epFrom = pop_lsb(origins);
+            PointsExchange next = board;
+            next.remove(us, PAWN, to);
+            next.remove(~us, PAWN, epFrom);
+            next.put(~us, PAWN, passed);
+            if (!next.attackers(next.king[~us], us))
+                reply = std::max(reply, PawnValue + 100
+                                       - next.best_capture(us, passed, PAWN));
+        }
+    }
+    return gain - reply;
+}
+
+// Keep the legacy Walls estimate unchanged. Points uses legal local exchanges,
+// including surviving pawns, fatal captures, x-rays, promotions and en passant.
 bool Position::see_ge(Move m, int threshold) const {
+    if (game_of_points()) return points_see(m) >= threshold;
     if (m.type_of() == CASTLING) return threshold <= 0;
     const Piece pc = moved_piece(m);
     int gain = m.type_of() == EN_PASSANT ? PieceValue[PAWN] : PieceValue[piece_on(m.to_sq())];
