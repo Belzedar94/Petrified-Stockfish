@@ -1775,9 +1775,12 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
     assert(0 <= ss->ply && ss->ply < MAX_PLY);
 
     // Step 3. Transposition table lookup
-    // Quiet walls can leave no legal moves without a capture or a conventional
-    // check. Stand-pat must not turn such a terminal into an NNUE estimate.
-    if (!has_legal_move(pos))
+    // Points terminal positions were resolved above. Walls can force a quiet
+    // continuation: in that case there is no stand-pat option. Stop the legal
+    // query at two moves rather than constructing a full list at every qnode.
+    const Move forcedMove = pos.game_of_points() && !ss->inCheck
+                          ? unique_legal_move(pos) : Move::none();
+    if ((!pos.game_of_points() || ss->inCheck) && !has_legal_move(pos))
         return pos.no_moves_value(ss->ply);
 
     posKey                         = pos.key();
@@ -1825,7 +1828,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         }
 
         // Stand pat. Return immediately if static value is at least beta
-        if (bestValue >= beta)
+        if (forcedMove == Move::none() && bestValue >= beta)
         {
             assert(!is_decisive(bestValue));
             bestValue = (441 * bestValue + 583 * beta) / 1024;
@@ -1836,10 +1839,12 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
             return bestValue;
         }
 
-        if (bestValue > alpha)
+        if (forcedMove == Move::none() && bestValue > alpha)
             alpha = bestValue;
 
         futilityBase = ss->staticEval + 306;
+        if (forcedMove != Move::none())
+            bestValue = -VALUE_INFINITE;
     }
 
     bestValue = std::max(bestValue, pointsClaim);
@@ -1849,13 +1854,16 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
 
     // Initialize a MovePicker object for the current position, and prepare
     // to search the moves. We presently use two stages of move generator in
-    // quiescence search: captures, or evasions only when in check.
+    // quiescence search: captures, or evasions only when in check. A unique
+    // points move bypasses the picker, including when it is quiet.
     MovePicker mp(pos, ttData.move, DEPTH_QS, &mainHistory, &lowPlyHistory, &captureHistory,
                   contHist, &sharedHistory, ss->ply);
 
     // Step 5. Loop through all legal moves until no moves remain
     // or a beta cutoff occurs.
-    while ((move = mp.next_move()) != Move::none())
+    for (move = forcedMove != Move::none() ? forcedMove : mp.next_move();
+         move != Move::none();
+         move = forcedMove != Move::none() ? Move::none() : mp.next_move())
     {
         assert(move.is_ok());
 

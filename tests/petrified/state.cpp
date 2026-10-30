@@ -31,6 +31,8 @@ static void check_queries(const Position& pos, unsigned salt, bool exhaustive = 
     Move* end = reference_generate<ALL>(pos, expected);
     auto contains = [&](Move m) { return std::find(expected, end, m) != end; };
     require(has_legal_move(pos) == (end != expected), "legal-existence query mismatch");
+    require(unique_legal_move(pos) == (end == expected + 1 ? expected[0] : Move::none()),
+            "unique legal-move query mismatch");
     check_move_order<ALL>(pos); check_move_order<CAPTURES>(pos);
     check_move_order<QUIETS>(pos); check_move_order<EVASIONS>(pos);
     for (const Move* m = expected; m != end; ++m) {

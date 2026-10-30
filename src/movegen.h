@@ -53,6 +53,8 @@ Move* generate(const Position& pos, Move* moveList);
 // Boolean queries share the generator's rules without building a complete list.
 bool has_legal_move(const Position& pos);
 bool contains_legal_move(const Position& pos, Move move);
+// Returns none for zero or multiple moves; stops as soon as a second is found.
+Move unique_legal_move(const Position& pos);
 
 // The MoveList struct wraps the generate() function and returns a convenient
 // list of moves. Using MoveList is sometimes preferable to directly calling

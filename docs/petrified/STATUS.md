@@ -1,3 +1,257 @@
+## Active request: points-forced-qsearch-v1 (2026-10-30)
+
+One candidate from qualified PR11 tests forced-move quiescence in points. It
+suppresses stand-pat when exactly one legal move exists, including quiet moves.
+Correctness, native interfaces, source CI and the frozen40/400 VSTC/STC/LTC gate
+remain pending. PR11 stays champion. PR16 is retained separately as an open
+draft for future OpenBench; its neutral selection and all artifacts are preserved.
+No OpenBench workload, training, T8 restart or other-worker action is authorized.
+See `experiments/2026-10-30-points-forced-qsearch-v1.json`.
+
+# PR16 retained for future OpenBench; one new PR11-based search idea authorized
+
+On2026-10-30 the owner retained PR16 as an open draft for future OpenBench.
+Its raw three-control results and REJECTED_NEUTRAL_SCREEN selection are preserved
+below; retention is not a statistical win or promotion. The212-entry bundle and
+source tag `candidates/points-capture-lmr-v1-openbench` identify the exact candidate.
+All1832 owned identities exited; the lease remains released and follow-up deleted.
+The owner authorized one new search-specific candidate from qualified PR11 only.
+No retained experiment code or rejected PR14 changes are included. No OpenBench
+workload is authorized; T8 stays paused and Fairyground closed.
+
+# PR16 complete: rejected by neutral screening; PR11 remains champion
+
+points-capture-lmr-v1 completed its one frozen panel against qualified PR11.
+All three controls reached the declared cap without a displayed LOS boundary.
+The decision is REJECTED_NEUTRAL_SCREEN, not statistical equivalence or a
+statistical loss. No control will be replayed and no next candidate is authorized.
+
+| Control | Games | W/L/D | Elo 95% | LOS | Time losses C/O | Selection status |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 400 | 181/199/20 | -15.65 +/-33.3 | 17.8% | 0/0 | NEUTRAL_SCREEN |
+| STC 10+0.1 | 400 | 195/175/30 | +17.39 +/-32.8 | 85.1% | 0/0 | NEUTRAL_SCREEN |
+| LTC 30+0.3 | 400 | 189/181/30 | +6.95 +/-32.8 | 66.1% | 0/0 | NEUTRAL_SCREEN |
+
+Raw status is INCONCLUSIVE_LIMIT for each control. The final audit passed all
+1200 games/600 color-reversed pairs,232064 independent referee plies, colors,
+openings, clocks, statistics and201+11+7 frozen hashes. All6617 panel files are
+preserved with a hash inventory. The controller exited0; all1832 recorded process
+identities (1804 panel and28 development/build) exited. The initial strict exit
+audit failed on access errors for reused protected PIDs. That failure is preserved;
+successful Win32_Process CreationDate queries proved later unrelated identities.
+Access errors alone never counted as exit. The original auditor and all frozen
+inputs remain unchanged; the recovery wrapper and its negative identity checks
+are recorded in the experiment. No unrelated process was touched.
+
+The212-entry frozen-input and closure bundle is
+`.local/points-capture-lmr-v1/frozen-inputs-and-closure.zip`, SHA256
+`32000a61c7c9ecccb2638e3522c7bdffc90a1f52c69e5df8ec9ed2e782101139`.
+The lease is released and the follow-up automation is deleted. PR16 is closed
+unmerged. PR11 remains champion; distribution/WASM/Fairyground
+acceptance was not attempted for this rejected candidate. T8 remains manually
+paused and Fairyground closed with its PR11 profile preserved.
+
+The single successor assigns capture search depth using the immediate material
+and earned-points transaction, including the disappearing non-pawn mover and
+surviving pawn promotions. Coefficient873/128 and all other search policies,
+SEE, history, move ordering, rules, state and NNUE stay unchanged. No retained
+PR9/12/13/15 code or rejected PR14 change is included. Engine source is frozen
+at e6faae706d6217342d580714045cb37699a6cb94.
+
+Debug/Release each passed177911 transaction checks,883968 legal queries and9338
+state/undo positions with exact NNUE. The independent client matched403 local
+transactions, including promotions and en passant. Its15 terminal settlements
+are explicitly outside this local objective; points/mates regression tests
+cover terminal outcomes. Native UCI/CECP and32 independent searches/248 PV plies
+passed. Candidate points bench151183 reproduced twice; PR11 remains177290 and
+both legacy benches remain179335. These are correctness checks, not Elo.
+
+Two adapter faults and their fixes are preserved: EP FEN is reconstructed by
+replaying the preceding double push, and fixture walls are checked as neutral
+X pieces. Engine source, executable and network never changed. All28 recorded
+build/validation identities exited. The original source CI passed five jobs;
+the adapter correction is a separate commit a541bfe9360c4ae34726b2f1501a2100c3bab8b1,
+also green in all five jobs40959917423. The completed panel is preserved in
+`.local/points-capture-lmr-panel-001`;201 frozen inputs,11 panel hashes and7
+dependencies passed launch audit. Memory preflight found9548095488 free bytes
+against7583301632 required. The experiment record and local followup contain
+the final panel state and exact PID+CreationDate identities.
+PR11 remains champion. The one min40/max400 VSTC/STC/LTC panel is complete;
+it did not satisfy the three-WIN promotion gate. T8 remains paused, Fairyground
+closed, and no OpenBench/AtomicDB/remote-worker or Misere action is authorized.
+
+# PR15 retained for future OpenBench
+
+PR15 points-exchange-see-v1 retained for future OpenBench by owner request.
+Local panel closed at VSTC400/STC288/LTC0; all688 paired games and133648 referee
+plies audited. Exact157-input bundle and source tag are recorded in its experiment.
+All1076 owned process identities exited; lease released. PR11 remains champion.
+Its one authorized successor was PR16, now complete above. No OpenBench load.
+
+# Historical setup: points-exchange-see-v1, one search hypothesis from PR11
+
+The owner requested a deeper search review after the rejected sparse-head speed
+experiment. The review is in `search-specialization-review.md`. The selected
+change replaces the one-move points SEE with a legal local-exchange minimax:
+fatal captures end on a wall, pawns survive, and earned points, pins, promotions
+and en passant enter the calculation. All caller thresholds, other search
+policies, rules, state and NNUE remain fixed. Legacy behavior is unchanged.
+PR11 remains champion. The one frozen candidate is now running its panel in PR15.
+The uncompiled fused-accumulator sketch was archived without any strength games.
+No OpenBench or other worker action is authorized.
+
+The first development check passed56798 moves/795172 thresholds over1827
+positions against a full make/undo reference. The independent Chess.com exchange
+check passed789 nonterminal cases;21 terminal-settlement cases are explicitly
+excluded because settlement freezes armies and is outside the SEE objective.
+Those checks are correctness evidence, not Elo. Final Debug/Release passed the same exchange counts plus883968 query checks
+and9338 state/undo positions each with exact NNUE. Native interfaces and32
+independent searches/280 PV plies passed. Five source CI jobs40947924033 passed.
+Candidate points bench192555 reproduced twice, rival177290 and legacy179335.
+The149 frozen entries,11 panel hashes and7 dependencies passed launch audit.
+Memory preflight found9499103232 free bytes versus7583301632 required. All30
+recorded development/build process identities exited before panel launch.
+The active panel is `.local/points-exchange-see-panel-001`; its followup and
+experiment record contain the real PID+CreationDate identities. Details: `experiments/2026-10-29-points-exchange-see-v1.json`.
+
+# PR14 rejected before the strength panel; PR11 remains champion
+
+points-sparse-head-v1 repacked the frozen first NNUE layer into input-major
+SIMD blocks and skipped all-zero input blocks. Exact correctness passed, but
+all eight alternating depth12 samples were slower than PR11 with the same
+376705 nodes: candidate median409.5ms versus376.5ms, throughput0.919414x
+(-8.06%; elapsed time +8.76%). This is REJECTED_PERFORMANCE_SCREEN, with no
+Elo measurement, statistical loss or equivalence claim. The candidate was not
+retuned and no strength panel was launched.
+
+| Control | Games | W/L/D | Elo 95% | LOS | Time losses C/O | Status |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 0 | 0/0/0 | N/A | N/A | 0/0 | NOT_RUN_PERFORMANCE_SCREEN |
+| STC 10+0.1 | 0 | 0/0/0 | N/A | N/A | 0/0 | NOT_RUN_PERFORMANCE_SCREEN |
+| LTC 30+0.3 | 0 | 0/0/0 | N/A | N/A | 0/0 | NOT_RUN_PERFORMANCE_SCREEN |
+
+Each Debug/Release passed61632 adversarial sparse-output comparisons,
+1116 bucket/score/clock cases,883968 legal queries and9338 state/undo positions
+with exact NNUE. Native UCI/CECP,32 independent referee searches/244 PV plies,
+network reload/export and eight invalid files passed. Points bench177290 twice
+and legacy179335 match PR11. All five source CI jobs passed in run40940935494.
+Two harness failures (wrong variant and post-exit process-handle checking) are
+preserved with successful repairs; source, executable and weights never changed.
+WASM/Fairyground acceptance was not attempted for this rejected candidate.
+
+The closure audit verified50 previously frozen inputs,217 source archive files,
+all timing logs and exit of43 recorded build/validation process identities.
+The final139-input bundle is `.local/points-sparse-head-v1/frozen-inputs.zip`,
+SHA256 `d1f10e8574bf01bef9ddc94eb61306fc12d52c3a6c459137d04a47aa5927eaba`.
+Its exact source is tagged `candidates/points-sparse-head-v1-rejected-performance`.
+The lease is released; no follow-up was created. PR11 remains qualified and
+installed. PR9/PR12/PR13 stay retained separately for future OpenBench; none was
+included. T8 stays manually paused. No next candidate or OpenBench load is
+authorized. Details: `experiments/2026-10-29-points-sparse-head-v1.json`.
+
+# PR13 retained for future OpenBench
+
+PR #13 points-pin-legality-v1 retained for future OpenBench by the owner (2026-10-29).
+The local panel closed manually at VSTC400/STC400/LTC32: 204/183/13,
+195/178/27, 18/11/3; time losses0/0. Raw VSTC/STC are INCONCLUSIVE_LIMIT
+(selection NEUTRAL_SCREEN), LTC INTERRUPTED (manual stop below40). The audit
+verified832 games/416 pairs/165115 independent referee plies, frozen hashes and
+exit of1264 panel plus35 build identities. Four incomplete pairs and three
+completed unpaired games are preserved and excluded. Source tag
+`candidates/points-pin-legality-v1-openbench`,86-input bundle and closure evidence
+are in `experiments/2026-10-29-points-pin-legality-v1.json`. PR13 remains a draft;
+PR11 remains champion. Its lease is released. One new sparse NNUE head execution
+experiment is authorized; no OpenBench workload is authorized.
+
+# Historical setup: points-pin-legality-v1 / PR13
+
+The owner closed PR12 as a potential win retained for future OpenBench and
+requested one next experiment. PR11 remains champion. The successor will avoid
+redundant full king-safety checks in move generation when cached blockers prove
+the move cannot expose the king. The full path remains for check evasions,
+kings/castling, pinned origins and en passant. Exact move order, rules, NNUE and
+search must remain unchanged, with differential and independent validation,
+identical benches and the existing three-control gate. No retained PR12 or PR9
+engine changes are included. No OpenBench workload is authorized now.
+
+Source8f27dd7356c18aa9d63530c1d87fbde09ebb8327 passed all five source CI jobs
+(run40923202572). Each Debug/Release passed1,079,359 exact query comparisons,
+4,934 king-safety fixture positions and9,338 state/undo positions with exact
+NNUE. Independent referee searches and native interfaces passed. Points bench
+177290 and legacy179335 match PR11 exactly. Eight alternating depth12 samples
+used376705 identical nodes: median351.5ms candidate versus379ms PR11,1.07824x
+local throughput, not Elo. The78-input manifest freezes source, binaries,
+network, validation evidence and the controller/auditor. Memory preflight found
+9,473,003,520bytes free, above the7,583,301,632 requirement.
+
+The one three-control panel is running at
+`.local/points-pin-legality-panel-001`; its real process identities and current
+results are in `.local/points-pin-legality-followup.json`. The launch audit
+verified78 execution inputs,11 panel hashes and7 frozen dependencies. PR11
+remains champion. T8 stays paused and the current lease remains reserved for
+PR13. No other candidate or OpenBench workload is authorized.
+
+VSTC closed at its 400-game cap: 204/183/13, +18.26 +/-33.6 Elo (95%),
+LOS 85.8%, time losses 0/0. Raw INCONCLUSIVE_LIMIT is NEUTRAL_SCREEN for
+selection, not statistical equivalence. All 200 pairs and 75,469 independent
+referee plies passed the control audit. STC also closed at 400 games:
+195/178/27, +14.77 +/-33.0 Elo (95%), LOS 81.1%, time losses 0/0, with
+raw INCONCLUSIVE_LIMIT and selection NEUTRAL_SCREEN. Its 200 pairs and 82,454
+referee plies passed audit. LTC is running. PR13 cannot satisfy the current
+three-WIN promotion gate. PR11 remains champion.
+
+# PR12 retained as potential win; local panel closed
+
+| Control | Games | W/L/D | Elo +/-95% | LOS | Time losses C/O | State |
+|---|---:|---|---|---|---|---|
+| VSTC 2+0.02 | 400 | 201/181/18 | +17.39 +/-33.4 | 84.7% | 0/0 | NEUTRAL_SCREEN |
+| STC 10+0.1 | 398 | 200/175/23 | +21.85 +/-33.2 | 90.2% | 0/0 | STOPPED_MANUAL |
+| LTC 30+0.3 | 0 | -- | -- | -- | 0/0 | NOT_RUN_MANUAL |
+
+POTENTIAL_WIN is the owner's selection for future testing, not a statistical
+win, equivalence or promotion. All798 games/399 pairs/152114 independent referee
+plies passed audit. One incomplete pair and its completed unpaired game remain
+preserved and excluded. All1204 panel and35 build process identities exited;
+the reservation is released and the heartbeat deleted. T8 remains paused.
+
+The exact source is tagged `candidates/points-incremental-state-v1-openbench`.
+Its88-input ZIP is `.local/points-incremental-state-v1/frozen-inputs.zip`, SHA256
+`f71bf1fa6cccbbebf9cc3128e88310681ba6d91ae71502cf85b9268c2b804f5c`.
+Every archived entry was verified. An initial external-path indexing failure
+was preserved and fixed without changing inputs. PR12 remains an open draft.
+
+# Historical setup: points-incremental-state-v1
+
+The owner authorized one next candidate from the new PR #11 champion.
+The hypothesis is to update Zobrist/history/material keys from the move delta,
+instead of rebuilding over all pieces and walls at every search node. Rules,
+move order, NNUE and search settings stay fixed. Full FEN initialization remains
+the recomputation oracle; special moves, score/wall deltas, undo, repetition and
+null restoration must match exactly. Both deterministic benches must match PR #11.
+
+After correctness and source CI, freeze one candidate for the usual three-control
+panel (minimum40/maximum400, displayed LOS100.0%/0.0%, drain/recheck pairs).
+Promotion still requires three audited wins and complete interfaces. The owner
+has delegated early rejection of neutral or clearly losing candidates.
+The owner authorized closing Fairyground to free memory for this panel; the
+PR #11 server and its engines exited through the owned shutdown endpoint.
+The four-way Hash512 panel is running after its memory check. T8 stays paused;
+no OpenBench, AtomicDB, remote-worker or Misere action is authorized.
+See `experiments/2026-10-29-points-incremental-state-v1.json`.
+
+PR #12 source `b13df5004c57543e8e05f296ecd4dc67757dfb81` is validated and
+frozen with 80 inputs. Debug/Release each passed 72,078 full-state comparisons,
+883,968 legal queries and 9,338 state/NNUE checks; 32 searches passed the
+independent referee. Five source CI jobs passed. Points bench is 177290 twice,
+legacy 179335, both identical to PR #11. Eight alternating depth12 samples
+visited the same 376,705 nodes: median343.5ms versus374ms (1.08879x throughput,
+not Elo). All 35 recorded build process identities exited. The panel started
+at 2026-10-29T16:10:42Z after checking 9,364,590,592 free bytes against the
+required 7,583,301,632. Session77274: controller41960, launcher38860, real
+panel27280; exact creation identities are recorded in the panel launch audit.
+All eight Fairyground process identities exited after the owner's subsequent
+authorization to close it. The installed PR #11 profile is preserved.
+
 # Promoted champion: points-legal-query-v1
 
 PR #11 accelerates boolean legal-move queries from qualified PR #7 while
@@ -415,11 +669,11 @@ The four-game concurrency preflight failed with 5.73 GiB free against a 6.58 GiB
 requirement, and T8 was restored. The next campaign fixed concurrency at three;
 its preflight passed. Threads=1 and Hash=512 are unchanged for both players.
 
-| Control | Games | W/L/D | Elo ± 95% interval | LOS | Time losses (candidate/Walls) | Status |
+| Control | Games | W/L/D | Elo Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses (candidate/Walls) | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 106 | 85/2/19 | +365.89 ± 81.9 | 100.0% | 0/0 | Passed after pending pairs |
-| STC 10+0.1 | 106 | 70/2/34 | +264.31 ± 59.3 | 100.0% | 0/0 | Passed after pending pairs |
-| LTC 30+0.3 | 16 | 9/0/7 | +221.14 ± 135.8 | 100.0% | 0/0 | Cancelled by owner |
+| VSTC 2+0.02 | 106 | 85/2/19 | +365.89 Ãƒâ€šÃ‚Â± 81.9 | 100.0% | 0/0 | Passed after pending pairs |
+| STC 10+0.1 | 106 | 70/2/34 | +264.31 Ãƒâ€šÃ‚Â± 59.3 | 100.0% | 0/0 | Passed after pending pairs |
+| LTC 30+0.3 | 16 | 9/0/7 | +221.14 Ãƒâ€šÃ‚Â± 135.8 | 100.0% | 0/0 | Cancelled by owner |
 
 Local raw records are under `.local/campaign-002/` with separate engine streams,
 every move and clock, referee results, full pairs, manifests and the worker lease.
@@ -433,11 +687,11 @@ GCC 16.1.0, `-O3 -flto -flto-partition=one`, BMI2/AVX2, no PGO. The Walls binary
 SHA-256 is `757fe43a33624648f22fe99fc55976192fe86140080e333de27e422e51672da7`.
 Both players used run4test, Threads=1, Hash=512 and concurrency three.
 
-| Control | Games | W/L/D | Elo ± 95% interval | LOS | Time losses | Status |
+| Control | Games | W/L/D | Elo Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 44 | 30/2/12 | +261.29 ± 104.4 | 100.0% | 0/0 | Passed, pending pairs completed |
-| STC 10+0.1 | 44 | 23/0/21 | +201.54 ± 72.3 | 100.0% | 0/0 | Passed, pending pairs completed |
-| LTC 30+0.3 | 16 | 8/0/8 | +190.85 ± 121.5 | 100.0% | 0/0 | Owner accepted; stopped early |
+| VSTC 2+0.02 | 44 | 30/2/12 | +261.29 Ãƒâ€šÃ‚Â± 104.4 | 100.0% | 0/0 | Passed, pending pairs completed |
+| STC 10+0.1 | 44 | 23/0/21 | +201.54 Ãƒâ€šÃ‚Â± 72.3 | 100.0% | 0/0 | Passed, pending pairs completed |
+| LTC 30+0.3 | 16 | 8/0/8 | +190.85 Ãƒâ€šÃ‚Â± 121.5 | 100.0% | 0/0 | Owner accepted; stopped early |
 
 The exact owner instruction was: "Puedes adjudicarlo como win. Empieza el panel
 vs fsf dev". LTC did not reach 40 games. Its original result remains INTERRUPTED;
@@ -454,11 +708,11 @@ including all 7,939 openings, against the pinned Walls referee. Both players
 positively identified their respective NNUE before the match.
 Records: `.local/campaign-004-fsf-dev/`.
 
-| Control | Games | W/L/D | Elo ± 95% interval | LOS | Time losses | Status |
+| Control | Games | W/L/D | Elo Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 46 | 42/0/4 | +536.97 ± 302.2 | 100.0% | 0/0 | Passed, pending pairs completed |
-| STC 10+0.1 | 44 | 33/0/11 | +338.04 ± 110.7 | 100.0% | 0/0 | Passed, pending pairs completed |
-| LTC 30+0.3 | 44 | 31/1/12 | +289.24 ± 105.4 | 100.0% | 0/0 | Passed, pending pairs completed |
+| VSTC 2+0.02 | 46 | 42/0/4 | +536.97 Ãƒâ€šÃ‚Â± 302.2 | 100.0% | 0/0 | Passed, pending pairs completed |
+| STC 10+0.1 | 44 | 33/0/11 | +338.04 Ãƒâ€šÃ‚Â± 110.7 | 100.0% | 0/0 | Passed, pending pairs completed |
+| LTC 30+0.3 | 44 | 31/1/12 | +289.24 Ãƒâ€šÃ‚Â± 105.4 | 100.0% | 0/0 | Passed, pending pairs completed |
 
 All controls used Threads=1, Hash=512 and concurrency three; no clock losses or
 measured wall-clock overruns occurred. Public results and hashes are in
