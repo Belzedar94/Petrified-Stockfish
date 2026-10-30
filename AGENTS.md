@@ -1,3 +1,26 @@
+points-qsearch-see-v1 / PR19 is frozen from PR18 and READY, waiting for RAM.
+Engine source d7cd27e0a0497a93b1632e69a890a561d7b79d18; candidate SHA256
+ ae265f5f2dc65097735b62418470efb9515793421e7d8b32d67027d94ad26a9b,
+bench148558 twice; PR18 rival167330, common network unchanged, legacy179335.
+Full Debug/Release/references/state/NNUE/undo, all component tests,8960 new
+pruning guards per build,536 independent guards,530 independent local exchanges,
+forced PVs and native interfaces passed. Five CI jobs41047109107 passed on
+2b18bb02a1a5ab6b20a8f6095298ef35546d5a51, with src identical to frozen source.
+Four test/adapter/export failures are preserved; no engine policy or binary
+changed. build-state and development-validation-002/003/004 remain FAILED;
+development-validation-005/state.json is READY_FOR_PANEL_REVIEW. Do not rebuild
+or repeat successful validation. The75 recorded development identities exited.
+Panel has NOT started:5.567GB free versus7.583GB required at the last preflight.
+Follow-up petrified-poda-see-y-panel is active;263 immutable inputs are sealed.
+Keep concurrency4 and wait. Fairyground PR18 stays open; do not close it or other
+apps to force the gate. Read .local/points-qsearch-see-followup.json, re-run only
+preflight_panel.py in .local/points-qsearch-see-v1, and once ready launch its
+run_panel.py exactly once with the task's process-journal instrumentation.
+Record the returned session and run register_panel.py --session <id>; use
+monitor_panel.py thereafter. Never duplicate a panel or act on PID alone.
+Use the same40/400 VSTC/STC/LTC boundaries, pending pairs and final full audits.
+PR18 remains champion. No automatic successor or OpenBench workload.
+
 One successor is authorized on2026-10-30 from the qualified PR18 champion:
 points-qsearch-see-v1. Use existing points SEE at a fixed zero threshold to prune
 voluntary losing captures in quiescence, protecting check/evasions, promotions,

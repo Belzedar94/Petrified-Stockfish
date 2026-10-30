@@ -2,7 +2,7 @@
   "schema": "petrified-qsearch-see-v1",
   "experiment": "points-qsearch-see-v1",
   "created_utc": "2026-10-30T11:06:50.307220+00:00",
-  "status": "CORRECTING_TEST_FIXTURE",
+  "status": "WAITING_MEMORY",
   "authorization": "Owner requested one next substantial Petrified-specific search candidate from PR18, with the same validations and VSTC/STC/LTC panel; Wakwak documentation and public OB are inspiration only.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
   "base_ref": "2a380a8b9a33eee0344cf2fcdb4909ee31ed4b62",
@@ -53,7 +53,7 @@
   },
   "panel": {
     "directory": ".local/points-qsearch-see-panel-001",
-    "status": "NOT_STARTED",
+    "status": "WAITING_MEMORY",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -93,6 +93,150 @@
       "controller_actual_exit_code": 1,
       "engine_and_binary_unchanged": true,
       "correction": "Move the fixture black king to h7 and its rook to h8; test data only. Preserve and do not repeat completed engine builds/reference validations."
+    },
+    {
+      "stage": "DEBUG_QSEARCH_SEE_V002",
+      "error": "Discovered-check fixture used a queen on the checking file, already checking the opposing king",
+      "correction": "Use a knight vacating a rook ray with a negative capture instead; fixture only",
+      "actual_controller_exit_code": 1,
+      "engine_unchanged": true
+    },
+    {
+      "stage": "INDEPENDENT_QSEARCH_GUARDS",
+      "case": 12,
+      "error": "Client stalemate settlement marks stalemated pieces dead, unlike local pre-liquidation board; bare-king comparison is inapplicable after terminal settlement",
+      "correction": "Always compare terminal status/result and require terminal branches protected. Compare bare kings/legal replies/resignation only on nonterminal child states. Keep terminal cases in guard coverage.",
+      "cpp_checks_per_build": 8960,
+      "engine_unchanged": true,
+      "actual_controller_exit_code": 1
+    },
+    {
+      "stage": "INDEPENDENT_CAPTURE",
+      "error": "Inherited launcher omitted --cases; C++ tests passed but no export existed, independent reader rejected ENOENT",
+      "correction": "Run missing export with --cases using existing Release test binary, then resume pending independent/interface/bench checks only",
+      "engine_unchanged": true,
+      "actual_controller_exit_code": 1
     }
-  ]
+  ],
+  "validation_revision": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+  "validation_report": ".local\\points-qsearch-see-v1\\validation-report.json",
+  "ci": {
+    "source_commit": "d7cd27e0a0497a93b1632e69a890a561d7b79d18",
+    "checked_revision": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+    "run_id": 41047109107,
+    "conclusion": "success",
+    "jobs_passed": 5,
+    "checks": [
+      {
+        "id": 124033776606,
+        "name": "rules (windows-latest, Release)",
+        "head_sha": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/41047109107/job/124033776606"
+      },
+      {
+        "id": 124033776899,
+        "name": "rules (ubuntu-latest, Release)",
+        "head_sha": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/41047109107/job/124033776899"
+      },
+      {
+        "id": 124033776985,
+        "name": "sanitizers",
+        "head_sha": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/41047109107/job/124033776985"
+      },
+      {
+        "id": 124033776999,
+        "name": "rules (ubuntu-latest, Debug)",
+        "head_sha": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/41047109107/job/124033776999"
+      },
+      {
+        "id": 124033778135,
+        "name": "rules (windows-latest, Debug)",
+        "head_sha": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/41047109107/job/124033778135"
+      }
+    ],
+    "qualification": "All five jobs pass on corrected test/adapter revision; src tree identical to frozen engine source. Initial CI failures are preserved."
+  },
+  "candidate_bench": [
+    148558,
+    148558
+  ],
+  "legacy_bench": [
+    179335,
+    179335
+  ],
+  "frozen_execution_manifest": {
+    "path": ".local\\points-qsearch-see-v1\\execution-manifest.json",
+    "sha256": "7945cb25147350d167f56046ba0c51896650fca8d932153efcac1ca076892cb2",
+    "files": 263
+  },
+  "preflight": {
+    "correctness": "PASS",
+    "source_ci": "PASS",
+    "checked_utc": "2026-10-30T11:26:11.403410+00:00",
+    "stage": "WAITING_MEMORY",
+    "free_bytes": 5567324160,
+    "required_bytes": 7583301632,
+    "frozen_input_count": 263,
+    "source_archive_files": 234,
+    "build_process_identities_exited": 75,
+    "T8_pause_verified": true,
+    "Fairyground": "PR18 owner service excluded from experiment cleanup",
+    "panel_started": false
+  },
+  "validation_summary": {
+    "each_build": {
+      "legal_queries": 1318563,
+      "state_undo": 9338,
+      "null": 2283,
+      "full_rebuilds": 81210,
+      "NNUE": "exact",
+      "SEE_exchanges": 56798,
+      "SEE_thresholds": 795172,
+      "capture_transactions": 177911,
+      "new_guard_comparisons": 8960,
+      "new_guard_negative_candidates": 3664,
+      "new_guard_pruned": 3648,
+      "new_guard_protected": 16,
+      "forced_searches": 48
+    },
+    "independent": {
+      "new_guard_cases": 536,
+      "new_exchange_cases": 530,
+      "new_exchange_plies": 753,
+      "new_exchange_terminal_exclusions": 6,
+      "terminal_guards": "All six terminal cases checked; no pruning",
+      "existing_exchange_cases": 789,
+      "existing_exchange_terminal_exclusions": 21,
+      "capture_cases": 403,
+      "capture_terminal_exclusions": 15,
+      "legal_lists": 588,
+      "forced_pv_plies": 288,
+      "other_searches": 32,
+      "other_pv_plies": 291
+    },
+    "native_interfaces": "PASS",
+    "final_state": "development-validation-005/state.json",
+    "original_build_state": "FAILED historical",
+    "all_development_identities_exited": 75
+  },
+  "followup": {
+    "automation_id": "petrified-poda-see-y-panel",
+    "status": "ACTIVE",
+    "notification_policy": "Silent while waiting memory or unchanged; report meaningful panel events"
+  },
+  "updated_utc": "2026-10-30T11:27:58.898660+00:00"
 }
