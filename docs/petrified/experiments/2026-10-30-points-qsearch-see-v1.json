@@ -186,13 +186,13 @@
   "preflight": {
     "correctness": "PASS",
     "source_ci": "PASS",
-    "checked_utc": "2026-10-30T11:34:54.590040+00:00",
+    "checked_utc": "2026-10-30T11:41:45.516376+00:00",
     "stage": "WAITING_MEMORY",
-    "free_bytes": 6447140864,
+    "free_bytes": 7366995968,
     "required_bytes": 7583301632,
     "frozen_input_count": 263,
     "source_archive_files": 234,
-    "build_process_identities_exited": 75,
+    "build_process_identities_exited": 79,
     "T8_pause_verified": true,
     "Fairyground": "PR18 owner service excluded from experiment cleanup",
     "panel_started": false
@@ -238,7 +238,7 @@
     "status": "ACTIVE",
     "notification_policy": "Silent while waiting memory or unchanged; report meaningful panel events"
   },
-  "updated_utc": "2026-10-30T11:35:47.290726+00:00",
+  "updated_utc": "2026-10-30T11:42:40.149574+00:00",
   "fairyground_shutdown": {
     "result": "PASS",
     "checked_utc": "2026-10-30T11:34:22.425630+00:00",
@@ -297,5 +297,21 @@
     "initial_check_sha256": "79eb6f8d39ff8454348814bd1edd3a41d1f75f096facc659b3d088f86e4a13bc",
     "initial_check_limit": "Socket connect_ex returned10035 after real exits; it was not accepted as proof of closed ports. Successful Get-NetTCPConnection enumeration subsequently proved no listeners.",
     "browser_tabs": "Two Fairyground in-app tabs remain; browser tool returned browser.user is unavailable. No other app closed."
-  }
+  },
+  "panel_launch_rejections": [
+    {
+      "attempt": 1,
+      "state": "REJECTED_BEFORE_PANEL_CREATION",
+      "controller_exit_code": 1,
+      "panel_process_exit_code": 1,
+      "games_started": 0,
+      "evidence": ".local/points-qsearch-see-v1/panel-launch-failure-001/rejection.json",
+      "evidence_sha256": "cd57657ce5dba7263c8871685ec6fc70896205a50594c1cd4b924db06c178d8e",
+      "all_recorded_identities_exited": 79,
+      "development_identities_exited": 75,
+      "rejected_startup_identities_exited": 4,
+      "canonical_mutable_state": "Failed state and log moved into preserved failure directory only after verified exits; frozen inputs unchanged; no existing panel was replayed."
+    }
+  ],
+  "launch_transient_headroom_bytes": 268435456
 }

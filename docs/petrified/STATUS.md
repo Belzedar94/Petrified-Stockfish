@@ -10,7 +10,16 @@ Four test/adapter/export failures are preserved; no engine policy or binary
 changed. build-state and development-validation-002/003/004 remain FAILED;
 development-validation-005/state.json is READY_FOR_PANEL_REVIEW. Do not rebuild
 or repeat successful validation. The75 recorded development identities exited.
-Panel has NOT started:6.447GB free versus7.583GB required at the last preflight.
+Panel has NOT started:7.367GB free versus7.583GB required at the last preflight.
+One startup attempt was rejected by the inner RAM gate BEFORE panel mkdir,
+engine launch or games: free RAM fell from7.618GB to7.456GB. Its controller
+and launcher exited1; all79 identities (75 development plus4 startup) exited.
+The FAILED state, log and exact exit proofs are preserved in
+.local/points-qsearch-see-v1/panel-launch-failure-001. Original mutable state/log
+were archived only after verified exits; no panel exists and no game is replayed.
+Before retrying this one unstarted panel, require a fresh preflight and256MiB
+transient RAM headroom above the unchanged7.583GB gate. Never reset an actual
+created panel, repeat engine validation, change frozen inputs or reduce4.
 Follow-up petrified-poda-see-y-panel is active;263 immutable inputs are sealed.
 Keep concurrency4 and wait. The owner authorized closing Fairyground to free
 RAM on2026-10-30: server552/134378273891190626 and console34128/134378273891240126
