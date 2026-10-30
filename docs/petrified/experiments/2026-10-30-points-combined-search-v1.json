@@ -2,7 +2,7 @@
   "schema": "petrified-combined-search-v1",
   "experiment": "points-combined-search-v1",
   "created_utc": "2026-10-30T08:23:52.354483+00:00",
-  "status": "PANEL_RUNNING",
+  "status": "PROMOTED_MANUAL_OWNER",
   "authorization": "Owner requests all retained OpenBench candidates combined on one branch against PR11, then explicitly adds PR17. One combined candidate, no OpenBench workload.",
   "base_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
   "base_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
@@ -49,7 +49,8 @@
   "champion": {
     "pr": 11,
     "binary_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
-    "bench": 177290
+    "bench": 177290,
+    "role": "panel opponent and preserved previous champion"
   },
   "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
   "compiler": "GCC 16.1.0 MinGW BMI2 LTO, no PGO",
@@ -66,7 +67,7 @@
   ],
   "panel": {
     "directory": ".local/points-combined-search-panel-001",
-    "status": "PANEL_RUNNING",
+    "status": "CLOSED_MANUAL_WIN",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -78,7 +79,7 @@
     "hash_mb": 512,
     "concurrency": 4,
     "boundary": "Displayed LOS100.0% or0.0%, finish pending pairs and recheck; continue within cap if boundary lost.",
-    "selection": "At cap without boundary: NEUTRAL_SCREEN, not equivalence. Only three audited wins plus distribution/interfaces allow promotion. Delegated early manual neutral/loss rejection remains available.",
+    "selection": "Owner explicitly overrides the three-WIN selection gate for PR18 only. VSTC/LTC WIN_MANUAL_OWNER and STC measured WIN; preserve raw outcomes, counts and LOS.",
     "referee": "Hash-pinned public Chess.com client, independent of candidate and champion",
     "preflight": {
       "correctness": "PASS",
@@ -111,18 +112,21 @@
       }
     },
     "session_id": 30989,
-    "launch_audit": ".local\\points-combined-search-v1\\panel-launch-audit.json"
+    "launch_audit": ".local\\points-combined-search-v1\\panel-launch-audit.json",
+    "controller_exit_code": 0,
+    "launcher_and_panel_exit_code": 1,
+    "predeclared_selection": "At cap without boundary: NEUTRAL_SCREEN, not equivalence. Only three audited wins plus distribution/interfaces allow promotion. Delegated early manual neutral/loss rejection remains available."
   },
   "restrictions": {
     "openbench_workload": false,
     "T8": "manually paused",
-    "Fairyground": "closed, PR11 preserved",
+    "Fairyground": "PR18 active for owner testing; PR11 profile/assets preserved separately",
     "other_workers": false,
     "AtomicDB": false,
     "Misere_contact": false
   },
   "individual_status": "PR9/12/13/15/16 separately retained. PR17 standalone closed neutral, not in OpenBench queue; explicitly included in this combination.",
-  "runtime_released": false,
+  "runtime_released": true,
   "source_commit": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
   "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/18",
   "validated_utc": "2026-10-30T08:30:28.491021+00:00",
@@ -196,6 +200,299 @@
   "followup": {
     "path": ".local\\points-combined-search-followup.json",
     "automation_id": "petrified-conglomerado-y-panel",
-    "status": "ACTIVE"
+    "status": "DELETED",
+    "deleted_utc": "2026-10-30T10:00:24.532651+00:00"
+  },
+  "owner_adjudication": {
+    "created_utc": "2026-10-30T09:33:22.155994+00:00",
+    "authorization": "Adjudica como win, puedes proclamar pr18 como nueva campeona! Luego actualiza fairyground a esta nueva version y abre el server para que pueda probarla",
+    "selection": "WIN_MANUAL_OWNER",
+    "statistical_three_win_gate_passed": false,
+    "preserve_raw_results": true,
+    "action": "Cooperative STOP, exact process/pair audit, distribution and Fairyground acceptance, manual promotion",
+    "identities": {
+      "controller": {
+        "pid": 30544,
+        "creation_filetime": 134378231080708355,
+        "creation_utc": "2026-10-30T08:38:28.070835+00:00"
+      },
+      "launcher": {
+        "pid": 7512,
+        "creation_filetime": 134378231082923894,
+        "creation_utc": "2026-10-30T08:38:28.292389+00:00"
+      },
+      "panel": {
+        "pid": 7472,
+        "creation_filetime": 134378231083163527,
+        "creation_utc": "2026-10-30T08:38:28.316353+00:00"
+      }
+    }
+  },
+  "manual_closure_audit": {
+    "path": ".local\\points-combined-search-v1\\manual-closure-audit.json",
+    "result": "PASS",
+    "games": 564,
+    "pairs": 282,
+    "independent_plies": 107193,
+    "identities_exited": 916
+  },
+  "raw_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        219,
+        170,
+        11
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        19,
+        4,
+        128,
+        7,
+        42
+      ],
+      "statistics": "Total: 400 W: 219 L: 170 D: 11 ELO: 42.78 +-33.9 (95%) LOS: 99.4%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 868.359
+    },
+    "STC": {
+      "control": "STC",
+      "status": "WIN",
+      "scores": [
+        78,
+        43,
+        11
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        5,
+        4,
+        30,
+        5,
+        22
+      ],
+      "statistics": "Total: 132 W: 78 L: 43 D: 11 ELO: 94.38 +-59.3 (95%) LOS: 100.0%",
+      "completed_pairs": 66,
+      "elapsed_seconds": 1393.593
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INTERRUPTED",
+      "scores": [
+        17,
+        13,
+        2
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        2,
+        9,
+        0,
+        4
+      ],
+      "statistics": "Total: 32 W: 17 L: 13 D: 2 ELO: 43.66 +-122.3 (95%) LOS: 76.9%",
+      "completed_pairs": 16,
+      "elapsed_seconds": 988.203,
+      "error": "Panel stopped"
+    }
+  },
+  "selection_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        219,
+        170,
+        11
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        19,
+        4,
+        128,
+        7,
+        42
+      ],
+      "statistics": "Total: 400 W: 219 L: 170 D: 11 ELO: 42.78 +-33.9 (95%) LOS: 99.4%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 868.359,
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection_status": "WIN_MANUAL_OWNER"
+    },
+    "STC": {
+      "control": "STC",
+      "status": "WIN",
+      "scores": [
+        78,
+        43,
+        11
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        5,
+        4,
+        30,
+        5,
+        22
+      ],
+      "statistics": "Total: 132 W: 78 L: 43 D: 11 ELO: 94.38 +-59.3 (95%) LOS: 100.0%",
+      "completed_pairs": 66,
+      "elapsed_seconds": 1393.593,
+      "raw_status": "WIN",
+      "selection_status": "WIN"
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INTERRUPTED",
+      "scores": [
+        17,
+        13,
+        2
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        2,
+        9,
+        0,
+        4
+      ],
+      "statistics": "Total: 32 W: 17 L: 13 D: 2 ELO: 43.66 +-122.3 (95%) LOS: 76.9%",
+      "completed_pairs": 16,
+      "elapsed_seconds": 988.203,
+      "error": "Panel stopped",
+      "raw_status": "INTERRUPTED",
+      "selection_status": "WIN_MANUAL_OWNER"
+    }
+  },
+  "completed_utc": "2026-10-30T09:59:35.975685+00:00",
+  "promoted_utc": "2026-10-30T09:59:35.975685+00:00",
+  "distribution": {
+    "result": "PASS",
+    "checked_utc": "2026-10-30T09:54:32.650069+00:00",
+    "directory": "build\\points-combined-search-v1-distribution",
+    "archive": "build\\petrified-points-combined-search-v1-local.zip",
+    "archive_sha256": "686a82d815258e30c0b711e6e133bd00928733b846cd32ed9257f8e7084a4d80",
+    "archive_bytes": 30565732,
+    "manifest_sha256": "0d5353d529425f0dfa250c1738b7de6487b8b72b2717703185be1c393b0dba0d",
+    "artifact_count": 42,
+    "verification": "Every ZIP entry verified against the artifact manifest"
+  },
+  "preservation_bundle": {
+    "result": "PASS",
+    "created_utc": "2026-10-30T09:56:46.320520+00:00",
+    "path": ".local\\points-combined-search-v1\\frozen-inputs-and-closure.zip",
+    "sha256": "2163fc8a2befd2c1af7fbd59968650f3d544bfcc7e6cca576ac6a6fe49910513",
+    "bytes": 33627404,
+    "entries": 2528,
+    "manifest": ".local\\points-combined-search-v1\\preservation-manifest.json",
+    "manifest_sha256": "953f9b41537676c3e0d1dbbdb421c0786f6148c3a589c1240a44bcf689c2d9a3",
+    "raw_inventory_sha256": "976dbd8ce3473202a6aaa5b68c8e46723f14901f3eecc5008071f946763016cc",
+    "raw_files": 3156,
+    "all_entries_verified": true,
+    "public_upload": false
+  },
+  "promoted_champion": {
+    "pr": 18,
+    "source_commit": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+    "binary_sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "points_bench": 167330,
+    "manual_adjudication": true
+  },
+  "interface_acceptance": {
+    "path": ".local\\points-combined-search-v1\\interface-acceptance.json",
+    "sha256": "7fc665bcaf4c3c76eec9dee274994f87803d2457de4d44c08c3567539b22a433",
+    "result": "PASS",
+    "native_node_integer_positions": 64,
+    "CJS_ESM_Python_positions_each": 513,
+    "archive_files_exact": 230,
+    "acceptance_identities_exited": 59,
+    "resume_session_exit_code": 0
+  },
+  "acceptance_failure": {
+    "path": ".local\\points-combined-search-v1\\acceptance-failure-001",
+    "cause": "Missing setuptools in local Python build environment before wheel compilation",
+    "resolution": "Pinned setuptools80.9.0/wheel0.45.1 installed in task-local directory; successful WASM reused and remaining wheel/interfaces passed. No engine change.",
+    "original_state": "FAILED preserved"
+  },
+  "closure_audit": {
+    "path": ".local\\points-combined-search-v1\\closure-audit.json",
+    "sha256": "044d87334fca007af6f93d7e4bf312fbe06f0702545ca6fae7f8959f091a9e0b",
+    "result": "PASS",
+    "frozen_inputs_unchanged": 235,
+    "raw_panel_files_unchanged": 3156,
+    "development_panel_identities_exited": 916,
+    "interface_identities_exited": 59,
+    "packaging_identities_exited": 2,
+    "pair_process_instances_exact": 858,
+    "bounded_pair_identity_proofs": 0,
+    "four_incomplete_pairs": "preserved and excluded, no completed unpaired game",
+    "seal_script_actual_exit_code": 0
+  },
+  "fairyground": {
+    "result": "PASS",
+    "profile": {
+      "profile": "Petrified-Stockfish + run4test PointsHead v1 + Combined Search v1 (PR #18)",
+      "url": "http://127.0.0.1:5185/public/index.html?variant=petrified",
+      "owner_requested_keep_running": true,
+      "threads": 1,
+      "hash_mb": 128
+    },
+    "server_identity": {
+      "pid": 552,
+      "creation_filetime": 134378273891190626,
+      "creation_utc": "2026-10-30T09:49:49.119062+00:00"
+    },
+    "server_kept_running": true,
+    "backend_audit": ".local\\points-combined-search-v1\\fairyground-backend-audit.json",
+    "browser_audit": ".local\\points-combined-search-v1\\fairyground-browser-audit.json",
+    "backend_verifier_process_audit": ".local\\points-combined-search-v1\\fairyground-verifier-process-audit.json",
+    "previous_profile_backup": ".local\\points-combined-search-v1\\pr11-fairyground-backup",
+    "GUI_handoff_exception": "Owner explicitly requested live server and may use its engine instances; experiment and acceptance workloads are finished."
+  },
+  "decision": {
+    "result": "PROMOTED_MANUAL_OWNER",
+    "manual_adjudication": true,
+    "statistical_three_win_gate_passed": false,
+    "raw_results_preserved": true,
+    "promotion_correctness_distribution_acceptance": "PASS",
+    "previous_champion_preserved": "PR11",
+    "panel_repeated": false,
+    "next_experiment_authorized": false,
+    "openbench_workload_authorized": false
   }
 }

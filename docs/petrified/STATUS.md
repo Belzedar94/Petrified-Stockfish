@@ -1,3 +1,45 @@
+## PR18: champion by owner adjudication; Fairyground open
+
+PR18 points-combined-search-v1 is the current champion by explicit owner
+adjudication on 2026-10-30, after completed correctness, manual closure and
+native/Node/WASM/Python/Fairyground acceptance. This is PROMOTED_MANUAL_OWNER,
+not three statistical wins. Source fb04cbca1a7584edd7a29fd5f0a19b28d551c217,
+Windows SHA256 a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e,
+points bench167330 twice, legacy179335; the PR7/PR11 network is unchanged.
+Use docs/petrified/points-champion.json as the authoritative baseline.
+
+Measured VSTC400:219/170/11,+42.78+/-33.9 Elo95%,LOS99.4%, raw INCONCLUSIVE_LIMIT;
+STC132:78/43/11,+94.38+/-59.3,LOS100.0%, raw WIN;
+LTC32:17/13/2,+43.66+/-122.3,LOS76.9%, raw INTERRUPTED by owner. Time losses0/0.
+VSTC and LTC selection is WIN_MANUAL_OWNER. LTC ended below40; raw outcomes and
+LOS are preserved. The original automatic auditor's rejection is preserved;
+the separate manual audit passed564 games/282 reversed-color pairs/107193
+independent plies. Four incomplete pairs with no completed unpaired games remain
+preserved and excluded. All858 pair process instances have exact CreationDates.
+All916 development/panel identities and59 interface identities exited, as did
+the packaging and backend-verification processes. No access error counted as exit.
+Original235 inputs and3156 raw panel files stayed unchanged. The2528-entry local
+preservation bundle and42-artifact distribution are recorded in the experiment.
+
+The initial missing --cases failure, original automatic-auditor rejection and
+missing-setuptools packaging failure are preserved. The latter was resolved
+using isolated pinned setuptools80.9.0/wheel0.45.1; successful WASM builds were
+not repeated and no engine, binary or network changed. Native/Node evaluation
+matched exactly at64 positions; CJS/ESM/Python passed513 positions each.
+
+Fairyground is OPEN with Combined Search v1 (PR #18), Threads1/Hash128, for the
+owner at http://127.0.0.1:5185/public/index.html?variant=petrified . Its exact
+server identity and backend/browser acceptance are in the experiment. The owner
+requested it remain running; do not stop it or its GUI engine instances during
+experiment cleanup. PR11 and its profile/assets remain preserved. The experiment
+lease is released and the follow-up automation is deleted.
+No further candidate, tuning, training or OpenBench load is
+authorized. PR9/12/13/15/16 remain separately retained; PR17 remains excluded from
+the standalone OpenBench queue. T8 stays manually paused. Do not contact Misere,
+touch AtomicDB/remote workers, or close other applications.
+
+The entries below are historical and cannot override this owner decision.
+
 ## Combined candidate / PR18: frozen panel active
 
 The six-component source `fb04cbca1a7584edd7a29fd5f0a19b28d551c217` passed local
