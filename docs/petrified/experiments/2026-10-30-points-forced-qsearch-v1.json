@@ -2,7 +2,7 @@
   "schema": "petrified-search-experiment-v1",
   "experiment": "points-forced-qsearch-v1",
   "date": "2026-10-30",
-  "status": "CORRECTNESS_REPAIR_BEFORE_STRENGTH",
+  "status": "REMAINING_VALIDATION_AFTER_ADAPTER_REPAIR",
   "branch": "exp/points-forced-qsearch-v1",
   "owner_authorization": "One next substantial Petrified-specific search idea from PR11 with the same validations and three-control panel. PR16 retained separately for future OpenBench.",
   "qualified_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
@@ -68,7 +68,7 @@
     "Forced lines can be long; existing repetition, rule50 and MAX_PLY remain the bounds",
     "The effect may be rare; tactical correctness is not strength evidence"
   ],
-  "source_commit": "4769fb8669966839bd9a24480d04036039e6f402",
+  "source_commit": "da87947ac2d5dd04fe39a9cbfa31cf70668ee6cd",
   "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/17",
   "known_failures": [
     {
@@ -87,6 +87,14 @@
       "reason": "Syzygy PV formatter treated a forced points repetition win as a draw; depth1 correctly reached the 8-ply repetition but reported cp0",
       "resolution": "Skip Syzygy PV rewriting for points outcomes; preserve actual search score and PV. Rebuild and repeat correctness before strength.",
       "artifacts": ".local/points-forced-qsearch-v1/validation-failure-002"
+    },
+    {
+      "id": "validation-failure-003",
+      "kind": "Independent fixture adapter",
+      "reason": "Client accepts duplicate castle aliases; EP fields include destination plus passed square; raw 4X fixture walls differ from canonical X repetition keys",
+      "resolution": "Canonicalize castle aliases, identify the passed EP square and import the client own makeFen output before seeding repetition. No engine, binary, or network changes. Preserve failed probes and original adapter.",
+      "artifacts": ".local\\points-forced-qsearch-v1\\validation-failure-003"
     }
-  ]
+  ],
+  "validation_state": ".local\\points-forced-qsearch-v1\\development-validation-002\\state.json"
 }
