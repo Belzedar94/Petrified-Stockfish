@@ -1,3 +1,15 @@
+VSTC and STC for points-quiet-threats-v1 / PR22 closed at400 games each:
+VSTC181/198/21,-14.77+/-33.2 Elo95%,LOS19.1%,time0/0;
+STC174/200/26,-22.62+/-33.0 Elo95%,LOS8.9%,time1/0.
+Each control has200 complete reversed-color pairs. Both raw INCONCLUSIVE_LIMIT
+results are NEUTRAL_SCREEN for selection, never equivalence or statistical LOSS.
+Automatic promotion is ineligible; PR18 stays champion. LTC is active in the
+SAME frozen panel. Continue without changing inputs or relaunching. Full final
+audits and proven process exits remain required; the lease is not released.
+All exact identities and frozen-input restrictions below still apply.
+
+The entries below preserve prior stages and cannot restart closed panels.
+
 VSTC for points-quiet-threats-v1 / PR22 closed at400 games:181/198/21,
 -14.77+/-33.2 Elo95%,LOS19.1%,time0/0,200 complete reversed-color pairs.
 Raw INCONCLUSIVE_LIMIT; selection NEUTRAL_SCREEN, never equivalence or

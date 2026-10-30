@@ -625,7 +625,7 @@
   },
   "followup_automation": "petrified-amenazas-rentables-y-panel",
   "panel_progress": {
-    "checked_utc": "2026-10-30T17:35:09.674405+00:00",
+    "checked_utc": "2026-10-30T18:40:01.695908+00:00",
     "results": {
       "VSTC": {
         "control": "VSTC",
@@ -654,10 +654,35 @@
       },
       "STC": {
         "control": "STC",
+        "status": "INCONCLUSIVE_LIMIT",
+        "scores": [
+          174,
+          200,
+          26
+        ],
+        "time_losses": [
+          1,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          27,
+          17,
+          130,
+          7,
+          19
+        ],
+        "statistics": "Total: 400 W: 174 L: 200 D: 26 ELO: -22.62 +-33.0 (95%) LOS: 8.9%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 3922.453
+      },
+      "LTC": {
+        "control": "LTC",
         "status": "RUNNING",
         "scores": [
-          5,
-          3,
+          0,
+          0,
           0
         ],
         "time_losses": [
@@ -665,39 +690,16 @@
           0
         ],
         "minimum_games": 40,
-        "maximum_games": 400,
-        "pentanomial": [
-          0,
-          0,
-          3,
-          0,
-          1
-        ],
-        "statistics": "Total: 8 W: 5 L: 3 D: 0 ELO: 88.74 +-353.8 (95%) LOS: 76.7%",
-        "completed_pairs": 4,
-        "elapsed_seconds": 102.266
-      },
-      "LTC": {
-        "control": "LTC",
-        "status": "PENDING",
-        "scores": [
-          0,
-          0,
-          0
-        ],
-        "time_losses": [
-          0,
-          0
-        ]
+        "maximum_games": 400
       }
     },
     "selection_by_control": {
       "VSTC": "NEUTRAL_SCREEN",
-      "STC": "RUNNING",
-      "LTC": "PENDING"
+      "STC": "NEUTRAL_SCREEN",
+      "LTC": "RUNNING"
     },
     "automatic_promotion_eligible": false,
-    "reason": "VSTC reached400 games without a displayed LOS boundary; not equivalence or statistical LOSS. Continue the same panel. Final full audits and process exits remain pending."
+    "reason": "VSTC and STC each reached400 games without a displayed LOS boundary; neither is equivalence or statistical LOSS. Continue LTC in the same frozen panel. Final full audits and process exits remain pending."
   },
   "automatic_promotion_eligible": false
 }
