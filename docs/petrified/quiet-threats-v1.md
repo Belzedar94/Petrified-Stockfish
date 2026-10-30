@@ -11,7 +11,7 @@ whose immediate capture transaction is strictly positive:
 `PieceValue[victim] + 100 * capture_points(victim) - fatal_attacker_value > 0`.
 
 The fatal attacker value is zero for a pawn (which survives) and its live
-material value otherwise. The resulting attacker sets are P, PNB, PNB, PNBR,
+material value otherwise. The resulting attacker sets are P, PNB, PNBR, PNBR,
 PNBRQ respectively. Royal commoners neither capture nor receive this heuristic.
 The existing `20 * PieceValue[victim]` escape/arrival weight stays unchanged.
 

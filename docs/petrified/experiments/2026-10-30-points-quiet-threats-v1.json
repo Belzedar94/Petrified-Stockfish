@@ -50,7 +50,7 @@
     "victim_sets": {
       "P": "P",
       "N": "PNB",
-      "B": "PNB",
+      "B": "PNBR",
       "R": "PNBR",
       "Q": "PNBRQ",
       "K": ""
@@ -76,5 +76,12 @@
     "Five source CI jobs"
   ],
   "risk": "Geometric ordering is not a legal threat proof or SEE; extra attack maps and overcautious quiet ordering may cost strength. No strength-driven changes.",
-  "runtime_released": false
+  "runtime_released": false,
+  "validation_failures": [
+    {
+      "directory": ".local\\points-quiet-threats-v1\\validation-failure-001",
+      "cause": "Expected table used orthodox bishop3 instead of actual Petrified bishop5; rook-to-bishop transaction is +49. Engine formula was already correct; CI41096512220 also rejected the test.",
+      "engine_impact": "None: same source93f0535d and binary756c851d; tests and explanatory table only."
+    }
+  ]
 }

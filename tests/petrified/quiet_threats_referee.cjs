@@ -4,7 +4,7 @@ const fs=require('node:fs'), assert=require('node:assert/strict');
 const ref=require('./chesscom_reference.cjs');
 const [cases,bundle,modules,output]=process.argv.slice(2), create=ref.load(bundle,modules);
 const values={P:208,N:781,B:825,R:1276,Q:2538,K:0}, types='PNBRQK';
-const permitted={P:'P',N:'PNB',B:'PNB',R:'PNBR',Q:'PNBRQ',K:''};
+const permitted={P:'P',N:'PNB',B:'PNBR',R:'PNBR',Q:'PNBRQ',K:''};
 const sq=(x,y)=>String.fromCharCode(100+x)+(4+y);
 const pc=(e,x,y)=>{const [i,j]=e.sq2ij(sq(x,y));return e.board()[i][j];};
 const live=p=>p&&!p.dead&&(p.player===0||p.player===2);

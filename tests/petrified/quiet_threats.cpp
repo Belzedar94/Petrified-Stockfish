@@ -14,7 +14,7 @@ static void require(bool ok, const char* why) {
     if (!ok) { std::cerr << why << '\n'; std::exit(1); }
 }
 // Independently enumerated profitable attacker sets in victim order P,N,B,R,Q,K.
-static const char* allowed[] = {"", "P", "PNB", "PNB", "PNBR", "PNBRQ", ""};
+static const char* allowed[] = {"", "P", "PNB", "PNBR", "PNBR", "PNBRQ", ""};
 static const char* legacy[] = {"", "", "P", "P", "PNB", "PNBR", ""};
 static char symbol(PieceType pt) { return " PNBRQK"[pt]; }
 
