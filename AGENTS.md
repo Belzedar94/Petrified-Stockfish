@@ -1,3 +1,28 @@
+PR19 points-qsearch-see-v1 is RETAINED_FOR_FUTURE_OPENBENCH by the owner.
+The local panel closed cooperatively: VSTC400 (197/183/20), STC250 (121/118/11),
+LTC not run. Time losses candidate/rival0/0 and0/1. Raw VSTC INCONCLUSIVE_LIMIT
+and STC INTERRUPTED remain unchanged; retention is not a statistical win,
+equivalence or promotion. PR18 remains champion. The manual audit passed650
+games/325 reversed-color pairs and129548 independent plies. Four incomplete
+pairs with two completed unpaired games are preserved and excluded. All1070
+registered development/startup/panel identities exited;987 pair process instances
+have exact CreationDates. The original automatic-auditor STOP rejection is
+preserved and its script and263 frozen inputs remain unchanged. The closure
+bundle and3630-file raw inventory are recorded in the experiment. The source
+tag is candidates/points-qsearch-see-v1-openbench at validated revision2b18bb02,
+whose src tree equals frozen d7cd27e0. PR19 remains an open draft. No OB workload.
+The lease is released; the follow-up is removed after remote retention is saved.
+
+The same owner request authorizes one next substantial Petrified-specific search
+candidate from PR18, with existing Debug/Release, independent-reference, exact
+state/NNUE/undo, native interfaces, reproducible benches, source CI and one
+40/400 VSTC/STC/LTC panel. Do not include PR19 engine changes. No training,
+post-result tuning or further automatic candidate. T8 stays manually paused;
+Fairyground PR18 stays closed with its profile preserved. Do not touch AtomicDB,
+remote workers, other applications or Misere.
+
+The entries below preserve historical states and do not restart closed panels.
+
 points-qsearch-see-v1 / PR19 is FROZEN and its one panel is ACTIVE against PR18.
 VSTC closed400 games197/183/20,+12.17+/-33.3 Elo95%,LOS76.4%,time0/0,
 200 complete reversed-color pairs. Raw INCONCLUSIVE_LIMIT; selection

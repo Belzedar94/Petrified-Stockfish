@@ -510,6 +510,18 @@
       },
       "completed_utc": "2026-10-30T06:42:59.284175+00:00",
       "source_tag": "candidates/points-capture-lmr-v1-openbench"
+    },
+    {
+      "experiment": "docs\\petrified\\experiments\\2026-10-30-points-qsearch-see-v1.json",
+      "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+      "champion_unchanged": true,
+      "games": {
+        "VSTC": 400,
+        "STC": 250,
+        "LTC": 0
+      },
+      "completed_utc": "2026-10-30T12:44:49.906505+00:00",
+      "source_tag": "candidates/points-qsearch-see-v1-openbench"
     }
   ],
   "distribution": {

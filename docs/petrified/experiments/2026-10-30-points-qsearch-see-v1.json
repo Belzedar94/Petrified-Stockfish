@@ -2,7 +2,7 @@
   "schema": "petrified-qsearch-see-v1",
   "experiment": "points-qsearch-see-v1",
   "created_utc": "2026-10-30T11:06:50.307220+00:00",
-  "status": "PANEL_RUNNING",
+  "status": "RETAINED_FOR_FUTURE_OPENBENCH",
   "authorization": "Owner requested one next substantial Petrified-specific search candidate from PR18, with the same validations and VSTC/STC/LTC panel; Wakwak documentation and public OB are inspiration only.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
   "base_ref": "2a380a8b9a33eee0344cf2fcdb4909ee31ed4b62",
@@ -53,7 +53,7 @@
   },
   "panel": {
     "directory": ".local/points-qsearch-see-panel-001",
-    "status": "RUNNING",
+    "status": "MANUALLY_CLOSED_AUDITED",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -79,7 +79,7 @@
     "remote_workers": false,
     "Misere_contact": false
   },
-  "runtime_released": false,
+  "runtime_released": true,
   "source_commit": "d7cd27e0a0497a93b1632e69a890a561d7b79d18",
   "pr": "https://github.com/Belzedar94/Petrified-Stockfish/pull/19",
   "candidate_sha256": "ae265f5f2dc65097735b62418470efb9515793421e7d8b32d67027d94ad26a9b",
@@ -238,7 +238,7 @@
     "status": "ACTIVE",
     "notification_policy": "Silent while waiting memory or unchanged; report meaningful panel events"
   },
-  "updated_utc": "2026-10-30T12:04:37.460805+00:00",
+  "updated_utc": "2026-10-30T12:44:49.906505+00:00",
   "fairyground_shutdown": {
     "result": "PASS",
     "checked_utc": "2026-10-30T11:34:22.425630+00:00",
@@ -343,6 +343,15 @@
       "statistical_equivalence": false,
       "promotion_eligible": false,
       "reason": "Reached the declared400-game cap without displayed LOS100.0% or0.0%; continue STC/LTC under the same frozen policy."
+    },
+    "STC": {
+      "raw_status": "INTERRUPTED",
+      "selection": "RETAINED_MANUAL_OWNER",
+      "statistical_equivalence": false
+    },
+    "LTC": {
+      "raw_status": "NOT_RUN",
+      "selection": "NOT_RUN"
     }
   },
   "automatic_promotion_eligible": false,
@@ -370,15 +379,61 @@
       ],
       "statistics": "Total: 400 W: 197 L: 183 D: 20 ELO: 12.17 +-33.3 (95%) LOS: 76.4%",
       "completed_pairs": 200,
-      "elapsed_seconds": 896.188
+      "elapsed_seconds": 896.188,
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection_status": "NEUTRAL_SCREEN"
     },
     "STC": {
       "control": "STC",
-      "status": "RUNNING",
+      "status": "INTERRUPTED",
       "scores": [
-        9,
-        13,
+        121,
+        118,
+        11
+      ],
+      "time_losses": [
+        0,
+        1
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        15,
+        5,
+        83,
+        6,
+        16
+      ],
+      "statistics": "Total: 250 W: 121 L: 118 D: 11 ELO: 4.17 +-42.3 (95%) LOS: 57.7%",
+      "completed_pairs": 125,
+      "elapsed_seconds": 2494.265,
+      "error": "Panel stopped",
+      "raw_status": "INTERRUPTED",
+      "selection_status": "RETAINED_MANUAL_OWNER"
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "NOT_RUN",
+      "scores": [
+        0,
+        0,
         0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "selection_status": "NOT_RUN"
+    }
+  },
+  "raw_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        197,
+        183,
+        20
       ],
       "time_losses": [
         0,
@@ -387,28 +442,80 @@
       "minimum_games": 40,
       "maximum_games": 400,
       "pentanomial": [
-        2,
-        0,
-        9,
-        0,
-        0
+        29,
+        6,
+        119,
+        14,
+        32
       ],
-      "statistics": "Total: 22 W: 9 L: 13 D: 0 ELO: -63.88 +-158.7 (95%) LOS: 19.3%",
-      "completed_pairs": 11,
-      "elapsed_seconds": 254.406
+      "statistics": "Total: 400 W: 197 L: 183 D: 20 ELO: 12.17 +-33.3 (95%) LOS: 76.4%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 896.188
     },
-    "LTC": {
-      "control": "LTC",
-      "status": "PENDING",
+    "STC": {
+      "control": "STC",
+      "status": "INTERRUPTED",
       "scores": [
-        0,
-        0,
-        0
+        121,
+        118,
+        11
       ],
       "time_losses": [
         0,
-        0
-      ]
+        1
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        15,
+        5,
+        83,
+        6,
+        16
+      ],
+      "statistics": "Total: 250 W: 121 L: 118 D: 11 ELO: 4.17 +-42.3 (95%) LOS: 57.7%",
+      "completed_pairs": 125,
+      "elapsed_seconds": 2494.265,
+      "error": "Panel stopped"
     }
+  },
+  "closure": {
+    "result": "RETAINED_FOR_FUTURE_OPENBENCH",
+    "decided_utc": "2026-10-30T12:44:49.906505+00:00",
+    "basis": "Owner requested retention and one successor from PR18; panel stopped cooperatively",
+    "statistical_equivalence": false,
+    "statistical_win": false,
+    "promotion": false,
+    "champion": "PR18",
+    "controller_session": 99991,
+    "controller_exit_code": 0,
+    "panel_exit_code": 1,
+    "games": 650,
+    "complete_pairs": 325,
+    "independent_plies": 129548,
+    "incomplete_pairs_preserved": 4,
+    "unpaired_completed_games_excluded": 2,
+    "all_process_identities_exited": 1070,
+    "pair_process_instances_with_exact_identity": 987,
+    "audit": ".local/points-qsearch-see-v1/manual-closure-audit.json",
+    "audit_sha256": "d2d2e22d4754eee6adec6ddf68959accf57cc9ef29167cf5adeba6c316d6bd5b",
+    "original_auditor_expected_failure": ".local/points-qsearch-see-v1/panel-audit-failure-001",
+    "strict_exit_audit": ".local/points-qsearch-see-v1/strict-process-exit-audit.json",
+    "strict_exit_sha256": "6ccdf3a4687a57bf131cc02df625831c82830f4dceae2f631980633af2fc8924",
+    "preservation_manifest": ".local\\points-qsearch-see-v1\\preservation-manifest.json",
+    "preservation_sha256": "88ba66123f880ef0952c13f1db7b107e7c078d1b1d445b8197c61eab0744b894",
+    "bundle": {
+      "bundle": ".local\\points-qsearch-see-v1\\frozen-inputs-and-closure.zip",
+      "sha256": "f9cc47457b47e403ea50facba2dc1ef54df9d8a990c14419e28596bae2271501",
+      "bytes": 33364789,
+      "entries": 2440
+    },
+    "source_tag": "candidates/points-qsearch-see-v1-openbench",
+    "tag_commit": "2b18bb02a1a5ab6b20a8f6095298ef35546d5a51",
+    "tag_note": "Validated test revision; src tree identical to frozen d7cd27e engine source",
+    "openbench_workload_authorized": false,
+    "one_successor_authorized": true,
+    "released": true,
+    "released_utc": "2026-10-30T12:44:49.906505+00:00"
   }
 }
