@@ -9,7 +9,7 @@
   "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
   "panel": {
     "directory": ".local/points-fortress-panel-001",
-    "status": "RUNNING",
+    "status": "STOPPED_MANUAL_OWNER",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -38,7 +38,7 @@
   "schema": "petrified-fortress-v1",
   "experiment": "points-fortress-v1",
   "created_utc": "2026-10-30T14:51:00.074110+00:00",
-  "status": "PANEL_RUNNING",
+  "status": "PARKED_MANUAL_OWNER",
   "branch": "exp/points-fortress-v1",
   "authorization": "Owner requested the fortress recognizer from PR18, the same validation and VSTC/STC/LTC panel, and authorized closing Duck Fairyground.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
@@ -70,7 +70,7 @@
     "Five source CI jobs"
   ],
   "risk": "Conservative family is deliberately incomplete; graph checks may cost more than rare recognitions save. No strength-driven changes.",
-  "runtime_released": false,
+  "runtime_released": true,
   "source_commit": "07e845785e22e35d04ac06aa057c580a69cb0f80",
   "validated_revision": "2d6b14e1096f4956c17c9ee638e714733f774cf4",
   "pr": 21,
@@ -425,7 +425,7 @@
         "elapsed_seconds": 892.297
       },
       "selection": "NEUTRAL_SCREEN",
-      "audit": "Final panel audit pending"
+      "audit": "PASS separate manual closure audit"
     },
     "STC": {
       "raw": {
@@ -454,10 +454,165 @@
         "elapsed_seconds": 3903.906
       },
       "selection": "NEUTRAL_SCREEN",
-      "audit": "Final panel audit pending"
+      "audit": "PASS separate manual closure audit"
+    },
+    "LTC": {
+      "raw": {
+        "control": "LTC",
+        "status": "INTERRUPTED",
+        "scores": [
+          16,
+          20,
+          4
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          4,
+          1,
+          11,
+          3,
+          1
+        ],
+        "statistics": "Total: 40 W: 16 L: 20 D: 4 ELO: -34.86 +-105.7 (95%) LOS: 25.1%",
+        "completed_pairs": 20,
+        "elapsed_seconds": 1326.828,
+        "error": "Panel stopped"
+      },
+      "selection": "PARKED_MANUAL_OWNER",
+      "audit": "PASS separate manual closure audit"
     }
   },
   "promotion_eligible": false,
   "promotion_ineligibility_reason": "VSTC and STC closed INCONCLUSIVE_LIMIT / NEUTRAL_SCREEN; three audited WIN results cannot be achieved. PR18 remains champion.",
-  "last_panel_decision_utc": "2026-10-30T16:37:03.235011+00:00"
+  "last_panel_decision_utc": "2026-10-30T16:37:03.235011+00:00",
+  "closed_utc": "2026-10-30T17:05:23.927675+00:00",
+  "decision": "Owner parked the idea; raw results are not statistical LOSS or equivalence.",
+  "retention": {
+    "branch": "exp/points-fortress-v1",
+    "tag": "candidates/points-fortress-v1-parked",
+    "revision": "2d6b14e1096f4956c17c9ee638e714733f774cf4",
+    "open_draft": true,
+    "openbench_queue": false
+  },
+  "raw_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        188,
+        186,
+        26
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        29,
+        14,
+        115,
+        10,
+        32
+      ],
+      "statistics": "Total: 400 W: 188 L: 186 D: 26 ELO: 1.74 +-33.0 (95%) LOS: 54.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 892.297
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        172,
+        200,
+        28
+      ],
+      "time_losses": [
+        1,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        32,
+        13,
+        127,
+        7,
+        21
+      ],
+      "statistics": "Total: 400 W: 172 L: 200 D: 28 ELO: -24.36 +-33.0 (95%) LOS: 7.3%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 3903.906
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INTERRUPTED",
+      "scores": [
+        16,
+        20,
+        4
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        4,
+        1,
+        11,
+        3,
+        1
+      ],
+      "statistics": "Total: 40 W: 16 L: 20 D: 4 ELO: -34.86 +-105.7 (95%) LOS: 25.1%",
+      "completed_pairs": 20,
+      "elapsed_seconds": 1326.828,
+      "error": "Panel stopped"
+    }
+  },
+  "closure_audit": {
+    "path": ".local\\points-fortress-v1\\manual-closure-audit.json",
+    "sha256": "7defa57c7e11e7534a111196181432ca4a84660407a9e9dc4325cf2016ede173",
+    "games": 840,
+    "pairs": 420,
+    "independent_plies": 167453,
+    "incomplete_pairs": 4,
+    "excluded_unpaired_games": 2,
+    "exited_identities": 1364,
+    "exact_pair_process_instances": 1272,
+    "bounded_only": 0
+  },
+  "preservation": {
+    "result": "PASS",
+    "created_utc": "2026-10-30T17:01:53.665580+00:00",
+    "path": ".local\\points-fortress-v1\\frozen-inputs-and-closure.zip",
+    "sha256": "fb075873b2c9b854556805dd6b6ce8bfa0033602c942728c4b5f58ac9df82892",
+    "bytes": 35487135,
+    "entries": 3528,
+    "manifest": ".local\\points-fortress-v1\\preservation-manifest.json",
+    "manifest_sha256": "fc3a19d13313e86cc1e90e2d1f39ab4b8903292add13c60622588a26e03b9997",
+    "raw_inventory_sha256": "7c3b1a87aad22b902371a3d3395322a5a1074b208acc14fb22cd1dc69999610b",
+    "raw_files": 4676,
+    "frozen_inputs": 355,
+    "all_entries_verified": true,
+    "public_upload": false
+  },
+  "packaging_exit_proof": ".local\\points-fortress-v1\\preservation-process-exit.json",
+  "original_auditor_rejection": ".local\\points-fortress-v1\\panel-audit-failure-001",
+  "controller_exit": {
+    "session_id": 80275,
+    "exec_exit_code": 0,
+    "phase": "PANEL_STOPPED_AWAITING_MANUAL_AUDIT",
+    "panel_exit_code": 1,
+    "remaining_owned_children": []
+  },
+  "successor_authorization": "Owner authorized one next substantial search idea from PR18 with unchanged validation and VSTC/STC/LTC gates; no PR19/20/21 engine changes.",
+  "followup_removed": true
 }

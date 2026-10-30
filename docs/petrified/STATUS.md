@@ -1,3 +1,25 @@
+PR21 points-fortress-v1 is PARKED_MANUAL_OWNER. Its sole panel stopped cooperatively.
+VSTC400:188/186/26,+1.74+/-33.0 Elo95%,LOS54.1%,time0/0; STC400:172/200/28,
+-24.36+/-33.0,LOS7.3%,time1/0; LTC40:16/20/4,-34.86+/-105.7,LOS25.1%,time0/0.
+Raw INCONCLUSIVE_LIMIT/INCONCLUSIVE_LIMIT/INTERRUPTED are preserved. Parking is
+an owner selection decision, not statistical LOSS or equivalence. PR18 stays champion.
+Manual closure audit passed840 games/420 reversed-color pairs/167453 independent plies.
+Four incomplete pairs with two completed unpaired games are preserved and excluded.
+All1364 development/panel identities exited;1272 pair process instances have exact
+CreationDates. Packaging also exited0. The original auditor STOP rejection is retained;
+355 frozen inputs,3528-entry preservation bundle and4676-file raw inventory are sealed.
+Lease released. Branch/draft/tag candidates/points-fortress-v1-parked are preserved;
+PR21 is not added to the OpenBench queue. No replay or post-result tuning.
+
+The owner authorized ONE next substantial Petrified search idea from champion PR18,
+with the same full Debug/Release/reference/state/NNUE/undo, independent Chess.com,
+interfaces, reproducible benches, five source CI jobs and40/400 VSTC/STC/LTC panel.
+Do not include PR19/20/21 engine changes. No training, post-result tuning or further
+automatic successor. Both Fairyground profiles stay closed and preserved; T8 paused.
+No OpenBench workload, AtomicDB, remote workers, other applications or Misere activity.
+
+The entries below preserve prior stages; they cannot restart closed panels.
+
 VSTC and STC for points-fortress-v1 / PR21 have closed at400 games each:
 VSTC188/186/26,+1.74+/-33.0 Elo95%,LOS54.1%,time0/0;
 STC172/200/28,-24.36+/-33.0 Elo95%,LOS7.3%,time1/0.
