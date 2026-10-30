@@ -2,7 +2,7 @@
   "schema": "petrified-qsearch-see-v1",
   "experiment": "points-qsearch-see-v1",
   "created_utc": "2026-10-30T11:06:50.307220+00:00",
-  "status": "WAITING_MEMORY",
+  "status": "PANEL_RUNNING",
   "authorization": "Owner requested one next substantial Petrified-specific search candidate from PR18, with the same validations and VSTC/STC/LTC panel; Wakwak documentation and public OB are inspiration only.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
   "base_ref": "2a380a8b9a33eee0344cf2fcdb4909ee31ed4b62",
@@ -53,7 +53,7 @@
   },
   "panel": {
     "directory": ".local/points-qsearch-see-panel-001",
-    "status": "WAITING_MEMORY",
+    "status": "RUNNING",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -186,9 +186,9 @@
   "preflight": {
     "correctness": "PASS",
     "source_ci": "PASS",
-    "checked_utc": "2026-10-30T11:41:45.516376+00:00",
-    "stage": "WAITING_MEMORY",
-    "free_bytes": 7366995968,
+    "checked_utc": "2026-10-30T11:44:39.706041+00:00",
+    "stage": "READY_FOR_PANEL",
+    "free_bytes": 8100438016,
     "required_bytes": 7583301632,
     "frozen_input_count": 263,
     "source_archive_files": 234,
@@ -238,7 +238,7 @@
     "status": "ACTIVE",
     "notification_policy": "Silent while waiting memory or unchanged; report meaningful panel events"
   },
-  "updated_utc": "2026-10-30T11:42:40.149574+00:00",
+  "updated_utc": "2026-10-30T11:45:46.405898+00:00",
   "fairyground_shutdown": {
     "result": "PASS",
     "checked_utc": "2026-10-30T11:34:22.425630+00:00",
@@ -313,5 +313,27 @@
       "canonical_mutable_state": "Failed state and log moved into preserved failure directory only after verified exits; frozen inputs unchanged; no existing panel was replayed."
     }
   ],
-  "launch_transient_headroom_bytes": 268435456
+  "launch_transient_headroom_bytes": 268435456,
+  "panel_launch_audit": ".local\\points-qsearch-see-v1\\panel-launch-audit.json",
+  "panel_runtime": {
+    "session_id": 99991,
+    "identities": {
+      "controller": {
+        "pid": 9780,
+        "creation_filetime": 134378342797972222,
+        "creation_utc": "2026-10-30T11:44:39.797222+00:00"
+      },
+      "launcher": {
+        "pid": 40984,
+        "creation_filetime": 134378342800815357,
+        "creation_utc": "2026-10-30T11:44:40.081535+00:00"
+      },
+      "panel": {
+        "pid": 13016,
+        "creation_filetime": 134378342801070905,
+        "creation_utc": "2026-10-30T11:44:40.107092+00:00"
+      }
+    },
+    "launch_audit": ".local/points-qsearch-see-v1/panel-launch-audit.json"
+  }
 }

@@ -1,4 +1,4 @@
-points-qsearch-see-v1 / PR19 is frozen from PR18 and READY, waiting for RAM.
+points-qsearch-see-v1 / PR19 is FROZEN and its one panel is ACTIVE against PR18.
 Engine source d7cd27e0a0497a93b1632e69a890a561d7b79d18; candidate SHA256
  ae265f5f2dc65097735b62418470efb9515793421e7d8b32d67027d94ad26a9b,
 bench148558 twice; PR18 rival167330, common network unchanged, legacy179335.
@@ -9,32 +9,37 @@ forced PVs and native interfaces passed. Five CI jobs41047109107 passed on
 Four test/adapter/export failures are preserved; no engine policy or binary
 changed. build-state and development-validation-002/003/004 remain FAILED;
 development-validation-005/state.json is READY_FOR_PANEL_REVIEW. Do not rebuild
-or repeat successful validation. The75 recorded development identities exited.
-Panel has NOT started:7.367GB free versus7.583GB required at the last preflight.
-One startup attempt was rejected by the inner RAM gate BEFORE panel mkdir,
-engine launch or games: free RAM fell from7.618GB to7.456GB. Its controller
-and launcher exited1; all79 identities (75 development plus4 startup) exited.
-The FAILED state, log and exact exit proofs are preserved in
-.local/points-qsearch-see-v1/panel-launch-failure-001. Original mutable state/log
-were archived only after verified exits; no panel exists and no game is replayed.
-Before retrying this one unstarted panel, require a fresh preflight and256MiB
-transient RAM headroom above the unchanged7.583GB gate. Never reset an actual
-created panel, repeat engine validation, change frozen inputs or reduce4.
-Follow-up petrified-poda-see-y-panel is active;263 immutable inputs are sealed.
-Keep concurrency4 and wait. The owner authorized closing Fairyground to free
-RAM on2026-10-30: server552/134378273891190626 and console34128/134378273891240126
-exited0 via the owned endpoint; retained handles and a strict recheck proved both
-exits. Ports5185/5186 have no listeners and the PR18 profile is unchanged. See
-.local/points-qsearch-see-v1/fairyground-owner-shutdown.json. The initial socket
-probe10035 failure is preserved; no error was treated as exit. Two in-app GUI
+or repeat successful validation. The75 development identities exited.
+
+Panel .local/points-qsearch-see-panel-001, session99991. Controller9780
+creation_filetime134378342797972222; launcher40984/134378342800815357;
+real panel13016/134378342801070905. Verify PID+CreationDate, never PID alone.
+Use .local/points-qsearch-see-v1/monitor_panel.py and the followup. Do not launch,
+duplicate, restart or change active inputs. Frozen263 inputs,11 panel hashes,
+7 dependency hashes and exact journal identities passed launch audit.
+Preflight8100438016 bytes free passed7583301632 required with concurrency4.
+Keep40/400 VSTC/STC/LTC, displayed LOS boundaries, pending pairs and final full
+pair/color/statistics/referee/hash/strict-exit audits. Read reporting counters
+before all-three-TC tables on meaningful changes or200 additional games.
+
+The first controller attempt failed its inner memory gate BEFORE panel mkdir,
+engine launch or games. Controller29576/134378339367024018 and launcher38352/
+134378339369775996 exited1; all79 then-recorded identities (75 development and
+4 startup) exited. Its FAILED state/log and exact exit proofs are preserved in
+.local/points-qsearch-see-v1/panel-launch-failure-001. Original inactive markers
+were archived only after verified exits; no game or existing panel was replayed.
+The successful launch above is the only real strength panel.
+
+Fairyground PR18 is closed by owner authorization; server552/134378273891190626
+and console34128/134378273891240126 exited0 through the owned endpoint. Handles
+and strict recheck proved both exits; ports5185/5186 have no listeners and the
+PR18 profile is preserved. See fairyground-owner-shutdown.json in this task.
+The socket-probe10035 failure is preserved, never used as exit proof. Two GUI
 tabs remain because browser.user was unavailable. Do not close other apps.
-Read .local/points-qsearch-see-followup.json, re-run only
-preflight_panel.py in .local/points-qsearch-see-v1, and once ready launch its
-run_panel.py exactly once with the task's process-journal instrumentation.
-Record the returned session and run register_panel.py --session <id>; use
-monitor_panel.py thereafter. Never duplicate a panel or act on PID alone.
-Use the same40/400 VSTC/STC/LTC boundaries, pending pairs and final full audits.
-PR18 remains champion. No automatic successor or OpenBench workload.
+Follow-up petrified-poda-see-y-panel stays active. PR18 remains champion.
+T8 stays paused. No other candidate, OpenBench, AtomicDB, remote-worker or Misere
+activity is authorized. Only three audited wins plus distribution/interfaces
+permit automatic promotion; PR18's manual exception is not inherited.
 
 One successor is authorized on2026-10-30 from the qualified PR18 champion:
 points-qsearch-see-v1. Use existing points SEE at a fixed zero threshold to prune
