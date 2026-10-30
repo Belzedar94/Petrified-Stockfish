@@ -20,3 +20,12 @@ tsan.supp
 __pycache__/
 tests/syzygy
 tests/bench_tmp.epd
+/.local/
+/build/
+*.egg-info/
+/dist/
+src/petrified-*.exe
+src/petrified-*.ltrans*
+src/petrified-*.res
+src/petrified-*.lto_wrapper_args
+src/petrified-*.wpa.args.*
