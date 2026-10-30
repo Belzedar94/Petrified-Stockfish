@@ -49,7 +49,7 @@ static void array(const std::vector<Move>& moves) {
 }
 static void check(Position& pos, bool emit) {
     Move all[MAX_MOVES]; const Move* end = reference_generate<ALL>(pos, all);
-    std::vector<Move> legal(all, end), base, extra;
+    std::vector<Move> legal(static_cast<const Move*>(all), end), base, extra;
     const auto fen = pos.fen(); const auto key = pos.key();
     const bool inCheck = bool(pos.checkers());
     for (Move m : legal) {
