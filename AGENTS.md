@@ -1,3 +1,37 @@
+PR22 points-quiet-threats-v1 is CLOSED_NEUTRAL_SCREEN after its sole full panel.
+VSTC400:181/198/21,-14.77+/-33.2 Elo95%,LOS19.1%,time0/0;
+STC400:174/200/26,-22.62+/-33.0 Elo95%,LOS8.9%,time1/0;
+LTC400:186/180/34,+5.21+/-32.6 Elo95%,LOS62.3%,time0/0.
+All three raw INCONCLUSIVE_LIMIT results are preserved. Each selection is
+NEUTRAL_SCREEN, never equivalence or statistical LOSS. PR18 remains champion;
+the three-win promotion gate failed. No distribution or Fairyground change.
+
+The frozen original auditors passed1200 games/600 reversed-color pairs/244963
+independent plies, with no incomplete pairs or excluded games. All1863 registered
+development/panel identities exited;1800 pair process instances reconcile with
+exact CreationDates. Journal and strict exit identity sets match. Six denied
+handle queries were resolved by successful CIM reads of strictly later unrelated
+CreationDates; access denial itself never counted as exit. No unrelated process
+was touched. Controller session38404 exited0 with PANEL_COMPLETE_AWAITING_AUDIT,
+panel_exit_code0 and no remaining children. Eight auditor identities and both
+packaging identities also exited, with auditor/packager exit codes0.
+
+All268 frozen inputs,11 panel hashes and7 dependencies remain exact. The10638-entry
+local ZIP includes every one of the6617 raw panel files, independent referee logs,
+inputs, original failures, audits and inventory; every entry was hash-verified.
+The lease is released. Branch, draft PR22 and validated source tag
+candidates/points-quiet-threats-v1-neutral are preserved. PR22 is not added to
+the OpenBench queue. Follow-up removal completes this closure; no successor,
+replay, tuning or training is authorized. PR18's historical manual exception
+does not apply to PR22. See the experiment record for hashes and exit proofs.
+
+Both Fairyground profiles remain closed/preserved; T8 remains manually paused.
+No OpenBench workload, AtomicDB, remote workers, other applications or Misere
+activity. PR21 stays parked; PR9/12/13/15/16/19/20 remain separately retained,
+and PR17 remains excluded from the standalone OpenBench queue.
+
+The entries below preserve prior stages and cannot restart closed panels.
+
 VSTC and STC for points-quiet-threats-v1 / PR22 closed at400 games each:
 VSTC181/198/21,-14.77+/-33.2 Elo95%,LOS19.1%,time0/0;
 STC174/200/26,-22.62+/-33.0 Elo95%,LOS8.9%,time1/0.
