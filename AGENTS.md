@@ -10,10 +10,16 @@ Four test/adapter/export failures are preserved; no engine policy or binary
 changed. build-state and development-validation-002/003/004 remain FAILED;
 development-validation-005/state.json is READY_FOR_PANEL_REVIEW. Do not rebuild
 or repeat successful validation. The75 recorded development identities exited.
-Panel has NOT started:5.567GB free versus7.583GB required at the last preflight.
+Panel has NOT started:6.447GB free versus7.583GB required at the last preflight.
 Follow-up petrified-poda-see-y-panel is active;263 immutable inputs are sealed.
-Keep concurrency4 and wait. Fairyground PR18 stays open; do not close it or other
-apps to force the gate. Read .local/points-qsearch-see-followup.json, re-run only
+Keep concurrency4 and wait. The owner authorized closing Fairyground to free
+RAM on2026-10-30: server552/134378273891190626 and console34128/134378273891240126
+exited0 via the owned endpoint; retained handles and a strict recheck proved both
+exits. Ports5185/5186 have no listeners and the PR18 profile is unchanged. See
+.local/points-qsearch-see-v1/fairyground-owner-shutdown.json. The initial socket
+probe10035 failure is preserved; no error was treated as exit. Two in-app GUI
+tabs remain because browser.user was unavailable. Do not close other apps.
+Read .local/points-qsearch-see-followup.json, re-run only
 preflight_panel.py in .local/points-qsearch-see-v1, and once ready launch its
 run_panel.py exactly once with the task's process-journal instrumentation.
 Record the returned session and run register_panel.py --session <id>; use
@@ -34,7 +40,7 @@ No tuning, training, other candidate or OpenBench workload. Public Wakwak docs
 and OB were read only as inspiration; no third-party engine code was copied.
 Only three audited wins plus interfaces allow automatic promotion. PR18's manual
 promotion remains a separate historical owner exception. T8 stays paused;
-Fairyground PR18 stays open for its owner and is excluded from experiment cleanup.
+Fairyground PR18 is now closed by owner authorization; preserve its profile.
 Do not touch AtomicDB, remote workers, other applications or contact Misere.
 
 The entries below preserve prior decisions and do not cancel this successor.

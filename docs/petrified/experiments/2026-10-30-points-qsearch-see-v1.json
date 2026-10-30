@@ -74,7 +74,7 @@
     "further_candidate": false,
     "openbench_workload": false,
     "T8": "manually paused",
-    "Fairyground": "Keep owner PR18 GUI running; never stop it for experiment cleanup or memory",
+    "Fairyground": "Owner authorized shutdown on2026-10-30 to free RAM; server and console exited0, PR18 profile preserved",
     "AtomicDB": false,
     "remote_workers": false,
     "Misere_contact": false
@@ -186,9 +186,9 @@
   "preflight": {
     "correctness": "PASS",
     "source_ci": "PASS",
-    "checked_utc": "2026-10-30T11:26:11.403410+00:00",
+    "checked_utc": "2026-10-30T11:34:54.590040+00:00",
     "stage": "WAITING_MEMORY",
-    "free_bytes": 5567324160,
+    "free_bytes": 6447140864,
     "required_bytes": 7583301632,
     "frozen_input_count": 263,
     "source_archive_files": 234,
@@ -238,5 +238,64 @@
     "status": "ACTIVE",
     "notification_policy": "Silent while waiting memory or unchanged; report meaningful panel events"
   },
-  "updated_utc": "2026-10-30T11:27:58.898660+00:00"
+  "updated_utc": "2026-10-30T11:35:47.290726+00:00",
+  "fairyground_shutdown": {
+    "result": "PASS",
+    "checked_utc": "2026-10-30T11:34:22.425630+00:00",
+    "authorization": "Owner: Puedes cerrar fairyground si quieres",
+    "method": "Owned authenticated shutdown endpoint; exact PID+CreationDate and retained handles; successful listener enumeration empty",
+    "identities_exited": 2,
+    "processes": [
+      {
+        "pid": 552,
+        "creation_filetime": 134378273891190626,
+        "creation_utc": "2026-10-30T09:49:49.119062+00:00",
+        "exit_proof": "RETAINED_HANDLE_SIGNALED",
+        "exit_code": 0
+      },
+      {
+        "pid": 34128,
+        "creation_filetime": 134378273891240126,
+        "creation_utc": "2026-10-30T09:49:49.124012+00:00",
+        "parent_pid": 552,
+        "name": "conhost.exe",
+        "exit_proof": "RETAINED_HANDLE_SIGNALED",
+        "exit_code": 0
+      }
+    ],
+    "strict_exit_recheck": [
+      {
+        "expected": {
+          "pid": 552,
+          "creation_filetime": 134378273891190626,
+          "creation_utc": "2026-10-30T09:49:49.119062+00:00",
+          "exit_proof": "RETAINED_HANDLE_SIGNALED",
+          "exit_code": 0
+        },
+        "status": "EXITED_ABSENT"
+      },
+      {
+        "expected": {
+          "pid": 34128,
+          "creation_filetime": 134378273891240126,
+          "creation_utc": "2026-10-30T09:49:49.124012+00:00",
+          "parent_pid": 552,
+          "name": "conhost.exe",
+          "exit_proof": "RETAINED_HANDLE_SIGNALED",
+          "exit_code": 0
+        },
+        "status": "EXITED_ABSENT"
+      }
+    ],
+    "profile_sha256": "42009608caf870df9deb6180717dd3bfa491727c8e18918c855823d41d81b30e",
+    "profile_preserved": true,
+    "ports_closed": [
+      5185,
+      5186
+    ],
+    "initial_check_preserved": ".local\\points-qsearch-see-v1\\fairyground-owner-stop-001.json",
+    "initial_check_sha256": "79eb6f8d39ff8454348814bd1edd3a41d1f75f096facc659b3d088f86e4a13bc",
+    "initial_check_limit": "Socket connect_ex returned10035 after real exits; it was not accepted as proof of closed ports. Successful Get-NetTCPConnection enumeration subsequently proved no listeners.",
+    "browser_tabs": "Two Fairyground in-app tabs remain; browser tool returned browser.user is unavailable. No other app closed."
+  }
 }
