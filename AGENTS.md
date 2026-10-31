@@ -1,3 +1,27 @@
+PR23 points-threat-evasion-v1 is PARKED_MANUAL_OWNER. Its sole panel stopped cooperatively.
+VSTC400:174/204/22,-26.11+/-33.2 Elo95%,LOS6.1%,time0/0; STC274:114/136/24,
+-27.96+/-39.5,LOS8.1%,time0/0; LTC not run. Raw INCONCLUSIVE_LIMIT/INTERRUPTED
+are preserved. Parking is an owner selection, not statistical LOSS or equivalence.
+PR18 stays champion. Manual closure passed674 games/337 reversed-color pairs/
+129307 independent plies. Four incomplete pairs and two completed unpaired games
+are preserved and excluded. All1103 development/panel identities exited;1023 pair
+process instances reconcile with exact CreationDates. Journal and strict exit
+sets match; all closure auditors and packager identities also exited, exit codes0.
+Original automatic STOP auditor rejection is retained without changing its script.
+All289 frozen inputs,11 panel hashes and7 dependencies remain exact. The6293-entry
+ZIP contains all3762 raw panel files, inputs, original failures, audits and inventory;
+every entry was hash-verified. Lease released, follow-up deleted. Branch/draft/tag
+candidates/points-threat-evasion-v1-parked retained, outside the OpenBench queue.
+
+The owner authorized ONE next substantial search candidate from PR18 with the same
+full Debug/Release/reference/state/NNUE/undo/null, independent Chess.com, interfaces,
+repeatable benches, five source CI jobs and40/400 VSTC/STC/LTC,T1/Hash512/concurrency4.
+No PR19/20/21/22/23 engine code, training, tuning or further automatic successor.
+Both Fairyground profiles stay closed/preserved; T8 paused. No OpenBench workloads,
+AtomicDB, remote workers, other applications or Misere activity.
+
+The entries below preserve prior stages and cannot restart closed panels.
+
 VSTC for points-threat-evasion-v1 / PR23 closed at400 games:174/204/22,
 -26.11+/-33.2 Elo95%,LOS6.1%,time0/0,200 complete reversed-color pairs.
 Raw INCONCLUSIVE_LIMIT is preserved; selection NEUTRAL_SCREEN, never equivalence

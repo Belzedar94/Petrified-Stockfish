@@ -9,7 +9,7 @@
   "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
   "panel": {
     "directory": ".local/points-threat-evasion-panel-001",
-    "status": "RUNNING",
+    "status": "STOPPED_MANUAL_OWNER",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -43,7 +43,7 @@
   "schema": "petrified-threat-evasion-v1",
   "experiment": "points-threat-evasion-v1",
   "created_utc": "2026-10-31T12:54:52.519452+00:00",
-  "status": "PANEL_RUNNING",
+  "status": "PARKED_MANUAL_OWNER",
   "branch": "exp/points-threat-evasion-v1",
   "authorization": "Owner parked PR22 and authorized one next substantial search candidate from PR18 with the same validations and VSTC/STC/LTC panel.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
@@ -83,7 +83,7 @@
     "Five exact-source CI jobs"
   ],
   "risk": "Hypothetical capture availability is not inevitability. Local SEE omits wall positional value and settlement; extra nodes and legal probes may lose strength.",
-  "runtime_released": false,
+  "runtime_released": true,
   "pr": 23,
   "pr_url": "https://github.com/Belzedar94/Petrified-Stockfish/pull/23",
   "source_commit": "806622a83c834694c11c1398b23a43bd619bf1c8",
@@ -690,11 +690,11 @@
     "exchange_thresholds": 795172,
     "capture_transactions": 177911
   },
-  "followup_active": true,
+  "followup_active": false,
   "updated_utc": "2026-10-31T13:27:16.261699+00:00",
   "automatic_promotion_eligible": false,
   "champion_unchanged": true,
-  "final_audits_pending": true,
+  "final_audits_pending": false,
   "closed_controls": {
     "VSTC": {
       "raw_result": {
@@ -726,5 +726,136 @@
       "selection": "NEUTRAL_SCREEN",
       "meaning": "Cap without boundary; not equivalence or statistical LOSS; final panel audit pending"
     }
-  }
+  },
+  "closed_utc": "2026-10-31T14:11:45.099009+00:00",
+  "promotion_eligible": false,
+  "decision": "Owner parked PR23; raw VSTC INCONCLUSIVE_LIMIT and STC INTERRUPTED are preserved. This is not statistical LOSS or equivalence.",
+  "retention": {
+    "branch": "exp/points-threat-evasion-v1",
+    "tag": "candidates/points-threat-evasion-v1-parked",
+    "revision": "cc8b29d87b57f04d8f7e33830fc9053d9c853a75",
+    "open_draft": true,
+    "openbench_queue": false
+  },
+  "raw_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        174,
+        204,
+        22
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        30,
+        12,
+        132,
+        10,
+        16
+      ],
+      "statistics": "Total: 400 W: 174 L: 204 D: 22 ELO: -26.11 +-33.2 (95%) LOS: 6.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 895.547
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INTERRUPTED",
+      "scores": [
+        114,
+        136,
+        24
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        21,
+        12,
+        84,
+        8,
+        12
+      ],
+      "statistics": "Total: 274 W: 114 L: 136 D: 24 ELO: -27.96 +-39.5 (95%) LOS: 8.1%",
+      "completed_pairs": 137,
+      "elapsed_seconds": 2605.078,
+      "error": "Panel stopped"
+    }
+  },
+  "closure_audit": {
+    "path": ".local\\points-threat-evasion-v1\\manual-closure-audit.json",
+    "sha256": "ab03c5ac168de99f38f68c26c7fb068ca5c67204e77775eedd4e8799f787e3b0",
+    "games": 674,
+    "pairs": 337,
+    "independent_plies": 129307,
+    "incomplete_pairs": 4,
+    "excluded_unpaired_games": 2,
+    "exited_identities": 1103,
+    "exact_pair_process_instances": 1023,
+    "bounded_only": 0
+  },
+  "preservation": {
+    "result": "PASS",
+    "created_utc": "2026-10-31T14:09:49.055970+00:00",
+    "path": ".local\\points-threat-evasion-v1\\frozen-inputs-and-closure.zip",
+    "sha256": "ac5b38de1e899913d7d1b566ac96933ab3066bcc67c8076c3529edd0fb7192f3",
+    "bytes": 88840028,
+    "evidence_files": 6292,
+    "zip_entries": 6293,
+    "manifest": ".local\\points-threat-evasion-v1\\preservation-manifest.json",
+    "manifest_sha256": "ffc374cca642a527eede3673a32f6eb6556d1b91584e45130ea66ae4f9b8f2b9",
+    "raw_inventory_sha256": "6007b82952377f3aad5273000bb662a91dc99338e7d093ee3dd9ef1a3be1da6d",
+    "raw_files": 3762,
+    "raw_logs_included": true,
+    "frozen_inputs": 289,
+    "all_entries_verified": true,
+    "public_upload": false
+  },
+  "packaging_exit_proof": ".local\\points-threat-evasion-v1\\preservation-process-exit.json",
+  "auditor_exit_proof": ".local\\points-threat-evasion-v1\\closure-audit-process-exits.json",
+  "original_auditor_rejection": ".local\\points-threat-evasion-v1\\panel-audit-failure-001",
+  "controller_exit": {
+    "result": "PASS",
+    "checked_utc": "2026-10-31T14:08:44.054097+00:00",
+    "session_id": 56438,
+    "exit_code": 0,
+    "exec_output": "PANEL_STOPPED_AWAITING_MANUAL_AUDIT",
+    "panel_exit_code": 1,
+    "identities": {
+      "controller": {
+        "expected": {
+          "pid": 27884,
+          "creation_filetime": 134379257252539175,
+          "creation_utc": "2026-10-31T13:08:45.253918+00:00"
+        },
+        "status": "EXITED_ABSENT"
+      },
+      "launcher": {
+        "expected": {
+          "pid": 32640,
+          "creation_filetime": 134379257254962746,
+          "creation_utc": "2026-10-31T13:08:45.496275+00:00"
+        },
+        "status": "EXITED_ABSENT"
+      },
+      "panel": {
+        "expected": {
+          "pid": 25056,
+          "creation_filetime": 134379257255203435,
+          "creation_utc": "2026-10-31T13:08:45.520344+00:00"
+        },
+        "status": "EXITED_ABSENT"
+      }
+    }
+  },
+  "successor_authorization": "Owner authorized ONE next substantial candidate from PR18 with the same validation and VSTC/STC/LTC; exclude PR19/20/21/22/23 engine changes.",
+  "followup_deleted": true
 }
