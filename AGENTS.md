@@ -1,3 +1,63 @@
+PR25 VSTC closed at46 games/23 complete reversed-color pairs:7/38/1,
+-284.16+/-153.7 Elo95%,LOS0.0%,time0/0,raw LOSS pending final independent audit.
+Automatic promotion is ineligible. Continue STC and LTC in the SAME frozen panel;
+no early stop, restart, tuning or second candidate. PR18 stays champion.
+Follow-up petrified-liquidaciones-y-panel; lease remains owned. All restrictions
+and exact identities below apply. Earlier stages cannot restart workloads.
+
+points-liquidation-replies-v1 / PR25 is FROZEN; its sole panel is ACTIVE vs PR18.
+Source a68084551828388053dd88d2d88821f6c7b581b4; validated revision
+cedf10cb5d104c5847fd46982197f36e15776f2f has identical src. Candidate SHA256
+52f88a374e8520c896f70266ca360609c91ad17e1110cb43825c1a66dd41c586.
+Points bench338281 twice; PR18 rival167330; unchanged network; legacy179335 both.
+Only a full legal qsearch reply layer after actual non-pawn petrification changes:
+no stand-pat, quiet consumes, new petrification rearms, separate qsearch TT domain.
+Rules/state/NNUE/coefficients/main policy fixed; no PR19-24 engine changes.
+
+Full Debug/Release state/reference/NNUE/undo/null passed:1318563 legal queries,
+9338 undo,2283 nulls,81210 reconstructions per build; inherited56798 exchanges/
+795172 thresholds and177911 captures. New per-build tests:4649 positions,133755
+children,5703 events,22732 full pickers,130375 nulls,31960 exact NNUE,261 rearms,
+25 EP,604 promotions,138 castles and280 terminal children. Independent Chess.com:
+176 positions,275 legal lists,3084 children,123365 history plies,119 event replies,
+176 settlements,zero exclusions.24 searches per build cover depth1/4,T1/T2,both
+colors,cold/ordinary-warm/event-warm TT;48 independent PV plies. Inherited checks,
+native UCI/CECP and32 ordinary searches/214 independent plies passed. Five CI jobs
+41250229751 passed at cedf10cb5d104c5847fd46982197f36e15776f2f. No rebuild/retest.
+Test-only failure001 (DynStats.fill) and CI41250064223 remain preserved;
+build-state FAILED/session51887 exit1, continuation002 READY/session69020 exit0.
+Engine/binary/network never changed after freezing. Oracle browser advisory failed
+before model selection; no answer or API fallback. Chrome CreationDate was not
+journalled: cleanup and absent PID/profile snapshot are explicitly limited evidence.
+
+Panel .local/points-liquidation-replies-panel-001, session41625. Controller31184/
+creation_filetime134379613091731200; launcher=real panel19628/134379613094302636
+(direct base Python, two roles share one identity). Verify PID+CreationDate;
+access denial never proves exit.313 frozen inputs,11 panel hashes,7 dependencies
+verified; preflight10172874752 bytes free exceeded7583301632,concurrency4 fixed.
+The finalizer's stdout sealing correction is preserved before launch. Registration
+failure001 lacked parent_pid in a derived summary; separate register_panel_003.py
+verified the untouched atomic spawn/self diary. Original scripts/failure preserved;
+active inputs unchanged and no restart. Use monitor_panel.py and followup JSON.
+Run helpers through supervise_helper_002.py with unique labels for exit journalling.
+At18 games the inherited Elo formatter produced negative confidence half-width;
+preserve raw text and compute a separate valid audit interval, never change inputs.
+
+Same40/400 VSTC2+0.02/STC10+0.1/LTC30+0.3,T1/Hash512/concurrency4. Displayed
+LOS100.0%/0.0% requires draining reversed-color pairs/rechecking. Run all three;
+cap without boundary NEUTRAL_SCREEN, never equivalence/statistical LOSS.
+Only three audited wins plus distribution/interfaces permit promotion. PR18 stays
+champion; historical exception not inherited. No tuning/training/second candidate.
+Original final auditors, exact process reconciliation, raw inventory and verified
+archive required. Lease owned until decision and exits of all processes including
+auditors/packagers; access denial never an exit. Normal controller finish must be
+PANEL_COMPLETE_AWAITING_AUDIT,panel_exit_code0,no children. Both GUIs stay closed,
+T8 paused. No OB,AtomicDB,remote,unrelated apps or Misere. No automatic successor.
+Report all-three-TC tables only at start/closure/changed decision/failure or200 new
+games; read last_reported counters first, update only when reporting.
+
+Earlier entries below are historical and cannot restart closed workloads.
+
 The owner authorized ONE new PR18 candidate: points-liquidation-replies-v1.
 Read docs/petrified/liquidation-replies-v1.md and its experiment/followup record.
 One full legal reply layer after an actual non-pawn petrifying capture at points

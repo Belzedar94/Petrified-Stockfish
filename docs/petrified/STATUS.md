@@ -1,3 +1,72 @@
+PR25 VSTC closed at46 games/23 complete reversed-color pairs:7/38/1,
+-284.16+/-153.7 Elo95%,LOS0.0%,time0/0,raw LOSS pending final independent audit.
+Automatic promotion is ineligible. Continue STC and LTC in the SAME frozen panel;
+no early stop, restart, tuning or second candidate. PR18 stays champion.
+Follow-up petrified-liquidaciones-y-panel; lease remains owned. All restrictions
+and exact identities below apply. Earlier stages cannot restart workloads.
+
+points-liquidation-replies-v1 / PR25 is FROZEN; its sole panel is ACTIVE vs PR18.
+Source a68084551828388053dd88d2d88821f6c7b581b4; validated revision
+cedf10cb5d104c5847fd46982197f36e15776f2f has identical src. Candidate SHA256
+52f88a374e8520c896f70266ca360609c91ad17e1110cb43825c1a66dd41c586.
+Points bench338281 twice; PR18 rival167330; unchanged network; legacy179335 both.
+Only a full legal qsearch reply layer after actual non-pawn petrification changes:
+no stand-pat, quiet consumes, new petrification rearms, separate qsearch TT domain.
+Rules/state/NNUE/coefficients/main policy fixed; no PR19-24 engine changes.
+
+Full Debug/Release state/reference/NNUE/undo/null passed:1318563 legal queries,
+9338 undo,2283 nulls,81210 reconstructions per build; inherited56798 exchanges/
+795172 thresholds and177911 captures. New per-build tests:4649 positions,133755
+children,5703 events,22732 full pickers,130375 nulls,31960 exact NNUE,261 rearms,
+25 EP,604 promotions,138 castles and280 terminal children. Independent Chess.com:
+176 positions,275 legal lists,3084 children,123365 history plies,119 event replies,
+176 settlements,zero exclusions.24 searches per build cover depth1/4,T1/T2,both
+colors,cold/ordinary-warm/event-warm TT;48 independent PV plies. Inherited checks,
+native UCI/CECP and32 ordinary searches/214 independent plies passed. Five CI jobs
+41250229751 passed at cedf10cb5d104c5847fd46982197f36e15776f2f. No rebuild/retest.
+Test-only failure001 (DynStats.fill) and CI41250064223 remain preserved;
+build-state FAILED/session51887 exit1, continuation002 READY/session69020 exit0.
+Engine/binary/network never changed after freezing. Oracle browser advisory failed
+before model selection; no answer or API fallback. Chrome CreationDate was not
+journalled: cleanup and absent PID/profile snapshot are explicitly limited evidence.
+
+Panel .local/points-liquidation-replies-panel-001, session41625. Controller31184/
+creation_filetime134379613091731200; launcher=real panel19628/134379613094302636
+(direct base Python, two roles share one identity). Verify PID+CreationDate;
+access denial never proves exit.313 frozen inputs,11 panel hashes,7 dependencies
+verified; preflight10172874752 bytes free exceeded7583301632,concurrency4 fixed.
+The finalizer's stdout sealing correction is preserved before launch. Registration
+failure001 lacked parent_pid in a derived summary; separate register_panel_003.py
+verified the untouched atomic spawn/self diary. Original scripts/failure preserved;
+active inputs unchanged and no restart. Use monitor_panel.py and followup JSON.
+Run helpers through supervise_helper_002.py with unique labels for exit journalling.
+At18 games the inherited Elo formatter produced negative confidence half-width;
+preserve raw text and compute a separate valid audit interval, never change inputs.
+
+Same40/400 VSTC2+0.02/STC10+0.1/LTC30+0.3,T1/Hash512/concurrency4. Displayed
+LOS100.0%/0.0% requires draining reversed-color pairs/rechecking. Run all three;
+cap without boundary NEUTRAL_SCREEN, never equivalence/statistical LOSS.
+Only three audited wins plus distribution/interfaces permit promotion. PR18 stays
+champion; historical exception not inherited. No tuning/training/second candidate.
+Original final auditors, exact process reconciliation, raw inventory and verified
+archive required. Lease owned until decision and exits of all processes including
+auditors/packagers; access denial never an exit. Normal controller finish must be
+PANEL_COMPLETE_AWAITING_AUDIT,panel_exit_code0,no children. Both GUIs stay closed,
+T8 paused. No OB,AtomicDB,remote,unrelated apps or Misere. No automatic successor.
+Report all-three-TC tables only at start/closure/changed decision/failure or200 new
+games; read last_reported counters first, update only when reporting.
+
+Earlier entries below are historical and cannot restart closed workloads.
+
+points-liquidation-replies-v1 / PR25 is the sole owner-authorized candidate from PR18.
+Frozen source a68084551828388053dd88d2d88821f6c7b581b4; full validation is running.
+No strength panel has started. See liquidation-replies-v1.md and the experiment.
+The NNUE, rules and coefficients are unchanged; no PR19-24 engine changes.
+PR18 stays champion. Prior panels remain closed; no OB or training authorized.
+Lease owned until final decision and proven exits. Both GUIs closed, T8 paused.
+
+Earlier entries below preserve history and cannot restart closed workloads.
+
 pr18-diagnosis-v1 is CLOSED_DIAGNOSIS. Fixed bank completed and audited:
 256 histories / 2048 states / 7680 queries. No training, candidate or strength claim.
 All 55 registered process identities exited, including auditors and packager.
@@ -1481,11 +1550,11 @@ The four-game concurrency preflight failed with 5.73 GiB free against a 6.58 GiB
 requirement, and T8 was restored. The next campaign fixed concurrency at three;
 its preflight passed. Threads=1 and Hash=512 are unchanged for both players.
 
-| Control | Games | W/L/D | Elo ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses (candidate/Walls) | Status |
+| Control | Games | W/L/D | Elo ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses (candidate/Walls) | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 106 | 85/2/19 | +365.89 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 81.9 | 100.0% | 0/0 | Passed after pending pairs |
-| STC 10+0.1 | 106 | 70/2/34 | +264.31 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 59.3 | 100.0% | 0/0 | Passed after pending pairs |
-| LTC 30+0.3 | 16 | 9/0/7 | +221.14 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 135.8 | 100.0% | 0/0 | Cancelled by owner |
+| VSTC 2+0.02 | 106 | 85/2/19 | +365.89 ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 81.9 | 100.0% | 0/0 | Passed after pending pairs |
+| STC 10+0.1 | 106 | 70/2/34 | +264.31 ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 59.3 | 100.0% | 0/0 | Passed after pending pairs |
+| LTC 30+0.3 | 16 | 9/0/7 | +221.14 ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 135.8 | 100.0% | 0/0 | Cancelled by owner |
 
 Local raw records are under `.local/campaign-002/` with separate engine streams,
 every move and clock, referee results, full pairs, manifests and the worker lease.
@@ -1499,11 +1568,11 @@ GCC 16.1.0, `-O3 -flto -flto-partition=one`, BMI2/AVX2, no PGO. The Walls binary
 SHA-256 is `757fe43a33624648f22fe99fc55976192fe86140080e333de27e422e51672da7`.
 Both players used run4test, Threads=1, Hash=512 and concurrency three.
 
-| Control | Games | W/L/D | Elo ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses | Status |
+| Control | Games | W/L/D | Elo ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 44 | 30/2/12 | +261.29 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 104.4 | 100.0% | 0/0 | Passed, pending pairs completed |
-| STC 10+0.1 | 44 | 23/0/21 | +201.54 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 72.3 | 100.0% | 0/0 | Passed, pending pairs completed |
-| LTC 30+0.3 | 16 | 8/0/8 | +190.85 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 121.5 | 100.0% | 0/0 | Owner accepted; stopped early |
+| VSTC 2+0.02 | 44 | 30/2/12 | +261.29 ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 104.4 | 100.0% | 0/0 | Passed, pending pairs completed |
+| STC 10+0.1 | 44 | 23/0/21 | +201.54 ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 72.3 | 100.0% | 0/0 | Passed, pending pairs completed |
+| LTC 30+0.3 | 16 | 8/0/8 | +190.85 ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 121.5 | 100.0% | 0/0 | Owner accepted; stopped early |
 
 The exact owner instruction was: "Puedes adjudicarlo como win. Empieza el panel
 vs fsf dev". LTC did not reach 40 games. Its original result remains INTERRUPTED;
@@ -1520,11 +1589,11 @@ including all 7,939 openings, against the pinned Walls referee. Both players
 positively identified their respective NNUE before the match.
 Records: `.local/campaign-004-fsf-dev/`.
 
-| Control | Games | W/L/D | Elo ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses | Status |
+| Control | Games | W/L/D | Elo ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 95% interval | LOS | Time losses | Status |
 |---|---:|---|---|---|---|---|
-| VSTC 2+0.02 | 46 | 42/0/4 | +536.97 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 302.2 | 100.0% | 0/0 | Passed, pending pairs completed |
-| STC 10+0.1 | 44 | 33/0/11 | +338.04 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 110.7 | 100.0% | 0/0 | Passed, pending pairs completed |
-| LTC 30+0.3 | 44 | 31/1/12 | +289.24 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 105.4 | 100.0% | 0/0 | Passed, pending pairs completed |
+| VSTC 2+0.02 | 46 | 42/0/4 | +536.97 ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 302.2 | 100.0% | 0/0 | Passed, pending pairs completed |
+| STC 10+0.1 | 44 | 33/0/11 | +338.04 ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 110.7 | 100.0% | 0/0 | Passed, pending pairs completed |
+| LTC 30+0.3 | 44 | 31/1/12 | +289.24 ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 105.4 | 100.0% | 0/0 | Passed, pending pairs completed |
 
 All controls used Threads=1, Hash=512 and concurrency three; no clock losses or
 measured wall-clock overruns occurred. Public results and hashes are in

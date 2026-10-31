@@ -64,3 +64,13 @@ profiles remain closed/preserved; T8 remains paused. Prior experiments stay clos
 Oracle browser advisory review was attempted before freezing. It failed before
 verified model selection because the automation browser had no usable ChatGPT
 session. No second-model answer was obtained; no API fallback was used.
+
+Validation and launch record: full Debug/Release and independent audits passed;
+five CI jobs41250229751 are green at cedf10cb (engine identical to frozen a6808455).
+The only test correction replaced an unavailable DynStats.fill with clear_range;
+original local/CI failures remain preserved. Candidate bench338281 twice, PR18
+167330, both legacy179335. See the experiment JSON for all counts and hashes.
+The sole panel started2026-10-31T23:01:49Z,session41625.313 frozen inputs remain
+exact. Launch sealing and registrar bookkeeping corrections are separately recorded;
+neither changed engine inputs. Raw small-sample confidence formatting at18 games
+was invalid; retain it and compute a separate audit interval. No strength verdict.
