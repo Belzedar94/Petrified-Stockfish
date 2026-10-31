@@ -1,3 +1,13 @@
+VSTC for points-threat-evasion-v1 / PR23 closed at400 games:174/204/22,
+-26.11+/-33.2 Elo95%,LOS6.1%,time0/0,200 complete reversed-color pairs.
+Raw INCONCLUSIVE_LIMIT is preserved; selection NEUTRAL_SCREEN, never equivalence
+or statistical LOSS. Automatic promotion is ineligible; PR18 stays champion.
+STC is active and LTC pending in the SAME frozen panel. Continue without changing
+inputs or relaunching. Full final audits and proven process exits remain required;
+the lease is not released. All exact identities and frozen restrictions below apply.
+
+The entries below preserve prior stages and cannot restart closed panels.
+
 points-threat-evasion-v1 / PR23 is FROZEN and its sole panel is ACTIVE vs PR18.
 Frozen engine806622a83c834694c11c1398b23a43bd619bf1c8; candidate SHA256
 3b90881ca39ea79b657fdb586418b10f370dea354342ee6706607e7ccb064c1c.

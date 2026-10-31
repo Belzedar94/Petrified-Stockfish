@@ -22,7 +22,12 @@
     "concurrency": 4,
     "boundary": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; continue within400 if boundary lost",
     "selection": "All three unless delegated manual early neutral/loss rejection; cap without boundary NEUTRAL_SCREEN, never equivalence. Only three audited wins plus distribution/interfaces permit automatic promotion.",
-    "referee": "Hash-pinned independent Chess.com client"
+    "referee": "Hash-pinned independent Chess.com client",
+    "progress": {
+      "VSTC": "INCONCLUSIVE_LIMIT",
+      "STC": "RUNNING",
+      "LTC": "PENDING"
+    }
   },
   "restrictions": {
     "training": false,
@@ -686,5 +691,40 @@
     "capture_transactions": 177911
   },
   "followup_active": true,
-  "updated_utc": "2026-10-31T13:11:35.802308+00:00"
+  "updated_utc": "2026-10-31T13:27:16.261699+00:00",
+  "automatic_promotion_eligible": false,
+  "champion_unchanged": true,
+  "final_audits_pending": true,
+  "closed_controls": {
+    "VSTC": {
+      "raw_result": {
+        "control": "VSTC",
+        "status": "INCONCLUSIVE_LIMIT",
+        "scores": [
+          174,
+          204,
+          22
+        ],
+        "time_losses": [
+          0,
+          0
+        ],
+        "minimum_games": 40,
+        "maximum_games": 400,
+        "pentanomial": [
+          30,
+          12,
+          132,
+          10,
+          16
+        ],
+        "statistics": "Total: 400 W: 174 L: 204 D: 22 ELO: -26.11 +-33.2 (95%) LOS: 6.1%",
+        "completed_pairs": 200,
+        "elapsed_seconds": 895.547
+      },
+      "raw_result_sha256": "9ae06b6e8966c93519a53a7af2783804d388b0af0e60a1e942c4965566729337",
+      "selection": "NEUTRAL_SCREEN",
+      "meaning": "Cap without boundary; not equivalence or statistical LOSS; final panel audit pending"
+    }
+  }
 }
