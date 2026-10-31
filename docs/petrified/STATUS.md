@@ -1,3 +1,23 @@
+pr18-diagnosis-v1 is CLOSED_DIAGNOSIS. Fixed bank completed and audited:
+256 histories / 2048 states / 7680 queries. No training, candidate or strength claim.
+All 55 registered process identities exited, including auditors and packager.
+The 7201-entry local evidence ZIP was hash-verified entry by entry;
+adjacent closure.json binds its hash and proves exits after packaging. Lease released.
+Read docs/petrified/pr18-diagnosis-results-2026-10-31.md. PR18 remains champion.
+No automatic next phase; both GUIs stay closed, T8 paused, no OB or remote work.
+Earlier diagnostic stages below are historical and must not restart any workload.
+
+PR18 diagnosis: fixed bank complete (256 histories / 2048 states / 7680 queries).
+Independent checks passed. Conclusion: prioritize horizon/liquidation diagnosis;
+NNUE capacity remains unproven and scale controls do not establish an improvement.
+Report: [diagnostic results](pr18-diagnosis-results-2026-10-31.md).
+Final evidence preservation and process-exit closure pending; lease still owned.
+No training, candidate, panel or automatic next phase.
+
+PR18 diagnosis is authorized and preparing: 256 development histories, up to 2048
+decision states. See pr18-diagnosis-v1.md. No training, candidate or strength panel.
+PR24 remains closed; diagnostic code lives in an isolated PR18 source export.
+
 PR24 points-repetition-win-v1 is CLOSED_NEUTRAL_MANUAL_OWNER after cooperative STOP.
 The owner requested ending this test and a whole-project rethink, not a successor.
 VSTC400:200/173/27,+23.49+/-33.0 Elo95%,LOS92.0%,time0/0;

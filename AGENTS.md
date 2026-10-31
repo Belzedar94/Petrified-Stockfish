@@ -1,3 +1,34 @@
+pr18-diagnosis-v1 is CLOSED_DIAGNOSIS. Fixed bank completed and audited:
+256 histories / 2048 states / 7680 queries. No training, candidate or strength claim.
+All 55 registered process identities exited, including auditors and packager.
+The 7201-entry local evidence ZIP was hash-verified entry by entry;
+adjacent closure.json binds its hash and proves exits after packaging. Lease released.
+Read docs/petrified/pr18-diagnosis-results-2026-10-31.md. PR18 remains champion.
+No automatic next phase; both GUIs stay closed, T8 paused, no OB or remote work.
+Earlier diagnostic stages below are historical and must not restart any workload.
+
+PR18 diagnosis pr18-diagnosis-v1 has completed its fixed bank: 256 histories,
+2048 states, 7680 searches, 656978472 reported nodes. No training or new candidate.
+Read docs/petrified/pr18-diagnosis-results-2026-10-31.md and its evidence JSON.
+Independent audits passed 51417 legal children, 170 terminals with no exclusions,
+and 74386 PV plies. All original failures, bounds and raw outputs are preserved.
+The strongest signal is horizon sensitivity; no dominant global scale/unit error
+or NNUE representation-capacity bottleneck was demonstrated. Broadly reduced
+selectivity costs more and has no demonstrated benefit. No automatic successor.
+Evidence preservation and final registered-helper exit proof are pending; the
+lease remains owned until closure.json confirms release. Earlier stages below
+are historical and cannot restart the diagnostic, PR24 or any prior panel.
+
+The owner authorized pr18-diagnosis-v1: 256 development histories and up to 2048
+decision states, to distinguish evaluation, scale and search limits before training.
+Read docs/petrified/pr18-diagnosis-v1.md and .local/pr18-diagnosis-v1/progress.json.
+The bank is selected and hashed before searches. Instrumentation is an isolated
+export of PR18 fb04cbca, not a candidate; no training, strength panel or promotion.
+Lease is owned until diagnostic helpers exit and evidence is preserved. Both GUI
+profiles remain closed; T8 stays paused; no OB, remote workers, AtomicDB or Misere.
+Prior panels remain closed. The old authorization limits below are historical;
+this explicit diagnostic authorization supersedes analysis-only for this bank.
+
 PR24 points-repetition-win-v1 is CLOSED_NEUTRAL_MANUAL_OWNER after cooperative STOP.
 The owner requested ending this test and a whole-project rethink, not a successor.
 VSTC400:200/173/27,+23.49+/-33.0 Elo95%,LOS92.0%,time0/0;
