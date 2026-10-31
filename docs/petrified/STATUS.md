@@ -25,7 +25,11 @@ inventory; every entry was hash-verified. The lease is released. Branch/draft an
 validated source tag candidates/points-repetition-win-v1-neutral are preserved.
 Follow-up petrified-repetici-n-ganadora-y-panel is deleted.
 No replay, tuning, training, new candidate or OpenBench queue entry. Whole-project
-analysis is authorized; implementation of a new program requires a separate request.
+review is complete: docs/petrified/project-review-2026-10-31.md and its evidence JSON.
+It recommends diagnosing PR18 errors before considering joint points FT/head learning;
+this is analysis, not a new experiment or training authorization. Oracle browser review
+failed before verified model selection; no second-model response or API fallback.
+Implementation of a new program requires a separate request.
 Both Fairyground profiles remain closed/preserved; T8 paused. No AtomicDB, remote
 workers, other applications or Misere activity. Prior retained/parked PRs unchanged.
 
