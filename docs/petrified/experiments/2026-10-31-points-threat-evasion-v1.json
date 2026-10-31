@@ -1,0 +1,82 @@
+{
+  "champion": {
+    "pr": 18,
+    "selection": "PROMOTED_MANUAL_OWNER; not three statistical wins",
+    "binary_sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+    "bench": 167330
+  },
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
+  "panel": {
+    "directory": ".local/points-threat-evasion-panel-001",
+    "status": "NOT_STARTED",
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "threads": 1,
+    "hash_mb": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; continue within400 if boundary lost",
+    "selection": "All three unless delegated manual early neutral/loss rejection; cap without boundary NEUTRAL_SCREEN, never equivalence. Only three audited wins plus distribution/interfaces permit automatic promotion.",
+    "referee": "Hash-pinned independent Chess.com client"
+  },
+  "restrictions": {
+    "training": false,
+    "post_result_tuning": false,
+    "further_candidate": false,
+    "openbench_workload": false,
+    "T8": "manually paused",
+    "Fairyground": "Both Petrified and Duck closed by owner; profiles preserved; no automatic restart",
+    "AtomicDB": false,
+    "remote_workers": false,
+    "Misere_contact": false
+  },
+  "schema": "petrified-threat-evasion-v1",
+  "experiment": "points-threat-evasion-v1",
+  "created_utc": "2026-10-31T12:54:52.519452+00:00",
+  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "branch": "exp/points-threat-evasion-v1",
+  "authorization": "Owner parked PR22 and authorized one next substantial search candidate from PR18 with the same validations and VSTC/STC/LTC panel.",
+  "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+  "base_ref": "d011dc2d24b72f8b9eb67d6140c4d3909846d3fb",
+  "hypothesis": "One quiet reply layer at an otherwise capture-free qsearch entry may defend against a profitable legal enemy capture and reduce horizon errors.",
+  "fixed_policy": {
+    "documentation": "docs/petrified/threat-evasion-v1.md",
+    "entry_only": true,
+    "budget_layers": 1,
+    "in_check": false,
+    "minimum_legal_moves": 2,
+    "own_capture_stage_moves": 0,
+    "hypothetical_pass": "existing null, EP cleared, no game action or settlement claim",
+    "enemy_capture": "legal and existing points SEE >=1",
+    "response": "all legal moves using unchanged PR18 full picker; no stand-pat; claims preserved",
+    "recursive_budget": false,
+    "TT_depths": {
+      "entry": 0,
+      "recursive_points": -1,
+      "unsearched": -2
+    }
+  },
+  "unchanged": [
+    "Rules/scoring/state/undo",
+    "NNUE/network bytes",
+    "All PR18 coefficients, ordering, pruning and reductions outside the single bounded qsearch layer",
+    "Legacy behavior; PR19/20/21/22 engine changes excluded"
+  ],
+  "validation_required": [
+    "Full Debug/Release legal/state/undo/null/NNUE references",
+    "All inherited component references",
+    "Reconstructed opposite-side FEN and slow make/undo SEE predicate, full picker completeness",
+    "Independent Chess.com legal lists and local exchanges; explicit terminal/EP limits",
+    "Depth-one quiet responses, cold/warm TT, T1/T2, independent PV legality",
+    "Native UCI/CECP and ordinary/forced searches",
+    "Candidate bench twice, champion167330, legacy179335",
+    "Five exact-source CI jobs"
+  ],
+  "risk": "Hypothetical capture availability is not inevitability. Local SEE omits wall positional value and settlement; extra nodes and legal probes may lose strength.",
+  "runtime_released": false
+}
