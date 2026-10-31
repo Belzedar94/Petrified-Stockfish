@@ -1,0 +1,308 @@
+{
+  "mode": "Existing artifacts only; no training, engine search or new games",
+  "datasets": {
+    "points-head-v1": {
+      "path": ".local/points-head-v1/prepared/rows.jsonl",
+      "sha256": "ae172b982f42eb34f22afaaa6409d797d1cd9ad1f4833afbbb8cc7c06253e901",
+      "groups": {
+        "train": {
+          "counts": {
+            "rows": 39167,
+            "clock_ge80": 772,
+            "clock_ge95": 139,
+            "walls_ge12": 65,
+            "live_le6": 5403,
+            "abs_lead_19_to21": 433,
+            "no_pawns": 153
+          },
+          "labels": {
+            "0.0": 18534,
+            "1.0": 19460,
+            "0.5": 1173
+          },
+          "families": 808
+        },
+        "validation": {
+          "counts": {
+            "rows": 5197,
+            "clock_ge80": 83,
+            "clock_ge95": 11,
+            "walls_ge12": 0,
+            "live_le6": 615,
+            "abs_lead_19_to21": 31,
+            "no_pawns": 10
+          },
+          "labels": {
+            "0.0": 2490,
+            "1.0": 2603,
+            "0.5": 104
+          },
+          "families": 109
+        },
+        "test": {
+          "counts": {
+            "rows": 4682,
+            "clock_ge80": 75,
+            "clock_ge95": 11,
+            "walls_ge12": 0,
+            "live_le6": 623,
+            "abs_lead_19_to21": 69,
+            "no_pawns": 7
+          },
+          "labels": {
+            "1.0": 2410,
+            "0.0": 2272
+          },
+          "families": 104
+        }
+      }
+    },
+    "points-head-v2": {
+      "path": ".local/points-head-v2/prepared/rows.jsonl",
+      "sha256": "be9d066a1dea1bc4ed7296f015cb55ff429c9ae908234482fbdd6c9176ca5190",
+      "groups": {
+        "train": {
+          "counts": {
+            "rows": 62241,
+            "clock_ge80": 1550,
+            "clock_ge95": 243,
+            "walls_ge12": 137,
+            "live_le6": 8964,
+            "abs_lead_19_to21": 811,
+            "no_pawns": 216
+          },
+          "labels": {
+            "0.0": 29909,
+            "1.0": 30694,
+            "0.5": 1638
+          },
+          "families": 1624
+        },
+        "validation": {
+          "counts": {
+            "rows": 5665,
+            "clock_ge80": 153,
+            "clock_ge95": 22,
+            "walls_ge12": 49,
+            "live_le6": 737,
+            "abs_lead_19_to21": 65,
+            "no_pawns": 9
+          },
+          "labels": {
+            "1.0": 2728,
+            "0.0": 2698,
+            "0.5": 239
+          },
+          "families": 99
+        },
+        "test": {
+          "counts": {
+            "rows": 5494,
+            "clock_ge80": 173,
+            "clock_ge95": 24,
+            "walls_ge12": 34,
+            "live_le6": 664,
+            "abs_lead_19_to21": 133,
+            "no_pawns": 0
+          },
+          "labels": {
+            "0.0": 2608,
+            "1.0": 2731,
+            "0.5": 155
+          },
+          "families": 99
+        }
+      }
+    }
+  },
+  "panel": {
+    "VSTC": {
+      "games": 400,
+      "endings": {
+        "50-move-rule": 47,
+        "Checkmate • 1-0": 235,
+        "Threefold repetition": 63,
+        "(insuff. material; White +10, Black +10)": 38,
+        "Insufficient material": 7,
+        "(White +20)": 3,
+        "(Black +20)": 7
+      },
+      "median_plies": 169.0,
+      "mean_plies": 192.6625,
+      "unique_openings": 32,
+      "opening_game_count_minmax": [
+        2,
+        20
+      ],
+      "source_games": 400,
+      "source_hash_map_sha256": "7caa9680ca01a6b87eccb28e39be3d8789afda3fbaecf7b66c6342abdfb5ae96"
+    },
+    "STC": {
+      "games": 400,
+      "endings": {
+        "Checkmate • 1-0": 247,
+        "Threefold repetition": 55,
+        "(Black +20)": 10,
+        "Insufficient material": 9,
+        "(insuff. material; White +10, Black +10)": 30,
+        "50-move-rule": 45,
+        "(White +20)": 3,
+        "Stalemate • 1-0": 1
+      },
+      "median_plies": 179.5,
+      "mean_plies": 204.7875,
+      "unique_openings": 32,
+      "opening_game_count_minmax": [
+        2,
+        20
+      ],
+      "source_games": 400,
+      "source_hash_map_sha256": "cd2226085b445e93ccd21e83e2ae527b0793d4f6cbab0a73e0e16ae11a882f82"
+    },
+    "LTC": {
+      "games": 6,
+      "endings": {
+        "Checkmate • 1-0": 3,
+        "50-move-rule": 2,
+        "Threefold repetition": 1
+      },
+      "median_plies": 167.0,
+      "mean_plies": 186.66666666666666,
+      "unique_openings": 2,
+      "opening_game_count_minmax": [
+        2,
+        4
+      ],
+      "source_games": 6,
+      "source_hash_map_sha256": "50a821738261037e9e1f2c584f0f880da44f6d1f28327dd2075356bea947de51"
+    }
+  },
+  "schema": "petrified-project-review-evidence-v1",
+  "review_date": "2026-10-31",
+  "champion_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+  "panel_source": "d9c1a0b3bc1ab25179064823ccb4b45ee5331ca0",
+  "diagnostic_only": true,
+  "no_new_engine_execution": true,
+  "oracle": {
+    "session": "petrified-whole-project-review",
+    "requested_model": "gpt-5-pro",
+    "engine": "browser",
+    "result": "FAILED_BEFORE_VERIFIED_MODEL_SELECTION",
+    "response_received": false,
+    "api_used": false,
+    "error": "Unable to locate the ChatGPT model selector button; no cookies were applied."
+  },
+  "provenance": {
+    "analysis_script": ".local\\project-review-20261031\\analyze_existing.py",
+    "analysis_script_sha256": "e5561f2367fb74dd20f8cb53ba192e5576a14773b9b9713f5c2e84dfb1fa8e53",
+    "full_local_report": ".local\\project-review-20261031\\existing-evidence-analysis.json",
+    "full_local_report_sha256": "74f4852e6cee75a9279c0144ca2e9aaa6aebbe376b7585dd1a0badc0da0aae79",
+    "baseline_context_manifest": {
+      "src/evaluate.cpp": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "3440a181ddc4b27c08cf990a9b1f43b753bb13f0d37b8721b47285242388be46",
+        "bytes": 3353
+      },
+      "src/nnue/network.h": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "e1008835a082598073953439d344104b64ee300a9139ee4ad4bf12fe50ecc853",
+        "bytes": 3200
+      },
+      "src/nnue/network.cpp": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "b3f236b07a40add5895184761f8dc6b7fb02f78a3e08ea902d23ccf4400ed396",
+        "bytes": 14916
+      },
+      "src/search.cpp": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "0b63dc20034f1a5c4af4cde288c269453990a7289a918b93db61fbbc6cff6fce",
+        "bytes": 99430
+      },
+      "src/search_capture.h": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "48d65a266871d6f5272a1e837f5f0fb71c6576742054f02912cc67c97815f86c",
+        "bytes": 882
+      },
+      "src/movepick.cpp": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "a6c7ee8c47a506c25aa8ef723ce2ab38a215caa49779a02459b00c8e5bf10033",
+        "bytes": 11277
+      },
+      "src/api/petrified_outcome.cpp": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "6102b197452be9126b278997b04521d3984bd34284a34623e7e14b08127d004d",
+        "bytes": 5559
+      },
+      "src/api/petrified_outcome.h": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "00d2e50504aef6aef1d8d4e1f51093ebd012912f842f3c1df0cc3c9ba5e29aea",
+        "bytes": 1829
+      },
+      "src/position.cpp": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "04f8bb440269b7dc92a330fd43df6ec0b8de71148887d8d838675d7a50f9202f",
+        "bytes": 56340
+      },
+      "src/position.h": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "c275a448006976f591aaf1804723a59d0018fd73411cc59f1411620c7c65c416",
+        "bytes": 15936
+      },
+      "src/movegen.cpp": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "e2888467a48aeb4eeab2543218452fea31000face278a85ddb5c350de5398e48",
+        "bytes": 5337
+      },
+      "training/points_head/README.md": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "bbdab78b79a669db6a23c417146439dc78677167e8b8fcff3f17dd343bf8634a",
+        "bytes": 5558
+      },
+      "training/points_head/model.py": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "1b1440f153254b02286f2b0e78468b8ab8f2f7cfb19f5ec504e6c2c2b774155d",
+        "bytes": 5847
+      },
+      "training/points_head/datagen.py": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "27f27480ac40470ebc9db711138623bdcb3a41e739cf475a3fc9947877c7b078",
+        "bytes": 7249
+      },
+      "training/points_head/train.py": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "d6b7c43d5e90bb8d739e9fcd0b8ab8c71a1a5c7801efc460e21e243e77342fd9",
+        "bytes": 5097
+      },
+      "training/points_head/prepare.py": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "4b23b4ffff447869394764315203bb7a522ece357bee701d49b2b256c57fa8fb",
+        "bytes": 4701
+      },
+      "scripts/points_panel.py": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "f19fbf32e431d5318acf3d5492b75907a39952bc7261e96c15c8333a9c26d669",
+        "bytes": 13102
+      },
+      "docs/petrified/chesscom-points.md": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "a9cc5c00938fdc0e260910feab3b4aeb97f16daaf1f70752ccc30fb2b3bec4b8",
+        "bytes": 7594
+      },
+      "docs/petrified/search-specialization-review.md": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "1f0aff7dcaa8bf884c6770f1fe9b5d8efe4cd2813deba4ec7ebe563fd8a4c04f",
+        "bytes": 13683
+      },
+      "CMakeLists.txt": {
+        "git_revision": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+        "sha256": "8027aef631849a9e45f57baf32c2b0a02e60e75d9145c0e082ef0362f190e074",
+        "bytes": 3560
+      },
+      "opening_book": {
+        "walks": 32,
+        "unique_16ply_histories": 32,
+        "source": "tests/petrified/fixtures/chesscom-walks.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,1912 @@
+{
+  "schema": "pr18-diagnosis-results-v1",
+  "source_policy_labels_are_not_minimax": true,
+  "probability_proxy": "sigmoid(internal value / 600); existing training temperature, not recalibrated",
+  "sampling_is_stratified_not_population_prevalence": true,
+  "search_value_semantics": "Last completed unbounded iteration is the position estimate; final bestmove may follow an incomplete bounded iteration. No bounds are treated as exact. Sensitivity below keeps only pairs with unbounded final iterations.",
+  "overall": {
+    "positions": 2048,
+    "choice_positions": 2032,
+    "forced": 2,
+    "claim_positions": 14,
+    "static_brier": 0.10696385261192753,
+    "low_brier": 0.09198192448982484,
+    "mid_brier": 0.0869627104314462,
+    "high_brier": 0.08040560259527813,
+    "low_mid_move_change": 920,
+    "mid_high_move_change": 687,
+    "all_three_agree": 865,
+    "mid_high_probability_shift": {
+      "n": 2032,
+      "mean": 0.025976753826521443,
+      "median": 0.009499677423716602,
+      "p90": 0.06431409884644335,
+      "p95": 0.1024647706952706,
+      "max": 0.9124135205142895
+    },
+    "static_vs_deep_eligible": 1776,
+    "static_vs_deep_agree": 412,
+    "static_gap_internal": {
+      "n": 1776,
+      "mean": 210.9617117117117,
+      "median": 109.0,
+      "p90": 511,
+      "p95": 712,
+      "max": 30522
+    },
+    "mean_depth": [
+      17.92333984375,
+      31.0908203125,
+      44.162109375
+    ]
+  },
+  "by_stratum": {
+    "clock": {
+      "positions": 256,
+      "choice_positions": 255,
+      "forced": 0,
+      "claim_positions": 1,
+      "static_brier": 0.09592721309196171,
+      "low_brier": 0.08082218849034464,
+      "mid_brier": 0.07939401811512196,
+      "high_brier": 0.07343138829653488,
+      "low_mid_move_change": 133,
+      "mid_high_move_change": 103,
+      "all_three_agree": 89,
+      "mid_high_probability_shift": {
+        "n": 255,
+        "mean": 0.02895653387717489,
+        "median": 0.013802412391049623,
+        "p90": 0.06756435340410327,
+        "p95": 0.1110559667114076,
+        "max": 0.3655860446570111
+      },
+      "static_vs_deep_eligible": 235,
+      "static_vs_deep_agree": 53,
+      "static_gap_internal": {
+        "n": 235,
+        "mean": 286.30212765957447,
+        "median": 67,
+        "p90": 413,
+        "p95": 689,
+        "max": 30522
+      },
+      "mean_depth": [
+        21.33203125,
+        29.41796875,
+        39.26171875
+      ]
+    },
+    "low_material": {
+      "positions": 256,
+      "choice_positions": 254,
+      "forced": 1,
+      "claim_positions": 1,
+      "static_brier": 0.09808716976932173,
+      "low_brier": 0.0882000673223,
+      "mid_brier": 0.08022114120794042,
+      "high_brier": 0.0755886956115684,
+      "low_mid_move_change": 118,
+      "mid_high_move_change": 96,
+      "all_three_agree": 102,
+      "mid_high_probability_shift": {
+        "n": 254,
+        "mean": 0.02910102436603634,
+        "median": 0.00792847090193427,
+        "p90": 0.06939718908625503,
+        "p95": 0.13628230457623636,
+        "max": 0.4619404305546583
+      },
+      "static_vs_deep_eligible": 230,
+      "static_vs_deep_agree": 56,
+      "static_gap_internal": {
+        "n": 230,
+        "mean": 161.59130434782608,
+        "median": 82.0,
+        "p90": 444,
+        "p95": 596,
+        "max": 1235
+      },
+      "mean_depth": [
+        15.8671875,
+        26.21484375,
+        39.3984375
+      ]
+    },
+    "ordinary": {
+      "positions": 1024,
+      "choice_positions": 1018,
+      "forced": 1,
+      "claim_positions": 5,
+      "static_brier": 0.10355812413679534,
+      "low_brier": 0.09108337205252055,
+      "mid_brier": 0.08646533682828393,
+      "high_brier": 0.07987894524976237,
+      "low_mid_move_change": 457,
+      "mid_high_move_change": 324,
+      "all_three_agree": 444,
+      "mid_high_probability_shift": {
+        "n": 1018,
+        "mean": 0.025374187443071954,
+        "median": 0.010834588952232438,
+        "p90": 0.058246401817990345,
+        "p95": 0.09456921244863348,
+        "max": 0.9124135205142895
+      },
+      "static_vs_deep_eligible": 883,
+      "static_vs_deep_agree": 208,
+      "static_gap_internal": {
+        "n": 883,
+        "mean": 197.1109852774632,
+        "median": 112,
+        "p90": 507,
+        "p95": 712,
+        "max": 2677
+      },
+      "mean_depth": [
+        17.7138671875,
+        31.4951171875,
+        44.611328125
+      ]
+    },
+    "points": {
+      "positions": 256,
+      "choice_positions": 249,
+      "forced": 0,
+      "claim_positions": 7,
+      "static_brier": 0.10757274566231571,
+      "low_brier": 0.0883101189125757,
+      "mid_brier": 0.08277506047689955,
+      "high_brier": 0.07709901061720169,
+      "low_mid_move_change": 103,
+      "mid_high_move_change": 86,
+      "all_three_agree": 110,
+      "mid_high_probability_shift": {
+        "n": 249,
+        "mean": 0.019544033017175267,
+        "median": 0.004449716465012465,
+        "p90": 0.04822017866190856,
+        "p95": 0.1074022194818139,
+        "max": 0.3346579444996659
+      },
+      "static_vs_deep_eligible": 216,
+      "static_vs_deep_agree": 44,
+      "static_gap_internal": {
+        "n": 216,
+        "mean": 247.28240740740742,
+        "median": 130.5,
+        "p90": 650,
+        "p95": 829,
+        "max": 1570
+      },
+      "mean_depth": [
+        16.5078125,
+        32.984375,
+        46.765625
+      ]
+    },
+    "walls": {
+      "positions": 256,
+      "choice_positions": 256,
+      "forced": 0,
+      "claim_positions": 0,
+      "static_brier": 0.13989119582463982,
+      "low_brier": 0.11418953298329614,
+      "mid_brier": 0.1074501163384719,
+      "high_brier": 0.09760994523787048,
+      "low_mid_move_change": 109,
+      "mid_high_move_change": 78,
+      "all_three_agree": 120,
+      "mid_high_probability_shift": {
+        "n": 256,
+        "mean": 0.028561720349667405,
+        "median": 0.011229550565806767,
+        "p90": 0.07750219376010314,
+        "p95": 0.09788667493206538,
+        "max": 0.3763410162125711
+      },
+      "static_vs_deep_eligible": 212,
+      "static_vs_deep_agree": 51,
+      "static_gap_internal": {
+        "n": 212,
+        "mean": 201.6933962264151,
+        "median": 131.0,
+        "p90": 471,
+        "p95": 696,
+        "max": 1902
+      },
+      "mean_depth": [
+        18.82421875,
+        34.12890625,
+        49.42578125
+      ]
+    }
+  },
+  "by_corpus": {
+    "points-head-v1": {
+      "positions": 1024,
+      "choice_positions": 1014,
+      "forced": 2,
+      "claim_positions": 8,
+      "static_brier": 0.09909405587078549,
+      "low_brier": 0.08900058565491839,
+      "mid_brier": 0.08476529172900667,
+      "high_brier": 0.07794025181915651,
+      "low_mid_move_change": 443,
+      "mid_high_move_change": 336,
+      "all_three_agree": 447,
+      "mid_high_probability_shift": {
+        "n": 1014,
+        "mean": 0.027070444361428612,
+        "median": 0.00993633396154628,
+        "p90": 0.06311055016711298,
+        "p95": 0.10206786471655893,
+        "max": 0.9124135205142895
+      },
+      "static_vs_deep_eligible": 887,
+      "static_vs_deep_agree": 220,
+      "static_gap_internal": {
+        "n": 887,
+        "mean": 220.53100338218715,
+        "median": 102,
+        "p90": 495,
+        "p95": 685,
+        "max": 30522
+      },
+      "mean_depth": [
+        17.80859375,
+        31.5654296875,
+        44.1376953125
+      ]
+    },
+    "points-head-v2": {
+      "positions": 1024,
+      "choice_positions": 1018,
+      "forced": 0,
+      "claim_positions": 6,
+      "static_brier": 0.1148336493530696,
+      "low_brier": 0.09496326332473128,
+      "mid_brier": 0.08916012913388573,
+      "high_brier": 0.08287095337139973,
+      "low_mid_move_change": 477,
+      "mid_high_move_change": 351,
+      "all_three_agree": 418,
+      "mid_high_probability_shift": {
+        "n": 1018,
+        "mean": 0.024887360700395836,
+        "median": 0.009353280555025274,
+        "p90": 0.06531255334698882,
+        "p95": 0.1024647706952706,
+        "max": 0.5338328234894503
+      },
+      "static_vs_deep_eligible": 889,
+      "static_vs_deep_agree": 192,
+      "static_gap_internal": {
+        "n": 889,
+        "mean": 201.41394825646793,
+        "median": 112,
+        "p90": 544,
+        "p95": 731,
+        "max": 2677
+      },
+      "mean_depth": [
+        18.0380859375,
+        30.6162109375,
+        44.1865234375
+      ]
+    }
+  },
+  "symmetry": {
+    "raw_unadjusted_differences": 0,
+    "raw_adjusted_differences": 96,
+    "final_differences": 1155,
+    "absolute_final_internal": {
+      "n": 2048,
+      "mean": 7.28076171875,
+      "median": 1.0,
+      "p90": 19,
+      "p95": 29,
+      "max": 188
+    },
+    "absolute_final_cp": {
+      "n": 2048,
+      "mean": 3.5003662109375,
+      "median": 0.4807692307692307,
+      "p90": 9.134615384615385,
+      "p95": 13.942307692307692,
+      "max": 90.38461538461539
+    }
+  },
+  "paired_source_policy_brier_improvements": {
+    "static_to_high": {
+      "histories": 256,
+      "rows": 2048,
+      "history_weighted_mean": 0.02655825001664942,
+      "bootstrap95": [
+        0.02154453753917572,
+        0.03192637344722669
+      ],
+      "resamples": 2000
+    },
+    "low_to_high": {
+      "histories": 256,
+      "rows": 2048,
+      "history_weighted_mean": 0.011576321894546713,
+      "bootstrap95": [
+        0.009039987847435538,
+        0.01420807198379556
+      ],
+      "resamples": 2000
+    },
+    "mid_to_high": {
+      "histories": 256,
+      "rows": 2048,
+      "history_weighted_mean": 0.006557107836168077,
+      "bootstrap95": [
+        0.005002566342503301,
+        0.00825165169127163
+      ],
+      "resamples": 2000
+    }
+  },
+  "controls": {
+    "reduced nodes 32768": {
+      "positions": 256,
+      "move_changes_vs_same_budget_baseline": 124,
+      "probability_shifts": {
+        "n": 256,
+        "mean": 0.02290319482524065,
+        "median": 0.009669434249122297,
+        "p90": 0.052900317745874115,
+        "p95": 0.07971706069340889,
+        "max": 0.31871696761264473
+      },
+      "source_policy_brier_improvement_vs_baseline": {
+        "histories": 256,
+        "rows": 256,
+        "history_weighted_mean": -0.004969297100268196,
+        "bootstrap95": [
+          -0.009190349971898465,
+          -0.0013265083131600655
+        ],
+        "resamples": 2000
+      },
+      "agreements_with_baseline_high": 115,
+      "mean_depth": 21.90625,
+      "per_stratum": {
+        "clock": {
+          "n": 32,
+          "changes": 14
+        },
+        "low_material": {
+          "n": 32,
+          "changes": 15
+        },
+        "ordinary": {
+          "n": 128,
+          "changes": 67
+        },
+        "points": {
+          "n": 32,
+          "changes": 14
+        },
+        "walls": {
+          "n": 32,
+          "changes": 14
+        }
+      }
+    },
+    "reduced nodes 262144": {
+      "positions": 256,
+      "move_changes_vs_same_budget_baseline": 141,
+      "probability_shifts": {
+        "n": 256,
+        "mean": 0.0333184089473559,
+        "median": 0.014176685283036356,
+        "p90": 0.09358164749869846,
+        "p95": 0.12486132227532076,
+        "max": 0.3636873457966097
+      },
+      "source_policy_brier_improvement_vs_baseline": {
+        "histories": 256,
+        "rows": 256,
+        "history_weighted_mean": -0.007686863534640628,
+        "bootstrap95": [
+          -0.014323901464711039,
+          -0.00187870719861635
+        ],
+        "resamples": 2000
+      },
+      "agreements_with_baseline_high": 115,
+      "mean_depth": 26.28125,
+      "per_stratum": {
+        "clock": {
+          "n": 32,
+          "changes": 19
+        },
+        "low_material": {
+          "n": 32,
+          "changes": 13
+        },
+        "ordinary": {
+          "n": 128,
+          "changes": 72
+        },
+        "points": {
+          "n": 32,
+          "changes": 18
+        },
+        "walls": {
+          "n": 32,
+          "changes": 19
+        }
+      }
+    },
+    "sym_scale nodes 32768": {
+      "positions": 256,
+      "move_changes_vs_same_budget_baseline": 90,
+      "probability_shifts": {
+        "n": 256,
+        "mean": 0.01269257153547997,
+        "median": 0.003344802818490193,
+        "p90": 0.03569795733397496,
+        "p95": 0.055389777682146146,
+        "max": 0.25611828335792974
+      },
+      "source_policy_brier_improvement_vs_baseline": {
+        "histories": 256,
+        "rows": 256,
+        "history_weighted_mean": -0.0011147152877040586,
+        "bootstrap95": [
+          -0.0041227574654997805,
+          0.0018571646861143345
+        ],
+        "resamples": 2000
+      },
+      "agreements_with_baseline_high": 139,
+      "mean_depth": 28.59375,
+      "per_stratum": {
+        "clock": {
+          "n": 32,
+          "changes": 12
+        },
+        "low_material": {
+          "n": 32,
+          "changes": 8
+        },
+        "ordinary": {
+          "n": 128,
+          "changes": 46
+        },
+        "points": {
+          "n": 32,
+          "changes": 12
+        },
+        "walls": {
+          "n": 32,
+          "changes": 12
+        }
+      }
+    },
+    "no_clock nodes 32768": {
+      "positions": 256,
+      "move_changes_vs_same_budget_baseline": 111,
+      "probability_shifts": {
+        "n": 256,
+        "mean": 0.019400641231272428,
+        "median": 0.006692073791376485,
+        "p90": 0.04672212981949175,
+        "p95": 0.06757667561354974,
+        "max": 0.37363650466713677
+      },
+      "source_policy_brier_improvement_vs_baseline": {
+        "histories": 256,
+        "rows": 256,
+        "history_weighted_mean": -0.00011630517356401993,
+        "bootstrap95": [
+          -0.005737559955779431,
+          0.0044605289438500945
+        ],
+        "resamples": 2000
+      },
+      "agreements_with_baseline_high": 138,
+      "mean_depth": 28.68359375,
+      "per_stratum": {
+        "clock": {
+          "n": 32,
+          "changes": 15
+        },
+        "low_material": {
+          "n": 32,
+          "changes": 13
+        },
+        "ordinary": {
+          "n": 128,
+          "changes": 58
+        },
+        "points": {
+          "n": 32,
+          "changes": 13
+        },
+        "walls": {
+          "n": 32,
+          "changes": 12
+        }
+      }
+    }
+  },
+  "fixed_depth4": {
+    "positions": 256,
+    "changed": 133,
+    "node_ratio": {
+      "n": 253,
+      "mean": 5.443694981568255,
+      "median": 3.83739837398374,
+      "p90": 11.780748663101605,
+      "p95": 16.301204819277107,
+      "max": 27.40463917525773
+    },
+    "probability_shift": {
+      "n": 256,
+      "mean": 0.02031920687757142,
+      "median": 0.008745586300278163,
+      "p90": 0.05000509932423522,
+      "p95": 0.07234232024103515,
+      "max": 0.38662667715078686
+    }
+  },
+  "deep_agreement_subset": {
+    "positions": 99,
+    "choice_positions": 99,
+    "forced": 0,
+    "claim_positions": 0,
+    "static_brier": 0.08421124543761499,
+    "low_brier": 0.05567247218013074,
+    "mid_brier": 0.052164451106363176,
+    "high_brier": 0.05146019545541926,
+    "low_mid_move_change": 28,
+    "mid_high_move_change": 17,
+    "all_three_agree": 66,
+    "mid_high_probability_shift": {
+      "n": 99,
+      "mean": 0.015065470345845922,
+      "median": 0.006617375166486417,
+      "p90": 0.04469094479665092,
+      "p95": 0.06081746248292846,
+      "max": 0.1074022194818139
+    },
+    "static_vs_deep_eligible": 83,
+    "static_vs_deep_agree": 33,
+    "static_gap_internal": {
+      "n": 83,
+      "mean": 138.87951807228916,
+      "median": 50,
+      "p90": 390,
+      "p95": 593,
+      "max": 869
+    },
+    "mean_depth": [
+      25.8989898989899,
+      44.96969696969697,
+      58.73737373737374
+    ]
+  },
+  "exact_immediate": {
+    "positions_with_win": 51,
+    "high_not_choosing_available_immediate_win": 1,
+    "high_chooses_immediate_loss": 2,
+    "cases": [
+      {
+        "id": "h001-p0338",
+        "immediate_wins": [
+          "g4h4",
+          "c5b4",
+          "c5d4",
+          "c5b5",
+          "c5b6",
+          "c5c6",
+          "c5d6"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "g4g5",
+        "high_score": "info depth 41 seldepth 21 multipv 1 score mate 11 nodes 262306 nps 1847225 hashfull 4 tbhits 0 time 142 pv g4g5 f5e5 g5g6 e2d3 g6g7 d3d4 g7g8q e5e4 g8g2 d4c3 g2f1 c3d4 f1a1 d4e3 a1a3 e3f2 a3e3 f2g2 e3g3 g2h1 g3h2"
+      },
+      {
+        "id": "h005-p0328",
+        "immediate_wins": [
+          "d5c5",
+          "d5e5",
+          "f1e1",
+          "f1g1",
+          "f1e2",
+          "f1f2",
+          "f1g2"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "d5c5",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score cp 19999 nodes 1715 nps 285833 hashfull 0 tbhits 0 time 6 pv d5c5"
+      },
+      {
+        "id": "h010-p0319",
+        "immediate_wins": [
+          "d2d1",
+          "d2e1",
+          "d2c2",
+          "d2c3",
+          "d2e3"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "d2d1",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score cp 19999 nodes 1225 nps 408333 hashfull 0 tbhits 0 time 3 pv d2d1"
+      },
+      {
+        "id": "h015-p0240",
+        "immediate_wins": [
+          "c5b5",
+          "c5d5",
+          "d2c1",
+          "d2d1",
+          "d2e1",
+          "d2e2",
+          "d2d3",
+          "d2e3"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "c5b5",
+        "high_score": "info depth 56 seldepth 1 multipv 1 score cp 19999 nodes 262264 nps 1425347 hashfull 7 tbhits 0 time 184 pv c5b5"
+      },
+      {
+        "id": "h019-p0162",
+        "immediate_wins": [
+          "c2c3"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "c2c3",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 5407 nps 1081400 hashfull 0 tbhits 0 time 5 pv c2c3"
+      },
+      {
+        "id": "h027-p0254",
+        "immediate_wins": [
+          "f6d4",
+          "f6e5",
+          "c8f5",
+          "c8e6"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "f6d4",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 8828 nps 1765600 hashfull 0 tbhits 0 time 5 pv f6d4"
+      },
+      {
+        "id": "h041-p0104",
+        "immediate_wins": [
+          "g7g8q"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "g7g8q",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 5394 nps 1798000 hashfull 0 tbhits 0 time 3 pv g7g8q"
+      },
+      {
+        "id": "h045-p0207",
+        "immediate_wins": [
+          "a1a4"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "a1a4",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 3435 nps 858750 hashfull 0 tbhits 0 time 4 pv a1a4"
+      },
+      {
+        "id": "h046-p0153",
+        "immediate_wins": [
+          "f5h4"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "f5h4",
+        "high_score": "info depth 74 seldepth 1 multipv 1 score cp 19999 nodes 262292 nps 2406348 hashfull 3 tbhits 0 time 109 pv f5h4"
+      },
+      {
+        "id": "h056-p0144",
+        "immediate_wins": [
+          "a3d3"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "a3d3",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 11280 nps 2820000 hashfull 0 tbhits 0 time 4 pv a3d3"
+      },
+      {
+        "id": "h059-p0180",
+        "immediate_wins": [
+          "b8c7",
+          "b8c8",
+          "b8d8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "b8c7",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 4168 nps 1042000 hashfull 0 tbhits 0 time 4 pv b8c7"
+      },
+      {
+        "id": "h063-p0150",
+        "immediate_wins": [
+          "e4d5",
+          "f8f6",
+          "f8e7"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "e4d5",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 8589 nps 2147250 hashfull 0 tbhits 0 time 4 pv e4d5"
+      },
+      {
+        "id": "h065-p0090",
+        "immediate_wins": [
+          "f6e7"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "f6e7",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 6156 nps 1539000 hashfull 0 tbhits 0 time 4 pv f6e7"
+      },
+      {
+        "id": "h068-p0100",
+        "immediate_wins": [
+          "f7g8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "f7g8",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 9820 nps 2455000 hashfull 0 tbhits 0 time 4 pv f7g8"
+      },
+      {
+        "id": "h072-p0137",
+        "immediate_wins": [
+          "d3b3"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "d3b3",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 9586 nps 1917200 hashfull 0 tbhits 0 time 5 pv d3b3"
+      },
+      {
+        "id": "h076-p0112",
+        "immediate_wins": [
+          "a3f3",
+          "g6f7"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "a3f3",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 9341 nps 1868200 hashfull 0 tbhits 0 time 5 pv a3f3"
+      },
+      {
+        "id": "h078-p0138",
+        "immediate_wins": [
+          "d8e7"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "d8e7",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 5404 nps 1801333 hashfull 0 tbhits 0 time 3 pv d8e7"
+      },
+      {
+        "id": "h084-p0083",
+        "immediate_wins": [
+          "f1h1",
+          "f1g2"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "f1h1",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 8353 nps 2088250 hashfull 0 tbhits 0 time 4 pv f1h1"
+      },
+      {
+        "id": "h086-p0150",
+        "immediate_wins": [
+          "b7b5",
+          "b7a6",
+          "b7b6",
+          "h8d8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "b7b5",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 9085 nps 2271250 hashfull 0 tbhits 0 time 4 pv b7b5"
+      },
+      {
+        "id": "h091-p0108",
+        "immediate_wins": [
+          "f8g7"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "f8g7",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 9584 nps 2396000 hashfull 0 tbhits 0 time 4 pv f8g7"
+      },
+      {
+        "id": "h102-p0142",
+        "immediate_wins": [
+          "b6a7",
+          "b6b7",
+          "b6b8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "b6a7",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 8596 nps 2149000 hashfull 0 tbhits 0 time 4 pv b6a7"
+      },
+      {
+        "id": "h107-p0112",
+        "immediate_wins": [
+          "g6g8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "g6g8",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 4656 nps 1164000 hashfull 0 tbhits 0 time 4 pv g6g8"
+      },
+      {
+        "id": "h110-p0140",
+        "immediate_wins": [
+          "b7b5",
+          "b7a6"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "b7b5",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 8353 nps 2088250 hashfull 0 tbhits 0 time 4 pv b7b5"
+      },
+      {
+        "id": "h111-p0130",
+        "immediate_wins": [
+          "e6d7",
+          "e6e8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "e6d7",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 7379 nps 2459666 hashfull 0 tbhits 0 time 3 pv e6d7"
+      },
+      {
+        "id": "h112-p0168",
+        "immediate_wins": [
+          "e4d5"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "e4d5",
+        "high_score": "info depth 33 seldepth 1 multipv 1 score cp 19999 nodes 262173 nps 1219409 hashfull 9 tbhits 0 time 215 pv e4d5"
+      },
+      {
+        "id": "h113-p0108",
+        "immediate_wins": [
+          "c7c6"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "c7c6",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 7632 nps 1908000 hashfull 0 tbhits 0 time 4 pv c7c6"
+      },
+      {
+        "id": "h114-p0137",
+        "immediate_wins": [
+          "h3h5"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "h3h5",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 7631 nps 1907750 hashfull 0 tbhits 0 time 4 pv h3h5"
+      },
+      {
+        "id": "h122-p0196",
+        "immediate_wins": [
+          "e6c4",
+          "e6d5",
+          "e6f7",
+          "e6e8",
+          "e6g8",
+          "f4e3",
+          "f4g4",
+          "f4e5",
+          "f4f5",
+          "f4g5"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "0000",
+        "high_score": "info depth 0 score cp 20000"
+      },
+      {
+        "id": "h129-p0431",
+        "immediate_wins": [],
+        "deep_immediate_loss": true,
+        "high_bestmove": "d5e5",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score cp -19999 nodes 1715 nps 428750 hashfull 0 tbhits 0 time 4 pv d5e5"
+      },
+      {
+        "id": "h140-p0300",
+        "immediate_wins": [
+          "a1a2"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "a1a2",
+        "high_score": "info depth 70 seldepth 1 multipv 1 score cp 19999 nodes 262350 nps 1760738 hashfull 6 tbhits 0 time 149 pv a1a2"
+      },
+      {
+        "id": "h142-p0244",
+        "immediate_wins": [
+          "b1c2"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "b1c2",
+        "high_score": "info depth 94 seldepth 1 multipv 1 score cp 19999 nodes 262286 nps 3320075 hashfull 1 tbhits 0 time 79 pv b1c2"
+      },
+      {
+        "id": "h148-p0164",
+        "immediate_wins": [
+          "d8e7"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "d8e7",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 6379 nps 1275800 hashfull 0 tbhits 0 time 5 pv d8e7"
+      },
+      {
+        "id": "h150-p0163",
+        "immediate_wins": [
+          "d1a4"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "d1a4",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 7375 nps 2458333 hashfull 0 tbhits 0 time 3 pv d1a4"
+      },
+      {
+        "id": "h155-p0124",
+        "immediate_wins": [
+          "g6g7",
+          "g6h7",
+          "g6g8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "g6g7",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 5153 nps 1288250 hashfull 0 tbhits 0 time 4 pv g6g7"
+      },
+      {
+        "id": "h158-p0271",
+        "immediate_wins": [
+          "c7d8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "c7d8",
+        "high_score": "info depth 90 seldepth 1 multipv 1 score cp 19999 nodes 262465 nps 1761510 hashfull 4 tbhits 0 time 149 pv c7d8"
+      },
+      {
+        "id": "h163-p0216",
+        "immediate_wins": [
+          "e6f7",
+          "e6g8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "e6f7",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 4900 nps 1225000 hashfull 0 tbhits 0 time 4 pv e6f7"
+      },
+      {
+        "id": "h167-p0198",
+        "immediate_wins": [
+          "d1e1"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "d1e1",
+        "high_score": "info depth 81 seldepth 1 multipv 1 score cp 19999 nodes 262258 nps 2048890 hashfull 4 tbhits 0 time 128 pv d1e1"
+      },
+      {
+        "id": "h172-p0258",
+        "immediate_wins": [
+          "f4e4",
+          "f4g4",
+          "g8f7",
+          "g8g7",
+          "g8h7",
+          "g8f8",
+          "g8h8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "f4e4",
+        "high_score": "info depth 73 seldepth 1 multipv 1 score cp 19999 nodes 262417 nps 1761187 hashfull 7 tbhits 0 time 149 pv f4e4"
+      },
+      {
+        "id": "h189-p0436",
+        "immediate_wins": [
+          "h4f2"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "0000",
+        "high_score": "info depth 0 score cp 20000"
+      },
+      {
+        "id": "h192-p0091",
+        "immediate_wins": [
+          "d4b2"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "d4b2",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 12307 nps 2051166 hashfull 0 tbhits 0 time 6 pv d4b2"
+      },
+      {
+        "id": "h195-p0132",
+        "immediate_wins": [
+          "c8b7"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "c8b7",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 10547 nps 2636750 hashfull 0 tbhits 0 time 4 pv c8b7"
+      },
+      {
+        "id": "h197-p0122",
+        "immediate_wins": [
+          "e8e7",
+          "d8b6",
+          "d8c7",
+          "d8b8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "e8e7",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 10573 nps 2114600 hashfull 0 tbhits 0 time 5 pv e8e7"
+      },
+      {
+        "id": "h207-p0126",
+        "immediate_wins": [
+          "h5h1"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "h5h1",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 7111 nps 2370333 hashfull 0 tbhits 0 time 3 pv h5h1"
+      },
+      {
+        "id": "h209-p0140",
+        "immediate_wins": [
+          "g8g6"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "g8g6",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 6631 nps 2210333 hashfull 0 tbhits 0 time 3 pv g8g6"
+      },
+      {
+        "id": "h216-p0184",
+        "immediate_wins": [
+          "d6c7",
+          "d6b8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "d6c7",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 4657 nps 1164250 hashfull 0 tbhits 0 time 4 pv d6c7"
+      },
+      {
+        "id": "h221-p0372",
+        "immediate_wins": [
+          "d4c4",
+          "d4e4",
+          "a5b5",
+          "d6c6",
+          "d6e6",
+          "d6c7",
+          "d6e7"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "d4c4",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score cp 19999 nodes 1715 nps 428750 hashfull 0 tbhits 0 time 4 pv d4c4"
+      },
+      {
+        "id": "h235-p0115",
+        "immediate_wins": [
+          "d1d3"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "d1d3",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 7357 nps 2452333 hashfull 0 tbhits 0 time 3 pv d1d3"
+      },
+      {
+        "id": "h239-p0145",
+        "immediate_wins": [
+          "f5g4"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "f5g4",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 5889 nps 1963000 hashfull 0 tbhits 0 time 3 pv f5g4"
+      },
+      {
+        "id": "h241-p0307",
+        "immediate_wins": [],
+        "deep_immediate_loss": true,
+        "high_bestmove": "a2a1",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score cp -19999 nodes 1225 nps 612500 hashfull 0 tbhits 0 time 2 pv a2a1"
+      },
+      {
+        "id": "h242-p0341",
+        "immediate_wins": [
+          "c8c6",
+          "c8d7"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "c8c6",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 5643 nps 1881000 hashfull 0 tbhits 0 time 3 pv c8c6"
+      },
+      {
+        "id": "h245-p0160",
+        "immediate_wins": [
+          "e7e8q",
+          "e7e8r"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "e7e8q",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 4903 nps 1225750 hashfull 0 tbhits 0 time 4 pv e7e8q"
+      },
+      {
+        "id": "h249-p0166",
+        "immediate_wins": [
+          "g7g4",
+          "g7g5",
+          "g7g6",
+          "f8f7",
+          "f8h8"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "g7g4",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 8437 nps 2109250 hashfull 0 tbhits 0 time 4 pv g7g4"
+      },
+      {
+        "id": "h254-p0115",
+        "immediate_wins": [
+          "d2d3",
+          "c2a4"
+        ],
+        "deep_immediate_loss": false,
+        "high_bestmove": "d2d3",
+        "high_score": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 7856 nps 1964000 hashfull 0 tbhits 0 time 4 pv d2d3"
+      }
+    ]
+  },
+  "runtime": {
+    "queries": 7680,
+    "engine_seconds_sum": 514.2790000017267,
+    "nodes_sum": 656978472
+  },
+  "largest_static_deep_disagreements": [
+    {
+      "id": "h144-p0222",
+      "history_id": "h144",
+      "stratum": "walls",
+      "features": {
+        "clock": 1,
+        "walls": 9,
+        "live": 4,
+        "lead": 17
+      },
+      "static_internal": 1241,
+      "source_result": 0.0,
+      "low": "info depth 30 seldepth 6 multipv 1 score mate -3 nodes 4100 nps 2050000 hashfull 0 tbhits 0 time 2 pv c5c6 d5d4 b6b5 d4c5 b5a6 c5b6",
+      "mid": "info depth 115 seldepth 6 multipv 1 score mate -3 nodes 32796 nps 4099500 hashfull 0 tbhits 0 time 8 pv c5c6 d5d4 b6b5 d4c5 b5a6 c5b6",
+      "high": "info depth 245 seldepth 6 multipv 1 score mate -3 nodes 77002 nps 4529529 hashfull 0 tbhits 0 time 17 pv c5c6 d5d4 b6b5 d4c5 b5a6 c5b6",
+      "static_best_moves": [
+        "c5c6"
+      ]
+    },
+    {
+      "id": "h157-p0162",
+      "history_id": "h157",
+      "stratum": "walls",
+      "features": {
+        "clock": 4,
+        "walls": 10,
+        "live": 3,
+        "lead": 17
+      },
+      "static_internal": 1112,
+      "source_result": 0.0,
+      "low": "info depth 23 seldepth 6 multipv 1 score mate -3 nodes 4096 nps 2048000 hashfull 0 tbhits 0 time 2 pv b4a3 g1a1 a3b4 a1a4 b4c5 a4b4",
+      "mid": "info depth 84 seldepth 6 multipv 1 score mate -3 nodes 32784 nps 3642666 hashfull 0 tbhits 0 time 9 pv b4a3 g1a1 a3b4 a1a4 b4c5 a4b4",
+      "high": "info depth 245 seldepth 6 multipv 1 score mate -3 nodes 112224 nps 4488960 hashfull 0 tbhits 0 time 25 pv b4a3 g1a1 a3b4 a1a4 b4c5 a4b4",
+      "static_best_moves": [
+        "b4a5"
+      ]
+    },
+    {
+      "id": "h045-p0207",
+      "history_id": "h045",
+      "stratum": "low_material",
+      "features": {
+        "clock": 4,
+        "walls": 9,
+        "live": 4,
+        "lead": 11
+      },
+      "static_internal": -1051,
+      "source_result": 1.0,
+      "low": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 3435 nps 858750 hashfull 0 tbhits 0 time 4 pv a1a4",
+      "mid": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 3435 nps 858750 hashfull 0 tbhits 0 time 4 pv a1a4",
+      "high": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 3435 nps 858750 hashfull 0 tbhits 0 time 4 pv a1a4",
+      "static_best_moves": [
+        "a1a4"
+      ]
+    },
+    {
+      "id": "h187-p0187",
+      "history_id": "h187",
+      "stratum": "points",
+      "features": {
+        "clock": 0,
+        "walls": 8,
+        "live": 7,
+        "lead": 17
+      },
+      "static_internal": -1051,
+      "source_result": 1.0,
+      "low": "info depth 14 seldepth 11 multipv 1 score cp 190 nodes 2399 nps 2399000 hashfull 0 tbhits 0 time 1 pv d5c4 f2g2 c4c3",
+      "mid": "info depth 32 seldepth 11 multipv 1 score mate 6 nodes 32775 nps 2185000 hashfull 0 tbhits 0 time 15 pv d5c4 b1c1 c4c3 f2g2 c3c2 g2g4 d2d1 c1b2 c2c1q b2a2 d1d2",
+      "high": "info depth 65 seldepth 11 multipv 1 score mate 6 nodes 262418 nps 2572725 hashfull 0 tbhits 0 time 102 pv d5c4 b1c1 c4c3 f2g2 c3c2 g2g4 d2d1 c1b2 c2c1q b2a2 d1d2",
+      "static_best_moves": [
+        "d5c4"
+      ]
+    },
+    {
+      "id": "h204-p0256",
+      "history_id": "h204",
+      "stratum": "ordinary",
+      "features": {
+        "clock": 95,
+        "walls": 9,
+        "live": 7,
+        "lead": 10
+      },
+      "static_internal": -977,
+      "source_result": 1.0,
+      "low": "info depth 27 seldepth 5 multipv 1 score mate 3 nodes 4096 nps 2048000 hashfull 0 tbhits 0 time 2 pv e7e8 c8b7 e8a8 b7b6 a8a6",
+      "mid": "info depth 107 seldepth 5 multipv 1 score mate 3 nodes 32790 nps 3643333 hashfull 0 tbhits 0 time 9 pv e7e8 c8b7 e8a8 b7b6 a8a6",
+      "high": "info depth 245 seldepth 5 multipv 1 score mate 3 nodes 84301 nps 3665260 hashfull 0 tbhits 0 time 23 pv e7e8 c8b7 e8a8 b7b6 a8a6",
+      "static_best_moves": [
+        "g5f5",
+        "g5h5"
+      ]
+    },
+    {
+      "id": "h065-p0090",
+      "history_id": "h065",
+      "stratum": "ordinary",
+      "features": {
+        "clock": 2,
+        "walls": 6,
+        "live": 13,
+        "lead": 13
+      },
+      "static_internal": -946,
+      "source_result": 1.0,
+      "low": "info depth 163 seldepth 1 multipv 1 score mate 1 nodes 4096 nps 1024000 hashfull 0 tbhits 0 time 4 pv f6e7",
+      "mid": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 6156 nps 1539000 hashfull 0 tbhits 0 time 4 pv f6e7",
+      "high": "info depth 245 seldepth 1 multipv 1 score mate 1 nodes 6156 nps 1539000 hashfull 0 tbhits 0 time 4 pv f6e7",
+      "static_best_moves": [
+        "f6e7"
+      ]
+    },
+    {
+      "id": "h065-p0081",
+      "history_id": "h065",
+      "stratum": "ordinary",
+      "features": {
+        "clock": 1,
+        "walls": 5,
+        "live": 15,
+        "lead": 8
+      },
+      "static_internal": 894,
+      "source_result": 0.0,
+      "low": "info depth 12 seldepth 15 multipv 1 score cp 676 nodes 1641 nps 820500 hashfull 0 tbhits 0 time 2 pv g3h3 e6g6 h3h2 g1h1 h2g2 h1g1 g2h2 g1h1 h2g2 g6g2 f7g6 h1g1",
+      "mid": "info depth 12 seldepth 15 multipv 1 score cp 676 nodes 1641 nps 820500 hashfull 0 tbhits 0 time 2 pv g3h3 e6g6 h3h2 g1h1 h2g2 h1g1 g2h2 g1h1 h2g2 g6g2 f7g6 h1g1",
+      "high": "info depth 134 seldepth 10 multipv 1 score mate -5 nodes 262442 nps 2650929 hashfull 2 tbhits 0 time 99 pv g3h3 e6g6 h3h2 g1f2 h2h1n f2g1 g8g6 e5f6 f7g8 f6g7",
+      "static_best_moves": [
+        "f5e6"
+      ]
+    },
+    {
+      "id": "h243-p0111",
+      "history_id": "h243",
+      "stratum": "ordinary",
+      "features": {
+        "clock": 1,
+        "walls": 7,
+        "live": 10,
+        "lead": 9
+      },
+      "static_internal": 853,
+      "source_result": 0.0,
+      "low": "info depth 7 seldepth 17 multipv 1 score cp -114 nodes 2730 nps 1365000 hashfull 0 tbhits 0 time 2 pv d5d4 e3d4 c5d5 f2g3 d5g5 f6f8 g8g7 f8g8 g7h6 g8g5 f3f2 g1f1 f2e2 f1e1",
+      "mid": "info depth 13 seldepth 29 multipv 1 score cp -349 nodes 25984 nps 1367578 hashfull 0 tbhits 0 time 19 pv c5b4 f2g3 b4g4 g3b8 g4c8 b8g3 c8g4 f6f8 g8g7 g3e5 g7h6 f8f6 h6g7 f6g6 g7f7 e5g7 f7e8 g7f8 e8d7 f8e8 d7c7 e8b8 c7d7",
+      "high": "info depth 51 seldepth 12 multipv 1 score mate -6 nodes 262389 nps 2002969 hashfull 2 tbhits 0 time 131 pv c5d6 f6d6 g8f7 g1f1 f7f6 f2g3 f6e6 g3g6 e6d7 g6g8 d5d4 g8c8",
+      "static_best_moves": [
+        "g8h8"
+      ]
+    },
+    {
+      "id": "h217-p0485",
+      "history_id": "h217",
+      "stratum": "ordinary",
+      "features": {
+        "clock": 2,
+        "walls": 10,
+        "live": 6,
+        "lead": 6
+      },
+      "static_internal": -699,
+      "source_result": 1.0,
+      "low": "info depth 14 seldepth 23 multipv 1 score cp 187 nodes 4099 nps 1366333 hashfull 0 tbhits 0 time 3 pv h4g4 h5g5 g4h5 f4e4 f5e4 g5f5 e4e3 f5e5 e3e2 e5e6 e2f2 e6e7 f2f1q",
+      "mid": "info depth 17 seldepth 29 multipv 1 score cp 512 nodes 27261 nps 2478272 hashfull 0 tbhits 0 time 11 pv h4g4 h5g5 g4h5 a3b2 a4a3 b2a2 h5g4 g5h5 a3b3 a2b2 g4h4 h5h6 h4h5",
+      "high": "info depth 26 seldepth 39 multipv 1 score cp 1092 nodes 262527 nps 2386609 hashfull 3 tbhits 0 time 110 pv h4g4 h5g5 g4h5 a3b2 a4a3 b2a2 h5g4 g5h5 g4h4 h5g5 h4h5 f4e4 f5e4 g5f5 e4e3 f5e5 e3e2 e5e6 e2f2 a2a1 f2f1q a1b1 a3a2 b1a1 a2b2 a1b1",
+      "static_best_moves": [
+        "h4g4"
+      ]
+    },
+    {
+      "id": "h147-p0101",
+      "history_id": "h147",
+      "stratum": "walls",
+      "features": {
+        "clock": 10,
+        "walls": 4,
+        "live": 13,
+        "lead": 15
+      },
+      "static_internal": -804,
+      "source_result": 1.0,
+      "low": "info depth 11 seldepth 14 multipv 1 score cp 718 nodes 4099 nps 1024750 hashfull 0 tbhits 0 time 4 pv e4d6 e3e4 g2g1q b7b8q f5c8 b8b5 e5c6",
+      "mid": "info depth 15 seldepth 22 multipv 1 score cp 703 nodes 32794 nps 993757 hashfull 2 tbhits 0 time 33 pv e4d6 e3e4 g2g1q b7b8q f5c8 b8b4 e5d3 b4b1 e8e7 a3c4",
+      "high": "info depth 23 seldepth 28 multipv 1 score cp 814 nodes 262145 nps 1092270 hashfull 12 tbhits 0 time 240 pv e4d6 e3e4 g2g1q b7b8q f5c8 c2b1 g1f2 b8b2 f2b2 b1c2 c8a6 c2c3 e8e7 a3c2 g8b8 c3d4 b8b5",
+      "static_best_moves": [
+        "g2g1q"
+      ]
+    },
+    {
+      "id": "h144-p0225",
+      "history_id": "h144",
+      "stratum": "walls",
+      "features": {
+        "clock": 2,
+        "walls": 9,
+        "live": 4,
+        "lead": 17
+      },
+      "static_internal": -574,
+      "source_result": 1.0,
+      "low": "info depth 165 seldepth 3 multipv 1 score mate 2 nodes 4098 nps 2049000 hashfull 0 tbhits 0 time 2 pv d4b6 b5a4 b6b3",
+      "mid": "info depth 245 seldepth 3 multipv 1 score mate 2 nodes 6250 nps 1041666 hashfull 0 tbhits 0 time 6 pv d4b6 b5a4 b6b3",
+      "high": "info depth 245 seldepth 3 multipv 1 score mate 2 nodes 6250 nps 1250000 hashfull 0 tbhits 0 time 5 pv d4b6 b5a4 b6b3",
+      "static_best_moves": [
+        "d4d3"
+      ]
+    },
+    {
+      "id": "h051-p0107",
+      "history_id": "h051",
+      "stratum": "points",
+      "features": {
+        "clock": 2,
+        "walls": 7,
+        "live": 10,
+        "lead": 19
+      },
+      "static_internal": -563,
+      "source_result": 1.0,
+      "low": "info depth 7 seldepth 9 multipv 1 score cp 11 nodes 2028 nps 1014000 hashfull 1 tbhits 0 time 2 pv a2b1 c2b3 b1a2 b3c2 a2b1 c2b3 b6c5",
+      "mid": "info depth 18 seldepth 28 multipv 1 score cp 417 nodes 32771 nps 1489590 hashfull 2 tbhits 0 time 22 pv a2b1 c2b3 b1c2 b3a2 c2b1 a2b3 b1c2 b3a2 b6c5 d6c4 c2b3 a2b1 b3c2 b1a2 c2b1 a2b3 d7c7 c4a3 c5c4 b3a4 b1a2 b5c5 a2b3 a4a5",
+      "high": "info depth 26 seldepth 28 multipv 1 score mate 12 nodes 262506 nps 1360134 hashfull 8 tbhits 0 time 193 pv b6c5 d6c4 a2b3 c2b1 b3c2 b1a2 e4d4 c4d2 c5c4 a2a3 c4c3 d2b3 c3b2 b5c5 b2b1q a3a4 b1a2 a4b5 c2d3 b5b6 d3b5 b6a7 b5b8",
+      "static_best_moves": [
+        "b6c5"
+      ]
+    },
+    {
+      "id": "h034-p0150",
+      "history_id": "h034",
+      "stratum": "low_material",
+      "features": {
+        "clock": 0,
+        "walls": 9,
+        "live": 6,
+        "lead": 7
+      },
+      "static_internal": -439,
+      "source_result": 1.0,
+      "low": "info depth 11 seldepth 13 multipv 1 score cp -235 nodes 3132 nps 1044000 hashfull 0 tbhits 0 time 3 pv g7g8q h2g2 h1g1 g2h2 g1f2 e4e3 f2e1 e8d7",
+      "mid": "info depth 20 seldepth 23 multipv 1 score cp 44 nodes 28380 nps 2183076 hashfull 0 tbhits 0 time 13 pv g7g8q h2g2 h1g1 g2h2 g1f2 e4e3 f2e1 e8d8 g8f7 d8c7 f7f4 c7d8",
+      "high": "info depth 51 seldepth 17 multipv 1 score mate 9 nodes 262266 nps 2341660 hashfull 5 tbhits 0 time 112 pv g7g8q h2g2 h1g1 g2h2 g1f2 e8d7 g8g5 e4e3 f2e1 h2h1q g5d5 d7e8 d5d7 e8f7 d7e8 f7f6 e8g6",
+      "static_best_moves": [
+        "g7g8q"
+      ]
+    },
+    {
+      "id": "h051-p0113",
+      "history_id": "h051",
+      "stratum": "points",
+      "features": {
+        "clock": 0,
+        "walls": 7,
+        "live": 9,
+        "lead": 18
+      },
+      "static_internal": -420,
+      "source_result": 1.0,
+      "low": "info depth 12 seldepth 15 multipv 1 score cp -80 nodes 4099 nps 1366333 hashfull 0 tbhits 0 time 3 pv c2b3 a2b1 c5c4 d6c4 b3c2 b1a2 c2b1 a2b3 b1c2 b3a2 c2b1 a2b3",
+      "mid": "info depth 18 seldepth 23 multipv 1 score cp 500 nodes 26046 nps 1532117 hashfull 0 tbhits 0 time 17 pv c2b3 a2b1 e4d4 d6f7 b3a2 b1c2 d4d3 c2d1 a2b1 d1d2 d3c3 d2e2 c3b2",
+      "high": "info depth 34 seldepth 13 multipv 1 score mate 7 nodes 262352 nps 1737430 hashfull 6 tbhits 0 time 151 pv e4d4 d6c4 d4d3 c4d2 d3c3 d2e4 c2b1 a2b3 c5c4 b3a4 b1a2 a4b5 a2a5",
+      "static_best_moves": [
+        "d7c7"
+      ]
+    },
+    {
+      "id": "h147-p0095",
+      "history_id": "h147",
+      "stratum": "walls",
+      "features": {
+        "clock": 4,
+        "walls": 4,
+        "live": 13,
+        "lead": 15
+      },
+      "static_internal": -510,
+      "source_result": 1.0,
+      "low": "info depth 11 seldepth 11 multipv 1 score cp 498 nodes 4099 nps 819800 hashfull 0 tbhits 0 time 5 pv c6e5 f3e2 d5c3 e2d2 c3e4 d2e2 e4d6 b7b8q e8e7",
+      "mid": "info depth 15 seldepth 16 multipv 1 score cp 748 nodes 23574 nps 1122571 hashfull 1 tbhits 0 time 21 pv c6e5 f3e2 d5c3 e2d2 c3e4 d2c1 e4d6 b7b8q e8e7 b8b3 g2g1q c1b2 g1f2 b2a1",
+      "high": "info depth 28 seldepth 32 multipv 1 score cp 784 nodes 262144 nps 1115506 hashfull 12 tbhits 0 time 235 pv c6e5 f3e2 d5c3 e2d2 c3e4 d2c1 e4d6 b7b8q e8e7 b8b6 g2g1q e3e4 g1g2 b6b2 e5d3 c1b1 d3b2 e4f5 g2d5 a3c2 d5d2 c2e3 d2d3 b1c1 d3d2 c1b1",
+      "static_best_moves": [
+        "g2g1q"
+      ]
+    },
+    {
+      "id": "h045-p0201",
+      "history_id": "h045",
+      "stratum": "low_material",
+      "features": {
+        "clock": 0,
+        "walls": 9,
+        "live": 4,
+        "lead": 11
+      },
+      "static_internal": -295,
+      "source_result": 1.0,
+      "low": "info depth 9 seldepth 17 multipv 1 score cp -192 nodes 2987 nps 1493500 hashfull 0 tbhits 0 time 2 pv c2a4 a2b1 a4c2 b1a2 c2a4 a2b1 a4a2 b1c2 a2b3 c2b1",
+      "mid": "info depth 52 seldepth 7 multipv 1 score mate 4 nodes 32795 nps 2342500 hashfull 0 tbhits 0 time 14 pv c4b3 d7d8q c2b1 a2a3 b1a1 a3b4 a1a4",
+      "high": "info depth 244 seldepth 7 multipv 1 score mate 4 nodes 262419 nps 4037215 hashfull 0 tbhits 0 time 65 pv c4b3 d7d8q c2b1 a2a3 b1a1 a3b4 a1a4",
+      "static_best_moves": [
+        "c4b3"
+      ]
+    },
+    {
+      "id": "h051-p0125",
+      "history_id": "h051",
+      "stratum": "points",
+      "features": {
+        "clock": 1,
+        "walls": 7,
+        "live": 9,
+        "lead": 18
+      },
+      "static_internal": -294,
+      "source_result": 1.0,
+      "low": "info depth 13 seldepth 15 multipv 1 score cp 786 nodes 2187 nps 2187000 hashfull 0 tbhits 0 time 1 pv a2b3 c3d2 d3c3 d2e1 c3b2 c4d2 b3d1 e1f2 d1e1 f2f3 e1f2 f3e4",
+      "mid": "info depth 62 seldepth 5 multipv 1 score mate 3 nodes 32795 nps 2049687 hashfull 0 tbhits 0 time 16 pv a2b3 c3d2 b3c2 d2e1 c2e2",
+      "high": "info depth 245 seldepth 5 multipv 1 score mate 3 nodes 130371 nps 3342846 hashfull 0 tbhits 0 time 39 pv a2b3 c3d2 b3c2 d2e1 c2e2",
+      "static_best_moves": [
+        "d7c7"
+      ]
+    },
+    {
+      "id": "h174-p0216",
+      "history_id": "h174",
+      "stratum": "low_material",
+      "features": {
+        "clock": 0,
+        "walls": 9,
+        "live": 7,
+        "lead": 16
+      },
+      "static_internal": 291,
+      "source_result": 0.0,
+      "low": "info depth 8 seldepth 12 multipv 1 score cp -25 nodes 2517 nps 839000 hashfull 0 tbhits 0 time 3 pv f2g3 g4h4 g3h3 h4g4 h3g3 a7b8 g3f2 g4g3 f2g2 b8a7",
+      "mid": "info depth 13 seldepth 16 multipv 1 score cp -275 nodes 26820 nps 2235000 hashfull 0 tbhits 0 time 12 pv f2e2 g4g3 e2d3 g3g2 d3d4 g2g1q d4c5 a7b6 c5c4 b6a7 c4c5",
+      "high": "info depth 24 seldepth 22 multipv 1 score mate -11 nodes 262369 nps 2321849 hashfull 5 tbhits 0 time 113 pv f2g3 a7a8 a4b4 a5b4 g3h2 g4g3 h2g2 a8a7 g2h1 g3g2 h1g1 a7b7 g1f2 g2g1q f2e2 g1g6 e2e1 g6g4 e1f2 b7a7 f2e1 g4e2",
+      "static_best_moves": [
+        "f2g1"
+      ]
+    },
+    {
+      "id": "h095-p0143",
+      "history_id": "h095",
+      "stratum": "ordinary",
+      "features": {
+        "clock": 3,
+        "walls": 7,
+        "live": 9,
+        "lead": 14
+      },
+      "static_internal": 266,
+      "source_result": 0.0,
+      "low": "info depth 7 seldepth 11 multipv 1 score cp -38 nodes 3650 nps 1825000 hashfull 0 tbhits 0 time 2 pv g5h5 c5d6 c7b6 d6c7 b6b5 c7b6 b5a4 b6b5 a4a3 h1b1",
+      "mid": "info depth 9 seldepth 20 multipv 1 score cp -684 nodes 30401 nps 1169269 hashfull 1 tbhits 0 time 26 pv f6f5 e4f5 b1d3 c5d6 c7b6 d6c5 b6c7 h1h7 c7b8 c5d6 b8a8",
+      "high": "info depth 43 seldepth 10 multipv 1 score mate -5 nodes 262316 nps 2261344 hashfull 4 tbhits 0 time 116 pv g5h5 e4d4 f6f5 c5b6 c7d7 b6c7 d7e6 c7f7 e6d6 f7d7",
+      "static_best_moves": [
+        "b1e4"
+      ]
+    },
+    {
+      "id": "h204-p0250",
+      "history_id": "h204",
+      "stratum": "ordinary",
+      "features": {
+        "clock": 89,
+        "walls": 9,
+        "live": 7,
+        "lead": 10
+      },
+      "static_internal": -930,
+      "source_result": 1.0,
+      "low": "info depth 7 seldepth 10 multipv 1 score cp -347 nodes 703 nps 703000 hashfull 0 tbhits 0 time 1 pv d6c7 d8e7 c7d6 e7d8 d6e7 d8c8 e7d8 c8b7",
+      "mid": "info depth 11 seldepth 32 multipv 1 score cp -322 nodes 32811 nps 1640550 hashfull 1 tbhits 0 time 20 pv d5e6 f5e5 g5f5 g6f5 d6c7 d8e7 c7d8 e7d6 d8c7 d6e7 c7d8 e7d6 d8e7 d6c7 e7d6 c7d8 e6d5 f5g5 d6c6 d7b6 d5e6 b6d7 c6c8 d8e7 c8d8 e7d6 d8e7 d6c7 e7e8",
+      "high": "info depth 21 seldepth 46 multipv 1 score cp 366 nodes 204447 nps 1548840 hashfull 5 tbhits 0 time 132 pv d5e6 f5e5 e6d5 e5f5 d5c6 f5e5 g5f5 g6h6 c6d5 h6h5 f5g5 h5h4 d6e7 d8c7 e7d8 c7d6 d8e7 d6c7 e7d6 c7d8 g5h5 h4h3 d6e7 d8c7 e7d6 c7d8 h5h6 h3h2 d6e6 d8c7",
+      "static_best_moves": [
+        "g5h5"
+      ]
+    }
+  ],
+  "in_check_positions": 0,
+  "static_noncheck_subset": {
+    "positions": 2048,
+    "choice_positions": 2032,
+    "forced": 2,
+    "claim_positions": 14,
+    "static_brier": 0.10696385261192753,
+    "low_brier": 0.09198192448982484,
+    "mid_brier": 0.0869627104314462,
+    "high_brier": 0.08040560259527813,
+    "low_mid_move_change": 920,
+    "mid_high_move_change": 687,
+    "all_three_agree": 865,
+    "mid_high_probability_shift": {
+      "n": 2032,
+      "mean": 0.025976753826521443,
+      "median": 0.009499677423716602,
+      "p90": 0.06431409884644335,
+      "p95": 0.1024647706952706,
+      "max": 0.9124135205142895
+    },
+    "static_vs_deep_eligible": 1776,
+    "static_vs_deep_agree": 412,
+    "static_gap_internal": {
+      "n": 1776,
+      "mean": 210.9617117117117,
+      "median": 109.0,
+      "p90": 511,
+      "p95": 712,
+      "max": 30522
+    },
+    "mean_depth": [
+      17.92333984375,
+      31.0908203125,
+      44.162109375
+    ]
+  },
+  "by_state_regime": {
+    "clock80": {
+      "positions": 68,
+      "choice_positions": 68,
+      "forced": 0,
+      "claim_positions": 0,
+      "static_brier": 0.10879760159198817,
+      "low_brier": 0.03178039516583691,
+      "mid_brier": 0.022830698623053237,
+      "high_brier": 0.006924064938862758,
+      "low_mid_move_change": 23,
+      "mid_high_move_change": 14,
+      "all_three_agree": 41,
+      "mid_high_probability_shift": {
+        "n": 68,
+        "mean": 0.04104580908051089,
+        "median": 0.0,
+        "p90": 0.11312606808284621,
+        "p95": 0.31414453644160756,
+        "max": 0.5338328234894503
+      },
+      "static_vs_deep_eligible": 62,
+      "static_vs_deep_agree": 25,
+      "static_gap_internal": {
+        "n": 62,
+        "mean": 591.1774193548387,
+        "median": 3.5,
+        "p90": 227,
+        "p95": 1484,
+        "max": 30522
+      },
+      "mean_depth": [
+        47.911764705882355,
+        64.91176470588235,
+        83.91176470588235
+      ]
+    },
+    "walls8": {
+      "positions": 716,
+      "choice_positions": 704,
+      "forced": 2,
+      "claim_positions": 10,
+      "static_brier": 0.0716025205402876,
+      "low_brier": 0.04829689368345283,
+      "mid_brier": 0.04219652376690944,
+      "high_brier": 0.03570437445802099,
+      "low_mid_move_change": 268,
+      "mid_high_move_change": 183,
+      "all_three_agree": 368,
+      "mid_high_probability_shift": {
+        "n": 704,
+        "mean": 0.029853206118808148,
+        "median": 0.004142705720931061,
+        "p90": 0.0743789347504514,
+        "p95": 0.14296420313614022,
+        "max": 0.5338328234894503
+      },
+      "static_vs_deep_eligible": 584,
+      "static_vs_deep_agree": 182,
+      "static_gap_internal": {
+        "n": 584,
+        "mean": 200.18835616438355,
+        "median": 53.0,
+        "p90": 386,
+        "p95": 642,
+        "max": 30522
+      },
+      "mean_depth": [
+        27.696927374301676,
+        46.402234636871505,
+        68.14944134078212
+      ]
+    },
+    "live6": {
+      "positions": 413,
+      "choice_positions": 402,
+      "forced": 2,
+      "claim_positions": 9,
+      "static_brier": 0.06785740312497816,
+      "low_brier": 0.04086583065528034,
+      "mid_brier": 0.033834716653784146,
+      "high_brier": 0.02620580443475477,
+      "low_mid_move_change": 148,
+      "mid_high_move_change": 106,
+      "all_three_agree": 218,
+      "mid_high_probability_shift": {
+        "n": 402,
+        "mean": 0.03247489510160018,
+        "median": 0.0033582443145792756,
+        "p90": 0.08878097607027968,
+        "p95": 0.1802088238949915,
+        "max": 0.4619404305546583
+      },
+      "static_vs_deep_eligible": 329,
+      "static_vs_deep_agree": 106,
+      "static_gap_internal": {
+        "n": 329,
+        "mean": 207.12765957446808,
+        "median": 32,
+        "p90": 339,
+        "p95": 494,
+        "max": 30522
+      },
+      "mean_depth": [
+        30.912832929782084,
+        49.171912832929785,
+        72.08716707021792
+      ]
+    },
+    "lead15": {
+      "positions": 205,
+      "choice_positions": 196,
+      "forced": 1,
+      "claim_positions": 8,
+      "static_brier": 0.08532962272892773,
+      "low_brier": 0.04978391057196532,
+      "mid_brier": 0.04024221019165157,
+      "high_brier": 0.0341795222723277,
+      "low_mid_move_change": 77,
+      "mid_high_move_change": 46,
+      "all_three_agree": 104,
+      "mid_high_probability_shift": {
+        "n": 196,
+        "mean": 0.016809448482457554,
+        "median": 0.0009514064744267495,
+        "p90": 0.037974371178489785,
+        "p95": 0.09788667493206538,
+        "max": 0.3346579444996659
+      },
+      "static_vs_deep_eligible": 152,
+      "static_vs_deep_agree": 36,
+      "static_gap_internal": {
+        "n": 152,
+        "mean": 181.5921052631579,
+        "median": 79.5,
+        "p90": 561,
+        "p95": 689,
+        "max": 1209
+      },
+      "mean_depth": [
+        28.770731707317072,
+        52.28292682926829,
+        74.55121951219512
+      ]
+    }
+  },
+  "final_unbounded_sensitivity": {
+    "reduced nodes 32768": {
+      "histories": 146,
+      "rows": 146,
+      "history_weighted_mean": -0.001081047602817387,
+      "bootstrap95": [
+        -0.002897627816822643,
+        0.0006371597097299595
+      ],
+      "resamples": 2000
+    },
+    "reduced nodes 262144": {
+      "histories": 151,
+      "rows": 151,
+      "history_weighted_mean": -0.0023043914997816044,
+      "bootstrap95": [
+        -0.005199008940304941,
+        0.00053640664739499
+      ],
+      "resamples": 2000
+    },
+    "sym_scale nodes 32768": {
+      "histories": 150,
+      "rows": 150,
+      "history_weighted_mean": 0.00015404011391481455,
+      "bootstrap95": [
+        -0.00040284699404614076,
+        0.0006645835258654528
+      ],
+      "resamples": 2000
+    },
+    "no_clock nodes 32768": {
+      "histories": 146,
+      "rows": 146,
+      "history_weighted_mean": 0.00011227226374039619,
+      "bootstrap95": [
+        -0.0026564330263646814,
+        0.002148949869897025
+      ],
+      "resamples": 2000
+    },
+    "mid_to_high": {
+      "histories": 251,
+      "rows": 1135,
+      "history_weighted_mean": 0.0012238815888437613,
+      "bootstrap95": [
+        0.00046154403888313774,
+        0.002013050351034886
+      ],
+      "resamples": 2000
+    }
+  },
+  "static_component_counterfactual": {
+    "symmetric_outer_scale": {
+      "absolute_internal_change": {
+        "n": 2048,
+        "mean": 2.63720703125,
+        "median": 1.0,
+        "p90": 8,
+        "p95": 11,
+        "max": 50
+      },
+      "paired_source_policy_brier_improvement": {
+        "histories": 256,
+        "rows": 2048,
+        "history_weighted_mean": 8.47844952606338e-06,
+        "bootstrap95": [
+          -2.8390352888116282e-05,
+          4.635994122997948e-05
+        ],
+        "resamples": 2000
+      }
+    },
+    "no_outer_clock": {
+      "absolute_internal_change": {
+        "n": 2048,
+        "mean": 72.02001953125,
+        "median": 21.0,
+        "p90": 194,
+        "p95": 316,
+        "max": 1464
+      },
+      "paired_source_policy_brier_improvement": {
+        "histories": 256,
+        "rows": 2048,
+        "history_weighted_mean": 0.0036616298374362406,
+        "bootstrap95": [
+          0.0020797124037417176,
+          0.005085396048698743
+        ],
+        "resamples": 2000
+      }
+    }
+  },
+  "final_bound_loss_intervals": {
+    "low": {
+      "positions": 2048,
+      "mean_brier_lower": 0.062948235630598,
+      "mean_brier_upper": 0.20396522186937818,
+      "bounded_queries": 726
+    },
+    "mid": {
+      "positions": 2048,
+      "mean_brier_lower": 0.05643665953059015,
+      "mean_brier_upper": 0.18391424432179215,
+      "bounded_queries": 695
+    },
+    "high": {
+      "positions": 2048,
+      "mean_brier_lower": 0.0563135657165352,
+      "mean_brier_upper": 0.16670198345844975,
+      "bounded_queries": 623
+    },
+    "controls": {
+      "reduced nodes 32768": {
+        "positions": 256,
+        "mean_brier_lower": 0.07274658752659549,
+        "mean_brier_upper": 0.17233792332772616,
+        "bounded_queries": 66
+      },
+      "reduced nodes 262144": {
+        "positions": 256,
+        "mean_brier_lower": 0.07852799963687987,
+        "mean_brier_upper": 0.18211615198956047,
+        "bounded_queries": 63
+      },
+      "sym_scale nodes 32768": {
+        "positions": 256,
+        "mean_brier_lower": 0.06351922959570289,
+        "mean_brier_upper": 0.18593286925670038,
+        "bounded_queries": 81
+      },
+      "no_clock nodes 32768": {
+        "positions": 256,
+        "mean_brier_lower": 0.059703245039144294,
+        "mean_brier_upper": 0.19461704412281391,
+        "bounded_queries": 84
+      }
+    }
+  },
+  "deep_control_baseline": {
+    "positions": 256,
+    "mid_brier": 0.08844749242601274,
+    "high_brier": 0.08666820361362518,
+    "mean_depth": [
+      16.8125,
+      28.64453125,
+      38.6640625
+    ]
+  },
+  "depth_distribution": {
+    "low": {
+      "n": 2048,
+      "mean": 17.92333984375,
+      "median": 10.0,
+      "p90": 15,
+      "p95": 69,
+      "max": 245
+    },
+    "mid": {
+      "n": 2048,
+      "mean": 31.0908203125,
+      "median": 14.0,
+      "p90": 44,
+      "p95": 245,
+      "max": 245
+    },
+    "high": {
+      "n": 2048,
+      "mean": 44.162109375,
+      "median": 18.0,
+      "p90": 119,
+      "p95": 245,
+      "max": 245
+    }
+  },
+  "raw_normalization_counts": {
+    "queries": 7680,
+    "final_bound_None": 5342,
+    "last_exact_pv_differs_from_bestmove": 188,
+    "final_bound_upper": 1547,
+    "final_bound_lower": 791
+  },
+  "inputs": {
+    ".local\\pr18-diagnosis-v1\\bank.json": "907263b0ef4da4c3affe728a2ed08d316922a7cc018d37de2b7e8665d0c88012",
+    ".local\\pr18-diagnosis-v1\\histories.json": "ba3cab67fde153f16cee87d32b072a42394ec2c5544035576f5ecc8698305e01",
+    ".local\\pr18-diagnosis-v1\\selection-manifest.json": "5b964c68775e2b30321f6007fb9f255de3812147a1fad7c251048c63c14ee86e",
+    ".local\\pr18-diagnosis-v1\\execution-manifest.json": "6015875fb66ca17ea35d7154de04b64a691aa0a23a5bfe6a8b1196eeb006edf0",
+    ".local\\pr18-diagnosis-v1\\pilot.json": "65cab391cf62330db314e0d5abbb27328540797ce4c3f2433d559256be48a35f",
+    ".local\\pr18-diagnosis-v1\\extract-004-audit.json": "b6a14e9609e2d43add414a2a5d6a1c706df94ad3ac1b6663272f9d6cf6369d5e",
+    ".local\\pr18-diagnosis-v1\\searches-005-audit.json": "4c5e2f5606f0d59735bac3fd09b9cd0f1180663697bf52fd03d7badcee604ebb",
+    "scripts\\pr18_diagnosis\\analyze.py": "63f0d250328c4fd88d237bd906bd0e1e0132841ac63a49493cd72b42d03d7d5f"
+  }
+}

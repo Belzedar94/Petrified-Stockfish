@@ -163,7 +163,10 @@ Option& Option::operator=(const std::string& v) {
         std::string        token;
         std::istringstream ss(defaultValue);
         while (ss >> token)
-            comboMap.add(token, Option());
+            // UCI repeats the default in its list of allowed values. OptionsMap
+            // rejects duplicate names, so collect each actual value just once.
+            if (token != "var" && !comboMap.count(token))
+                comboMap.add(token, Option());
         if (!comboMap.count(v) || v == "var")
             return *this;
     }

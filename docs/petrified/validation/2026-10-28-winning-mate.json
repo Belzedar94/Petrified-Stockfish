@@ -1,0 +1,164 @@
+{
+  "schema": "petrified-correctness-validation-v1",
+  "date": "2026-10-28",
+  "source_commit": "f44f93700bbb3eca6813eee4728a675ea08447d9",
+  "rules": "chesscom-points-v1",
+  "referee_sha256": "3e6c98bb6f95b124b3949778c4360603976a39c898424aa5d9ae7f441352582b",
+  "network": "run4test",
+  "network_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+  "native": {
+    "path": "src/petrified-points-mate-r2-bmi2.exe",
+    "sha256": "2401d95d3481349ae5bc61cbd1ea3e444337611b2a3d60c6ba8bb3492bb5fe49",
+    "compiler": "GCC 16.1.0 MinGW",
+    "architecture": "x86-64-bmi2",
+    "lto": true,
+    "pgo": false,
+    "command": "make -C src -j4 build ARCH=x86-64-bmi2 COMP=mingw EXE=petrified-points-mate-r2-bmi2.exe"
+  },
+  "wasm": {
+    "cjs": {
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 3.1.46 (19607820c447a13fd8d0b7680c56148427d6e1b8)",
+      "artifacts": {
+        "ffish.js": {
+          "sha256": "4ca2746a80083bf910b772efbd5b3619116a69990805228d27d3d042e39cb24f",
+          "bytes": 67375
+        },
+        "ffish.wasm": {
+          "sha256": "c28ece9506f5730c173c5f983d8b4b3a61412158d38234368a5c5c16d4400a0f",
+          "bytes": 266451
+        }
+      }
+    },
+    "esm": {
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 3.1.46 (19607820c447a13fd8d0b7680c56148427d6e1b8)",
+      "artifacts": {
+        "ffish.mjs": {
+          "sha256": "c8eda22f37706160f3f5b79284439e21c1189b6cc04a95323246538a99545049",
+          "bytes": 67283
+        },
+        "ffish.wasm": {
+          "sha256": "c28ece9506f5730c173c5f983d8b4b3a61412158d38234368a5c5c16d4400a0f",
+          "bytes": 266451
+        }
+      }
+    },
+    "engine": {
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 3.1.46 (19607820c447a13fd8d0b7680c56148427d6e1b8)",
+      "artifacts": {
+        "petrified-stockfish-nnue-node.mjs": {
+          "sha256": "bcd18cf7b477c1dc1c879052cbc2eabe86e755f7c948ed40688e2f5b3fd995a6",
+          "bytes": 3485
+        },
+        "petrified-stockfish-nnue.js": {
+          "sha256": "f65e32afa8afd1af2e274c10f0d60cdfda82e3d09f853cb4ce05599ddc836511",
+          "bytes": 105682
+        },
+        "petrified-stockfish-nnue.wasm": {
+          "sha256": "d1e0d7e602b04d5c42580207e32a08ab8fa620430a23baecb4376792fdfceb75",
+          "bytes": 589199
+        },
+        "petrified-stockfish-nnue.worker.js": {
+          "sha256": "c18c2918c9f8fedf3009f4a260a1185e919b0c6d421ff5403cb918b61c358a24",
+          "bytes": 2828
+        }
+      }
+    }
+  },
+  "bench": {
+    "bench_file": "tests/petrified/bench-points.epd",
+    "bench_file_sha256": "843dec81ee8e287c3475c68e95e559721cf1dd344515b3439bf7ece3ad2411ec",
+    "bench_nodes": [
+      173124,
+      173124
+    ],
+    "threads": 1,
+    "hash_mb": 16,
+    "depth": 10
+  },
+  "tests": {
+    "state_undo_positions": 9338,
+    "real_nnue_scalar_incremental_simd_equal": true,
+    "points_python_and_native": "PASS",
+    "original_losing_mate_plies": 70,
+    "winning_mate_game_plies": 43,
+    "boundary_deficits": [
+      19,
+      20,
+      21
+    ],
+    "boundary_colors": [
+      "white",
+      "black"
+    ],
+    "mate_distances": [
+      1,
+      2
+    ],
+    "tt_reroot": true,
+    "threads": [
+      1,
+      2
+    ],
+    "independent_existing_boundary_cases": 23,
+    "pinned_pawn_regressions": 5,
+    "independent_walk_plies": 4976,
+    "board_cjs_esm_legacy_positions_each": 513,
+    "interfaces": {
+      "passed": true,
+      "uci": true,
+      "xboard": true,
+      "node_wasm": true,
+      "checks": [
+        "MultiPV",
+        "real NNUE",
+        "Threads 1/2",
+        "stop",
+        "ponderhit",
+        "terminal roots",
+        "winning mate distances/TT",
+        "points deficits 19/20/21, both colors",
+        "losing mate 25-24",
+        "invalid/missing NNUE",
+        "rules without NNUE",
+        "CECP edit/walls/fractional clocks/analysis"
+      ]
+    }
+  },
+  "ci": {
+    "implementation_commit": "f44f93700bbb3eca6813eee4728a675ea08447d9",
+    "url": "https://github.com/Belzedar94/Petrified-Stockfish/actions/runs/40778393918",
+    "status": "PASS",
+    "jobs": [
+      "Linux Debug",
+      "Linux Release",
+      "Windows MSVC Debug",
+      "Windows MSVC Release",
+      "Linux ASan/UBSan"
+    ],
+    "external_nnue_in_ci": false
+  },
+  "fairyground": {
+    "profile": ".local/fairyground/petrified-profile.json",
+    "display": "Mate in 1",
+    "move": "h2h7",
+    "san": "Qh7#",
+    "before_points": [
+      20,
+      4
+    ],
+    "after_points": [
+      40,
+      4
+    ],
+    "result": "1-0",
+    "navigation_back_and_reanalysis": "PASS",
+    "screenshots": [
+      "build/screenshots/fairyground-winning-mate-r2.png",
+      "build/screenshots/fairyground-winning-mate-result-r2.png"
+    ]
+  },
+  "frozen_r1_sha256": "2c0e5a40d7c9f4d8116b8e5c5bd10a56103dfaeaaa4a3c4fd9ce952f8c226a36",
+  "strength_test_run": false,
+  "network_promotion": false,
+  "worker_t8": "manual pause preserved"
+}

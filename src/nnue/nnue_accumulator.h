@@ -16,130 +16,35 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Class for difference calculation of NNUE evaluation function
-
 #ifndef NNUE_ACCUMULATOR_H_INCLUDED
 #define NNUE_ACCUMULATOR_H_INCLUDED
-
 #include <array>
-#include <cstddef>
-#include <cstring>
-
+#include <cassert>
 #include "../types.h"
-#include "../misc.h"
-#include "features/k32h3.h"
-#include "nnue_architecture.h"
-#include "nnue_common.h"
-
-namespace Stockfish {
-class Position;
-}
-
+namespace Stockfish { class Position; }
 namespace Stockfish::Eval::NNUE {
-
-class FeatureTransformer;
-
-// Class that holds the result of affine transformation of input features,
-// combined HalfKA + Threats
-struct alignas(CacheLineSize) Accumulator {
-    std::array<std::array<i16, L1>, COLOR_NB> accumulation;
-    std::array<bool, COLOR_NB>                computed = {};
-};
-
-
-// AccumulatorCaches struct provides per-thread accumulator caches, where each
-// cache contains multiple entries for each of the possible king squares.
-// When the accumulator needs to be refreshed, the cached entry is used to more
-// efficiently update the accumulator, instead of rebuilding it from scratch.
-// This idea was first described by Luecx (author of Koivisto) and
-// is commonly referred to as "Finny Tables".
 struct AccumulatorCaches {
-    template<typename Network>
-    AccumulatorCaches(const Network& network) {
-        clear(network);
-    }
-
-    struct alignas(CacheLineSize) Entry {
-        std::array<BiasType, L1>     accumulation;
-        std::array<Piece, SQUARE_NB> pieces;
-        Bitboard                     pieceBB;
-
-        // To initialize a refresh entry, we set all its bitboards empty,
-        // so we put the biases in the accumulation, without any weights on top
-        void clear(const std::array<BiasType, L1>& biases) {
-            accumulation = biases;
-            std::memset(reinterpret_cast<std::byte*>(this) + offsetof(Entry, pieces), 0,
-                        sizeof(Entry) - offsetof(Entry, pieces));
-        }
+    struct alignas(64) Entry {
+        std::array<i16,512> sums{};
+        std::array<i32,8> psqt{};
+        std::array<Piece,64> board{};
+        Bitboard walls = 0;
+        bool valid = false;
     };
-
-    template<typename Network>
-    void clear(const Network& network) {
-        for (auto& entries2D : entries)
-            for (auto& entries1D : entries2D)
-                for (auto& entry : entries1D)
-                    entry.clear(network.featureTransformer.biases);
-    }
-
-    auto&       operator[](int psqBlock) { return entries[psqBlock]; }
-    const auto& operator[](int psqBlock) const { return entries[psqBlock]; }
-
-    std::array<std::array<std::array<Entry, COLOR_NB>, SQUARE_NB>, Features::K32H3::NumBlocks>
-      entries;
+    std::array<std::array<Entry,64>,2> entries;
+    template<typename N> explicit AccumulatorCaches(const N&) { clear(); }
+    void clear() { for(auto& side:entries) for(auto& e:side) e.valid=false; }
+    template<typename N> void clear(const N&) { clear(); }
 };
-
-
-struct AccumulatorState: public Accumulator, Dirties {
-    PSQFeatureSet::BlockState blockBefore;
-};
-
+// Search still owns its move dirties. Legacy refresh caches are independent of
+// the modern SFNNv19 feature implementation retained for the next architecture.
 class AccumulatorStack {
-   public:
-    static constexpr usize MaxSize = MAX_PLY + 1;
-
-    [[nodiscard]] const AccumulatorState& latest() const noexcept;
-
-    void     reset() noexcept;
-    Dirties& push(const Position& pos) noexcept;
-    void     pop() noexcept;
-
-    void evaluate(const Position&           pos,
-                  const FeatureTransformer& featureTransformer,
-                  // Silence spurious warning on GCC 10
-                  [[maybe_unused]] AccumulatorCaches& cache) noexcept;
-
-   private:
-    [[nodiscard]] AccumulatorState& mut_latest() noexcept;
-
-    void evaluate_side(Color                     perspective,
-                       const Position&           pos,
-                       const FeatureTransformer& featureTransformer,
-                       // Silence spurious warning on GCC 10
-                       [[maybe_unused]] AccumulatorCaches& cache,
-                       usize                               last_usable_accum) noexcept;
-
-    [[nodiscard]] usize find_last_usable_accumulator(Color           perspective,
-                                                     const Position& pos) const noexcept;
-
-    void forward_update_incremental(Color                     perspective,
-                                    const Position&           pos,
-                                    const FeatureTransformer& featureTransformer,
-                                    const usize               begin) noexcept;
-
-    void backward_update_incremental(Color                     perspective,
-                                     const Position&           pos,
-                                     const FeatureTransformer& featureTransformer,
-                                     const usize               end) noexcept;
-
-    void forward_update_incremental_both(const Position&           pos,
-                                         const FeatureTransformer& featureTransformer,
-                                         usize                     white_begin,
-                                         usize                     black_begin) noexcept;
-
-    std::array<AccumulatorState, MaxSize> accumulators;
-    usize                                 size = 1;
+    std::array<Dirties,MAX_PLY+1> dirties;
+    usize size = 0;
+public:
+    void reset() { size=0; }
+    Dirties& push(const Position&) { assert(size<dirties.size()); return dirties[size++]; }
+    void pop() { assert(size); --size; }
 };
-
-}  // namespace Stockfish::Eval::NNUE
-
-#endif  // NNUE_ACCUMULATOR_H_INCLUDED
+}
+#endif

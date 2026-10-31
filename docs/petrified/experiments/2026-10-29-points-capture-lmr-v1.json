@@ -1,0 +1,410 @@
+{
+  "experiment": "points-capture-lmr-v1",
+  "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+  "hypothesis": "Replace victim-only capture LMR value with the immediate live-material plus capture-points transaction, including disappearing non-pawn movers and pawn promotions. One depth-allocation policy only.",
+  "base_qualified_source": "74ea5095e84656c7d7e5783888a3a003b23c0ad9",
+  "base_qualified_ref": "edd51c4ab4c0fb111ea7a8b4e7994998c804ed2c",
+  "branch": "exp/points-capture-lmr-v1",
+  "fixed_policy": {
+    "lmr_value": "victim board value + 100*earned capture points - nonpawn fatal mover cost + pawn promotion material delta",
+    "coefficient": 873,
+    "divisor": 128,
+    "other_search_coefficients": "Unchanged",
+    "history": "Unchanged",
+    "SEE": "Unchanged PR11; PR15 excluded",
+    "evaluation_network_rules_state_ordering": "Unchanged PR11",
+    "limits": "Not a SEE, terminal proof, or wall/tempo valuation; reduced searches still use actual rules and terminal outcomes."
+  },
+  "panel": {
+    "status": "COMPLETED_AUDITED",
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "threads": 1,
+    "hash": 512,
+    "concurrency": 4,
+    "decision": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; limit without boundary is NEUTRAL_SCREEN, not equivalence. Three audited wins plus interfaces required. Existing manual rejection delegation applies.",
+    "readiness": {
+      "correctness": "PASS",
+      "source_ci": "PASS",
+      "checked_utc": "2026-10-29T21:45:13.434802+00:00",
+      "harness_correction_ci": "PASS",
+      "harness_correction_engine_diff": "EMPTY",
+      "stage": "READY_FOR_PANEL",
+      "free_bytes": 9548095488,
+      "required_bytes": 7583301632,
+      "frozen_input_count": 201,
+      "source_archive_files": 222,
+      "build_process_identities_exited": 28,
+      "reused_pids_not_touched": [],
+      "T8_pause_verified": true,
+      "Fairyground": "Untouched",
+      "panel_started": false
+    },
+    "path": ".local/points-capture-lmr-panel-001",
+    "identities": {
+      "controller": {
+        "pid": 31272,
+        "creation_filetime": 134377839326694003,
+        "creation_utc": "2026-10-29T21:45:32.669399+00:00"
+      },
+      "launcher": {
+        "pid": 33416,
+        "creation_filetime": 134377839329107972,
+        "creation_utc": "2026-10-29T21:45:32.910797+00:00"
+      },
+      "panel": {
+        "pid": 10964,
+        "creation_filetime": 134377839329342753,
+        "creation_utc": "2026-10-29T21:45:32.934275+00:00"
+      }
+    },
+    "launch_audit": ".local\\points-capture-lmr-v1\\panel-launch-audit.json",
+    "session_id": 5638,
+    "followup": ".local\\points-capture-lmr-followup.json",
+    "automation_id": "petrified-profundidad-de-capturas-y-panel"
+  },
+  "constraints": {
+    "T8": "Manually paused",
+    "Misere": "Do not contact",
+    "OpenBench_AtomicDB_remote_workers": "No action",
+    "Fairyground": "Closed; PR11 preserved",
+    "PR9_PR12_PR13_PR15": "Retained separately, not included",
+    "training_tuning": "Not authorized"
+  },
+  "created_utc": "2026-10-29T21:30:09.432327+00:00",
+  "source_commit": "e6faae706d6217342d580714045cb37699a6cb94",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/16",
+  "execution_manifest": ".local\\points-capture-lmr-v1\\execution-manifest.json",
+  "frozen_inputs": 201,
+  "candidate_sha256": "5bf22c655f7ec593325fc09bc7b2dd82f67ff1d83d10b8bcd999a627321c04da",
+  "champion_sha256": "03de806f94fa12d92b5a35c3574518ed9f4433d404d06abb15b8597b169cbb45",
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "points_bench_candidate": [
+    151183,
+    151183
+  ],
+  "points_bench_champion": 177290,
+  "legacy_bench": 179335,
+  "validation": {
+    "result": "PASS",
+    "report": ".local/points-capture-lmr-v1/validation-report.json",
+    "debug_release_transactions_each": 177911,
+    "debug_release_legal_queries_each": 883968,
+    "debug_release_state_undo_each": 9338,
+    "exact_NNUE": true,
+    "independent_transactions": {
+      "compared": 403,
+      "referee_plies": 418,
+      "terminal_settlements_excluded": 15,
+      "promotions": 42,
+      "en_passant": 6,
+      "note": "Local material/capture-points objective excludes terminal liquidation. Points/mates regressions cover terminal outcomes."
+    },
+    "independent_search_positions": 32,
+    "independent_pv_plies": 248,
+    "native_interfaces": "UCI and CECP PASS",
+    "source_ci": {
+      "commit": "e6faae706d6217342d580714045cb37699a6cb94",
+      "run_id": 40958404344,
+      "jobs_passed": 5
+    },
+    "build_process_identities_exited": 28,
+    "harness_correction_ci": {
+      "commit": "a541bfe9360c4ae34726b2f1501a2100c3bab8b1",
+      "run_id": 40959917423,
+      "jobs_passed": 5,
+      "engine_source_diff": "EMPTY"
+    }
+  },
+  "resolved_operational_failures": [
+    {
+      "path": ".local/points-capture-lmr-v1/validation-failure-001",
+      "reason": "Independent fixture converter rejected en-passant FEN",
+      "resolution": "Reconstruct the preceding double pawn push and play it with the independent client; verify all board squares, side and scores"
+    },
+    {
+      "path": ".local/points-capture-lmr-v1/validation-failure-002",
+      "reason": "New fixture check expected a dead flag; neutral walls are player4 X",
+      "resolution": "Check the independent neutral wall representation exactly"
+    },
+    {
+      "path": ".local/points-capture-lmr-v1/panel-audit-failure-001",
+      "reason": "Strict process exit audit failed with WinError5 on eight old identities reused by protected unrelated processes",
+      "resolution": "Seven remaining inaccessible identities proved reused by successful later Win32_Process CreationDate reads; one initial failed identity was subsequently absent. No access error was treated as exit.",
+      "recovery_script": ".local/points-capture-lmr-v1/audit_panel_cim_recovery.py",
+      "original_audit_scripts_and_frozen_inputs": "Unchanged"
+    }
+  ],
+  "candidate_unchanged_during_repairs": true,
+  "execution_manifest_sha256": "18d26832a120f83aaffe0552ad3608a0c0b2bbe72c5e79bb70d3f000850c2748",
+  "harness_correction_commit": "a541bfe9360c4ae34726b2f1501a2100c3bab8b1",
+  "observed_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        181,
+        199,
+        20
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        34,
+        7,
+        125,
+        11,
+        23
+      ],
+      "statistics": "Total: 400 W: 181 L: 199 D: 20 ELO: -15.65 +-33.3 (95%) LOS: 17.8%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 874.219
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        195,
+        175,
+        30
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        21,
+        10,
+        126,
+        14,
+        29
+      ],
+      "statistics": "Total: 400 W: 195 L: 175 D: 30 ELO: 17.39 +-32.8 (95%) LOS: 85.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 3747.906
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        189,
+        181,
+        30
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        25,
+        15,
+        117,
+        13,
+        30
+      ],
+      "statistics": "Total: 400 W: 189 L: 181 D: 30 ELO: 6.95 +-32.8 (95%) LOS: 66.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 11613.734
+    }
+  },
+  "observed_utc": "2026-10-30T02:21:00.532830+00:00",
+  "control_classification": {
+    "VSTC": {
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection_status": "NEUTRAL_SCREEN",
+      "equivalence_claim": false,
+      "audit": ".local\\points-capture-lmr-v1\\panel-audit.json",
+      "audit_sha256": "8f37be1803e7971046168e4899c2df1e666cd452a72d6333ff2b3d95afa77e1e",
+      "games": 400,
+      "pairs": 200,
+      "independent_plies": 72369
+    },
+    "STC": {
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection_status": "NEUTRAL_SCREEN",
+      "equivalence_claim": false,
+      "audit": ".local\\points-capture-lmr-v1\\panel-audit.json",
+      "audit_sha256": "8f37be1803e7971046168e4899c2df1e666cd452a72d6333ff2b3d95afa77e1e",
+      "games": 400,
+      "pairs": 200,
+      "independent_plies": 74988
+    },
+    "LTC": {
+      "raw_status": "INCONCLUSIVE_LIMIT",
+      "selection_status": "NEUTRAL_SCREEN",
+      "equivalence_claim": false,
+      "audit": ".local\\points-capture-lmr-v1\\panel-audit.json",
+      "audit_sha256": "8f37be1803e7971046168e4899c2df1e666cd452a72d6333ff2b3d95afa77e1e",
+      "games": 400,
+      "pairs": 200,
+      "independent_plies": 84707
+    }
+  },
+  "promotion_gate": {
+    "three_WIN_possible": false,
+    "reason": "All three controls reached400 without a winning boundary",
+    "champion_unchanged": "Qualified PR11",
+    "remaining_controls": "None; all three controls are complete and must not be replayed",
+    "decision": "REJECTED_NEUTRAL_SCREEN",
+    "distribution_acceptance": "NOT_RUN_SCREEN_REJECTED"
+  },
+  "raw_results": [
+    {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        181,
+        199,
+        20
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        34,
+        7,
+        125,
+        11,
+        23
+      ],
+      "statistics": "Total: 400 W: 181 L: 199 D: 20 ELO: -15.65 +-33.3 (95%) LOS: 17.8%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 874.219
+    },
+    {
+      "control": "STC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        195,
+        175,
+        30
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        21,
+        10,
+        126,
+        14,
+        29
+      ],
+      "statistics": "Total: 400 W: 195 L: 175 D: 30 ELO: 17.39 +-32.8 (95%) LOS: 85.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 3747.906
+    },
+    {
+      "control": "LTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        189,
+        181,
+        30
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        25,
+        15,
+        117,
+        13,
+        30
+      ],
+      "statistics": "Total: 400 W: 189 L: 181 D: 30 ELO: 6.95 +-32.8 (95%) LOS: 66.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 11613.734
+    }
+  ],
+  "closure": {
+    "result": "REJECTED_NEUTRAL_SCREEN",
+    "decided_utc": "2026-10-30T02:23:45.777929+00:00",
+    "basis": "All three controls reached the predeclared400-game cap without a displayed LOS boundary",
+    "statistical_equivalence": false,
+    "statistical_loss": false,
+    "promotion": "REJECTED",
+    "champion": "Qualified PR11 remains unchanged",
+    "distribution_acceptance": "NOT_RUN_SCREEN_REJECTED",
+    "controller_session": 5638,
+    "controller_session_exit_code": 0,
+    "audit_session": 11367,
+    "audit_session_exit_code": 0,
+    "panel_audit": ".local\\points-capture-lmr-v1\\panel-audit.json",
+    "panel_audit_sha256": "8f37be1803e7971046168e4899c2df1e666cd452a72d6333ff2b3d95afa77e1e",
+    "process_exit_audit": ".local\\points-capture-lmr-v1\\all-owned-process-exit-audit.json",
+    "process_exit_audit_sha256": "71749e06079fa86967f6515421b78f7e1673a8339a319e7aa88c4fa4e291c0d7",
+    "process_identities_exited": 1832,
+    "panel_identities_exited": 1804,
+    "build_validation_identities_exited": 28,
+    "access_failure_preserved": ".local/points-capture-lmr-v1/panel-audit-failure-001",
+    "access_failure_resolution": "Seven remaining inaccessible identities proved reused by successful later Win32_Process CreationDate reads; one initial failed identity was subsequently absent. No access error was treated as exit.",
+    "process_cim_recovery": ".local\\points-capture-lmr-v1\\process-cim-recovery.json",
+    "process_cim_recovery_sha256": "eee5e0579354fda5ba6e9fe7c19539d36eb7cc8da8117a173bc9655d3e980c33",
+    "games": 1200,
+    "complete_pairs": 600,
+    "independent_plies": 232064,
+    "incomplete_pairs": 0,
+    "preservation_manifest": ".local\\points-capture-lmr-v1\\preservation-manifest.json",
+    "preservation_manifest_sha256": "e925cd6633915471958bba27c0a3a9317a6ea797d838c195a8b5b079db968c80",
+    "bundle": {
+      "bundle": ".local\\points-capture-lmr-v1\\frozen-inputs-and-closure.zip",
+      "sha256": "32000a61c7c9ecccb2638e3522c7bdffc90a1f52c69e5df8ec9ed2e782101139",
+      "bytes": 63066221,
+      "entries": 212
+    },
+    "T8_pause_verified": true,
+    "Fairyground": "Closed; PR11 profile preserved",
+    "next_experiment_authorized": false,
+    "OpenBench_authorized": false,
+    "released": true,
+    "released_utc": "2026-10-30T02:23:45.777929+00:00",
+    "followup_deletion": "DELETED",
+    "followup_deleted_utc": "2026-10-30T02:27:01.310519+00:00",
+    "pull_request_state": "CLOSED_UNMERGED",
+    "pull_request_closed_utc": "2026-10-30T02:26:10Z",
+    "remote_receipt": ".local\\points-capture-lmr-v1\\remote-closure-receipt.json",
+    "remote_receipt_sha256": "11aaa322fcb4cae2e6fbf9e31ea07d1f7d9094778f8cfec759c7e883a313e583"
+  },
+  "retention": {
+    "status": "RETAINED_FOR_FUTURE_OPENBENCH",
+    "requested_by": "owner",
+    "requested_utc": "2026-10-30T06:42:59.284175+00:00",
+    "raw_selection_result": "REJECTED_NEUTRAL_SCREEN",
+    "promotion": false,
+    "statistical_equivalence": false,
+    "source_commit": "e6faae706d6217342d580714045cb37699a6cb94",
+    "source_tag": "candidates/points-capture-lmr-v1-openbench",
+    "harness_correction_commit": "a541bfe9360c4ae34726b2f1501a2100c3bab8b1",
+    "bundle": {
+      "bundle": ".local\\points-capture-lmr-v1\\frozen-inputs-and-closure.zip",
+      "sha256": "32000a61c7c9ecccb2638e3522c7bdffc90a1f52c69e5df8ec9ed2e782101139",
+      "bytes": 63066221,
+      "entries": 212
+    },
+    "all_process_identities_exited": 1832,
+    "openbench_workload_authorized": false,
+    "pull_request_policy": "Keep PR16 open as draft; preserve candidate independently from the next PR11-based experiment"
+  }
+}
