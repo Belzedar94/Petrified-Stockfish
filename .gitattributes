@@ -1,2 +1,4 @@
 # normalize line endings for all text files
 * text=auto eol=lf
+# Unified-diff context lines intentionally consist of a single space.
+*.patch whitespace=-blank-at-eol
