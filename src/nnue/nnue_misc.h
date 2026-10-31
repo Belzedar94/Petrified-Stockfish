@@ -18,46 +18,17 @@
 
 #ifndef NNUE_MISC_H_INCLUDED
 #define NNUE_MISC_H_INCLUDED
-
+#include <filesystem>
+#include <optional>
 #include <string>
 #include <string_view>
-#include <optional>
-#include <filesystem>
-
-#include "../misc.h"
-#include "../types.h"
-#include "nnue_architecture.h"
 #include "../evaluate.h"
-
-namespace Stockfish {
-
-class Position;
-
-namespace Eval::NNUE {
-
-// NNUE file metadata uses fixed string types so it stays trivially copyable and cheap to move
-// around between the engine and the network loader.
+namespace Stockfish::Eval::NNUE {
 struct EvalFile {
-    // Default net name, will use one of the EvalFileDefaultName* macros defined
-    // in evaluate.h
     constexpr static std::string_view defaultName = EvalFileDefaultName;
-    // Selected net name, either via uci option or default
     std::optional<std::filesystem::path> current;
-    // Net description extracted from the net file
+    std::filesystem::path source;
     std::string netDescription;
 };
-
-struct NnueEvalTrace {
-    Value positional[LayerStacks];
-    usize correctBucket;
-};
-
-class Network;
-struct AccumulatorCaches;
-
-std::string trace(Position& pos, const Network& network, AccumulatorCaches& caches);
-
-}  // namespace Stockfish::Eval::NNUE
-}  // namespace Stockfish
-
-#endif  // #ifndef NNUE_MISC_H_INCLUDED
+}
+#endif
