@@ -64,8 +64,9 @@ PR18 stays champion. Manual closure passed674 games/337 reversed-color pairs/
 129307 independent plies. Four incomplete pairs and two completed unpaired games
 are preserved and excluded. All1103 development/panel identities exited;1023 pair
 process instances reconcile with exact CreationDates. Journal and strict exit
-sets match; all closure auditors and packager identities also exited, exit codes0.
-Original automatic STOP auditor rejection is retained without changing its script.
+sets match. All closure auditor and packager identities exited. The closure
+supervisor, manual auditor and packager exited0; the original automatic auditor
+exited1 on STOP. That rejection and its original script remain preserved.
 All289 frozen inputs,11 panel hashes and7 dependencies remain exact. The6293-entry
 ZIP contains all3762 raw panel files, inputs, original failures, audits and inventory;
 every entry was hash-verified. Lease released, follow-up deleted. Branch/draft/tag
