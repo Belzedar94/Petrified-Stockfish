@@ -73,4 +73,14 @@ original local/CI failures remain preserved. Candidate bench338281 twice, PR18
 The sole panel started2026-10-31T23:01:49Z,session41625.313 frozen inputs remain
 exact. Launch sealing and registrar bookkeeping corrections are separately recorded;
 neither changed engine inputs. Raw small-sample confidence formatting at18 games
-was invalid; retain it and compute a separate audit interval. No strength verdict.
+was invalid; retain it and compute a separate audit interval. No strength verdict
+was available at that launch stage.
+
+Final closure: the sole panel lost VSTC46 (7/38/1), STC46 (5/39/2) and LTC48
+(10/35/3), each at displayed LOS0.0% after draining pairs, with no time losses.
+The original auditors passed140 games/70 pairs/28506 independent plies and210
+exact pair process instances. All325 registered identities exited; the1812-entry
+archive includes all787 raw files and every entry was hash/size/CRC verified.
+The lease is released, PR18 remains champion and PR25 is CLOSED_REJECTED_STRENGTH.
+See liquidation-replies-v1-results.md and the experiment record for intervals,
+coverage limits, evidence hashes and final exit proofs. No automatic successor.

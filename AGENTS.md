@@ -1,3 +1,44 @@
+PR25 points-liquidation-replies-v1 is CLOSED_REJECTED_STRENGTH.
+All three audited results are LOSS: VSTC46 7/38/1, STC46 5/39/2,
+LTC48 10/35/3; LOS0.0% and time losses0/0 in every control. PR18 stays champion.
+The original auditors passed140 games/70 reversed-color pairs/28506 independent
+plies, with no incomplete pairs or exclusions.210 pair process instances reconcile
+with exact CreationDates. All325 registered development/panel/helper identities
+exited, including auditors and packager; final journal identity sets match.
+The final native bookkeeping shell also has an observed actual tool exit0.
+Session41625 exited0 with PANEL_COMPLETE_AWAITING_AUDIT,panel_exit_code0,no children.
+All313 frozen inputs,11 panel hashes and7 dependencies remain exact. The1812-entry
+local ZIP includes all787 raw panel files; every entry passed SHA256/size/CRC.
+Post-packaging exit proofs and completed packager logs are retained adjacent and
+bound by closure.json. The lease is released. Branch/draft/validated-source tag
+candidates/points-liquidation-replies-v1-rejected retain the rejected candidate.
+No replay, tuning, training, successor or OpenBench queue/workload is authorized.
+The auxiliary failed Oracle Chrome identity lacks a CreationDate; its absent-PID
+snapshot is explicitly not exact exit proof. Compiler descendants have retained
+build-wait completion. A rounded FILETIME in the first final bookkeeping receipt
+is preserved and superseded by exact decimal-string receipt002; original process
+journals/audits stayed exact. See the experiment and liquidation-replies-v1-results.
+Both Fairyground profiles remain closed/preserved; T8 paused. No unrelated apps,
+AtomicDB, remote workers or Misere activity. Earlier stages below are historical
+and cannot restart a workload.
+
+PR25 points-liquidation-replies-v1 is REJECTED_STRENGTH after its sole panel.
+All three original results are LOSS, with zero time losses candidate/PR18:
+VSTC46:7/38/1,-284.16+/-153.7 Elo95%,LOS0.0%;
+STC46:5/39/2,-329.56+/-172.1 Elo95%,LOS0.0%;
+LTC48:10/35/3,-200.64+/-117.7 Elo95%,LOS0.0%.
+Original four auditors passed140 games/70 complete reversed-color pairs/28506
+independent plies, with no incomplete pairs or excluded games. All315 registered
+identities in that audit exited;210 pair process instances have exact CreationDates.
+Strict/journal identity sets match. Session41625 exited0; controller finished
+PANEL_COMPLETE_AWAITING_AUDIT,panel_exit_code0,no children. Panel/launcher alias
+and captured session shell exited. Auditor and analysis helpers also returned0.
+Raw statistics stay preserved; supplementary bounded normal Elo intervals and
+search-cost observations are in liquidation-replies-v1-results.md.
+PR18 stays champion. Evidence packaging and final helper exit reconciliation are
+pending; lease NOT released. No replay, tuning, training, OB or successor. Both
+GUI profiles stay closed and T8 paused. Earlier active stages cannot relaunch.
+
 PR25 VSTC and STC have closed at46 games/23 complete reversed-color pairs each:
 VSTC7/38/1,-284.16+/-153.7 Elo95%,LOS0.0%,time0/0;
 STC5/39/2,-329.56+/-172.1 Elo95%,LOS0.0%,time0/0.
