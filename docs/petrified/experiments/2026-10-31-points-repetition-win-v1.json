@@ -571,7 +571,7 @@
   "development_identities_exited": 61,
   "validation_failures": [],
   "panel_launch_audit": ".local\\points-repetition-win-v1\\panel-launch-audit.json",
-  "updated_utc": "2026-10-31T14:44:14.485778+00:00",
+  "updated_utc": "2026-10-31T15:49:00.600522+00:00",
   "followup": ".local\\points-repetition-win-followup.json",
   "automation_id": "petrified-repetici-n-ganadora-y-panel",
   "panel_session_id": 13965,
@@ -640,10 +640,11 @@
   },
   "automatic_promotion_eligible": false,
   "decision": "CONTINUE_SAME_PANEL_AUTOMATIC_PROMOTION_INELIGIBLE",
-  "decision_reason": "VSTC cap reached without a displayed LOS boundary; not equivalence or statistical LOSS.",
+  "decision_reason": "VSTC and STC reached the cap without a displayed LOS boundary; not equivalence or statistical LOSS.",
   "final_audits_pending": true,
   "control_selections": {
-    "VSTC": "NEUTRAL_SCREEN"
+    "VSTC": "NEUTRAL_SCREEN",
+    "STC": "NEUTRAL_SCREEN"
   },
   "closed_control_results": {
     "VSTC": {
@@ -670,9 +671,35 @@
       "statistics": "Total: 400 W: 200 L: 173 D: 27 ELO: 23.49 +-33.0 (95%) LOS: 92.0%",
       "completed_pairs": 200,
       "elapsed_seconds": 888.938
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        175,
+        205,
+        20
+      ],
+      "time_losses": [
+        0,
+        1
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        40,
+        6,
+        122,
+        8,
+        24
+      ],
+      "statistics": "Total: 400 W: 175 L: 205 D: 20 ELO: -26.11 +-33.3 (95%) LOS: 6.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 3959.703
     }
   },
   "control_selection_evidence": {
-    "VSTC": ".local\\points-repetition-win-v1\\VSTC-closure-selection.json"
+    "VSTC": ".local\\points-repetition-win-v1\\VSTC-closure-selection.json",
+    "STC": ".local\\points-repetition-win-v1\\STC-closure-selection.json"
   }
 }

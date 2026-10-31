@@ -1,3 +1,15 @@
+VSTC and STC for points-repetition-win-v1 / PR24 closed at400 games each:
+VSTC200/173/27,+23.49+/-33.0 Elo95%,LOS92.0%,time0/0;
+STC175/205/20,-26.11+/-33.3 Elo95%,LOS6.1%,time0/1.
+Each has200 complete reversed-color pairs. Both raw INCONCLUSIVE_LIMIT results
+are preserved; both selections are NEUTRAL_SCREEN, never equivalence or
+statistical LOSS. Automatic promotion is ineligible; PR18 stays champion.
+LTC is active in the SAME frozen panel. Continue without changing inputs or
+relaunching. Full final audits and proven process exits remain required; the
+lease is not released. All exact identities and frozen restrictions below apply.
+
+The entries below preserve prior stages and cannot restart closed panels.
+
 VSTC for points-repetition-win-v1 / PR24 closed at400 games:200/173/27,
 +23.49+/-33.0 Elo95%,LOS92.0%,time0/0,200 complete reversed-color pairs.
 Raw INCONCLUSIVE_LIMIT is preserved; selection NEUTRAL_SCREEN, never equivalence
