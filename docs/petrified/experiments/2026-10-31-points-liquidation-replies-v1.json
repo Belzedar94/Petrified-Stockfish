@@ -1,0 +1,75 @@
+{
+  "champion": {
+    "pr": 18,
+    "selection": "PROMOTED_MANUAL_OWNER; not three statistical wins",
+    "binary_sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+    "bench": 167330
+  },
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
+  "panel": {
+    "directory": ".local/points-liquidation-replies-panel-001",
+    "status": "NOT_STARTED",
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "threads": 1,
+    "hash_mb": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; continue within400 if boundary lost",
+    "selection": "All three unless delegated manual early neutral/loss rejection; cap without boundary NEUTRAL_SCREEN, never equivalence. Only three audited wins plus distribution/interfaces permit automatic promotion.",
+    "referee": "Hash-pinned independent Chess.com client"
+  },
+  "restrictions": {
+    "training": false,
+    "post_result_tuning": false,
+    "further_candidate": false,
+    "openbench_workload": false,
+    "T8": "manually paused",
+    "Fairyground": "Both Petrified and Duck closed by owner; profiles preserved; no automatic restart",
+    "AtomicDB": false,
+    "remote_workers": false,
+    "Misere_contact": false
+  },
+  "schema": "petrified-liquidation-replies-v1",
+  "experiment": "points-liquidation-replies-v1",
+  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "branch": "exp/points-liquidation-replies-v1",
+  "authorization": "Owner authorized ONE PR18 liquidation-horizon candidate after diagnosis, no training, same validations and VSTC/STC/LTC.",
+  "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+  "base_ref": "1774a575",
+  "hypothesis": "Real petrification changes the board topology; searching a full reply layer before stand-pat may reduce settlement horizon errors.",
+  "fixed_policy": {
+    "documentation": "docs/petrified/liquidation-replies-v1.md",
+    "trigger": "points, not check, actual non-pawn petrifying capture; capturedPiece and pliesFromNull guards",
+    "response": "all legal replies without stand-pat; quiet consumes, real petrifying capture rearms",
+    "TT": "separate fixed XOR qsearch reply domain; main and ordinary qsearch keys unchanged",
+    "stop": "time checks at widened nodes; propagate points cancellation after undo without partial cache"
+  },
+  "unchanged": [
+    "PR18 rules/state/scoring/NNUE/coefficients",
+    "Main-search policy and move ordering",
+    "Legacy Walls behavior",
+    "No PR19-24 engine changes"
+  ],
+  "validation_required": [
+    "Full Debug/Release inherited state/NNUE/undo/null/exchange/capture/forced references",
+    "Board-delta predicate/full legal picker/null and TT-domain isolation",
+    "Independent Chess.com histories/legal children/settlements",
+    "Quiet terminal replies depth1/4 T1/T2 cold/ordinary-warm/event-warm TT; independent PVs",
+    "Native UCI/CECP, stop, ordinary searches, twice-repeatable benches",
+    "Five exact-source CI jobs"
+  ],
+  "risk": "Additional quiet replies may cost more than they recover; frozen panel must decide strength.",
+  "runtime_released": false,
+  "created_utc": "2026-10-31T22:51:18.373732+00:00",
+  "advisory_review": {
+    "Oracle": "FAILED_BEFORE_MODEL_SELECTION",
+    "log": ".local\\points-liquidation-replies-v1\\oracle-run.log",
+    "API_fallback": false
+  }
+}

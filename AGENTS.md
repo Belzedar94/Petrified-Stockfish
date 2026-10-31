@@ -1,3 +1,17 @@
+The owner authorized ONE new PR18 candidate: points-liquidation-replies-v1.
+Read docs/petrified/liquidation-replies-v1.md and its experiment/followup record.
+One full legal reply layer after an actual non-pawn petrifying capture at points
+qsearch, without stand-pat; quiet replies consume it, new petrification rearms it.
+Separate qsearch TT domain; actual null isolation; time/stop propagation after undo.
+No rule/state/NNUE/coefficient/main-search policy change; no PR19-24 engine code.
+Full Debug/Release/reference/independent Chess.com/interfaces/benches/five CI jobs
+are required before ONE frozen40/400 VSTC/STC/LTC,T1/Hash512/concurrency4 panel.
+No training, post-result tuning or automatic successor. PR18 remains champion
+unless three audited wins plus distribution/interfaces satisfy promotion.
+Lease owned until decision and proven exits of all owned processes and packaging.
+Both GUIs remain closed/preserved; T8 paused. No OB, AtomicDB, remote or Misere.
+Prior closed stages below remain historical and cannot restart any workload.
+
 pr18-diagnosis-v1 is CLOSED_DIAGNOSIS. Fixed bank completed and audited:
 256 histories / 2048 states / 7680 queries. No training, candidate or strength claim.
 All 55 registered process identities exited, including auditors and packager.
