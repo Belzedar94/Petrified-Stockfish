@@ -18,7 +18,6 @@
 
 #include "search.h"
 #include "search_capture.h"
-#include "search_threat.h"
 
 #include <algorithm>
 #include <array>
@@ -45,6 +44,7 @@
 #include "nnue/nnue_accumulator.h"
 #include "position.h"
 #include "api/petrified_outcome.h"
+#include "search_repetition.h"
 #include "syzygy/tbprobe.h"
 #include "thread.h"
 #include "timeman.h"
@@ -783,6 +783,11 @@ Value Search::Worker::search(
         const auto end = Petrified::outcome(pos, true, ss->ply);
         if (end.terminal()) return end.value;
         if (pointsClaim >= beta || is_win(pointsClaim)) return pointsClaim;
+        const auto repetition = points_repetition_win(pos, ss->ply, ss->excludedMove);
+        if (repetition.move != Move::none()) {
+            if (PvNode && ss->pv) ss->pv->update(repetition.move, nullptr);
+            return repetition.value;
+        }
         alpha = std::max(alpha, pointsClaim);
     }
 
@@ -1732,7 +1737,7 @@ moves_loop:  // When in check, search starts here
 // See https://www.chessprogramming.org/Horizon_Effect
 // and https://www.chessprogramming.org/Quiescence_Search
 template<NodeType nodeType>
-Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta, bool threatBudget) {
+Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta) {
 
     static_assert(nodeType != Root);
     constexpr bool PvNode = nodeType == PV;
@@ -1779,6 +1784,11 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta,
         const auto end = Petrified::outcome(pos, true, ss->ply);
         if (end.terminal()) return end.value;
         if (pointsClaim >= beta || is_win(pointsClaim)) return pointsClaim;
+        const auto repetition = points_repetition_win(pos, ss->ply);
+        if (repetition.move != Move::none()) {
+            if (PvNode) ss->pv->update(repetition.move, nullptr);
+            return repetition.value;
+        }
         alpha = std::max(alpha, pointsClaim);
     }
     if ((!pos.game_of_points() && pos.is_draw(ss->ply)) || ss->ply >= MAX_PLY)
@@ -1804,14 +1814,9 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta,
     pvHit        = ttHit && ttData.is_pv;
 
     // At non-PV nodes we check for an early TT cutoff
-    const Depth qDepth = threat_qsearch_depth(pos.game_of_points(), threatBudget);
-    if (!PvNode && ttData.depth >= qDepth && is_valid(ttData.value)
+    if (!PvNode && ttData.depth >= DEPTH_QS && is_valid(ttData.value)
         && (ttData.bound & (ttData.value >= beta ? BOUND_LOWER : BOUND_UPPER)))
         return ttData.value;
-
-    const bool quietThreat = threatBudget && forcedMove == Move::none()
-                          && quiet_capture_threat(pos);
-    const bool mustSearch = forcedMove != Move::none() || quietThreat;
 
     // Step 4. Static evaluation of the position
     Value unadjustedStaticEval = VALUE_NONE;
@@ -1845,7 +1850,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta,
         }
 
         // Stand pat. Return immediately if static value is at least beta
-        if (!mustSearch && bestValue >= beta)
+        if (forcedMove == Move::none() && bestValue >= beta)
         {
             assert(!is_decisive(bestValue));
             bestValue = (441 * bestValue + 583 * beta) / 1024;
@@ -1856,30 +1861,24 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta,
             return bestValue;
         }
 
-        if (!mustSearch && bestValue > alpha)
+        if (forcedMove == Move::none() && bestValue > alpha)
             alpha = bestValue;
 
         futilityBase = ss->staticEval + 306;
-        if (mustSearch)
+        if (forcedMove != Move::none())
             bestValue = -VALUE_INFINITE;
     }
 
     bestValue = std::max(bestValue, pointsClaim);
-    const PieceToHistory* contHist[] = {(ss - 1)->continuationHistory,
-                                       (ss - 2)->continuationHistory,
-                                       (ss - 3)->continuationHistory,
-                                       (ss - 4)->continuationHistory,
-                                       (ss - 5)->continuationHistory,
-                                       (ss - 6)->continuationHistory};
+    const PieceToHistory* contHist[] = {(ss - 1)->continuationHistory};
 
     Square prevSq = ((ss - 1)->currentMove).is_ok() ? ((ss - 1)->currentMove).to_sq() : SQ_NONE;
 
     // Initialize a MovePicker object for the current position, and prepare
     // to search the moves. We presently use two stages of move generator in
     // quiescence search: captures, or evasions only when in check. A unique
-    // points move bypasses the picker, including when it is quiet. A profitable
-    // enemy capture after a pass enables the full picker for this entry only.
-    MovePicker mp(pos, ttData.move, quietThreat ? 1 : DEPTH_QS, &mainHistory, &lowPlyHistory, &captureHistory,
+    // points move bypasses the picker, including when it is quiet.
+    MovePicker mp(pos, ttData.move, DEPTH_QS, &mainHistory, &lowPlyHistory, &captureHistory,
                   contHist, &sharedHistory, ss->ply);
 
     // Step 5. Loop through all legal moves until no moves remain
@@ -1935,7 +1934,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta,
         // Step 7. Make and search the move
         do_move(pos, move, st, givesCheck, capture, ss);
 
-        value = -qsearch<nodeType>(pos, ss + 1, -beta, -alpha, false);
+        value = -qsearch<nodeType>(pos, ss + 1, -beta, -alpha);
         undo_move(pos, move);
 
         assert(value > -VALUE_INFINITE && value < VALUE_INFINITE);
@@ -1986,7 +1985,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta,
     // Step 10. Save gathered info in transposition table. The static evaluation
     // is saved as it was before adjustment by correction history.
     ttWriter.write(posKey, value_to_tt(bestValue, ss->ply), pvHit,
-                   bestValue >= beta ? BOUND_LOWER : BOUND_UPPER, qDepth, bestMove,
+                   bestValue >= beta ? BOUND_LOWER : BOUND_UPPER, DEPTH_QS, bestMove,
                    unadjustedStaticEval, tt.generation());
 
     // The search is now complete

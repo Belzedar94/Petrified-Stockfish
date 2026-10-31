@@ -1,3 +1,22 @@
+The owner authorized ONE successor from PR18: points-repetition-win-v1.
+Recognize an available strictly winning legal third-repetition move before TT and
+pruning in non-root main search and qsearch. Require a points lead, real reversible
+history bounded by null/rule50, full legal make/undo and existing ThreefoldRepetition
+outcome. Respect singular excluded moves and include the legal move in the PV.
+No second-occurrence shortcut or forced-cycle claim. Ties/losses keep PR18 behavior.
+Rules/state/NNUE/coefficients and all other PR18 search policies stay fixed; exclude
+PR19/20/21/22/23 engine changes. No tuning, training or automatic further candidate.
+See docs/petrified/repetition-win-v1.md and .local/points-repetition-win-followup.json.
+Require full Debug/Release/reference/state/NNUE/undo/null, independent Chess.com
+histories/settlements, native interfaces, repeated benches and five exact-source CI
+jobs before one40/400 VSTC/STC/LTC panel versus PR18,T1/Hash512/concurrency4.
+Only three audited wins plus distribution/interfaces permit promotion. PR18 remains
+champion. Lease owned until final decision and proven exits of all owned processes.
+Both Fairyground profiles stay closed/preserved; T8 paused. No OpenBench workloads,
+AtomicDB, remote workers, other applications or Misere activity.
+
+The entries below preserve prior stages and cannot restart closed panels.
+
 PR23 points-threat-evasion-v1 is PARKED_MANUAL_OWNER. Its sole panel stopped cooperatively.
 VSTC400:174/204/22,-26.11+/-33.2 Elo95%,LOS6.1%,time0/0; STC274:114/136/24,
 -27.96+/-39.5,LOS8.1%,time0/0; LTC not run. Raw INCONCLUSIVE_LIMIT/INTERRUPTED

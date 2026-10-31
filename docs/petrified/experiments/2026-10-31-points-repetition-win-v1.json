@@ -1,0 +1,77 @@
+{
+  "champion": {
+    "pr": 18,
+    "selection": "PROMOTED_MANUAL_OWNER; not three statistical wins",
+    "binary_sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+    "bench": 167330
+  },
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
+  "panel": {
+    "directory": ".local/points-repetition-win-panel-001",
+    "status": "NOT_STARTED",
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "threads": 1,
+    "hash_mb": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; continue within400 if boundary lost",
+    "selection": "All three unless delegated manual early neutral/loss rejection; cap without boundary NEUTRAL_SCREEN, never equivalence. Only three audited wins plus distribution/interfaces permit automatic promotion.",
+    "referee": "Hash-pinned independent Chess.com client"
+  },
+  "restrictions": {
+    "training": false,
+    "post_result_tuning": false,
+    "further_candidate": false,
+    "openbench_workload": false,
+    "T8": "manually paused",
+    "Fairyground": "Both Petrified and Duck closed by owner; profiles preserved; no automatic restart",
+    "AtomicDB": false,
+    "remote_workers": false,
+    "Misere_contact": false
+  },
+  "schema": "petrified-repetition-win-v1",
+  "experiment": "points-repetition-win-v1",
+  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "branch": "exp/points-repetition-win-v1",
+  "authorization": "Owner parked PR23 and authorized ONE next substantial candidate from PR18 with the same validations and VSTC/STC/LTC.",
+  "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+  "base_ref": "d011dc2d24b72f8b9eb67d6140c4d3909846d3fb",
+  "hypothesis": "An exact legal third-repetition win can be recognized before TT/pruning/stand-pat even at a branching quiet leaf, avoiding a history-dependent settlement horizon.",
+  "fixed_policy": {
+    "documentation": "docs/petrified/repetition-win-v1.md",
+    "requires_points_lead": true,
+    "requires_actual_third_occurrence": true,
+    "historical_prefilter": "opposite-side repeated state within rule50 and pliesFromNull",
+    "proof": "legal quiet non-pawn normal move; actual make/undo; existing outcome must be ThreefoldRepetition and strictly winning",
+    "where": "non-root main search and every qsearch before TT/pruning",
+    "exclusion": "honor main singular-search excluded move",
+    "draw_or_loss": "unchanged PR18",
+    "return": "existing points winning-claim policy with explicit legal PV move; never cached as a position-only proof"
+  },
+  "unchanged": [
+    "Rules/scoring/state/undo",
+    "NNUE and coefficients",
+    "All other PR18 search policies",
+    "Legacy behavior",
+    "No PR19/20/21/22/23 engine changes"
+  ],
+  "validation_required": [
+    "Full Debug/Release references/state/NNUE/undo/null",
+    "Inherited SEE/capture/forced choice",
+    "Canonical history count reference for every legal child; exclusions and null isolation",
+    "Independent Chess.com full histories, legal lists and winning repetition settlements",
+    "Depth1/depth4 branching quiet repetitions, T1/T2, cold and stale-history TT, both colors",
+    "Native UCI/CECP, ordinary and forced PVs",
+    "Candidate bench twice, champion167330, legacy179335",
+    "Five exact-source CI jobs"
+  ],
+  "risk": "History scans and rare proof probes may cost more than recovered winning lines; correctness is not strength.",
+  "runtime_released": false,
+  "created_utc": "2026-10-31T14:18:40.523265+00:00"
+}
