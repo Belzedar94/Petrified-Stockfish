@@ -1,3 +1,73 @@
+points-threat-evasion-v1 / PR23 is FROZEN and its sole panel is ACTIVE vs PR18.
+Frozen engine806622a83c834694c11c1398b23a43bd619bf1c8; candidate SHA256
+3b90881ca39ea79b657fdb586418b10f370dea354342ee6706607e7ccb064c1c.
+Points bench177427 twice; PR18 rival167330; common NNUE unchanged; legacy179335.
+Only one quiet-response layer at capture-free points qsearch entry changes.
+Require multiple legal replies, no check and a strictly profitable legal enemy
+capture after a hypothetical pass, using existing local SEE. Recursive qsearch
+gets no additional threat budget. This is a bounded search hint, not a legal
+pass or forced-capture/settlement proof. No PR19/20/21/22 engine changes,
+rules/state/network/coefficients, training, tuning or further candidate.
+
+Full Debug/Release inherited state/reference/NNUE/undo/null passed:1318563 legal
+queries,9338 undo states,2283 nulls,81210 reconstructions per build. Inherited
+SEE56798 exchanges/795172 thresholds and177911 capture transactions per build.
+New tests per build:25769 positions,335 threats,61834 reference captures,13227
+children,670 full pickers,51538 exact NNUE checks and1162 EP positions.
+Independent Chess.com:315 positions,616 legal lists,307 predicates,622 captures,
+871 exchange plies. Eight terminal capture exchanges are explicitly excluded
+from the restricted local SEE objective, never zero-filled. EP positions remain
+covered by C++ references and are omitted from the independent FEN exporter.
+24 depth-one quiet responses passed per build, cold/warm TT,T1/T2,both colors;
+independent PVs passed48 plies. Inherited exchange/capture/forced searches,
+32 ordinary searches/301 independent plies and native UCI/CECP passed.
+Five CI jobs41203837347 passed atcc8b29d87b57f04d8f7e33830fc9053d9c853a75,
+src identical to frozen source. No strength conclusion follows from these checks.
+
+Preserved failures001/002/003: Windows state-file replacement sharing violation;
+incorrect cold-cache test boundary and test SharedHistories lifetime at exit;
+a frozen auditor import rejected before child launch and restored byte-exact;
+a promotion fixture that illegally checked the opposite king. Original CI runs
+41203280523/41203644788 and failed continuation states remain preserved.
+The original build-state write failed, so its prior state and FAILED .tmp are
+retained. Only Release state with unobserved exit code and corrected new tests
+were repeated. Engine, competition binary and network never changed.
+development-validation-004 is READY_FOR_PANEL_REVIEW; completed validations
+must not be rebuilt or repeated.76 development identities have proved exits.
+
+Panel .local/points-threat-evasion-panel-001; session56438. Controller27884/
+creation_filetime134379257252539175; launcher32640/134379257254962746;
+real panel25056/134379257255203435. Verify PID+CreationDate, never PID alone or
+access denial as exit. Use .local/points-threat-evasion-v1/monitor_panel.py and
+.local/points-threat-evasion-followup.json; never duplicate, restart or change
+active inputs.289 frozen inputs,11 panel hashes and7 dependencies passed;
+preflight9349484544 bytes free exceeded7583301632 with concurrency4 fixed.
+Atomic launch-handle/Python-start journal and fast-child reuse tests passed.
+
+Same40/400 VSTC2+0.02/STC10+0.1/LTC30+0.3,T1/Hash512. Displayed LOS100.0%/0.0%
+requires draining pending pairs and rechecking; continue within cap if lost.
+Cap without boundary is NEUTRAL_SCREEN, never equivalence or statistical LOSS.
+Run all three unless owner/delegated early neutral or clearly losing rejection.
+Only three audited wins plus full distribution/interfaces allow promotion.
+PR18 stays champion; its historical manual exception is not inherited.
+Lease remains owned until decision and proven exits of every owned process.
+Final original audits must reconcile all pairs/colors/stats/referee logs/hashes,
+processes.json exact CreationDates and journal identities, then preserve inputs,
+raw inventory and audits. No access failure is an exit proof. Controller must
+finish PANEL_COMPLETE_AWAITING_AUDIT with panel_exit_code0 and no children.
+Manual STOP requires separate audit and preserves the original auditor rejection.
+Report all-three-TC tables on start/closure, changed decision/failure or200 new
+games; read last_reported counters first and update only when reporting.
+Follow-up petrified-respuestas-amenazas-y-panel. No automatic successor.
+
+PR22 is PARKED_MANUAL_OWNER, outside the OpenBench queue, with its full original
+neutral results and closure preserved. PR21 stays parked. PR9/12/13/15/16/19/20
+remain separately retained; PR17 standalone remains excluded. Both Fairyground
+profiles are closed/preserved; T8 manually paused. No OpenBench workloads,
+AtomicDB, remote workers, other applications or Misere activity.
+
+The entries below preserve prior stages and cannot restart closed panels.
+
 PR22 points-quiet-threats-v1 is PARKED_MANUAL_OWNER by the owner on2026-10-31.
 Its completed neutral panel, original raw results and closure audits below remain
 unchanged. The released lease, closed processes and deleted follow-up stay closed;
