@@ -770,6 +770,31 @@
     },
     "STC": {
       "control": "STC",
+      "status": "LOSS",
+      "scores": [
+        5,
+        39,
+        2
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        16,
+        2,
+        5,
+        0,
+        0
+      ],
+      "statistics": "Total: 46 W: 5 L: 39 D: 2 ELO: -329.56 +-172.1 (95%) LOS: 0.0%",
+      "completed_pairs": 23,
+      "elapsed_seconds": 463.406
+    },
+    "LTC": {
+      "control": "LTC",
       "status": "RUNNING",
       "scores": [
         0,
@@ -779,23 +804,59 @@
       "time_losses": [
         0,
         0
-      ]
-    },
-    "LTC": {
-      "control": "LTC",
-      "status": "PENDING",
-      "scores": [
-        0,
-        0,
-        0
       ],
-      "time_losses": [
-        0,
-        0
-      ]
+      "minimum_games": 40,
+      "maximum_games": 400
     }
   },
   "promotion_eligible": false,
   "selection": "PROMOTION_INELIGIBLE_PENDING_FULL_PANEL_AUDIT",
-  "automation_id": "petrified-liquidaciones-y-panel"
+  "automation_id": "petrified-liquidaciones-y-panel",
+  "auxiliary_cost_observation": {
+    "result": "PASS",
+    "checked_utc": "2026-10-31T23:09:42.922747+00:00",
+    "control": "VSTC",
+    "games": 46,
+    "candidate": {
+      "searches": 4112,
+      "with_depth": 4112,
+      "median": {
+        "depth": 13.0,
+        "seldepth": 21.0,
+        "nodes": 37235.5,
+        "nps": 1186383.0,
+        "time": 23.0
+      },
+      "reported_total_nodes": 221540797
+    },
+    "PR18": {
+      "searches": 4123,
+      "with_depth": 4117,
+      "median": {
+        "depth": 14,
+        "seldepth": 21,
+        "nodes": 35615,
+        "nps": 1174000,
+        "time": 23
+      },
+      "reported_total_nodes": 224562083
+    },
+    "limits": "Descriptive across the played games, not a matched-position causal experiment. Candidate remains frozen."
+  },
+  "auxiliary_tool_session_shell": {
+    "checked_utc": "2026-10-31T23:11:07.257919+00:00",
+    "session_id": 41625,
+    "process": {
+      "pid": 38644,
+      "creation_filetime": 134379613089383855,
+      "creation_utc": "2026-10-31T23:01:48.938385+00:00"
+    },
+    "controller": {
+      "pid": 31184,
+      "creation_filetime": 134379613091731200,
+      "creation_utc": "2026-10-31T23:01:49.173120+00:00"
+    },
+    "source": "Controller startup atomic parent_pid, parent creation captured live before controller exits",
+    "note": "Ancestor is kept outside the child journal until controller completion so cleanup cannot wait on its own waiting shell."
+  }
 }

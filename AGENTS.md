@@ -1,3 +1,16 @@
+PR25 VSTC and STC have closed at46 games/23 complete reversed-color pairs each:
+VSTC7/38/1,-284.16+/-153.7 Elo95%,LOS0.0%,time0/0;
+STC5/39/2,-329.56+/-172.1 Elo95%,LOS0.0%,time0/0.
+Both raw LOSS results await final independent audit. Promotion is ineligible;
+PR18 stays champion. LTC is ACTIVE in the same frozen panel. Complete it without
+relaunch/tuning/input changes; lease still owned and all final audits required.
+Session shell38644/creation_filetime134379613089383855 was captured live. It is
+an ancestor, intentionally outside child cleanup until controller/session exit;
+closure_audit_001.py then verifies and journals it. Preparation helpers for normal
+closure and statistics/packaging are present in the task folder; do not run them
+before actual panel/session exit. No successor or training authorized.
+All earlier restrictions below apply; older stages cannot restart workloads.
+
 PR25 VSTC closed at46 games/23 complete reversed-color pairs:7/38/1,
 -284.16+/-153.7 Elo95%,LOS0.0%,time0/0,raw LOSS pending final independent audit.
 Automatic promotion is ineligible. Continue STC and LTC in the SAME frozen panel;
