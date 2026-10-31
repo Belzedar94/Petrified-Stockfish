@@ -1,0 +1,696 @@
+{
+  "schema": "petrified-points-experiment-v1",
+  "id": "points-wall-ft-v1",
+  "status": "REJECTED_NEUTRAL_MANUAL",
+  "owner_authorization": "Las ideas buenas las veras claras como en el pr 7, si ya ves que son neutras o claramente perdedoras, puedes adjudicar antes, lo dejo a tu criterio. Ponte con la siguiente gran idea",
+  "hypothesis": "Adapt only petrified-square transformer features, retaining the winning PR #7 dense head and all live-piece features, PSQT, biases, search and rules.",
+  "qualified_base_commit": "5c31333762a41609a410fd2db71a190b6fd73679",
+  "branch": "exp/points-wall-ft-v1",
+  "champion": {
+    "name": "PointsHead v1 winner of PR #7",
+    "binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "bench": 177290
+  },
+  "recipe": {
+    "source_data": ".local/points-head-v2/prepared",
+    "data_sha256": "b2084df0386d562042d84bda8305abe0df28a9a1231d350d273713c2169004aa",
+    "rows_train_validation_test": [
+      62241,
+      5665,
+      5494
+    ],
+    "provenance": "57840 positions from 1024 v1 games at 32768 nodes plus 15560 rows exclusively from old training; two censored games preserved and excluded",
+    "prior_data_audits": [
+      ".local/points-head-v2/data-audit.json",
+      ".local/points-head-v2/split-audit.json"
+    ],
+    "holdout_limitation": "Reuses the v2 holdout; not a fresh external generalization test. No v2 weights or match records enter training.",
+    "initial_network": "Exact qualified v1",
+    "trainable": "4096x512 int16 wall deltas, initialized zero, QAT bounded [-8,+8]",
+    "frozen": [
+      "all original run4test bytes",
+      "dense heads from PR #7",
+      "live-piece feature weights",
+      "transformer biases",
+      "PSQT",
+      "score inputs",
+      "rules",
+      "search"
+    ],
+    "seed": 29102904,
+    "epochs": 24,
+    "batch_size": 512,
+    "optimizer": "Adam",
+    "learning_rate": 0.04,
+    "schedule": "0.04*(0.15+0.85*(1+cos(pi*epoch/24))/2), zero-based epoch",
+    "gradient_clip": 1.0,
+    "loss": "BCE(pred/600,0.5*result+0.5*sigmoid(teacher/600)) + 0.001*mean(((pred-v1)/600)^2) + 0.0001*mean((delta/8)^2)",
+    "selection": "One GPU run; lowest validation blend loss; test loss after selection; never tune from panel",
+    "gpu": "Local RTX 3080",
+    "format": "PTWF0001"
+  },
+  "panel": {
+    "directory": ".local/points-wall-ft-panel-001",
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "threads": 1,
+    "hash_mib": 512,
+    "concurrency": 4,
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "boundary": "Displayed LOS 100.0%/0.0%; finish pending pairs and recheck, resume within cap if boundary lost",
+    "at_cap": "NEUTRAL_SCREEN for selection, not statistical equivalence",
+    "early_rejection": "Owner delegates manual neutral or clear loss adjudication before cap or remaining TCs; preserve raw stats and incomplete pairs, document reason",
+    "promotion": "Only three valid WIN controls, independent referee/pair/hash/process audits and finished distribution/interfaces",
+    "referee": "Hash-pinned independent Chess.com client through audit adapter"
+  },
+  "constraints": {
+    "candidate_count": 1,
+    "t8": "Manually paused; never restart",
+    "misere": "Paused by owner; do not contact",
+    "remote_workers_atomicdb_openbench": "Do not touch",
+    "rejected_artifacts": "Preserve",
+    "release": "Only after final decision and exit of all owned processes"
+  },
+  "source_commit": "cc99c289e7e3472a66833d4385781453953f7520",
+  "pull_request": "https://github.com/Belzedar94/Petrified-Stockfish/pull/10",
+  "runtime": {
+    "controller": {
+      "pid": 43560,
+      "creation_filetime": 134377500229962967,
+      "creation_utc": "2026-10-29T12:20:22.996296+00:00"
+    },
+    "session_id": 64107,
+    "manifest": ".local/points-wall-ft-v1/execution-manifest.json",
+    "state": "CLOSED_NEUTRAL_MANUAL",
+    "process_identities": ".local/points-wall-ft-v1/owned-process-identities.json",
+    "panel_controller": {
+      "pid": 33600,
+      "creation_filetime": 134377503497356767,
+      "creation_utc": "2026-10-29T12:25:49.735678+00:00"
+    },
+    "panel_launcher": {
+      "pid": 30448,
+      "creation_filetime": 134377503502192502,
+      "creation_utc": "2026-10-29T12:25:50.219250+00:00"
+    },
+    "real_panel_process": {
+      "pid": 29704,
+      "creation_filetime": 134377503502431778,
+      "creation_utc": "2026-10-29T12:25:50.243177+00:00"
+    },
+    "panel_session": 19832,
+    "execution_inputs": 66,
+    "released": true,
+    "process_exit_evidence": ".local/points-wall-ft-v1/final-process-exit.json",
+    "next_experiment_authorized": false,
+    "released_utc": "2026-10-29T12:34:31.001744+00:00",
+    "automation_state": "DELETED",
+    "pull_request_state": "CLOSED"
+  },
+  "implementation_incidents": [
+    {
+      "phase": "PREPARE",
+      "training_started": false,
+      "resolution": "Materialize unchanged NPZ arrays once; stopped identified preparation child, preserved original attempt and source. No recipe changes.",
+      "evidence": ".local/points-wall-ft-v1/preparation-performance-001",
+      "fix_commit": "cc99c289e7e3472a66833d4385781453953f7520"
+    }
+  ],
+  "candidate": {
+    "binary": ".local/points-wall-ft-v1-inputs/petrified-points-wall-ft-v1-bmi2.exe",
+    "network": ".local/points-wall-ft-v1-inputs/candidate.pnnue",
+    "binary_sha256": "ab692114075eaeb9eccf39d61c7c69c3fc056f385f97b5738b61cb80a454df28",
+    "network_sha256": "9cabd888091a438deca44fae63f2e8f2f59879e4db9802c63b47b97c513b7fea",
+    "points_bench": [
+      200629,
+      200629
+    ]
+  },
+  "validation": {
+    "result": "PASS",
+    "report": ".local/points-wall-ft-v1/validation-report.json",
+    "integer_positions": 392,
+    "state_positions_debug_release": 9338,
+    "invalid_file_cases": 11,
+    "source_ci": {
+      "source_commit": "cc99c289e7e3472a66833d4385781453953f7520",
+      "run_id": 40872445476,
+      "result": "PASS",
+      "jobs": [
+        {
+          "id": 123442670559,
+          "name": "rules (ubuntu-latest, Release)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 123442670754,
+          "name": "rules (windows-latest, Debug)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 123442670831,
+          "name": "rules (windows-latest, Release)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 123442670839,
+          "name": "rules (ubuntu-latest, Debug)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 123442670868,
+          "name": "sanitizers",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  },
+  "training": {
+    "schema": "points-wall-training-v1",
+    "device": "NVIDIA GeForce RTX 3080",
+    "torch": "2.7.1+cu118",
+    "cuda": "11.8",
+    "seconds": 51.67,
+    "rows": [
+      62241,
+      5665,
+      5494
+    ],
+    "selected_epoch": 6,
+    "epochs": 24,
+    "seed": 29102904,
+    "trainable_parameters": 2097152,
+    "head_frozen": true,
+    "live_features_frozen": true,
+    "psqt_frozen": true,
+    "delta_bound": 8,
+    "delta_min": -8,
+    "delta_max": 8,
+    "nonzero_deltas": 1035991,
+    "initial_all_rows_identity": "EXACT",
+    "validation": {
+      "candidate_blend_loss": 0.4443218410015106,
+      "baseline_blend_loss": 0.44626283645629883,
+      "candidate_result_loss": 0.39576172828674316,
+      "baseline_result_loss": 0.4001198709011078
+    },
+    "test": {
+      "candidate_blend_loss": 0.43131712079048157,
+      "baseline_blend_loss": 0.4317799210548401,
+      "candidate_result_loss": 0.3863673508167267,
+      "baseline_result_loss": 0.38763800263404846
+    },
+    "qat_integer_mismatches": 0,
+    "sha256": "9cabd888091a438deca44fae63f2e8f2f59879e4db9802c63b47b97c513b7fea",
+    "champion_network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "history": [
+      {
+        "epoch": 1,
+        "lr": 0.04,
+        "candidate_blend_loss": 0.4454270303249359,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.3986525535583496,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 2,
+        "lr": 0.03985456264335478,
+        "candidate_blend_loss": 0.44488975405693054,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.39766374230384827,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 3,
+        "lr": 0.03942073904691416,
+        "candidate_blend_loss": 0.44457191228866577,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.39686843752861023,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 4,
+        "lr": 0.03870595205269188,
+        "candidate_blend_loss": 0.44444525241851807,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.39641809463500977,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 5,
+        "lr": 0.03772243186433546,
+        "candidate_blend_loss": 0.4443885087966919,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.3961000442504883,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 6,
+        "lr": 0.036487006784951,
+        "candidate_blend_loss": 0.4443218410015106,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.39576172828674316,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 7,
+        "lr": 0.03502081528017131,
+        "candidate_blend_loss": 0.4443729817867279,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.39565664529800415,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 8,
+        "lr": 0.033348944293148254,
+        "candidate_blend_loss": 0.4444369375705719,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.3955393433570862,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 9,
+        "lr": 0.0315,
+        "candidate_blend_loss": 0.44462910294532776,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.3957391381263733,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 10,
+        "lr": 0.029505618350206528,
+        "candidate_blend_loss": 0.44464656710624695,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.3956376910209656,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 11,
+        "lr": 0.027399923766742853,
+        "candidate_blend_loss": 0.4447452127933502,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.3956771790981293,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 12,
+        "lr": 0.02521894526774088,
+        "candidate_blend_loss": 0.4447602927684784,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.3956051170825958,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 13,
+        "lr": 0.023,
+        "candidate_blend_loss": 0.4448620080947876,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.3957003951072693,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 14,
+        "lr": 0.02078105473225912,
+        "candidate_blend_loss": 0.4448936879634857,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.3956732153892517,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 15,
+        "lr": 0.01860007623325715,
+        "candidate_blend_loss": 0.44488590955734253,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.39559516310691833,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 16,
+        "lr": 0.01649438164979348,
+        "candidate_blend_loss": 0.44495251774787903,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.3956396281719208,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 17,
+        "lr": 0.014500000000000002,
+        "candidate_blend_loss": 0.444940447807312,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.39557817578315735,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 18,
+        "lr": 0.012651055706851749,
+        "candidate_blend_loss": 0.4449767768383026,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.3955949544906616,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 19,
+        "lr": 0.010979184719828693,
+        "candidate_blend_loss": 0.4449973404407501,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.39558708667755127,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 20,
+        "lr": 0.009512993215049004,
+        "candidate_blend_loss": 0.4450119435787201,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.39560312032699585,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 21,
+        "lr": 0.008277568135664541,
+        "candidate_blend_loss": 0.44498828053474426,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.39553865790367126,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 22,
+        "lr": 0.007294047947308126,
+        "candidate_blend_loss": 0.44501546025276184,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.39557361602783203,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 23,
+        "lr": 0.00657926095308584,
+        "candidate_blend_loss": 0.4450376629829407,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.39560192823410034,
+        "baseline_result_loss": 0.4001198709011078
+      },
+      {
+        "epoch": 24,
+        "lr": 0.006145437356645224,
+        "candidate_blend_loss": 0.4450501501560211,
+        "baseline_blend_loss": 0.44626283645629883,
+        "candidate_result_loss": 0.395611047744751,
+        "baseline_result_loss": 0.4001198709011078
+      }
+    ],
+    "meaning": "Validation loss selects one epoch; strength requires the independent three-control panel"
+  },
+  "decision": {
+    "decision": "NEUTRAL_MANUAL",
+    "authority": "Agent under explicit owner early-adjudication delegation",
+    "reason": "Screen for large Elo improvements comparable to PR7. VSTC has exceeded minimum40 and remains slightly behind; at the decision observation 90 games were 39/47/4, -30.96 +/-71.3, LOS19.3%. No large positive signal. Reject for selection under delegated discretion; not equivalence or automatic LOS loss. Preserve actual final paired statistics.",
+    "raw_statistics_unchanged": true,
+    "not_statistical_equivalence": true,
+    "promotion_eligible": false,
+    "champion_unchanged": true
+  },
+  "raw_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INTERRUPTED",
+      "scores": [
+        43,
+        52,
+        5
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        15,
+        3,
+        19,
+        2,
+        11
+      ],
+      "statistics": "Total: 100 W: 43 L: 52 D: 5 ELO: -31.35 +-67.4 (95%) LOS: 17.7%",
+      "completed_pairs": 50,
+      "elapsed_seconds": 234.234,
+      "error": "Panel stopped"
+    },
+    "STC": {
+      "control": "STC",
+      "status": "NOT_RUN",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ]
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "NOT_RUN",
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ]
+    }
+  },
+  "control_audits": {
+    "VSTC": {
+      "result": "PASS",
+      "games": 100,
+      "complete_pairs": 50,
+      "scores": [
+        43,
+        52,
+        5
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "pentanomial": [
+        15,
+        3,
+        19,
+        2,
+        11
+      ],
+      "independent_plies": 19325,
+      "independent_terminals": "all matched",
+      "complete_pair_ids": [
+        "pair-0000",
+        "pair-0001",
+        "pair-0002",
+        "pair-0003",
+        "pair-0004",
+        "pair-0005",
+        "pair-0006",
+        "pair-0007",
+        "pair-0008",
+        "pair-0009",
+        "pair-0010",
+        "pair-0011",
+        "pair-0012",
+        "pair-0013",
+        "pair-0014",
+        "pair-0015",
+        "pair-0016",
+        "pair-0017",
+        "pair-0018",
+        "pair-0019",
+        "pair-0020",
+        "pair-0021",
+        "pair-0022",
+        "pair-0023",
+        "pair-0024",
+        "pair-0025",
+        "pair-0026",
+        "pair-0027",
+        "pair-0028",
+        "pair-0029",
+        "pair-0030",
+        "pair-0031",
+        "pair-0032",
+        "pair-0033",
+        "pair-0034",
+        "pair-0035",
+        "pair-0036",
+        "pair-0037",
+        "pair-0038",
+        "pair-0039",
+        "pair-0040",
+        "pair-0041",
+        "pair-0042",
+        "pair-0043",
+        "pair-0044",
+        "pair-0045",
+        "pair-0046",
+        "pair-0047",
+        "pair-0048",
+        "pair-0049"
+      ],
+      "incomplete_pairs_preserved": [
+        {
+          "pair": "pair-0050",
+          "referee_groups": 2,
+          "recorded_moves_per_group": [
+            310,
+            55
+          ]
+        },
+        {
+          "pair": "pair-0051",
+          "referee_groups": 2,
+          "recorded_moves_per_group": [
+            73,
+            192
+          ]
+        },
+        {
+          "pair": "pair-0052",
+          "referee_groups": 2,
+          "recorded_moves_per_group": [
+            163,
+            11
+          ]
+        },
+        {
+          "pair": "pair-0053",
+          "referee_groups": 1,
+          "recorded_moves_per_group": [
+            0
+          ]
+        }
+      ],
+      "unpaired_completed_games_excluded": [
+        {
+          "pair": "pair-0050",
+          "color": "white",
+          "candidate_score": 1,
+          "result": "1-0",
+          "points": [
+            34,
+            22
+          ],
+          "termination": "50-move-rule",
+          "independent_plies": 326,
+          "reason": "Incomplete reversed-color pair; preserved and excluded irrespective of result"
+        },
+        {
+          "pair": "pair-0051",
+          "color": "white",
+          "candidate_score": 1,
+          "result": "1-0",
+          "points": [
+            36,
+            10
+          ],
+          "termination": "Checkmate \u2022 1-0",
+          "independent_plies": 89,
+          "reason": "Incomplete reversed-color pair; preserved and excluded irrespective of result"
+        },
+        {
+          "pair": "pair-0052",
+          "color": "white",
+          "candidate_score": 1,
+          "result": "1-0",
+          "points": [
+            35,
+            14
+          ],
+          "termination": "Checkmate \u2022 1-0",
+          "independent_plies": 179,
+          "reason": "Incomplete reversed-color pair; preserved and excluded irrespective of result"
+        }
+      ],
+      "raw_result_sha256": "12c4ed866b742c7c72b954779348a4a3e1562b5937a119999960d46c2e554ec4",
+      "raw_status": "INTERRUPTED",
+      "raw_statistics": "Total: 100 W: 43 L: 52 D: 5 ELO: -31.35 +-67.4 (95%) LOS: 17.7%"
+    },
+    "STC": {
+      "result": "NOT_RUN",
+      "games": 0,
+      "complete_pairs": 0,
+      "independent_plies": 0,
+      "incomplete_pairs_preserved": [],
+      "unpaired_completed_games_excluded": []
+    },
+    "LTC": {
+      "result": "NOT_RUN",
+      "games": 0,
+      "complete_pairs": 0,
+      "independent_plies": 0,
+      "incomplete_pairs_preserved": [],
+      "unpaired_completed_games_excluded": []
+    }
+  },
+  "closure_audit": {
+    "schema": "points-wall-ft-manual-closure-v1",
+    "result": "PASS",
+    "checked_utc": "2026-10-29T12:30:44.741439+00:00",
+    "games_in_complete_pairs": 100,
+    "complete_pairs": 50,
+    "independent_plies": 19325,
+    "incomplete_pairs_preserved": 4,
+    "unpaired_completed_games_excluded": 3,
+    "manifest_inputs_verified": {
+      "execution": 66,
+      "panel": 12,
+      "dependencies": 7
+    },
+    "raw_panel_files_preserved": 604,
+    "raw_inventory_sha256": "33d8d73830f096b171cbc2b01743b3e24ebccdb4a0bfb4644d2dbe4a63b273e6",
+    "process_identities_checked": 165,
+    "same_owned_processes_alive": [],
+    "raw_controller_status": "FAILED following requested STOP; expected interruption, not an engine failure",
+    "interpretation": "Agent adjudicates whole experiment NEUTRAL_MANUAL under owner delegation, for selection only. Actual LOS remains the measured value. No statistical equivalence or automatic loss claimed; STC/LTC not run.",
+    "promotion_eligible": false,
+    "champion_after": "PointsHead v1, winner of PR7; Bench177290"
+  },
+  "preservation": {
+    "source_archive": ".local/points-wall-ft-v1/source.tar",
+    "network_checkpoint_data": "Candidate network, model.pt, prepared arrays, original source data, all manifests/logs preserved",
+    "raw_panel": ".local/points-wall-ft-panel-001",
+    "inventory": ".local/points-wall-ft-v1/closed-panel-files.json",
+    "branch_retained": "exp/points-wall-ft-v1"
+  },
+  "closure_receipts": {
+    "pull_request": {
+      "number": 10,
+      "state": "closed",
+      "merged": false,
+      "closed_at": "2026-10-29T12:33:30Z",
+      "url": "https://github.com/Belzedar94/Petrified-Stockfish/pull/10",
+      "head_sha": "08b1271e5f20648912fcc1628b50a830ef629440",
+      "closure_commit": "08b1271e"
+    },
+    "automation": ".local/points-wall-ft-v1/automation-deletion.json",
+    "lease": ".local/points-wall-ft-v1/machine-lease-released.json",
+    "processes": ".local/points-wall-ft-v1/final-process-exit.json"
+  },
+  "final_baseline": {
+    "name": "PR #7 PointsHead v1 + winning-mate-r2",
+    "qualified_source_commit": "5c31333762a41609a410fd2db71a190b6fd73679",
+    "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+    "binary_sha256": "547cf3c78248660b303c3f56b2fd52869303d1c969059b0e21012def8213fa87",
+    "points_bench": 177290
+  }
+}

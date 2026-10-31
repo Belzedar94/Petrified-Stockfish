@@ -1,0 +1,333 @@
+diff --git a/src/html/index.html b/src/html/index.html
+index cca7953..b43b11e 100644
+--- a/src/html/index.html
++++ b/src/html/index.html
+@@ -98,6 +98,7 @@
+     <script src="./lib/stockfish.js"></script>
+     <script src="./lib/mithril.min.js"></script>
+     <script src="./lib/BinaryEngineFeature.js"></script>
++    <script src="./lib/PetrifiedLocalFeature.js"></script>
+     <script src="./lib/SavedGamesParsingFeature.js"></script>
+     <script>
+       //For quick access (Shortening the name)
+@@ -2142,7 +2143,7 @@
+           for (i = 0; i < fge.WebSocketReconnectionTime; i++) {
+             try {
+               fge.WebSocketStatus = "CONNECTING";
+-              fge.ws = new WebSocket("ws://localhost:" + port.toString());
++              fge.ws = new WebSocket("ws://127.0.0.1:" + port.toString());
+ 
+               fge.ws.addEventListener("open", function (event) {
+                 fge.ws.send(`CONNECT\x10${checkconnectionnumber}`);
+@@ -2291,7 +2292,7 @@
+           }
+         };
+ 
+-        if (window.location.hostname == "localhost") {
++        if (["localhost", "127.0.0.1"].includes(window.location.hostname)) {
+           connectToWebSocketServer(wsport);
+         } else {
+           console.log(
+@@ -2800,6 +2801,18 @@
+           white_engine_ponder_and_human_black,
+           black_engine_ponder_and_human_white,
+         ) => {
++          if (
++            fge.GetCurrentVariantID() === "petrified" &&
++            [fge.first_engine, fge.second_engine, fge.analysis_engine].some(
++              (engine) => !engine?.IsLoaded || !engine.IsUsing,
++            )
++          ) {
++            const status = document.getElementById("petrified-native-status");
++            if (status)
++              status.textContent =
++                "Petrified-Stockfish no está conectado. Espera a que cargue o reinicia Fairyground.";
++            return;
++          }
+           if (board_setup_mode) {
+             return;
+           }
+@@ -3015,17 +3028,35 @@
+                     analysisengineoutput.textContent = "";
+                     analysis_engine_output = "";
+                   }
++                  const native = fge.analysis_engine;
++                  if (fge.GetCurrentVariantID() === "petrified") {
++                    const settings = {
++                      Threads: threadnum,
++                      Hash: hashsize,
++                      MultiPV: multipleprincipalvariation,
++                    };
++                    const previous = native.PetrifiedAnalysisSettings || {};
++                    for (const [name, value] of Object.entries(settings)) {
++                      if (previous[name] !== value)
++                        native.SetOption(name, value);
++                    }
++                    native.PetrifiedAnalysisSettings = settings;
++                  }
+                   fge.analysis_engine.IsAnalysisEngine = true;
+                   fge.analysis_engine.StartThinking(
+                     stm,
+-                    true,
++                    !(
++                      Number(depth) > 0 ||
++                      Number(movetime) > 0 ||
++                      Number(nodes) > 0
++                    ),
+                     false,
+                     false,
+                     false,
+                     false,
+-                    -1,
+-                    -1,
+-                    -1,
++                    Number(depth) || -1,
++                    Number(movetime) || -1,
++                    Number(nodes) || -1,
+                     wtime,
+                     winc,
+                     btime,
+@@ -4513,7 +4544,7 @@
+           movetime: 2,
+         };
+         const game_black = {
+-          player: "fsf",
++          player: "ext",
+           mode: "movetime",
+           depth: 8,
+           nodes: 4,
+@@ -5483,10 +5514,8 @@
+           1,
+           Math.min(32, navigator.hardwareConcurrency || 1),
+         );
+-        let engine_threads = window.crossOriginIsolated
+-          ? Math.max(1, Math.min(4, Math.floor(maxThreads / 2)))
+-          : 1;
+-        let engine_hash_index = 2; // 16 MB
++        let engine_threads = 1;
++        let engine_hash_index = 5; // 128 MB, matching the native profile
+         let engine_multipv = 1;
+         let engine_skill = 20;
+         // Search limits; the last slider position means "no limit".
+@@ -6722,7 +6751,7 @@
+               ]),
+               m("p#positioninfo", ""),
+               m("p#checkcounts"),
+-              m("p#label-pgn"),
++              m("p#label-pgn", { onbeforeupdate: () => false }),
+               m(
+                 "div#pgn-operation-container.pgntools",
+                 { hidden: !advanced_pgn_mode },
+@@ -7001,7 +7030,12 @@
+             [
+               m("div.subsection", [
+                 m("div.secthead", [
+-                  m("span.sect", "Fairy-Stockfish · analysis"),
++                  m(
++                    "span.sect",
++                    currentVariantId() === "petrified"
++                      ? "Petrified-Stockfish + run4test · analysis"
++                      : "Fairy-Stockfish · analysis",
++                  ),
+                   m("input[type=checkbox]#analysis", {
+                     hidden: true,
+                     checked: analysis_mode,
+@@ -7029,7 +7063,7 @@
+                     (value) => {
+                       engine_threads = value;
+                     },
+-                    "Parallel search threads of in browser Fairy-Stockfish.",
++                    "Parallel search threads of the analysis engine.",
+                   ),
+                   sliderRow(
+                     "Memory",
+@@ -7087,21 +7121,29 @@
+ 
+                 m(
+                   "p.hint",
+-                  'These settings apply to the engine analysis. Players, strength and time control of a game are chosen in "New game".',
++                  currentVariantId() === "petrified"
++                    ? "run4test cargada automáticamente. Lines, Threads, Memory y los límites controlan Petrified-Stockfish. Tras cambiar un valor, desactiva y reactiva Engine analysis para aplicarlo."
++                    : 'These settings apply to the engine analysis. Players, strength and time control of a game are chosen in "New game".',
++                ),
++                m(
++                  "div.filerow",
++                  {
++                    hidden: during_play || currentVariantId() === "petrified",
++                  },
++                  [
++                    m("span.filename", [
++                      "NNUE network file ",
++                      helpButton(
++                        "You can upload a Fairy-Stockfish compatible .nnue file. Downloads: https://fairy-stockfish.github.io/nnue/#current-best-nnue-networks.",
++                      ),
++                    ]),
++                    m("input", {
++                      type: "file",
++                      disabled: !is_ready,
++                      onchange: onSelectNnueFile,
++                    }),
++                  ],
+                 ),
+-                m("div.filerow", { hidden: during_play }, [
+-                  m("span.filename", [
+-                    "NNUE network file ",
+-                    helpButton(
+-                      "You can upload a Fairy-Stockfish compatible .nnue file. Downloads: https://fairy-stockfish.github.io/nnue/#current-best-nnue-networks.",
+-                    ),
+-                  ]),
+-                  m("input", {
+-                    type: "file",
+-                    disabled: !is_ready,
+-                    onchange: onSelectNnueFile,
+-                  }),
+-                ]),
+                 ,
+                 m("div.hiddeninputs", [
+                   m("input[type=number]#depth", {
+diff --git a/src/js/BinaryEngineFeature.js b/src/js/BinaryEngineFeature.js
+index 6468ad5..208e4a4 100644
+--- a/src/js/BinaryEngineFeature.js
++++ b/src/js/BinaryEngineFeature.js
+@@ -1917,7 +1917,7 @@ class Engine {
+     this.IsThinking = true;
+     this.RecordedMultiplePrincipalVariation = 0;
+     let CurrentPlayerColor = CurrentPlayer.toUpperCase();
+-    if (this.IsAnalysisEngine || IsInfinite) {
++    if (IsInfinite) {
+       this.PostMessage("go infinite");
+     } else if (IsAdvancedTimeControl) {
+       let cmd = "";
+diff --git a/src/js/main.js b/src/js/main.js
+index 73f2f7e..fa4d203 100644
+--- a/src/js/main.js
++++ b/src/js/main.js
+@@ -7095,6 +7095,8 @@ function updatePGNDivisionTimeoutCheck() {
+ }
+ 
+ function updatePGNDivision(forceupdate = false) {
++  const labelPgn = document.getElementById("label-pgn");
++  if (!labelPgn) return;
+   if (
+     forceupdate ||
+     Date.now() - PgnDivThrottleStartTime > PgnDivThrottleDurationMs
+diff --git a/src/js/server.js b/src/js/server.js
+index 6544b95..f6c54bc 100644
+--- a/src/js/server.js
++++ b/src/js/server.js
+@@ -9,7 +9,23 @@ const PathSplitterMatcher = new RegExp("/", "g");
+ const JSONSplitterMatcher = new RegExp("(?<=\\:|\\;|\\,)", "g");
+ const OutputDirectory = "/public";
+ 
+-let port = 5015;
++const port = 5185;
++const bindHost = "127.0.0.1";
++const stopToken = require("crypto").randomBytes(24).toString("hex");
++fs.writeFileSync(
++  ".petrified-control.json",
++  JSON.stringify({
++    pid: process.pid,
++    port,
++    token: stopToken,
++    started: new Date().toISOString(),
++  }),
++);
++app.post("/petrified-stop", (req, res) => {
++  if (req.get("x-petrified-stop") !== stopToken) return res.sendStatus(403);
++  res.json({ stopping: true });
++  setTimeout(shutdownPetrified, 100);
++});
+ 
+ console.log("============================================");
+ console.log("             SECURITY WARNING");
+@@ -181,7 +197,7 @@ app.all("/", function (req, res) {
+   res.redirect(`${OutputDirectory}/index.html`);
+ });
+ 
+-const httpserver = app.listen(port, function () {
++const httpserver = app.listen(port, bindHost, function () {
+   let host = httpserver.address().address;
+   let port = httpserver.address().port;
+   console.log("=======================================");
+@@ -207,9 +223,20 @@ function heartbeat() {
+   this.isAlive = true;
+ }
+ 
+-const wss = new WebSocketServer({ port: port + 1 }, () => {
+-  console.log("[WebSocket Server] Server is up at ws://localhost:%s", port + 1);
+-});
++const wss = new WebSocketServer(
++  {
++    port: port + 1,
++    host: bindHost,
++    verifyClient: ({ origin }) =>
++      ["http://127.0.0.1:5185", "http://localhost:5185"].includes(origin),
++  },
++  () => {
++    console.log(
++      "[WebSocket Server] Server is up at ws://localhost:%s",
++      port + 1,
++    );
++  },
++);
+ 
+ var ClientEngines = new Map();
+ var ConnectingClients = new Set();
+@@ -355,7 +382,9 @@ class Engine {
+       this.WebSocketOnSocketInvalidHandlerBinded,
+     );
+     if (os.type() == "Windows_NT") {
+-      spawn("taskkill", ["/pid", this.Process.pid, "/f", "/t"]);
++      spawn("taskkill", ["/pid", this.Process.pid, "/f", "/t"], {
++        windowsHide: true,
++      });
+     } else {
+       spawn("kill", ["-9", this.Process.pid]);
+     }
+@@ -394,9 +423,15 @@ class Engine {
+     this.IsLoaded = false;
+     this.LoadFinishCallBack = LoadFinishCallBack;
+     this.LoadFailureCallBack = LoadFailureCallBack;
+-    if (os.type() == "Windows_NT") {
++    if (os.type() == "Windows_NT" && fs.existsSync(this.Command)) {
++      this.Process = spawn(this.Command, [], {
++        cwd: this.WorkingDirectory,
++        windowsHide: true,
++      });
++    } else if (os.type() == "Windows_NT") {
+       this.Process = spawn("cmd.exe", ["/C", this.Command], {
+         cwd: this.WorkingDirectory,
++        windowsHide: true,
+       });
+     } else if (os.type() == "Darwin" || os.type() == "Linux") {
+       this.Process = spawn(this.Command, [], { cwd: this.WorkingDirectory });
+@@ -472,7 +507,9 @@ class Engine {
+       if (this.IsLoading) {
+         this.Status = "TIMEOUT";
+         if (os.type() == "Windows_NT") {
+-          spawn("taskkill", ["/pid", this.Process.pid, "/f", "/t"]);
++          spawn("taskkill", ["/pid", this.Process.pid, "/f", "/t"], {
++            windowsHide: true,
++          });
+         } else {
+           spawn("kill", ["-9", this.Process.pid]);
+         }
+@@ -710,3 +747,18 @@ const interval = setInterval(function ping() {
+     ws.ping(noop);
+   });
+ }, 30000);
++
++let shuttingDown = false;
++function shutdownPetrified() {
++  if (shuttingDown) return;
++  shuttingDown = true;
++  clearInterval(interval);
++  ClientEngines.forEach((engine) => engine.destructor());
++  ClientEngines.clear();
++  wss.clients.forEach((client) => client.terminate());
++  httpserver.close();
++  setTimeout(() => process.exit(0), 1000);
++}
++process.on("SIGINT", shutdownPetrified);
++process.on("SIGTERM", shutdownPetrified);
++setTimeout(shutdownPetrified, 24 * 60 * 60 * 1000);

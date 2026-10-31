@@ -17,6 +17,7 @@
 */
 
 #include "uci.h"
+#include "xboard.h"
 
 #include <algorithm>
 #include <cctype>
@@ -31,6 +32,7 @@
 #include <filesystem>
 #include <utility>
 #include <variant>
+#include "api/petrified_outcome.h"
 #include <vector>
 
 #include "benchmark.h"
@@ -86,7 +88,7 @@ void UCIEngine::init_search_update_listeners() {
     engine.set_on_iter([](const auto& i) { on_iter(i); });
     engine.set_on_update_no_moves([](const auto& i) { on_update_no_moves(i); });
     engine.set_on_update_full(
-      [this](const auto& i) { on_update_full(i, engine.get_options()["UCI_ShowWDL"]); });
+      [this](const auto& i) { on_update_full(i, false); });
     engine.set_on_start([]() {});
     engine.set_on_bestmove([](const auto& bm, const auto& p) { on_bestmove(bm, p); });
     engine.set_on_verify_network([](const auto& s) { print_info_string(s); });
@@ -121,6 +123,12 @@ void UCIEngine::loop() {
         else if (token == "ponderhit")
             engine.set_ponderhit(false);
 
+        else if (token == "xboard")
+        {
+            XBoardProtocol protocol(engine);
+            protocol.loop();
+            return;
+        }
         else if (token == "uci")
         {
             sync_cout << "id name " << engine_info(true) << "\n"
@@ -159,6 +167,8 @@ void UCIEngine::loop() {
             benchmark(is);
         else if (token == "d")
             sync_cout << engine.visualize() << sync_endl;
+        else if (token == "points")
+            sync_cout << "info string points " << Petrified::points_status(engine.position()) << sync_endl;
         else if (token == "eval")
             engine.trace_eval();
         else if (token == "compiler")
@@ -255,11 +265,10 @@ void UCIEngine::bench(std::istream& args) {
     std::string token;
     u64         num, nodes = 0, cnt = 1;
     u64         nodesSearched = 0;
-    const auto& options       = engine.get_options();
 
     engine.set_on_update_full([&](const auto& i) {
         nodesSearched = i.nodes;
-        on_update_full(i, options["UCI_ShowWDL"]);
+        on_update_full(i, false);
     });
 
     std::vector<std::string> list = Benchmark::setup_bench(engine.fen(), args);
@@ -317,7 +326,7 @@ void UCIEngine::bench(std::istream& args) {
               << "\nNodes/second    : " << 1000 * nodes / elapsed << std::endl;
 
     // reset callback, to not capture a dangling reference to nodesSearched
-    engine.set_on_update_full([&](const auto& i) { on_update_full(i, options["UCI_ShowWDL"]); });
+    engine.set_on_update_full([&](const auto& i) { on_update_full(i, false); });
 }
 
 void UCIEngine::benchmark(std::istream& args) {
@@ -531,50 +540,14 @@ void UCIEngine::position(std::istringstream& is) {
     }
 }
 
-namespace {
-
-struct WinRateParams {
-    double a;
-    double b;
-};
-
-WinRateParams win_rate_params(const Position& pos) {
-
-    int material = pos.count<PAWN>() + 3 * pos.count<KNIGHT>() + 3 * pos.count<BISHOP>()
-                 + 5 * pos.count<ROOK>() + 9 * pos.count<QUEEN>();
-
-    // The fitted model only uses data for material counts in [17, 78], and is anchored at count 58.
-    double m = std::clamp(material, 17, 78) / 58.0;
-
-    // Return a = p_a(material) and b = p_b(material), see github.com/official-stockfish/WDL_model
-    constexpr double as[] = {-142.72052667, 372.35176398, -340.71073572, 415.23490212};
-    constexpr double bs[] = {5.93832785, 15.61267078, -30.57816876, 69.63866711};
-
-    double a = (((as[0] * m + as[1]) * m + as[2]) * m) + as[3];
-    double b = (((bs[0] * m + bs[1]) * m + bs[2]) * m) + bs[3];
-
-    return {a, b};
-}
-
-// The win rate model is 1 / (1 + exp((a - eval) / b)), where a = p_a(material) and b = p_b(material).
-// It fits the LTC fishtest statistics rather accurately.
-int win_rate_model(Value v, const Position& pos) {
-
-    auto [a, b] = win_rate_params(pos);
-
-    // Return the win rate in per mille units, rounded to the nearest integer.
-    return int(0.5 + 1000 / (1 + std::exp((a - double(v)) / b)));
-}
-}
-
 std::string UCIEngine::format_score(const Score& s) {
-    constexpr int TB_CP = 20000;
     const auto    format =
       overload{[](Score::Mate mate) -> std::string {
                    auto m = (mate.plies > 0 ? (mate.plies + 1) : mate.plies) / 2;
                    return std::string("mate ") + std::to_string(m);
                },
                [](Score::Tablebase tb) -> std::string {
+                   constexpr int TB_CP = 20000;
                    return std::string("cp ") + std::to_string((tb.win ? TB_CP : -TB_CP) - tb.plies);
                },
                [](Score::InternalUnits units) -> std::string {
@@ -586,26 +559,9 @@ std::string UCIEngine::format_score(const Score& s) {
 
 // Turns a Value to an integer centipawn number,
 // without treatment of mate and similar special scores.
-int UCIEngine::to_cp(Value v, const Position& pos) {
-
-    // In general, the score can be defined via the WDL as
-    // (log(1/L - 1) - log(1/W - 1)) / (log(1/L - 1) + log(1/W - 1)).
-    // Based on our win_rate_model, this simply yields v / a.
-
-    auto [a, b] = win_rate_params(pos);
-
-    return int(std::round(100 * int(v) / a));
-}
-
-std::string UCIEngine::wdl(Value v, const Position& pos) {
-    std::stringstream ss;
-
-    int wdl_w = win_rate_model(v, pos);
-    int wdl_l = win_rate_model(-v, pos);
-    int wdl_d = 1000 - wdl_w - wdl_l;
-    ss << wdl_w << " " << wdl_d << " " << wdl_l;
-
-    return ss.str();
+int UCIEngine::to_cp(Value v, const Position&) {
+    // Pinned Walls uses PawnValueEg (208) for UCI output, even for custom pawns.
+    return 100 * int(v) / 208;
 }
 
 std::string UCIEngine::square(Square s) {

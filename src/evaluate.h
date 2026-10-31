@@ -29,11 +29,11 @@ class Position;
 
 namespace Eval {
 
-// The default net name MUST follow the format nn-[SHA256 first 12 digits].nnue
-// for the build process (profile-build and fishtest) to work. Do not change the
-// name of the macro or the location where this macro is defined, as it is used
-// in the Makefile/Fishtest.
-#define EvalFileDefaultName "nn-d1ee674a62ca.nnue"
+// A build may name a verified external net through EVALFILE. File contents are
+// always validated by the Legacy Walls loader, independent of the filename.
+#ifndef EvalFileDefaultName
+#define EvalFileDefaultName "petrified_run4test_e19_l085.nnue"
+#endif
 
 namespace NNUE {
 class Network;
