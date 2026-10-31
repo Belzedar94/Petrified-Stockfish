@@ -38,7 +38,7 @@
   "schema": "petrified-threat-evasion-v1",
   "experiment": "points-threat-evasion-v1",
   "created_utc": "2026-10-31T12:54:52.519452+00:00",
-  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "status": "CORRECTING_VALIDATION_HARNESS",
   "branch": "exp/points-threat-evasion-v1",
   "authorization": "Owner parked PR22 and authorized one next substantial search candidate from PR18 with the same validations and VSTC/STC/LTC panel.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
@@ -78,5 +78,21 @@
     "Five exact-source CI jobs"
   ],
   "risk": "Hypothetical capture availability is not inevitability. Local SEE omits wall positional value and settlement; extra nodes and legal probes may lose strength.",
-  "runtime_released": false
+  "runtime_released": false,
+  "pr": 23,
+  "pr_url": "https://github.com/Belzedar94/Petrified-Stockfish/pull/23",
+  "source_commit": "806622a83c834694c11c1398b23a43bd619bf1c8",
+  "build_session": 6022,
+  "validation_failures": [
+    {
+      "directory": ".local\\points-threat-evasion-v1\\validation-failure-001",
+      "cause": "Windows sharing violation prevented atomic build-state replacement immediately after RELEASE_STATE spawn. Original state and FAILED .tmp preserved; child exit proved, exit code unavailable.",
+      "impact": "No engine change. Native, Debug and Release builds and completed Debug state test retained. Repeat only Release state test whose exit code was not observed."
+    },
+    {
+      "directory": ".local\\points-threat-evasion-v1\\validation-failure-001",
+      "cause": "CI41203280523 rejected test: full picker legitimately populates the inherited lazy threat cache; test wrongly expected its cold cache bytes to remain unchanged. Global test-owned SharedHistories also outlived the allocator registry during exit, producing ASan use-after-free.",
+      "impact": "Test snapshot boundary and test resource lifetime only; engine unchanged."
+    }
+  ]
 }

@@ -82,7 +82,7 @@ static std::unique_ptr<ButterflyHistory> mainHist;
 static std::unique_ptr<LowPlyHistory> lowHist;
 static std::unique_ptr<CapturePieceToHistory> captureHist;
 static std::unique_ptr<PieceToHistory> continuation;
-static std::unique_ptr<SharedHistories> shared;
+static SharedHistories* shared = nullptr;
 static bool weighted=false;
 static std::ofstream cases;
 
@@ -129,11 +129,20 @@ static void inspect(Position& pos, bool emit=false, int expected=-1) {
     reference&=eligible;
     require(actual==reference,"threat predicate differs from full make/undo reference: "+fen);
     if(expected>=0) require(actual==bool(expected),"hand threat expectation: "+fen);
+    require(pos.state()==original && std::memcmp(snapshot,original,sizeof(StateInfo))==0,
+            "reference changed state");
+    // The inherited full picker may legitimately populate the lazy threats
+    // cache. Check the probe on both cold and warm caches, then compare picker
+    // state against the warmed snapshot rather than reject cache population.
+    for(PieceType pt=PAWN;pt<=KING;++pt) (void)pos.threats_by(pt);
+    std::memcpy(snapshot,original,sizeof(StateInfo));
+    require(Search::quiet_capture_threat(pos)==actual && pos.state()==original
+            && std::memcmp(snapshot,original,sizeof(StateInfo))==0,"warm-cache probe changed state");
     if(actual) {
         const PieceToHistory* cont[6]={continuation.get(),continuation.get(),continuation.get(),
                                       continuation.get(),continuation.get(),continuation.get()};
         for (Move ttMove : {Move::none(),legal[0]}) {
-            MovePicker mp(pos,ttMove,1,mainHist.get(),lowHist.get(),captureHist.get(),cont,shared.get(),2);
+            MovePicker mp(pos,ttMove,1,mainHist.get(),lowHist.get(),captureHist.get(),cont,shared,2);
             std::vector<unsigned> got,want;
             for(Move m=mp.next_move();m!=Move::none();m=mp.next_move()) got.push_back(m.raw());
             for(auto it=legal;it!=end;++it) want.push_back(it->raw());
@@ -168,7 +177,9 @@ int main(int argc,char** argv) {
     lowHist=std::make_unique<LowPlyHistory>(); lowHist->fill(0);
     captureHist=std::make_unique<CapturePieceToHistory>(); captureHist->fill(0);
     continuation=std::make_unique<PieceToHistory>(); continuation->fill(0);
-    shared=std::make_unique<SharedHistories>(1); shared->pawnHistory.clear_range(0,0,1);
+    // Local lifetime: release large pages before memory.cpp's registry exits.
+    auto sharedOwner=std::make_unique<SharedHistories>(1); shared=sharedOwner.get();
+    shared->pawnHistory.clear_range(0,0,1);
     require(Search::threat_qsearch_depth(true,false)<Search::threat_qsearch_depth(true,true)
             && Search::threat_qsearch_depth(true,false)>DEPTH_UNSEARCHED,"TT search-domain separation");
     require(Search::threat_qsearch_depth(false,false)==DEPTH_QS
