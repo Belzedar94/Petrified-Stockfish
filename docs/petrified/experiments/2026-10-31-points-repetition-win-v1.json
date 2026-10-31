@@ -571,7 +571,7 @@
   "development_identities_exited": 61,
   "validation_failures": [],
   "panel_launch_audit": ".local\\points-repetition-win-v1\\panel-launch-audit.json",
-  "updated_utc": "2026-10-31T14:29:07.582647+00:00",
+  "updated_utc": "2026-10-31T14:44:14.485778+00:00",
   "followup": ".local\\points-repetition-win-followup.json",
   "automation_id": "petrified-repetici-n-ganadora-y-panel",
   "panel_session_id": 13965,
@@ -637,5 +637,42 @@
       "bounded_only": 0
     },
     "session_id": 13965
+  },
+  "automatic_promotion_eligible": false,
+  "decision": "CONTINUE_SAME_PANEL_AUTOMATIC_PROMOTION_INELIGIBLE",
+  "decision_reason": "VSTC cap reached without a displayed LOS boundary; not equivalence or statistical LOSS.",
+  "final_audits_pending": true,
+  "control_selections": {
+    "VSTC": "NEUTRAL_SCREEN"
+  },
+  "closed_control_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        200,
+        173,
+        27
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        26,
+        12,
+        110,
+        13,
+        39
+      ],
+      "statistics": "Total: 400 W: 200 L: 173 D: 27 ELO: 23.49 +-33.0 (95%) LOS: 92.0%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 888.938
+    }
+  },
+  "control_selection_evidence": {
+    "VSTC": ".local\\points-repetition-win-v1\\VSTC-closure-selection.json"
   }
 }

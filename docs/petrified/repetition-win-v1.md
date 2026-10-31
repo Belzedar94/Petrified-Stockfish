@@ -112,3 +112,13 @@ PR21/22/23 are parked outside the OpenBench queue. PR9/12/13/15/16/19/20 remain
 separately retained; PR17 standalone remains excluded. Both Fairyground profiles
 stay closed/preserved; T8 manually paused. No OpenBench workload, AtomicDB, remote
 workers, other applications or Misere activity.
+
+## VSTC closure
+
+VSTC for points-repetition-win-v1 / PR24 closed at400 games:200/173/27,
++23.49+/-33.0 Elo95%,LOS92.0%,time0/0,200 complete reversed-color pairs.
+Raw INCONCLUSIVE_LIMIT is preserved; selection NEUTRAL_SCREEN, never equivalence
+or statistical LOSS. Automatic promotion is ineligible; PR18 stays champion.
+STC is active and LTC pending in the SAME frozen panel. Continue without changing
+inputs or relaunching. Full final audits and proven process exits remain required;
+the lease is not released. All exact identities and frozen restrictions below apply.
