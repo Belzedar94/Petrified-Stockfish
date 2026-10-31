@@ -117,7 +117,7 @@ struct Harness {
 int main(int argc,char** argv) {
     Attacks::init();Position::init();Harness h;
     h.main->fill(0);h.low->fill(0);h.cap->fill(0);h.cont->fill(0);
-    h.shared->pawnHistory.fill(0);
+    h.shared->pawnHistory.clear_range(0,0,1);
     if(argc>1) {h.out.open(argv[1]);require(bool(h.out),"output");}
     if(argc>2) {Eval::NNUE::EvalFile f;h.net->load({},argv[2],f);h.net->verify([](auto s){std::cout<<s<<'\n';},f,argv[2]);h.weighted=true;}
     h.cache=std::make_unique<Eval::NNUE::AccumulatorCaches>(*h.net);
