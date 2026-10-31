@@ -195,11 +195,13 @@ int main(int argc,char** argv) {
         {"2k5/8/8/2p5/3Q4/8/8/K1R5 w - - 0 1",0},
         {"r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",0},
         {"7k/8/8/3pP3/8/8/8/K7 w - d6 0 1",0},
-        {"7k/P7/8/5n2/3Q4/8/8/K7 w - - 0 1",0},
+        {"8/P6k/8/5n2/3Q4/8/8/K7 w - - 0 1",0},
         {"7k/8/8/8/8/8/8/r2K4 w - - 0 1",0}
     };
     for(const auto& f:fixtures) for(const char* scores:{" points=0,0"," points=7,4"," points=19,0"," points=0,21",""}) {
-        Position pos; StateInfo state; require(!pos.set(std::string(f.fen)+scores,false,&state),"fixture FEN");
+        Position pos; StateInfo state;
+        if(auto error=pos.set(std::string(f.fen)+scores,false,&state))
+            require(false,std::string("fixture FEN: ")+f.fen+scores+": "+error->what());
         for(int flip=0;flip<2;++flip) {
             if(flip) require(!pos.flip(),"color flip");
             inspect(pos,true,pos.game_of_points()?f.expected:0);
