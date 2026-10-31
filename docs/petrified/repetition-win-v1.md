@@ -134,3 +134,35 @@ statistical LOSS. Automatic promotion is ineligible; PR18 stays champion.
 LTC is active in the SAME frozen panel. Continue without changing inputs or
 relaunching. Full final audits and proven process exits remain required; the
 lease is not released. All exact identities and frozen restrictions below apply.
+
+## Final manual closure
+
+PR24 points-repetition-win-v1 is CLOSED_NEUTRAL_MANUAL_OWNER after cooperative STOP.
+The owner requested ending this test and a whole-project rethink, not a successor.
+VSTC400:200/173/27,+23.49+/-33.0 Elo95%,LOS92.0%,time0/0;
+STC400:175/205/20,-26.11+/-33.3 Elo95%,LOS6.1%,time0/1;
+LTC6:2/4/0,raw -120.41+/-77.8,LOS19.3%,time0/0; interrupted below minimum40.
+The two raw INCONCLUSIVE_LIMIT results and LTC INTERRUPTED are preserved.
+VSTC/STC selections remain NEUTRAL_SCREEN; LTC has no strength conclusion.
+This is not equivalence or statistical LOSS. PR18 remains champion.
+
+Manual closure passed806 games/403 reversed-color pairs/160100 independent plies.
+Four incomplete pairs and two completed unpaired games are preserved and excluded.
+All1286 registered development/panel identities exited;1221 pair instances reconcile
+with exact CreationDates. Journal and strict identity sets match. The controller
+session exited0 with PANEL_STOPPED_AWAITING_MANUAL_AUDIT,panel_exit_code1 and no
+children. Original automatic auditor exit1/STOP rejection and script are preserved;
+the separate manual auditor and closure supervisor exited0. Six direct closure
+identities exited; four inner Python CreationDates were not separately journalled.
+Their completion is proven transitively through retained waits and the exact signed
+CPython3.12 redirector; this limitation is explicit in the separate exit proof.
+The packager exited0 and both of its exact identities exited.
+
+All254 frozen inputs,11 panel hashes and7 dependencies remain exact. The7349-entry
+ZIP includes every4489 raw panel files, inputs, original rejection, audits and
+inventory; every entry was hash-verified. The lease is released. Branch/draft and
+validated source tag candidates/points-repetition-win-v1-neutral are preserved.
+No replay, tuning, training, new candidate or OpenBench queue entry. Whole-project
+analysis is authorized; implementation of a new program requires a separate request.
+Both Fairyground profiles remain closed/preserved; T8 paused. No AtomicDB, remote
+workers, other applications or Misere activity. Prior retained/parked PRs unchanged.

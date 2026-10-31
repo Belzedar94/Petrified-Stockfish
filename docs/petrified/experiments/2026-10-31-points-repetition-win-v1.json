@@ -9,7 +9,7 @@
   "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
   "panel": {
     "directory": ".local/points-repetition-win-panel-001",
-    "status": "RUNNING",
+    "status": "INTERRUPTED_MANUAL_AUDITED",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -23,7 +23,8 @@
     "boundary": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; continue within400 if boundary lost",
     "selection": "All three unless delegated manual early neutral/loss rejection; cap without boundary NEUTRAL_SCREEN, never equivalence. Only three audited wins plus distribution/interfaces permit automatic promotion.",
     "referee": "Hash-pinned independent Chess.com client",
-    "started_utc": "2026-10-31T14:27:11.153183+00:00"
+    "started_utc": "2026-10-31T14:27:11.153183+00:00",
+    "completed_utc": "2026-10-31T16:05:23.081791+00:00"
   },
   "restrictions": {
     "training": false,
@@ -38,7 +39,7 @@
   },
   "schema": "petrified-repetition-win-v1",
   "experiment": "points-repetition-win-v1",
-  "status": "PANEL_RUNNING",
+  "status": "CLOSED_NEUTRAL_MANUAL_OWNER",
   "branch": "exp/points-repetition-win-v1",
   "authorization": "Owner parked PR23 and authorized ONE next substantial candidate from PR18 with the same validations and VSTC/STC/LTC.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
@@ -571,7 +572,7 @@
   "development_identities_exited": 61,
   "validation_failures": [],
   "panel_launch_audit": ".local\\points-repetition-win-v1\\panel-launch-audit.json",
-  "updated_utc": "2026-10-31T15:49:00.600522+00:00",
+  "updated_utc": "2026-10-31T16:05:23.081791+00:00",
   "followup": ".local\\points-repetition-win-followup.json",
   "automation_id": "petrified-repetici-n-ganadora-y-panel",
   "panel_session_id": 13965,
@@ -639,12 +640,13 @@
     "session_id": 13965
   },
   "automatic_promotion_eligible": false,
-  "decision": "CONTINUE_SAME_PANEL_AUTOMATIC_PROMOTION_INELIGIBLE",
-  "decision_reason": "VSTC and STC reached the cap without a displayed LOS boundary; not equivalence or statistical LOSS.",
-  "final_audits_pending": true,
+  "decision": "CLOSED_NEUTRAL_MANUAL_OWNER",
+  "decision_reason": "Owner requested ending this test and a whole-project rethink. Delegated neutral manual closure; raw neutral caps and incomplete LTC retained, never equivalence or statistical LOSS.",
+  "final_audits_pending": false,
   "control_selections": {
     "VSTC": "NEUTRAL_SCREEN",
-    "STC": "NEUTRAL_SCREEN"
+    "STC": "NEUTRAL_SCREEN",
+    "LTC": "INTERRUPTED_MANUAL"
   },
   "closed_control_results": {
     "VSTC": {
@@ -696,10 +698,185 @@
       "statistics": "Total: 400 W: 175 L: 205 D: 20 ELO: -26.11 +-33.3 (95%) LOS: 6.1%",
       "completed_pairs": 200,
       "elapsed_seconds": 3959.703
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INTERRUPTED",
+      "scores": [
+        2,
+        4,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        0,
+        2,
+        0,
+        0
+      ],
+      "statistics": "Total: 6 W: 2 L: 4 D: 0 ELO: -120.41 +-77.8 (95%) LOS: 19.3%",
+      "completed_pairs": 3,
+      "elapsed_seconds": 273.468,
+      "error": "Panel stopped"
     }
   },
   "control_selection_evidence": {
     "VSTC": ".local\\points-repetition-win-v1\\VSTC-closure-selection.json",
     "STC": ".local\\points-repetition-win-v1\\STC-closure-selection.json"
-  }
+  },
+  "promoted": false,
+  "released": true,
+  "raw_results": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        200,
+        173,
+        27
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        26,
+        12,
+        110,
+        13,
+        39
+      ],
+      "statistics": "Total: 400 W: 200 L: 173 D: 27 ELO: 23.49 +-33.0 (95%) LOS: 92.0%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 888.938
+    },
+    "STC": {
+      "control": "STC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        175,
+        205,
+        20
+      ],
+      "time_losses": [
+        0,
+        1
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        40,
+        6,
+        122,
+        8,
+        24
+      ],
+      "statistics": "Total: 400 W: 175 L: 205 D: 20 ELO: -26.11 +-33.3 (95%) LOS: 6.1%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 3959.703
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INTERRUPTED",
+      "scores": [
+        2,
+        4,
+        0
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        1,
+        0,
+        2,
+        0,
+        0
+      ],
+      "statistics": "Total: 6 W: 2 L: 4 D: 0 ELO: -120.41 +-77.8 (95%) LOS: 19.3%",
+      "completed_pairs": 3,
+      "elapsed_seconds": 273.468,
+      "error": "Panel stopped"
+    }
+  },
+  "manual_closure": {
+    "status": "CLOSED_NEUTRAL_MANUAL_OWNER",
+    "closed_utc": "2026-10-31T16:05:23.081791+00:00",
+    "games": 806,
+    "complete_pairs": 403,
+    "independent_plies": 160100,
+    "incomplete_pairs": 4,
+    "excluded_completed_unpaired_games": 2,
+    "development_panel_identities_exited": 1286,
+    "exact_pair_process_instances": 1221,
+    "journal_strict_identity_sets_equal": true,
+    "original_automatic_auditor_exit_code": 1,
+    "original_rejection_reason": "Manual STOP; normal-completion assertion failed as expected; original script and failure preserved",
+    "manual_auditor_exit_code": 0,
+    "closure_supervisor_exit_code": 0,
+    "controller_session_exit_code": 0,
+    "panel_exit_code": 1,
+    "controller_phase": "PANEL_STOPPED_AWAITING_MANUAL_AUDIT",
+    "remaining_owned_children": [],
+    "closure_auditor_direct_identities_exited": 6,
+    "closure_auditor_inner_exit_evidence": "Transitive retained-handle waits through exact signed CPython3.12 redirectors; four inner Python CreationDates were not separately journalled. See closure-auditor-transitive-exit-proof.json. No invented identities.",
+    "packager_exit_code": 0,
+    "packager_identities_exited": 2,
+    "frozen_inputs": 254,
+    "panel_hashes": 11,
+    "dependency_hashes": 7,
+    "preservation_bundle": {
+      "result": "PASS",
+      "created_utc": "2026-10-31T15:57:19.197164+00:00",
+      "path": ".local\\points-repetition-win-v1\\frozen-inputs-and-closure.zip",
+      "sha256": "dcfce131b1dc6ff331809c43ff46e6435b13b986b344c62d15f27b9e1bc79571",
+      "bytes": 104696829,
+      "evidence_files": 7348,
+      "zip_entries": 7349,
+      "manifest": ".local\\points-repetition-win-v1\\preservation-manifest.json",
+      "manifest_sha256": "52d48b514dfbcf1b10a25d23ff16b95cb115c35bee38cc901137438835c8392d",
+      "raw_inventory_sha256": "ca58003426c26394c5700ced6a85f368808df24b0120e434e7176162ceede13e",
+      "raw_files": 4489,
+      "raw_logs_included": true,
+      "frozen_inputs": 254,
+      "all_entries_verified": true,
+      "public_upload": false
+    },
+    "reports": {
+      "manual-closure-audit.json": "2ef42c14edcbe30c8bdb2ec63ff43de8cc5848370e805cf116afb5b1637ae79d",
+      "all-owned-process-exit-audit.json": "1e42bf0c035e7e2cd12d9be1b3657c62f7c52cd42ed86cda6dd8067217d87251",
+      "strict-process-exit-audit.json": "9b594017bde4902621a657f52921604039f2065731ffdf7dc80b07675c0f4613",
+      "pair-identity-audit.json": "e4bd4c80bb55d61230b43fdd4e56b24db0a968de63cd8b57aa43289e1fc1c95e",
+      "closed-panel-files.json": "ca58003426c26394c5700ced6a85f368808df24b0120e434e7176162ceede13e",
+      "closure-auditors-complete.json": "ed48cf2fafa682df0450691808631908ae8c967eb4849b4bba56907a0ae1ff87",
+      "closure-audit-process-exits.json": "885f734ed902606e8d9e6341626875d8ffdcb9611f116b009ed03bf28050d22d",
+      "closure-auditor-transitive-exit-proof.json": "a709bafc6313547f45fcd4401b6ea37917d5d1df49d31696db7609f046cb87b7",
+      "preservation-process-exits.json": "ded6bce0df460f04d0ac2f679ab4f5762caa33c7d5a8b0acab90a11ec6e10156",
+      "controller-session-exit.json": "ae5609ee46617468658096cabb22bbf8ac38831527837a92c61232b5be830ec6",
+      "selection-decision.json": "6723f6b1537fa356e704733b8fc0bc1a97b0f1c098dd164af635366c1a59f96a",
+      "preservation-bundle.json": "d87483a77405f7ab87d2309bf52ab09b8673d6f1e3ca4ad19a463af655f6b261",
+      "preservation-manifest.json": "52d48b514dfbcf1b10a25d23ff16b95cb115c35bee38cc901137438835c8392d"
+    }
+  },
+  "whole_project_review": {
+    "authorized": true,
+    "implementation_authorized": false,
+    "training_authorized": false,
+    "successor_authorized": false,
+    "request": "Creo que tienes que pensar mucho más en grande... acaba este test y dale una vuelta a todo el proyecto"
+  },
+  "preserved_tag": "candidates/points-repetition-win-v1-neutral",
+  "automation_active": false,
+  "automation_deleted_utc": "2026-10-31T16:05:34.354070+00:00"
 }
