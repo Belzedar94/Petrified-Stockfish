@@ -38,7 +38,7 @@
   "schema": "petrified-quiet-threats-v1",
   "experiment": "points-quiet-threats-v1",
   "created_utc": "2026-10-30T17:09:55.603375+00:00",
-  "status": "CLOSED_NEUTRAL_SCREEN",
+  "status": "PARKED_MANUAL_OWNER",
   "branch": "exp/points-quiet-threats-v1",
   "authorization": "Owner parked PR21 and requested one next substantial idea with the same validation and panel from PR18.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
@@ -797,7 +797,8 @@
     "tag": "candidates/points-quiet-threats-v1-neutral",
     "revision": "2bdee5752e0349743dbc2d7d498847220c6cd76f",
     "open_draft": true,
-    "openbench_queue": false
+    "openbench_queue": false,
+    "parked_tag": "candidates/points-quiet-threats-v1-parked"
   },
   "completed_controls": {
     "VSTC": {
@@ -953,5 +954,9 @@
   "followup_status": "DELETED",
   "further_candidate_authorized": false,
   "followup_deleted_utc": "2026-10-30T22:03:22.893124+00:00",
-  "followup_deletion_evidence": ".local\\points-quiet-threats-v1\\automation-deletion-tool-result.json"
+  "followup_deletion_evidence": ".local\\points-quiet-threats-v1\\automation-deletion-tool-result.json",
+  "owner_parking_utc": "2026-10-31T12:45:23.013038+00:00",
+  "previous_selection_status": "CLOSED_NEUTRAL_SCREEN",
+  "owner_parking": "Owner parked PR22 and authorized one new candidate from PR18 with the same validation and VSTC/STC/LTC panel.",
+  "successor_authorization": "One points-threat-evasion-v1 candidate from PR18; exclude PR19/20/21/22 engine changes; no further automatic successor."
 }

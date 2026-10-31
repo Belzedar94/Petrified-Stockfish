@@ -1,3 +1,26 @@
+PR22 points-quiet-threats-v1 is PARKED_MANUAL_OWNER by the owner on2026-10-31.
+Its completed neutral panel, original raw results and closure audits below remain
+unchanged. The released lease, closed processes and deleted follow-up stay closed;
+no replay or OpenBench queue entry. Branch/draft and neutral/parked source tags
+are preserved. PR18 remains the champion.
+
+The owner authorized ONE next candidate from PR18: points-threat-evasion-v1.
+At the entry to points quiescence, a non-check position with multiple legal moves
+and no capture-stage move may expose a profitable legal enemy capture after a
+hypothetical pass. Use the existing legal local SEE at strictly positive value;
+when such a threat exists, suppress stand-pat and search all legal replies for
+one explicit entry layer. Recursive qsearch has no additional threat budget.
+Keep terminal/claim/forced-choice behavior, rules, state, NNUE and coefficients.
+No PR19/20/21/22 engine changes, tuning or training. Validate full Debug/Release,
+references/state/NNUE/undo, independent Chess.com, native interfaces, repeatable
+benches and five source CI jobs before one frozen40/400 VSTC/STC/LTC panel vs PR18,
+T1/Hash512/concurrency4. Only three audited wins plus distribution/interfaces
+permit promotion; no automatic successor. Both Fairyground profiles stay closed
+and preserved; T8 stays paused. No OpenBench workload, AtomicDB, remote workers,
+other applications or Misere activity. Lease owned until decision and proven exits.
+
+The entries below preserve prior stages and cannot restart closed panels.
+
 PR22 points-quiet-threats-v1 is CLOSED_NEUTRAL_SCREEN after its sole full panel.
 VSTC400:181/198/21,-14.77+/-33.2 Elo95%,LOS19.1%,time0/0;
 STC400:174/200/26,-22.62+/-33.0 Elo95%,LOS8.9%,time1/0;
