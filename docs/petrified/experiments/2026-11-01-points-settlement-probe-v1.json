@@ -9,7 +9,7 @@
   "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
   "panel": {
     "directory": ".local/points-settlement-probe-panel-001",
-    "status": "RUNNING",
+    "status": "AUDITED_COMPLETE",
     "minimum_games": 40,
     "maximum_games": 400,
     "controls": {
@@ -21,7 +21,7 @@
     "hash_mb": 512,
     "concurrency": 4,
     "boundary": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; continue within400 if boundary lost",
-    "selection": "Run all three; cap without boundary NEUTRAL_SCREEN, never equivalence. Only three audited wins plus distribution/interfaces permit promotion.",
+    "selection": "REJECTED_STRENGTH: VSTC/STC LOSS; LTC NEUTRAL_SCREEN. PR18 retained.",
     "referee": "Hash-pinned independent Chess.com client"
   },
   "restrictions": {
@@ -37,7 +37,7 @@
   },
   "schema": "petrified-settlement-probe-v1",
   "experiment": "points-settlement-probe-v1",
-  "status": "PANEL_RUNNING",
+  "status": "CLOSED_REJECTED_STRENGTH",
   "branch": "exp/points-settlement-probe-v1",
   "authorization": "Owner authorized ONE PR18 alternative after PR25 postmortem, no network training, same validation and VSTC/STC/LTC.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
@@ -65,7 +65,6 @@
     "Five exact-source CI jobs"
   ],
   "risk": "Rule probes may still cost more than the rare terminal horizon wins recover.",
-  "runtime_released": false,
   "created_utc": "2026-11-01T08:32:56.553645+00:00",
   "postmortem": {
     "documentation": "docs/petrified/pr25-postmortem-2026-11-01.md",
@@ -730,8 +729,239 @@
       "statistics": "Total: 338 W: 132 L: 191 D: 15 ELO: -61.27 +-36.8 (95%) LOS: 0.0%",
       "completed_pairs": 169,
       "elapsed_seconds": 3406.812
+    },
+    "LTC": {
+      "control": "LTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        172,
+        195,
+        33
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        24,
+        18,
+        131,
+        11,
+        16
+      ],
+      "statistics": "Total: 400 W: 172 L: 195 D: 33 ELO: -20.00 +-32.7 (95%) LOS: 11.4%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 11662.016
     }
   },
-  "selection_pending_final_audit": true,
-  "updated_utc": "2026-11-01T09:48:09.667329+00:00"
+  "selection_pending_final_audit": false,
+  "updated_utc": "2026-11-01T13:09:19.674142+00:00",
+  "raw_results": [
+    {
+      "control": "VSTC",
+      "status": "LOSS",
+      "scores": [
+        27,
+        57,
+        4
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        19,
+        3,
+        16,
+        1,
+        5
+      ],
+      "statistics": "Total: 88 W: 27 L: 57 D: 4 ELO: -123.38 +-76.8 (95%) LOS: 0.0%",
+      "completed_pairs": 44,
+      "elapsed_seconds": 210.985
+    },
+    {
+      "control": "STC",
+      "status": "LOSS",
+      "scores": [
+        132,
+        191,
+        15
+      ],
+      "time_losses": [
+        0,
+        1
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        34,
+        13,
+        110,
+        2,
+        10
+      ],
+      "statistics": "Total: 338 W: 132 L: 191 D: 15 ELO: -61.27 +-36.8 (95%) LOS: 0.0%",
+      "completed_pairs": 169,
+      "elapsed_seconds": 3406.812
+    },
+    {
+      "control": "LTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        172,
+        195,
+        33
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        24,
+        18,
+        131,
+        11,
+        16
+      ],
+      "statistics": "Total: 400 W: 172 L: 195 D: 33 ELO: -20.00 +-32.7 (95%) LOS: 11.4%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 11662.016
+    }
+  ],
+  "decision": "REJECTED_STRENGTH",
+  "selection_by_control": {
+    "VSTC": "LOSS",
+    "STC": "LOSS",
+    "LTC": "NEUTRAL_SCREEN"
+  },
+  "champion_unchanged": true,
+  "final_results": [
+    {
+      "control": "VSTC",
+      "status": "LOSS",
+      "scores": [
+        27,
+        57,
+        4
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        19,
+        3,
+        16,
+        1,
+        5
+      ],
+      "statistics": "Total: 88 W: 27 L: 57 D: 4 ELO: -123.38 +-76.8 (95%) LOS: 0.0%",
+      "completed_pairs": 44,
+      "elapsed_seconds": 210.985
+    },
+    {
+      "control": "STC",
+      "status": "LOSS",
+      "scores": [
+        132,
+        191,
+        15
+      ],
+      "time_losses": [
+        0,
+        1
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        34,
+        13,
+        110,
+        2,
+        10
+      ],
+      "statistics": "Total: 338 W: 132 L: 191 D: 15 ELO: -61.27 +-36.8 (95%) LOS: 0.0%",
+      "completed_pairs": 169,
+      "elapsed_seconds": 3406.812
+    },
+    {
+      "control": "LTC",
+      "status": "INCONCLUSIVE_LIMIT",
+      "scores": [
+        172,
+        195,
+        33
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        24,
+        18,
+        131,
+        11,
+        16
+      ],
+      "statistics": "Total: 400 W: 172 L: 195 D: 33 ELO: -20.00 +-32.7 (95%) LOS: 11.4%",
+      "completed_pairs": 200,
+      "elapsed_seconds": 11662.016
+    }
+  ],
+  "panel_audit": {
+    "path": ".local\\points-settlement-probe-v1\\panel-audit.json",
+    "sha256": "4eb61426b4c961836e6493dcda960e51b1abdbfbcd4408a665912bf1bd9a5515",
+    "games": 826,
+    "pairs": 413,
+    "independent_plies": 175286,
+    "incomplete_pairs": 0,
+    "excluded_games": 0,
+    "pair_process_instances": 1239,
+    "exact_creation_identities": 1239,
+    "registered_identities_exited_at_original_audit": 1500
+  },
+  "supplementary_statistics": {
+    "path": ".local\\points-settlement-probe-v1\\supplementary-statistics-and-cost.json",
+    "sha256": "c03d1d9a4e21aa9e15ea450c6f9ec2438eb886e52c77582a7c733b43dd3ef0e5",
+    "report": "docs/petrified/settlement-probe-v1-results.md"
+  },
+  "preservation": {
+    "result": "PASS",
+    "created_utc": "2026-11-01T13:08:11.200427+00:00",
+    "path": ".local\\points-settlement-probe-v1\\frozen-inputs-and-closure.zip",
+    "sha256": "5235b9b31062176ee4f1e5d71af8c8cda3e6f53ac572341b58ab1cbeb6f12f4f",
+    "bytes": 135639773,
+    "evidence_files": 8113,
+    "zip_entries": 8114,
+    "manifest": ".local\\points-settlement-probe-v1\\preservation-manifest.json",
+    "manifest_sha256": "268b2e81e60a76e895e3b667dfc60191152d808345f1eba6af4deb638f71c8a0",
+    "raw_inventory_sha256": "2938eb4d7f3b10df2539f95eb087914cc8866df0b8e017020124cee85569a5c8",
+    "raw_files": 4560,
+    "raw_logs_included": true,
+    "frozen_inputs": 396,
+    "all_entries_verified": true,
+    "public_upload": false
+  },
+  "runtime_release": {
+    "authority": ".local/points-settlement-probe-v1/closure.json",
+    "required_fields": {
+      "result": "PASS",
+      "released": true
+    },
+    "released_at_archive_snapshot": false,
+    "note": "Release receipt is written only after the last registered helper and final native bookkeeping process have actual exit proof; it remains adjacent to the immutable archive."
+  },
+  "result_report": "docs/petrified/settlement-probe-v1-results.md",
+  "outcome_tag": "candidates/points-settlement-probe-v1-rejected"
 }

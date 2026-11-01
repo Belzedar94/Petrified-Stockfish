@@ -1,3 +1,41 @@
+PR26 points-settlement-probe-v1 is CLOSED_REJECTED_STRENGTH.
+Audited VSTC88:27/57/4,-123.38+/-76.8 Elo95%,LOS0.0%,time0/0;
+STC338:132/191/15,-61.27+/-36.8 Elo95%,LOS0.0%,time0/1;
+LTC400:172/195/33,-20.00+/-32.7 Elo95%,LOS11.4%,time0/0.
+VSTC/STC are LOSS. LTC raw INCONCLUSIVE_LIMIT selects NEUTRAL_SCREEN,
+never equivalence or statistical LOSS. PR18 remains champion.
+Original audits passed826 games/413 complete reversed-color pairs/175286
+independent plies, no incomplete pairs or exclusions.1239 pair process instances
+have exact CreationDates. Session9608 exited0; controller completed normally.
+All396 frozen inputs,11 panel hashes,7 dependencies remain exact.
+The local 8114-entry ZIP includes all4560 raw panel files; every entry
+passed SHA256/size/CRC. Immutable original audits and raw failures are retained.
+Final runtime release is governed by .local/points-settlement-probe-v1/closure.json:
+require result PASS, released true and final exact exit receipts, including
+auditors, packager and post-catalog helpers. The pre-release archive snapshot
+is historical; its completed logs and final exit proofs are bound adjacent.
+Branch/draft and validated-source tag candidates/points-settlement-probe-v1-rejected
+retain this rejected candidate. See settlement-probe-v1-results.md and experiment.
+No replay, tuning, training, successor or OpenBench. Both GUI profiles stay closed,
+T8 paused; no unrelated applications, AtomicDB, remote workers or Misere.
+Earlier entries below are historical and cannot restart workloads.
+
+PR26 points-settlement-probe-v1 is REJECTED_STRENGTH after its sole frozen panel.
+Audited VSTC88:27/57/4,-123.38+/-76.8 Elo95%,LOS0.0%,time0/0;
+STC338:132/191/15,-61.27+/-36.8 Elo95%,LOS0.0%,time0/1;
+LTC400:172/195/33,-20.00+/-32.7 Elo95%,LOS11.4%,time0/0.
+VSTC/STC are LOSS. LTC raw INCONCLUSIVE_LIMIT selects NEUTRAL_SCREEN,
+never equivalence or statistical LOSS. PR18 remains champion; no promotion.
+Original auditors passed826 games/413 complete reversed-color pairs/175286
+independent plies, no incomplete pairs or excluded games.1239 pair process
+instances have exact CreationDates; all1500 identities at the original audit exited.
+Session9608 exited0; controller PANEL_COMPLETE_AWAITING_AUDIT,panel_exit_code0,
+no children. All396 frozen inputs,11 panel hashes,7 dependencies remain exact.
+Evidence packaging and later helper exit reconciliation are pending; lease owned.
+Read docs/petrified/settlement-probe-v1-results.md. No replay, tuning, training,
+successor or OpenBench. Both GUIs stay closed, T8 paused. Older entries are
+historical and cannot relaunch any workload.
+
 PR26 VSTC and STC closed with raw LOSS, both awaiting final independent audit:
 VSTC88:27/57/4,-123.38+/-76.8 Elo95%,LOS0.0%,time0/0,44 complete pairs;
 STC338:132/191/15,-61.27+/-36.8 Elo95%,LOS0.0%,time0/1,169 complete pairs.
