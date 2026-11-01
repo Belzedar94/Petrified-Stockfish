@@ -1,0 +1,301 @@
+{
+  "schema": "petrified-experiments-v1",
+  "campaigns": [
+    {
+      "id": "campaign-002",
+      "manifest_sha256": "dd94aecf4877545f0a033e634a0e2a761abca7dad2d663a99f14a8c3548a26f8",
+      "binaries": {
+        "candidate": "4664ec97c4b7a6f8ac5c05df2111668906812eb41c900466c28b138afdb47b7c",
+        "opponent": "cb7e28bcbae155f6234acf730a2116678301b07e957cb08f7dc0833a775a9f76",
+        "referee": "8a5b7157a6332d4e5e5d57003714a8e08c5f75c408e6ac04054ee1fc146d8a27"
+      },
+      "network_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+      "book_sha256": "77e89925714f75fc03dcfd443803855eab99706e34da7a3cd2a9090a46bf376b",
+      "runner_sha256": "37d1790096520d9f3a1003746cdfbed59d2cc125a9b3d3192ff3399295ec9d70",
+      "wrapper_sha256": "668f2ccd755161b74db51b87177813cb8f2633ff045ca6ead3a021ac597006a6",
+      "controls": [
+        {
+          "control": "VSTC",
+          "base_ms": 2000,
+          "increment_ms": 20,
+          "hash_mb": 512,
+          "threads": 1,
+          "concurrency": 3,
+          "status": "PASS",
+          "clock_basis": "engine-reported-ms",
+          "adjudication": "Walls terminal before optional draw claim; no evaluation adjudication",
+          "seed": 20261028,
+          "maximum_games": 64000,
+          "scores": [
+            85,
+            2,
+            19
+          ],
+          "pentanomial": [
+            0,
+            0,
+            2,
+            19,
+            32
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "wall_clock_overruns": [
+            0,
+            0
+          ],
+          "statistics": "Total: 106 W: 85 L: 2 D: 19 ELO: 365.89 +-81.9 (95%) LOS: 100.0%",
+          "elapsed_seconds": 197.172,
+          "completed_pairs": 53,
+          "passed": true
+        },
+        {
+          "control": "STC",
+          "base_ms": 10000,
+          "increment_ms": 100,
+          "hash_mb": 512,
+          "threads": 1,
+          "concurrency": 3,
+          "status": "PASS",
+          "clock_basis": "engine-reported-ms",
+          "adjudication": "Walls terminal before optional draw claim; no evaluation adjudication",
+          "seed": 20261028,
+          "maximum_games": 64000,
+          "scores": [
+            70,
+            2,
+            34
+          ],
+          "pentanomial": [
+            0,
+            0,
+            7,
+            24,
+            22
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "wall_clock_overruns": [
+            0,
+            0
+          ],
+          "statistics": "Total: 106 W: 70 L: 2 D: 34 ELO: 264.31 +-59.3 (95%) LOS: 100.0%",
+          "elapsed_seconds": 1055.36,
+          "completed_pairs": 53,
+          "passed": true
+        },
+        {
+          "control": "LTC",
+          "base_ms": 30000,
+          "increment_ms": 300,
+          "hash_mb": 512,
+          "threads": 1,
+          "concurrency": 3,
+          "status": "INTERRUPTED",
+          "clock_basis": "engine-reported-ms",
+          "adjudication": "Walls terminal before optional draw claim; no evaluation adjudication",
+          "seed": 20261028,
+          "maximum_games": 64000,
+          "scores": [
+            9,
+            0,
+            7
+          ],
+          "pentanomial": [
+            0,
+            0,
+            2,
+            3,
+            3
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "wall_clock_overruns": [
+            0,
+            0
+          ],
+          "statistics": "Total: 16 W: 9 L: 0 D: 7 ELO: 221.14 +-135.8 (95%) LOS: 100.0%",
+          "elapsed_seconds": 537.796,
+          "error": "STOP requested"
+        }
+      ]
+    },
+    {
+      "id": "campaign-003-walls-lto",
+      "manifest_sha256": "fb50e0c9f4e4d7fefc2b32cb179f56dd4f257f0c1241b882bad0819b2e40a86a",
+      "binaries": {
+        "candidate": "4664ec97c4b7a6f8ac5c05df2111668906812eb41c900466c28b138afdb47b7c",
+        "opponent": "757fe43a33624648f22fe99fc55976192fe86140080e333de27e422e51672da7",
+        "referee": "8a5b7157a6332d4e5e5d57003714a8e08c5f75c408e6ac04054ee1fc146d8a27"
+      },
+      "network_sha256": "345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933",
+      "book_sha256": "77e89925714f75fc03dcfd443803855eab99706e34da7a3cd2a9090a46bf376b",
+      "runner_sha256": "37d1790096520d9f3a1003746cdfbed59d2cc125a9b3d3192ff3399295ec9d70",
+      "wrapper_sha256": "b724de30e7ee526756a87a729d53b390ebcac06fb88e8c9ac865877c48b9605f",
+      "controls": [
+        {
+          "control": "VSTC",
+          "base_ms": 2000,
+          "increment_ms": 20,
+          "hash_mb": 512,
+          "threads": 1,
+          "concurrency": 3,
+          "status": "PASS",
+          "clock_basis": "engine-reported-ms",
+          "adjudication": "Walls terminal before optional draw claim; no evaluation adjudication",
+          "seed": 20261028,
+          "minimum_games": 40,
+          "maximum_games": 64000,
+          "scores": [
+            30,
+            2,
+            12
+          ],
+          "pentanomial": [
+            0,
+            2,
+            1,
+            8,
+            11
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "wall_clock_overruns": [
+            0,
+            0
+          ],
+          "statistics": "Total: 44 W: 30 L: 2 D: 12 ELO: 261.29 +-104.4 (95%) LOS: 100.0%",
+          "elapsed_seconds": 89.0,
+          "completed_pairs": 22,
+          "passed": true
+        },
+        {
+          "control": "STC",
+          "base_ms": 10000,
+          "increment_ms": 100,
+          "hash_mb": 512,
+          "threads": 1,
+          "concurrency": 3,
+          "status": "PASS",
+          "clock_basis": "engine-reported-ms",
+          "adjudication": "Walls terminal before optional draw claim; no evaluation adjudication",
+          "seed": 20261028,
+          "minimum_games": 40,
+          "maximum_games": 64000,
+          "scores": [
+            23,
+            0,
+            21
+          ],
+          "pentanomial": [
+            0,
+            0,
+            5,
+            11,
+            6
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "wall_clock_overruns": [
+            0,
+            0
+          ],
+          "statistics": "Total: 44 W: 23 L: 0 D: 21 ELO: 201.54 +-72.3 (95%) LOS: 100.0%",
+          "elapsed_seconds": 480.828,
+          "completed_pairs": 22,
+          "passed": true
+        },
+        {
+          "control": "LTC",
+          "base_ms": 30000,
+          "increment_ms": 300,
+          "hash_mb": 512,
+          "threads": 1,
+          "concurrency": 3,
+          "status": "INTERRUPTED",
+          "clock_basis": "engine-reported-ms",
+          "adjudication": "Walls terminal before optional draw claim; no evaluation adjudication",
+          "seed": 20261028,
+          "minimum_games": 40,
+          "maximum_games": 64000,
+          "scores": [
+            8,
+            0,
+            8
+          ],
+          "pentanomial": [
+            0,
+            0,
+            2,
+            4,
+            2
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "wall_clock_overruns": [
+            0,
+            0
+          ],
+          "statistics": "Total: 16 W: 8 L: 0 D: 8 ELO: 190.85 +-121.5 (95%) LOS: 100.0%",
+          "elapsed_seconds": 531.422,
+          "error": "STOP requested"
+        }
+      ],
+      "owner_decision": {
+        "decision": "ACCEPTED_AS_WIN_BY_OWNER",
+        "instruction": "Puedes adjudicarlo como win. Empieza el panel vs fsf dev",
+        "automatic_three_control_gate_completed": false,
+        "LTC": {
+          "control": "LTC",
+          "base_ms": 30000,
+          "increment_ms": 300,
+          "hash_mb": 512,
+          "threads": 1,
+          "concurrency": 3,
+          "status": "INTERRUPTED",
+          "clock_basis": "engine-reported-ms",
+          "adjudication": "Walls terminal before optional draw claim; no evaluation adjudication",
+          "seed": 20261028,
+          "minimum_games": 40,
+          "maximum_games": 64000,
+          "scores": [
+            8,
+            0,
+            8
+          ],
+          "pentanomial": [
+            0,
+            0,
+            2,
+            4,
+            2
+          ],
+          "time_losses": [
+            0,
+            0
+          ],
+          "wall_clock_overruns": [
+            0,
+            0
+          ],
+          "statistics": "Total: 16 W: 8 L: 0 D: 8 ELO: 190.85 +-121.5 (95%) LOS: 100.0%",
+          "elapsed_seconds": 531.422,
+          "error": "STOP requested"
+        },
+        "note": "Only completed pairs are scored. LTC stopped at the owner's request; no missing games or wins are imputed."
+      }
+    }
+  ]
+}

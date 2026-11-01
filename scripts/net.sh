@@ -1,84 +1,19 @@
 #!/bin/sh
-
-# download commands with a 5min time-out to ensure things fail if the server stalls
-wget_or_curl=$( (command -v wget >/dev/null 2>&1 && echo "wget -qO- --timeout=300 --tries=1") ||
-  (command -v curl >/dev/null 2>&1 && echo "curl -skL --max-time 300"))
-
-sha256sum=$( (command -v shasum >/dev/null 2>&1 && echo "shasum -a 256") ||
-  (command -v sha256sum >/dev/null 2>&1 && echo "sha256sum"))
-
-if [ -z "$sha256sum" ]; then
-  >&2 echo "sha256sum not found, NNUE files will be assumed valid."
-fi
-
-get_nnue_filename() {
-  grep "$1" evaluate.h | grep "#define" | sed "s/.*\(nn-[a-z0-9]\{12\}.nnue\).*/\1/"
-}
-
-validate_network() {
-  # If no sha256sum command is available, assume the file is always valid.
-  if [ -n "$sha256sum" ] && [ -f "$1" ]; then
-    if [ "$1" != "nn-$($sha256sum "$1" | cut -c 1-12).nnue" ]; then
-      rm -f "$1"
-      return 1
-    fi
-  fi
-}
-
-fetch_network() {
-  _filename="$(get_nnue_filename "$1")"
-
-  if [ -z "$_filename" ]; then
-    >&2 echo "NNUE file name not found for: $1"
-    return 1
-  fi
-
-  if [ -f "$_filename" ]; then
-    if validate_network "$_filename"; then
-      echo "Existing $_filename validated, skipping download"
-      return
-    else
-      echo "Removing invalid NNUE file: $_filename"
-    fi
-  fi
-
-  if [ -z "$wget_or_curl" ]; then
-    >&2 printf "%s\n" "Neither wget or curl is installed." \
-      "Install one of these tools to download NNUE files automatically."
+# Validate external weights without deleting or substituting any user file.
+set -eu
+net=${1:-petrified_run4test_e19_l085.nnue}
+expected=345d67b733991ae5beb2d3a6ea40d54ea01abb1fb699aa39e6f6406495f4d933
+if [ ! -f "$net" ]; then
+    echo "Supply run4test using EVALFILE=<path>; missing: $net" >&2
     exit 1
-  fi
-
-  for url in \
-    "https://tests.stockfishchess.org/api/nn/$_filename" \
-    "https://github.com/official-stockfish/networks/raw/master/$_filename"; do
-    echo "Downloading from $url ..."
-    if $wget_or_curl "$url" >"$_filename"; then
-      if validate_network "$_filename"; then
-        echo "Successfully validated $_filename"
-      else
-        rm -f $_filename
-        echo "Downloaded $_filename is invalid, and has been removed."
-        continue
-      fi
-    else
-      rm -f $_filename
-      echo "Failed to download from $url"
-    fi
-    if [ -f "$_filename" ]; then
-      return
-    fi
-  done
-
-  # Download was not successful in the loop, return false.
-  >&2 echo "Failed to download $_filename"
-  return 1
-}
-
-fetch_network EvalFileDefaultName || exit 1
-
-if [ "$1" = "0" ]; then
-    DUMP_FILE=universal/network_dump.inc
-    echo -n '"' > $DUMP_FILE
-    hexdump -v -e '"\\" "x" 1/1 "%02X"' "$(get_nnue_filename EvalFileDefaultName)" >> $DUMP_FILE
-    echo -n '"' >> $DUMP_FILE
 fi
+if command -v sha256sum >/dev/null 2>&1; then
+    actual=$(sha256sum "$net" | cut -d ' ' -f 1)
+elif command -v shasum >/dev/null 2>&1; then
+    actual=$(shasum -a 256 "$net" | cut -d ' ' -f 1)
+else
+    echo "A SHA-256 tool is required" >&2
+    exit 1
+fi
+test "$actual" = "$expected" || { echo "Invalid run4test hash: $net" >&2; exit 1; }
+echo "Verified run4test SHA256=$expected"

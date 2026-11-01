@@ -1,0 +1,31 @@
+{
+  "schema": "pr18-diagnosis-closure-v1",
+  "result": "PASS",
+  "completed_utc": "2026-10-31T21:00:28.9366042Z",
+  "decision": "DIAGNOSIS_COMPLETE_NO_TRAINING",
+  "histories": 256,
+  "positions": 2048,
+  "searches": 7680,
+  "registered_identities_exited": 55,
+  "archive": {
+    "result": "PASS",
+    "archive": ".local\\pr18-diagnosis-v1\\pr18-diagnosis-v1-evidence.zip",
+    "sha256": "2f3c6f6b4d15161e0aef0be8985430178dbc554dd889530712e086d568e78f7b",
+    "bytes": 74593293,
+    "entries": 7201,
+    "all_entries_hash_verified": true,
+    "inventory_sha256": "09614d5a068a2bd4cf5f8bdc362efded548d5c361956d2da28f22da60a2000ba",
+    "registered_packager_pid": 11452,
+    "exit_proof": "Pending caller observation and final strict identity audit in closure.json"
+  },
+  "compiler_descendants": "CMake/ninja/compiler grandchildren were synchronously waited through CMake, not individually journalled; direct CMake handles and exit codes are preserved.",
+  "auditor_and_packager_exit": "All their journalled exact identities are included in the strict exit proof.",
+  "control_plane": "This PowerShell finalizer is synchronous; its own completion is observed by the calling exec session.",
+  "champion": "PR18 unchanged",
+  "training_started": false,
+  "new_candidate": false,
+  "automatic_successor": false,
+  "released": true,
+  "finalizer_sha256": "75f2376342497e2493a8fbdbf239291b0de0118b28f631b776fed5e1c028e416",
+  "closure_sha256": "38846ff8f028152e26b97d66eb6cfa1fb751711ded6c0381e4698dff12e1a9da"
+}

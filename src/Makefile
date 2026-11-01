@@ -61,11 +61,11 @@ endif
 
 ### Executable name
 ifeq ($(target_windows),yes)
-	EXE = stockfish.exe
+	EXE = petrified-stockfish.exe
 else ifneq (,$(findstring wasm,$(ARCH)))
-	EXE = stockfish.js
+	EXE = petrified-stockfish.js
 else
-	EXE = stockfish
+	EXE = petrified-stockfish
 endif
 
 ### Installation dir definitions
@@ -75,13 +75,21 @@ BINDIR = $(PREFIX)/bin
 ### Built-in benchmark for pgo-builds
 PGOBENCH = $(RUN_PREFIX) ./$(EXE) bench
 
+# External weights are always validated by the loader, also during profiling.
+ifneq ($(strip $(EVALFILE)),)
+override CPPFLAGS += -DEvalFileDefaultName='"$(EVALFILE)"'
+endif
+ifneq ($(strip $(GIT_SHA_FULL)),)
+override CPPFLAGS += -DGIT_SHA_FULL='"$(GIT_SHA_FULL)"'
+endif
+
 ### Source and object files
 SRCS = attacks.cpp benchmark.cpp bitboard.cpp evaluate.cpp main.cpp \
 	misc.cpp movegen.cpp movepick.cpp position.cpp \
 	search.cpp thread.cpp timeman.cpp tt.cpp uci.cpp ucioption.cpp tune.cpp syzygy/tbprobe.cpp \
-	nnue/nnue_accumulator.cpp nnue/nnue_misc.cpp nnue/network.cpp \
-	nnue/features/k32h3.cpp nnue/features/full_threats.cpp nnue/features/pp_3wide.cpp \
-	engine.cpp score.cpp memory.cpp
+	nnue/network.cpp \
+	engine.cpp score.cpp memory.cpp uci_move.cpp petrified_init.cpp xboard.cpp \
+	api/petrified_board.cpp api/petrified_fen.cpp api/petrified_notation.cpp api/petrified_outcome.cpp
 
 OTHER_SRCS = universal/entry_x86.cpp universal/entry_arm64.cpp universal/entry_riscv64.cpp universal/nnue_embed.cpp
 
@@ -95,7 +103,7 @@ HEADERS = attacks.h benchmark.h bitboard.h evaluate.h misc.h movegen.h movepick.
 
 OBJS = $(notdir $(SRCS:.cpp=.o))
 
-VPATH = syzygy:nnue:nnue/features
+VPATH = syzygy:nnue:nnue/features:api
 
 ### ==========================================================================
 ### Section 2. High-level Configuration
@@ -498,7 +506,7 @@ ifeq ($(MAKELEVEL),0)
        export ENV_LDFLAGS := $(LDFLAGS)
 endif
 
-CXXFLAGS = $(ENV_CXXFLAGS) -Wall -Wcast-qual -fno-exceptions -std=c++17 $(EXTRACXXFLAGS)
+CXXFLAGS = $(ENV_CXXFLAGS) -Wall -Wcast-qual -fexceptions -std=c++17 $(EXTRACXXFLAGS)
 DEPENDFLAGS = $(ENV_DEPENDFLAGS) -std=c++17
 LDFLAGS = $(ENV_LDFLAGS) $(EXTRALDFLAGS)
 
@@ -1112,16 +1120,17 @@ analyze: net config-sanity objclean
 	$(MAKE) -k ARCH=$(ARCH) COMP=$(COMP) $(OBJS)
 
 ifeq ($(UNIVERSAL_BUILD),false)
-build: net config-sanity
+build: config-sanity
 	$(MAKE) ARCH=$(ARCH) COMP=$(COMP) all
 
-profile-build: net config-sanity objclean profileclean
+profile-build: config-sanity objclean profileclean
 	@echo ""
 	@echo "Step 1/4. Building instrumented executable ..."
 	$(MAKE) ARCH=$(ARCH) COMP=$(COMP) $(profile_make)
 	@echo ""
 	@echo "Step 2/4. Running benchmark for pgo-build ..."
 	$(PGOBENCH) > PGOBENCH.out 2>&1
+	@grep -q "NNUE Legacy Walls run4test loaded" PGOBENCH.out
 	tail -n 4 PGOBENCH.out
 	@echo ""
 	@echo "Step 3/4. Building optimized executable ..."
@@ -1244,7 +1253,7 @@ universalclean:
 
 # evaluation network (nnue)
 net:
-	@$(SHELL) ../scripts/net.sh
+	@$(SHELL) ../scripts/net.sh "$(EVALFILE)"
 
 format:
 	$(CLANG-FORMAT) -i $(SRCS) $(OTHER_SRCS) $(HEADERS) -style=file
@@ -1255,7 +1264,7 @@ format:
 
 all: $(EXE) .depend
 
-config-sanity: net
+config-sanity:
 	@echo ""
 	@echo "Config:" && \
 	echo "debug: '$(debug)'" && \
