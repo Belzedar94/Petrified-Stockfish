@@ -1,3 +1,10 @@
+PR26 VSTC closed88 games/44 complete reversed-color pairs:27/57/4,
+-123.38+/-76.8 Elo95%,LOS0.0%,time0/0. Raw LOSS awaits final independent audit.
+Promotion is ineligible; PR18 stays champion. STC is ACTIVE and LTC pending in
+the SAME frozen panel. Complete both, no restart/tuning/input changes. Lease owned.
+Read .local/points-settlement-probe-v1/closure-handoff.txt before final audits.
+All exact identities/frozen restrictions below apply; older stages cannot relaunch.
+
 points-settlement-probe-v1 / PR26 is FROZEN; its sole panel is ACTIVE vs PR18.
 Source d6eb5216664edfbc61ff1750e9c0c4a37c49c4f0; validated9ffb80d77ccfe56cddf796ce7e316a7549eb811d,
 src identical. Candidate SHA256be3754453fcb8776e3cd05717adcaaff69fc323cb4e418fa1d63f81dc8c0cdf5.

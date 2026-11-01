@@ -678,5 +678,34 @@
   "development_session_exits": {
     "96316": 1,
     "33466": 0
-  }
+  },
+  "promotion_eligible": false,
+  "closed_controls": {
+    "VSTC": {
+      "control": "VSTC",
+      "status": "LOSS",
+      "scores": [
+        27,
+        57,
+        4
+      ],
+      "time_losses": [
+        0,
+        0
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        19,
+        3,
+        16,
+        1,
+        5
+      ],
+      "statistics": "Total: 88 W: 27 L: 57 D: 4 ELO: -123.38 +-76.8 (95%) LOS: 0.0%",
+      "completed_pairs": 44,
+      "elapsed_seconds": 210.985
+    }
+  },
+  "selection_pending_final_audit": true
 }
