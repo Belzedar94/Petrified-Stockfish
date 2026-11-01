@@ -1,0 +1,77 @@
+{
+  "champion": {
+    "pr": 18,
+    "selection": "PROMOTED_MANUAL_OWNER; not three statistical wins",
+    "binary_sha256": "a94de9d923f70307f2ddee3664732d38cce4949b01332d05bfbd221acbbd943e",
+    "bench": 167330
+  },
+  "network_sha256": "ab8bc1e4bb57be21eab8af061259c2bbcf065b6dfcd13c848e2a62b52739941c",
+  "compiler": "GCC16.1 MinGW BMI2 LTO no PGO",
+  "panel": {
+    "directory": ".local/points-settlement-probe-panel-001",
+    "status": "NOT_STARTED",
+    "minimum_games": 40,
+    "maximum_games": 400,
+    "controls": {
+      "VSTC": "2+0.02",
+      "STC": "10+0.1",
+      "LTC": "30+0.3"
+    },
+    "threads": 1,
+    "hash_mb": 512,
+    "concurrency": 4,
+    "boundary": "Displayed LOS100.0%/0.0%, drain pending pairs and recheck; continue within400 if boundary lost",
+    "selection": "Run all three; cap without boundary NEUTRAL_SCREEN, never equivalence. Only three audited wins plus distribution/interfaces permit promotion.",
+    "referee": "Hash-pinned independent Chess.com client"
+  },
+  "restrictions": {
+    "training": false,
+    "post_result_tuning": false,
+    "further_candidate": false,
+    "openbench_workload": false,
+    "T8": "manually paused",
+    "Fairyground": "Both Petrified and Duck closed by owner; profiles preserved; no automatic restart",
+    "AtomicDB": false,
+    "remote_workers": false,
+    "Misere_contact": false
+  },
+  "schema": "petrified-settlement-probe-v1",
+  "experiment": "points-settlement-probe-v1",
+  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "branch": "exp/points-settlement-probe-v1",
+  "authorization": "Owner authorized ONE PR18 alternative after PR25 postmortem, no network training, same validation and VSTC/STC/LTC.",
+  "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
+  "hypothesis": "A finite proof of an immediately winning quiet settlement can correct a liquidation horizon without recursively widening qsearch.",
+  "fixed_policy": {
+    "documentation": "docs/petrified/settlement-probe-v1.md",
+    "trigger": "points non-check qsearch after real non-pawn petrification, guarded against null/FEN context",
+    "response": "legal non-capture-stage make/undo and existing terminal outcome; strictly winning proofs only; excluded move respected",
+    "TT": "PR18 keys unchanged; proof before lookup, no proof write",
+    "miss": "PR18 stand-pat and capture qsearch intact",
+    "stop": "eligible-node time check and cancellation after undo"
+  },
+  "unchanged": [
+    "PR18 rules/state/scoring/scale/NNUE/coefficients",
+    "Main-search policy and ordering",
+    "Legacy behavior",
+    "No PR19-25 engine changes"
+  ],
+  "validation_required": [
+    "Full inherited Debug/Release state/reference/NNUE/undo/null/SEE/capture/forced tests",
+    "Exhaustive legal child and terminal quiet proof references",
+    "Independent Chess.com histories/settlements, no hidden exclusions",
+    "Depth1/4, T1/T2, both colors, cold/ordinary-warm/event-warm TT; independent PVs",
+    "UCI/CECP, stop, ordinary search and repeated benches",
+    "Five exact-source CI jobs"
+  ],
+  "risk": "Rule probes may still cost more than the rare terminal horizon wins recover.",
+  "runtime_released": false,
+  "created_utc": "2026-11-01T08:32:56.553645+00:00",
+  "postmortem": {
+    "documentation": "docs/petrified/pr25-postmortem-2026-11-01.md",
+    "report": ".local/points-settlement-probe-v1/postmortem-001/report-002.json",
+    "positions": 64,
+    "queries": 256,
+    "original_summary_failure": "ZeroDivisionError after all queries; retained raw data summarized separately without rerun"
+  }
+}

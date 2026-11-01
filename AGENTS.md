@@ -1,3 +1,16 @@
+The owner explicitly authorized ONE PR18 alternative after PR25: points-settlement-probe-v1.
+Read docs/petrified/pr25-postmortem-2026-11-01.md and settlement-probe-v1.md.
+At points qsearch after an actual non-pawn petrification, probe legal quiet moves
+for an immediately terminal strict win using real make/undo and existing outcome.
+No recursive quiet reply layer; PR18 stand-pat/TT/NNUE/scale/coefficients intact.
+No PR19-25 engine code, training, tuning or further candidate. Full Debug/Release,
+independent Chess.com, interfaces, repeated benches and five CI jobs precede one
+frozen40/400 VSTC/STC/LTC T1/Hash512/concurrency4 panel. PR18 stays champion.
+Lease owned through decision, exact exits of all helpers and verified packaging.
+Both GUIs stay closed, T8 paused; no OB, AtomicDB, remote, other apps or Misere.
+PR25 and all older stages stay closed; historical prohibitions on a successor are
+superseded only by this direct one-candidate authorization.
+
 PR25 points-liquidation-replies-v1 is CLOSED_REJECTED_STRENGTH.
 All three audited results are LOSS: VSTC46 7/38/1, STC46 5/39/2,
 LTC48 10/35/3; LOS0.0% and time losses0/0 in every control. PR18 stays champion.

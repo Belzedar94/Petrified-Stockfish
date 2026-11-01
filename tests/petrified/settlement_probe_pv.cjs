@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 const fs=require('node:fs'),assert=require('node:assert/strict');
 const ref=require('./chesscom_reference.cjs');
-const {setPosition,legal,piece,toChess}=require('./liquidation_referee_helpers.cjs');
+const {setPosition,legal,piece,toChess}=require('./settlement_referee_helpers.cjs');
 const [input,bundle,modules,out]=process.argv.slice(2),create=ref.load(bundle,modules);
 const rows=JSON.parse(fs.readFileSync(input)).cases;let plies=0,quietTerminals=0;const logs=[];
 for(const row of rows) {

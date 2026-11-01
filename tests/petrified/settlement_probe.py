@@ -1,4 +1,4 @@
-"""Depth-one petrification replies; fixed synthetic cases, not Elo evidence."""
+"""Immediate quiet settlement proofs; fixed synthetic cases, not Elo evidence."""
 import argparse,json,re,time
 from pathlib import Path
 from protocol import Uci
@@ -34,7 +34,7 @@ def main():
                         assert len(pv)==2 and pv[0]==capture and lines[-1].split()[1]==capture,(info,lines[-1])
                         cases.append(dict(fen=fen,pv=pv,result=result,threads=threads,depth=depth,mode=mode,info=info))
         # A bounded search of a real middlegame exercises cancellation with the
-        # widened path. UCI must return a legal move and accept another request.
+        # finite rule-probe path. UCI must return a legal move and accept another request.
         e.send('ucinewgame');e.ready();e.send('setoption name Threads value 1')
         stop_fen='r1bqk2r/pppp1ppp/2n2n2/2b1p3/4P3/2N2N2/PPPP1PPP/R1BQKB1R w KQkq - 4 4 points=0,0'
         e.position(stop_fen);legal,_=e.perft();e.position(stop_fen)
@@ -42,6 +42,6 @@ def main():
         lines=e.until(lambda s:s.startswith('bestmove '));elapsed=time.monotonic()-started
         assert lines[-1].split()[1] in legal,lines[-1];e.ready()
     report=dict(result='PASS',searches=len(cases),cases=cases,stop_response_seconds=elapsed,
-                meaning='Real petrification then quiet terminal reply at depth1/4; no strength claim')
+                meaning='Finite immediate-win probe after actual petrification at depth1/4; no recursive quiet layer or strength claim')
     (a.out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({k:v for k,v in report.items() if k!='cases'}))
 if __name__=='__main__':main()

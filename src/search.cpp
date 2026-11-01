@@ -18,7 +18,7 @@
 
 #include "search.h"
 #include "search_capture.h"
-#include "search_liquidation.h"
+#include "search_settlement.h"
 
 #include <algorithm>
 #include <array>
@@ -1786,18 +1786,28 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
 
     assert(0 <= ss->ply && ss->ply < MAX_PLY);
 
-    // Step 3. Transposition table lookup
-    // A new wall can make quiet replies decisive. Complete one reply layer
-    // after a real petrifying capture; a quiet reply consumes that obligation.
-    const bool liquidationReply = liquidation_reply(pos);
-    if (liquidationReply)
+    // A petrification may leave an immediate quiet settlement beyond the
+    // capture horizon. Prove that one-ply win before stand-pat or a TT cutoff;
+    // otherwise retain PR18's ordinary quiescence and TT domain unchanged.
+    if (settlement_probe_eligible(pos))
     {
         if (is_mainthread())
             main_manager()->check_time(*this);
         if (threads.stop.load(std::memory_order_relaxed))
-            return VALUE_DRAW;
+            return VALUE_ZERO;
+        const auto settlement = winning_quiet_settlement(pos, ss->ply, ss->excludedMove);
+        // All rule probes have undone their moves before observing stop.
+        if (threads.stop.load(std::memory_order_relaxed))
+            return VALUE_ZERO;
+        if (settlement.move != Move::none())
+        {
+            if (PvNode)
+                ss->pv->push_back(settlement.move);
+            return settlement.value;
+        }
     }
 
+    // Step 3. Transposition table lookup
     // Points terminal positions were resolved above. Walls can force a quiet
     // continuation: in that case there is no stand-pat option. Stop the legal
     // query at two moves rather than constructing a full list at every qnode.
@@ -1806,7 +1816,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
     if ((!pos.game_of_points() || ss->inCheck) && !has_legal_move(pos))
         return pos.no_moves_value(ss->ply);
 
-    posKey                         = liquidation_qsearch_key(pos, liquidationReply);
+    posKey                         = pos.key();
     auto [ttHit, ttData, ttWriter] = tt.probe(posKey);
 
     ss->ttHit    = ttHit;
@@ -1851,7 +1861,7 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         }
 
         // Stand pat. Return immediately if static value is at least beta
-        if (!liquidationReply && forcedMove == Move::none() && bestValue >= beta)
+        if (forcedMove == Move::none() && bestValue >= beta)
         {
             assert(!is_decisive(bestValue));
             bestValue = (441 * bestValue + 583 * beta) / 1024;
@@ -1862,29 +1872,24 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
             return bestValue;
         }
 
-        if (!liquidationReply && forcedMove == Move::none() && bestValue > alpha)
+        if (forcedMove == Move::none() && bestValue > alpha)
             alpha = bestValue;
 
         futilityBase = ss->staticEval + 306;
-        if (liquidationReply || forcedMove != Move::none())
+        if (forcedMove != Move::none())
             bestValue = -VALUE_INFINITE;
     }
 
     bestValue = std::max(bestValue, pointsClaim);
-    const PieceToHistory* contHist[] = {
-      (ss - 1)->continuationHistory, (ss - 2)->continuationHistory,
-      (ss - 3)->continuationHistory, (ss - 4)->continuationHistory,
-      (ss - 5)->continuationHistory, (ss - 6)->continuationHistory};
+    const PieceToHistory* contHist[] = {(ss - 1)->continuationHistory};
 
     Square prevSq = ((ss - 1)->currentMove).is_ok() ? ((ss - 1)->currentMove).to_sq() : SQ_NONE;
 
     // Initialize a MovePicker object for the current position, and prepare
     // to search the moves. We presently use two stages of move generator in
     // quiescence search: captures, or evasions only when in check. A unique
-    // points move bypasses the picker, including when it is quiet. A mandatory
-    // liquidation reply uses the full picker, with its usual PR18 ordering.
-    MovePicker mp(pos, ttData.move, liquidationReply ? Depth(1) : DEPTH_QS,
-                  &mainHistory, &lowPlyHistory, &captureHistory,
+    // points move bypasses the picker, including when it is quiet.
+    MovePicker mp(pos, ttData.move, DEPTH_QS, &mainHistory, &lowPlyHistory, &captureHistory,
                   contHist, &sharedHistory, ss->ply);
 
     // Step 5. Loop through all legal moves until no moves remain
@@ -1943,10 +1948,8 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
         value = -qsearch<nodeType>(pos, ss + 1, -beta, -alpha);
         undo_move(pos, move);
 
-        // A widened child can observe the time limit. Propagate cancellation
-        // after undo, without publishing a partial points qsearch bound.
         if (pos.game_of_points() && threads.stop.load(std::memory_order_relaxed))
-            return VALUE_DRAW;
+            return VALUE_ZERO;
 
         assert(value > -VALUE_INFINITE && value < VALUE_INFINITE);
 
