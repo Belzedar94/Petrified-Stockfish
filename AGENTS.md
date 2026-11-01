@@ -1,3 +1,39 @@
+points-settlement-probe-v1 / PR26 is FROZEN; its sole panel is ACTIVE vs PR18.
+Source d6eb5216664edfbc61ff1750e9c0c4a37c49c4f0; validated9ffb80d77ccfe56cddf796ce7e316a7549eb811d,
+src identical. Candidate SHA256be3754453fcb8776e3cd05717adcaaff69fc323cb4e418fa1d63f81dc8c0cdf5.
+Points bench167330 twice, PR18 rival167330, common network unchanged; legacy179335 both.
+Finite legal quiet terminal-win probe after real non-pawn petrification at points
+qsearch; no recursive quiet layer, new TT domain or change to PR18 stand-pat on a miss.
+Full Debug/Release inherited state/reference/NNUE/undo/null tests passed. New test
+per build:4660 positions,136417 children,168375 quiet references,140773 probes,
+93 winning probes,597839 exact NNUE,137501 null checks. The93 excluded-move tests
+are not terminal exclusions. Independent Chess.com:176 positions,289 lists,2983
+children,2950 quiet children,252708 history plies,179 terminals,9 winning proofs,
+zero terminal exclusions.24 searches per build depth1/4,T1/T2,both colors and TT
+cold/ordinary-warm/event-warm;48 independent PV plies.32 ordinary searches/263
+independent plies and UCI/CECP passed. Five CI jobs41289837824 passed at9ffb80d.
+Original CI41289410742 also passed. No rebuild or repeat completed validations.
+Preserved failures: JS test expected0000 instead of (none); original build-state
+FAILED/session96316 exit1. Repair001 native-path manifest lookup failed before
+validation children; repair002 corrected metadata. Continuation002 READY/session33466
+exit0. Only corrected independent cotejo and unrun stages executed. Engine unchanged.
+Panel .local/points-settlement-probe-panel-001/session9608; controller34256/
+134379962677894947, launcher=real panel32752/134379962681078019 (same base Python).
+Shell ancestor16428/134379962674253952 captured outside child journal until exit.
+Verify exact PID/CreationDate; access denial is never exit.396 frozen inputs,
+11 panel hashes,7 dependencies; preflight10102898688 bytes free exceeded7583301632,
+concurrency4.106 development identities exited. Follow-up petrified-prueba-de-liquidaci-n-y-panel.
+Use monitor_panel.py through supervise_helper_002.py with unique labels. Read last
+reported counters before a three-TC table; report starts/closures/decisions/failures
+or200 new games, record counters only after reporting. Same40/400 VSTC/STC/LTC,
+T1/Hash512. Drain reversed-color pairs and recheck displayed LOS100.0%/0.0%.
+Run all three; cap without boundary NEUTRAL_SCREEN, never equivalence/statistical LOSS.
+PR18 remains champion unless three audited wins plus distribution acceptance.
+Lease owned until decision, original audits, exact process reconciliation, verified
+raw/input archive and exits including auditors/packager. No tuning, training,
+second candidate or OB. Both GUIs stay closed, T8 paused; no AtomicDB, remote,
+other applications or Misere. Earlier stages are historical, never relaunch them.
+
 The owner explicitly authorized ONE PR18 alternative after PR25: points-settlement-probe-v1.
 Read docs/petrified/pr25-postmortem-2026-11-01.md and settlement-probe-v1.md.
 At points qsearch after an actual non-pawn petrification, probe legal quiet moves
