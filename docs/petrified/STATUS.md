@@ -1,3 +1,12 @@
+PR26 VSTC and STC closed with raw LOSS, both awaiting final independent audit:
+VSTC88:27/57/4,-123.38+/-76.8 Elo95%,LOS0.0%,time0/0,44 complete pairs;
+STC338:132/191/15,-61.27+/-36.8 Elo95%,LOS0.0%,time0/1,169 complete pairs.
+LTC is ACTIVE in the SAME frozen panel. Promotion is ineligible; PR18 stays champion.
+Complete LTC without restart/tuning/input changes, then all original final audits.
+Lease remains owned until decision, verified archive and all owned process exits.
+Read closure-handoff.txt and closure-handoff-addendum.txt in the PR26 task folder.
+All exact identities and frozen restrictions below apply; older stages cannot relaunch.
+
 PR26 VSTC closed88 games/44 complete reversed-color pairs:27/57/4,
 -123.38+/-76.8 Elo95%,LOS0.0%,time0/0. Raw LOSS awaits final independent audit.
 Promotion is ineligible; PR18 stays champion. STC is ACTIVE and LTC pending in

@@ -705,7 +705,33 @@
       "statistics": "Total: 88 W: 27 L: 57 D: 4 ELO: -123.38 +-76.8 (95%) LOS: 0.0%",
       "completed_pairs": 44,
       "elapsed_seconds": 210.985
+    },
+    "STC": {
+      "control": "STC",
+      "status": "LOSS",
+      "scores": [
+        132,
+        191,
+        15
+      ],
+      "time_losses": [
+        0,
+        1
+      ],
+      "minimum_games": 40,
+      "maximum_games": 400,
+      "pentanomial": [
+        34,
+        13,
+        110,
+        2,
+        10
+      ],
+      "statistics": "Total: 338 W: 132 L: 191 D: 15 ELO: -61.27 +-36.8 (95%) LOS: 0.0%",
+      "completed_pairs": 169,
+      "elapsed_seconds": 3406.812
     }
   },
-  "selection_pending_final_audit": true
+  "selection_pending_final_audit": true,
+  "updated_utc": "2026-11-01T09:48:09.667329+00:00"
 }
