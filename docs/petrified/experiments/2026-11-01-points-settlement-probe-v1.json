@@ -37,7 +37,7 @@
   },
   "schema": "petrified-settlement-probe-v1",
   "experiment": "points-settlement-probe-v1",
-  "status": "IMPLEMENTED_AWAITING_VALIDATION",
+  "status": "FROZEN_VALIDATING",
   "branch": "exp/points-settlement-probe-v1",
   "authorization": "Owner authorized ONE PR18 alternative after PR25 postmortem, no network training, same validation and VSTC/STC/LTC.",
   "base_source": "fb04cbca1a7584edd7a29fd5f0a19b28d551c217",
@@ -73,5 +73,10 @@
     "positions": 64,
     "queries": 256,
     "original_summary_failure": "ZeroDivisionError after all queries; retained raw data summarized separately without rerun"
-  }
+  },
+  "pr": 26,
+  "pr_url": "https://github.com/Belzedar94/Petrified-Stockfish/pull/26",
+  "source_commit": "d6eb5216664edfbc61ff1750e9c0c4a37c49c4f0",
+  "build_session": 96316,
+  "ci_run": 41289410742
 }

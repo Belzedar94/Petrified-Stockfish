@@ -38,7 +38,7 @@ for(const row of rows) {
     }
     assert.deepEqual(winning.sort(),[...child.winning_quiets].sort(),'winning quiet set '+m+' '+row.fen);
     if(winning.length) {assert(winning.includes(child.proof_move),'proof move outside winning set');++winningProofs;}
-    else assert.equal(child.proof_move,'0000','false terminal proof');
+    else assert.equal(child.proof_move,'(none)','false terminal proof');
     logs.push({initial:row.initial,history:row.history,move:m,eligible,winning,proof:child.proof_move,after:actual});
   }
 }

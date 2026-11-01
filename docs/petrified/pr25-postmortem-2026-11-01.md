@@ -30,6 +30,10 @@ outputs were bounded and are retained separately from the last complete output.
 | nodes32768 | 64 | 17 | 1.00008 | 14/13 | 17/19 |
 
 The diagnostic confirms increased work at a common principal depth and a shift
+toward costly tails: 24/64 positions used over twice the nodes, 7/64 over five
+times, and the maximum ratio was14.893. The linearly interpolated90th and95th
+percentiles were5.284 and6.543. These are descriptive node counts, not timing.
+It also confirms a shift
 toward longer selective lines at the expense of principal depth under a node
 budget. It does not isolate the contributions of stand-pat removal, extra branches
 and TT separation, establish minimax truth for the changed choices, or explain an
